@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="smspermission"></string>
+    <string name="hello">Hello World, SMSOTPDisplay!</string>
+    <string name="app_name">SMS OTP Display</string>
+</resources>

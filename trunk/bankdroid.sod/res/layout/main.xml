@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	
+	<ImageView 
+		android:id="@+id/BankLogo" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:src="@drawable/khb_logo"
+		android:paddingTop="60sp"/>
+		
+	<TextView 
+		android:id="@+id/OTPView"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" 
+		android:gravity="center_horizontal"
+		android:textSize="32sp"
+		android:text="- no code -" />
+
+	<TextView 
+		android:text="2009.09.04 13:45:59" 
+		android:id="@+id/ReceivedAt" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		/>
+		
+	<LinearLayout 
+		android:id="@+id/LinearLayout01" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:gravity="center_horizontal"
+		android:padding="5sp">
+		
+		<Button 
+			android:text="Clear" 
+			android:id="@+id/ClearButton" 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+		<Button 
+			android:text="Close" 
+			android:id="@+id/CloseButton" 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	</LinearLayout>
+</LinearLayout>
