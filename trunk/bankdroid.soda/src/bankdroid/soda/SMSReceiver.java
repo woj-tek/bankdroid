@@ -1,20 +1,29 @@
 package bankdroid.soda;
 
+import java.io.Serializable;
 import java.util.Calendar;
+import java.util.regex.Matcher;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.gsm.SmsMessage;
+import android.util.Log;
 
 public class SMSReceiver extends BroadcastReceiver
 {
-	public static final String BANKDROID_SOD_SMSMESSAGE = "bankdroid.sod.SMSMessage";
+	public static final String BANKDROID_SODA_SMSMESSAGE = "bankdroid.soda.SMSMessage";
 
 	public static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
 
-	public static final String BANKDROID_SOD_SMSTIMESTAMP = "bankdroid.sod.SMSTimestamp";
+	public static final String BANKDROID_SODA_SMSTIMESTAMP = "bankdroid.soda.SMSTimestamp";
+
+	public static final String BANKDROID_SODA_BANK = "bankdroid.soda.Bank";
+
+	public static final String BANKDROID_SODA_SMSCODE = "bankdroid.soda.SMSCode";
+
+	private final static String TAG = "bankdroid.soda.SMSReceiver";
 
 	@Override
 	public void onReceive( final Context context, final Intent intent )
@@ -26,21 +35,50 @@ public class SMSReceiver extends BroadcastReceiver
 			{
 				//retrieve the SMS message received
 				final Object[] pdus = (Object[]) bundle.get("pdus");
-				final SmsMessage[] msgs = new SmsMessage[pdus.length];
-				for ( int i = 0; i < msgs.length; i++ )
+
+				final SmsMessage sms = SmsMessage.createFromPdu((byte[]) pdus[0]);
+
+				//filter for Bank phone number
+				final Bank[] banks = Bank.getAvailableBanks();
+				Bank source = null;
+				for ( final Bank bank : banks )
 				{
-					msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
+					if ( bank.getPhoneNumber().equals(sms.getOriginatingAddress()) )
+					{
+						source = bank;
+						break;
+					}
 				}
 
-				final String messageINeed = msgs[0].getMessageBody();
+				if ( source != null )
+				{
+					//extract code
+					final String message = sms.getMessageBody();
+					final Matcher matcher = source.getExtractPattern().matcher(message);
 
-				//display the new SMS message
-				final Intent myIntent = new Intent();
-				myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				myIntent.setClassName("bankdroid.sod", "bankdroid.sod.SMSOTPDisplay");
-				myIntent.putExtra(BANKDROID_SOD_SMSMESSAGE, messageINeed); // key/value pair, where key needs current package prefix.
-				myIntent.putExtra(BANKDROID_SOD_SMSTIMESTAMP, Calendar.getInstance().getTime()); // key/value pair, where key needs current package prefix.
-				context.startActivity(myIntent);
+					try
+					{
+						final String code = matcher.group(1); //FIXME something wrong around here.
+
+						//display the new SMS message
+						final Intent myIntent = new Intent();
+						myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						myIntent.setClassName("bankdroid.sod", "bankdroid.sod.SMSOTPDisplay");
+						myIntent.putExtra(BANKDROID_SODA_SMSMESSAGE, message); // key/value pair, where key needs current package prefix.
+						myIntent.putExtra(BANKDROID_SODA_BANK, (Serializable) source); // key/value pair, where key needs current package prefix.
+						myIntent.putExtra(BANKDROID_SODA_SMSCODE, code); // key/value pair, where key needs current package prefix.
+						myIntent.putExtra(BANKDROID_SODA_SMSTIMESTAMP, Calendar.getInstance().getTime()); // key/value pair, where key needs current package prefix.
+						context.startActivity(myIntent);
+					}
+					catch ( final IllegalStateException ise )
+					{
+						Log.d(TAG, "Not an OTP message: " + ise);
+					}
+				}
+				else
+				{
+					Log.d(TAG, "Unrecognized phone number: " + sms.getOriginatingAddress());
+				}
 			}
 		}
 	}

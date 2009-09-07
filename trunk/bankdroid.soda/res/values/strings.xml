@@ -3,4 +3,6 @@
     <string name="smspermission"></string>
     <string name="hello">Hello World, SMSOTPDisplay!</string>
     <string name="app_name">SMS OTP Display</string>
+<string name="received.prefix">Received at: </string>
+<string name="nocode">-- no code --</string>
 </resources>
