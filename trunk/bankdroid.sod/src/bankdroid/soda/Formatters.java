@@ -1,4 +1,4 @@
-package bankdroid.sod;
+package bankdroid.soda;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

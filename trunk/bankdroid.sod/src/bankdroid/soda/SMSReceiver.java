@@ -1,4 +1,4 @@
-package bankdroid.sod;
+package bankdroid.soda;
 
 import java.util.Calendar;
 
