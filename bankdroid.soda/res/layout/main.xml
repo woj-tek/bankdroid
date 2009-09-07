@@ -10,38 +10,43 @@
 		android:src="@drawable/khb_logo"
 		android:paddingTop="60sp"/>
 		
-	<TextView 
-		android:id="@+id/OTPView"
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content" 
-		android:gravity="center_horizontal"
-		android:textSize="32sp"
-		android:text="- no code -" />
+	
 
+	<LinearLayout 
+		android:id="@+id/LinearLayout02" 
+		android:layout_gravity="center_horizontal"
+		android:padding="10sp"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content">
+		<TextView 
+			android:id="@+id/OTPView" 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content" 
+			android:gravity="center_horizontal" 
+			android:layout_gravity="center_vertical" 
+			android:textSize="32sp" 
+			android:text="- no code -" />
+		<ImageButton 
+			android:id="@+id/Copy" 
+			android:src="@android:drawable/ic_menu_edit"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"/>
+	</LinearLayout>
+	
 	<TextView 
-		android:text="2009.09.04 13:45:59" 
+		android:text="" 
 		android:id="@+id/ReceivedAt" 
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
 		/>
 		
-	<LinearLayout 
-		android:id="@+id/LinearLayout01" 
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"
-		android:gravity="center_horizontal"
-		android:padding="5sp">
-		
-		<Button 
-			android:text="Clear" 
-			android:id="@+id/ClearButton" 
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"/>
-		<Button 
-			android:text="Close" 
-			android:id="@+id/CloseButton" 
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"/>
-	</LinearLayout>
+	<TextView 
+		android:text="Remaining time: 00:12:22" 
+		android:id="@+id/CountDown" 
+		android:layout_gravity="center_horizontal"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"/>
+
+
 </LinearLayout>

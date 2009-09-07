@@ -5,10 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class SMSOTPDisplay extends Activity
@@ -23,16 +22,6 @@ public class SMSOTPDisplay extends Activity
 		final Calendar current = Calendar.getInstance();
 		final String timestamp = Formatters.getTimstampFormat().format(current.getTime());
 		( (TextView) findViewById(R.id.ReceivedAt) ).setText(timestamp);
-
-		( (Button) findViewById(R.id.CloseButton) ).setOnClickListener(new OnClickListener()
-		{
-
-			@Override
-			public void onClick( final View arg0 )
-			{
-				finish();
-			}
-		});
 	}
 
 	@Override
@@ -40,20 +29,32 @@ public class SMSOTPDisplay extends Activity
 	{
 		super.onResume();
 
-		if ( getIntent() != null )
+		final Intent intent = getIntent();
+		if ( intent != null )
 		{
-			final Serializable timestampSource = getIntent().getSerializableExtra(
-					SMSReceiver.BANKDROID_SOD_SMSTIMESTAMP);
-			final CharSequence text = getIntent().getCharSequenceExtra(SMSReceiver.BANKDROID_SOD_SMSMESSAGE);
+			final Serializable timestampSource = intent.getSerializableExtra(SMSReceiver.BANKDROID_SODA_SMSTIMESTAMP);
 
-			if ( timestampSource != null && text != null )
+			if ( timestampSource != null )
 			{
+				final String smsCode = intent.getStringExtra(SMSReceiver.BANKDROID_SODA_SMSCODE);
+				final Bank source = (Bank) intent.getSerializableExtra(SMSReceiver.BANKDROID_SODA_BANK);
 				final CharSequence timestampText = Formatters.getTimstampFormat().format((Date) timestampSource);
 
-				( (TextView) findViewById(R.id.OTPView) ).setText(text);
-				( (TextView) findViewById(R.id.ReceivedAt) ).setText(timestampText);
-			}
+				( (ImageView) findViewById(R.id.BankLogo) ).setImageDrawable(getResources().getDrawable(
+						source.getIconId()));
+				( (TextView) findViewById(R.id.OTPView) ).setText(smsCode);
+				( (TextView) findViewById(R.id.ReceivedAt) ).setText(getResources().getText(R.string.received_prefix)
+						.toString()
+						+ timestampText);
 
+				//FIXME handle count down
+				return;
+			}
 		}
+
+		//no code available
+		( (ImageView) findViewById(R.id.BankLogo) ).setImageDrawable(null);
+		( (TextView) findViewById(R.id.OTPView) ).setText(getResources().getText(R.string.nocode).toString());
+		( (TextView) findViewById(R.id.ReceivedAt) ).setText("");
 	}
 }
