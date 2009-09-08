@@ -2,7 +2,6 @@ package bankdroid.soda;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.regex.Matcher;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -43,7 +42,7 @@ public class SMSReceiver extends BroadcastReceiver
 				Bank source = null;
 				for ( final Bank bank : banks )
 				{
-					if ( bank.getPhoneNumber().equals(sms.getOriginatingAddress()) )
+					if ( bank.isBankPhoneNumber(sms.getOriginatingAddress()) )
 					{
 						source = bank;
 						break;
@@ -54,11 +53,10 @@ public class SMSReceiver extends BroadcastReceiver
 				{
 					//extract code
 					final String message = sms.getMessageBody();
-					final Matcher matcher = source.getExtractPattern().matcher(message);
+					final String code = source.getCode(message);
 
-					try
+					if ( code != null )
 					{
-						final String code = matcher.group(1); //FIXME something wrong around here.
 
 						//display the new SMS message
 						final Intent myIntent = new Intent();
@@ -70,9 +68,9 @@ public class SMSReceiver extends BroadcastReceiver
 						myIntent.putExtra(BANKDROID_SODA_SMSTIMESTAMP, Calendar.getInstance().getTime()); // key/value pair, where key needs current package prefix.
 						context.startActivity(myIntent);
 					}
-					catch ( final IllegalStateException ise )
+					else
 					{
-						Log.d(TAG, "Not an OTP message: " + ise);
+						Log.d(TAG, "Not an OTP message.");
 					}
 				}
 				else
