@@ -37,17 +37,7 @@ public class SMSReceiver extends BroadcastReceiver
 
 				final SmsMessage sms = SmsMessage.createFromPdu((byte[]) pdus[0]);
 
-				//filter for Bank phone number
-				final Bank[] banks = Bank.getAvailableBanks();
-				Bank source = null;
-				for ( final Bank bank : banks )
-				{
-					if ( bank.isBankPhoneNumber(sms.getOriginatingAddress()) )
-					{
-						source = bank;
-						break;
-					}
-				}
+				final Bank source = Bank.findByPhoneNumber(sms.getOriginatingAddress());
 
 				if ( source != null )
 				{
