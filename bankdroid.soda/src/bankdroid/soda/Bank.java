@@ -1,5 +1,6 @@
 package bankdroid.soda;
 
+import java.io.Serializable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,8 +11,13 @@ import java.util.regex.Pattern;
  * TODO phone number matching should rely on the number endings.
  *
  */
-public class Bank
+public class Bank implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -9140003377538504964L;
+
 	private final static Bank[] banks = new Bank[] { //
 			new Bank("OTP", 3600, new String[] { "+36309400700", "+36209400700" }, //FIXME phone numbers
 					new String[] { "OTPdirekt - [^:]*: ([0-9]*)" }, R.drawable.otp_logo),
