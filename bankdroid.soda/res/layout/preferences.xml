@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<CheckBoxPreference android:title="@string/notification" android:defaultValue="false"
+		android:summary="@string/notificationSummary" android:key="bankdroid.soda.Notification" />
+	<CheckBoxPreference android:title="@string/keepSMS" android:defaultValue="false" android:summary="@string/keepSMSSummary"
+		android:key="bankdroid.soda.KeepSMS" />
+</PreferenceScreen>
