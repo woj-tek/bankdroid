@@ -9,6 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.ClipboardManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,22 +19,26 @@ import android.widget.TextView;
 
 /**
  * This view as able to display SMS one time passwords processed by {@link SMSReceiver}. Besides displayed the codes
- * it provides several convieniences services:
+ * it provides several conveniences services:
  * <ul>
  * <li>Display code in large letters for the better readability</li>
- * <li>display a copy button to copy the code into the clipboard. In this way it is easy to 
+ * <li>Display a copy button to copy the code into the clipboard. In this way it is easy to 
  * 		copy and paste it into the appropriate field in the Browser</li>
+ * <li>create menu: clear, preferences, bank list</li>
+ * <li>handle preferences</li>
+ * <li>TODO: clear SMS based on preferences</li>
+ * <li>TODO: use notifications instead of direct pop-up based on user preferences</li>
+ * <li>TODO: maintain how many OTP to be stored per bank</li>
  * <li>TODO: display list of banks and their settings</li>
  * <li>TODO: let the user to register new banks, store settings in DB</li>
  * <li>TODO: let the user to post the bank settings to the bankdroid@googlecode.com</li>
- * <li>TODO: handle preferences: clear SMS, how many SMS to be stored per bank</li>
  * <li>TODO: displays a count-down to indicate when the OTP will expire</li>
  * </ul>
  * 
  * @author user
  *
  */
-public class SMSOTPDisplay extends Activity implements View.OnClickListener
+public class SMSOTPDisplay extends Activity implements View.OnClickListener, Codes
 {
 	private CharSequence displayedCode;
 
@@ -40,6 +47,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener
 	public void onCreate( final Bundle savedInstanceState )
 	{
 		super.onCreate(savedInstanceState);
+
 		setContentView(R.layout.main);
 
 		( (ImageButton) findViewById(R.id.Copy) ).setOnClickListener(this);
@@ -47,6 +55,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener
 		final Calendar current = Calendar.getInstance();
 		final String timestamp = Formatters.getTimstampFormat().format(current.getTime());
 		( (TextView) findViewById(R.id.ReceivedAt) ).setText(timestamp);
+
 	}
 
 	@Override
@@ -71,22 +80,26 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener
 		( (ImageButton) findViewById(R.id.Copy) ).setEnabled(false);
 		( (ImageView) findViewById(R.id.BankLogo) ).setImageDrawable(null);
 		( (TextView) findViewById(R.id.OTPView) ).setText(getResources().getText(R.string.nocode).toString());
-		( (TextView) findViewById(R.id.ReceivedAt) ).setText("");
+		( (TextView) findViewById(R.id.ReceivedAt) ).setText(Formatters.getTimstampFormat().format(
+				Calendar.getInstance().getTime()));
+		/*( (TextView) findViewById(R.id.CountDown) ).setText(PreferenceManager.getDefaultSharedPreferences(
+				getBaseContext()).getBoolean(PREF_KEEP_SMS, false)
+				+ "");*/
 		displayedCode = null;
 
 	}
 
 	private void processIntent( final Intent intent )
 	{
-		final Serializable timestampSource = intent.getSerializableExtra(SMSReceiver.BANKDROID_SODA_SMSTIMESTAMP);
+		final Serializable timestampSource = intent.getSerializableExtra(BANKDROID_SODA_SMSTIMESTAMP);
 
 		if ( timestampSource != null )
 		{
-			final String smsCode = intent.getStringExtra(SMSReceiver.BANKDROID_SODA_SMSCODE);
+			final String smsCode = intent.getStringExtra(BANKDROID_SODA_SMSCODE);
 			displayedCode = smsCode;
-			final Bank source = (Bank) intent.getSerializableExtra(SMSReceiver.BANKDROID_SODA_BANK);
+			final Bank source = (Bank) intent.getSerializableExtra(BANKDROID_SODA_BANK);
 			final CharSequence timestampText = Formatters.getTimstampFormat().format((Date) timestampSource);
-			Log.i("SODA", "One time password to display from Bank = " + source.getId());
+			Log.i(TAG, "One time password to display from Bank = " + source.getId());
 
 			( (ImageView) findViewById(R.id.BankLogo) )
 					.setImageDrawable(getResources().getDrawable(source.getIconId()));
@@ -98,7 +111,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener
 		}
 		else
 		{
-			Log.i("SODA", "SMS received, but no bank code inside.");
+			Log.i(TAG, "SMS received, but no bank code inside.");
 			clearFields();
 		}
 	}
@@ -119,6 +132,34 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener
 			if ( displayedCode != null )
 				( (ClipboardManager) getSystemService(CLIPBOARD_SERVICE) ).setText(displayedCode);
 		}
+	}
 
+	@Override
+	public boolean onCreateOptionsMenu( final Menu menu )
+	{
+		final MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.mainmenu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected( final MenuItem item )
+	{
+		if ( item.getItemId() == R.id.MenuPreferences )
+		{
+			Log.d(TAG, "Preferences menu selected.");
+			final Intent settingsActivity = new Intent(getBaseContext(), Preferences.class);
+			startActivity(settingsActivity);
+		}
+		else if ( item.getItemId() == R.id.MenuBanks )
+		{
+			Log.d(TAG, "Bank List menu selected.");
+		}
+		else if ( item.getItemId() == R.id.MenuClear )
+		{
+			Log.d(TAG, "Clear menu selected.");
+			clearFields();
+		}
+		return false;
 	}
 }

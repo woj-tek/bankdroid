@@ -11,19 +11,9 @@ import android.util.Log;
 
 // +36309400700OTPdirekt - Belfoldi forint atutalas xxx szamlan yyy HUF osszeggel zzz szamlara. Azonosito: 90120437 
 // +36303444504Az on kezdeti SpectraNet bejelentkezesi jelszava: 2HWNVRNJ
-public class SMSReceiver extends BroadcastReceiver
+public class SMSReceiver extends BroadcastReceiver implements Codes
 {
-	public static final String BANKDROID_SODA_SMSMESSAGE = "bankdroid.soda.SMSMessage";
-
-	public static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
-
-	public static final String BANKDROID_SODA_SMSTIMESTAMP = "bankdroid.soda.SMSTimestamp";
-
-	public static final String BANKDROID_SODA_BANK = "bankdroid.soda.Bank";
-
-	public static final String BANKDROID_SODA_SMSCODE = "bankdroid.soda.SMSCode";
-
-	private final static String TAG = "bankdroid.soda.SMSReceiver";
+	private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
 
 	@Override
 	public void onReceive( final Context context, final Intent intent )
@@ -48,6 +38,10 @@ public class SMSReceiver extends BroadcastReceiver
 
 					if ( code != null )
 					{
+						// Restore preferences
+						/*final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+						final boolean notification = settings.getBoolean(PREF_NOTIFICATION, false);
+						final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, false);*/
 
 						//display the new SMS message
 						final Intent myIntent = new Intent();

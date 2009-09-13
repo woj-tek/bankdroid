@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="smspermission"></string>
-    <string name="hello">Hello World, SMSOTPDisplay!</string>
-    <string name="app_name">SMS OTP Display</string>
-<string name="received.prefix">Received at: </string>
-<string name="nocode">-- no code --</string>
+	<string name="notification">Notification only</string>
+	<string name="notificationSummary">If selected, the code is not popping up.</string>
+	<string name="keepSMS">Keep SMS</string>
+	<string name="keepSMSSummary">If selected, the original SMS is kept in messages.</string>
+	<string name="menuClear">Clear</string>
+	<string name="menuBanks">Banks</string>
+	<string name="menuPref">Preferences</string>
+	<string name="hello">Hello World, SMSOTPDisplay!</string>
+	<string name="app_name">SMS OTP Display</string>
+	<string name="received.prefix">Received at: </string>
+	<string name="nocode">-- no code --</string>
 </resources>
