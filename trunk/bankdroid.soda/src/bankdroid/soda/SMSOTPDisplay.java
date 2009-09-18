@@ -1,7 +1,6 @@
 package bankdroid.soda;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
@@ -13,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,9 +25,11 @@ import android.widget.TextView;
  * 		copy and paste it into the appropriate field in the Browser</li>
  * <li>create menu: clear, preferences, bank list</li>
  * <li>handle preferences</li>
- * <li>TODO: clear SMS based on preferences</li>
+ * <li>improved design</li>
  * <li>TODO: use notifications instead of direct pop-up based on user preferences</li>
+ * <li>TODO: clear SMS based on preferences (that may be problematic. There is no good tip for it on forums.</li>
  * <li>TODO: maintain how many OTP to be stored per bank</li>
+ * <li>TODO: display last SMS on start up</li>
  * <li>TODO: display list of banks and their settings</li>
  * <li>TODO: let the user to register new banks, store settings in DB</li>
  * <li>TODO: let the user to post the bank settings to the bankdroid@googlecode.com</li>
@@ -41,6 +42,8 @@ import android.widget.TextView;
 public class SMSOTPDisplay extends Activity implements View.OnClickListener, Codes
 {
 	private CharSequence displayedCode;
+	private Bank bank;
+	private Date receivedAt;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -49,13 +52,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.main);
-
-		( (ImageButton) findViewById(R.id.Copy) ).setOnClickListener(this);
-
-		final Calendar current = Calendar.getInstance();
-		final String timestamp = Formatters.getTimstampFormat().format(current.getTime());
-		( (TextView) findViewById(R.id.ReceivedAt) ).setText(timestamp);
-
+		( (Button) findViewById(R.id.codeButton) ).setOnClickListener(this);
 	}
 
 	@Override
@@ -64,56 +61,82 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 		super.onResume();
 
 		final Intent intent = getIntent();
+
+		Serializable timestampSource = null;
 		if ( intent != null )
 		{
-			processIntent(intent);
+			timestampSource = intent.getSerializableExtra(BANKDROID_SODA_SMSTIMESTAMP);
 		}
-		else
-		{
-			clearFields();
-		}
-	}
-
-	private void clearFields()
-	{
-		//no code available
-		( (ImageButton) findViewById(R.id.Copy) ).setEnabled(false);
-		( (ImageView) findViewById(R.id.BankLogo) ).setImageDrawable(null);
-		( (TextView) findViewById(R.id.OTPView) ).setText(getResources().getText(R.string.nocode).toString());
-		( (TextView) findViewById(R.id.ReceivedAt) ).setText(Formatters.getTimstampFormat().format(
-				Calendar.getInstance().getTime()));
-		/*( (TextView) findViewById(R.id.CountDown) ).setText(PreferenceManager.getDefaultSharedPreferences(
-				getBaseContext()).getBoolean(PREF_KEEP_SMS, false)
-				+ "");*/
-		displayedCode = null;
-
-	}
-
-	private void processIntent( final Intent intent )
-	{
-		final Serializable timestampSource = intent.getSerializableExtra(BANKDROID_SODA_SMSTIMESTAMP);
 
 		if ( timestampSource != null )
 		{
+			Log.d(TAG, "Set values based on new SMS intent.");
 			final String smsCode = intent.getStringExtra(BANKDROID_SODA_SMSCODE);
-			displayedCode = smsCode;
 			final Bank source = (Bank) intent.getSerializableExtra(BANKDROID_SODA_BANK);
-			final CharSequence timestampText = Formatters.getTimstampFormat().format((Date) timestampSource);
-			Log.i(TAG, "One time password to display from Bank = " + source.getId());
 
-			( (ImageView) findViewById(R.id.BankLogo) )
-					.setImageDrawable(getResources().getDrawable(source.getIconId()));
-			( (TextView) findViewById(R.id.OTPView) ).setText(smsCode);
-			( (TextView) findViewById(R.id.ReceivedAt) ).setText(getResources().getText(R.string.received_prefix)
-					.toString()
-					+ timestampText);
-			( (ImageButton) findViewById(R.id.Copy) ).setEnabled(true);
+			setValues(source, smsCode, (Date) timestampSource);
+		}
+		else if ( displayedCode != null )
+		{
+			Log.d(TAG, "Restore old values");
+			setValues(bank, displayedCode.toString(), receivedAt);
 		}
 		else
 		{
-			Log.i(TAG, "SMS received, but no bank code inside.");
-			clearFields();
+			Log.d(TAG, "Clear fields.");
+			setValues(null, null, null);
 		}
+
+	}
+
+	@Override
+	protected void onSaveInstanceState( final Bundle outState )
+	{
+		super.onSaveInstanceState(outState);
+
+		if ( displayedCode != null )
+		{
+			Log.d(TAG, "Values going to be saved for code: " + displayedCode + "(" + bank.getId() + ")");
+			outState.putCharSequence(BANKDROID_SODA_SMSCODE, displayedCode);
+			outState.putSerializable(BANKDROID_SODA_SMSTIMESTAMP, receivedAt);
+			outState.putSerializable(BANKDROID_SODA_BANK, bank);
+		}
+	}
+
+	@Override
+	protected void onRestoreInstanceState( final Bundle savedInstanceState )
+	{
+		super.onRestoreInstanceState(savedInstanceState);
+
+		if ( savedInstanceState.containsKey(BANKDROID_SODA_SMSCODE) )
+		{
+			bank = (Bank) savedInstanceState.getSerializable(BANKDROID_SODA_BANK);
+			receivedAt = (Date) savedInstanceState.getSerializable(BANKDROID_SODA_SMSTIMESTAMP);
+			displayedCode = savedInstanceState.getCharSequence(BANKDROID_SODA_SMSCODE);
+			Log.d(TAG, "Values restored for code: " + displayedCode + "(" + bank.getId() + ")");
+		}
+	}
+
+	private void setValues( final Bank source, final String code, final Date receivedAt )
+	{
+		displayedCode = code;
+		bank = source;
+		this.receivedAt = receivedAt;
+
+		CharSequence timestampText = "";
+		if ( source != null )
+		{
+			Log.i(TAG, "One time password to display from Bank = " + source.getId());
+			timestampText = Formatters.getTimstampFormat().format(receivedAt);
+		}
+
+		( (ImageView) findViewById(R.id.BankLogo) ).setImageDrawable(source == null ? null : getResources()
+				.getDrawable(source.getIconId()));
+		( (Button) findViewById(R.id.codeButton) ).setText(code == null ? getResources().getText(R.string.nocode)
+				: code);
+		( (TextView) findViewById(R.id.ReceivedAt) ).setText(getResources().getText(R.string.received_prefix)
+				.toString()
+				+ timestampText);
 	}
 
 	@Override
@@ -121,16 +144,18 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 	{
 		super.onNewIntent(intent);
 		setIntent(intent);
-
 	}
 
 	@Override
 	public void onClick( final View v )
 	{
-		if ( v.getId() == R.id.Copy )
+		if ( v.getId() == R.id.codeButton )
 		{
 			if ( displayedCode != null )
+			{
 				( (ClipboardManager) getSystemService(CLIPBOARD_SERVICE) ).setText(displayedCode);
+			}
+			finish();
 		}
 	}
 
@@ -158,7 +183,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 		else if ( item.getItemId() == R.id.MenuClear )
 		{
 			Log.d(TAG, "Clear menu selected.");
-			clearFields();
+			setValues(null, null, null);
 		}
 		return false;
 	}

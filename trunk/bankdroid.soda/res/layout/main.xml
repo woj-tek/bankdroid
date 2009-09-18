@@ -1,40 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
-	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	android:layout_width="fill_parent" android:layout_height="fill_parent" android:background="#56748E">
 	
-	<ImageView 
-		android:id="@+id/BankLogo" 
+	<TextView 
+		android:text="@string/copyright" 
+		android:id="@+id/copyright" 
+		android:layout_gravity="right"
+		android:textSize="10sp"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
+		/>
+		
+	<FrameLayout
+		android:layout_width="wrap_content" 
+		android:layout_height="100sp"
 		android:layout_gravity="center_horizontal"
-		android:src="@drawable/khb_logo"
-		android:paddingTop="60sp"/>
+		>
+		<FrameLayout
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom"
+			android:background="@drawable/background2"
+			>
+			<ImageView 
+				android:id="@+id/BankLogo" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:src="@drawable/khb_logo"
+				android:padding="10sp"
+				/>
+		</FrameLayout>
+	</FrameLayout>
 		
 	
 
 	<LinearLayout 
-		android:id="@+id/LinearLayout02" 
+		android:id="@+id/ButtonRow" 
 		android:layout_gravity="center_horizontal"
-		android:padding="10sp"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content">
-		<TextView 
-			android:id="@+id/OTPView" 
-			android:layout_width="fill_parent" 
-			android:layout_height="wrap_content" 
-			android:gravity="center_horizontal" 
-			android:layout_gravity="center_vertical" 
-			android:textSize="32sp" 
-			android:text="- no code -" />
-		<ImageButton 
-			android:id="@+id/Copy" 
-			android:src="@android:drawable/ic_menu_edit"
+		<Button 
+			android:text="SKds34s" 
+			android:id="@+id/codeButton" 
 			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"/>
+			android:layout_height="wrap_content"
+			android:textColor="#EF6A28" 
+			android:textSize="32sp" 
+			/>
 	</LinearLayout>
+
+	<TextView 
+		android:text="@string/clickToClose" 
+		android:id="@+id/TextView01" 
+		android:layout_gravity="center_horizontal"
+		android:textSize="10sp"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"/>
 	
 	<TextView 
-		android:text="" 
+		android:text="Received at: 2009.12.20 12:34:11" 
 		android:id="@+id/ReceivedAt" 
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
@@ -45,8 +69,11 @@
 		android:text="Remaining time: 00:12:22" 
 		android:id="@+id/CountDown" 
 		android:layout_gravity="center_horizontal"
+		android:visibility="invisible"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"/>
 
+	
+		
 
 </LinearLayout>

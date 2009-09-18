@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<string name="copyright">SODA, BankDroid, 2009 (c)</string>
+	<string name="clickToClose">Tap on the code to copy and close.</string>
 	<string name="notification">Notification only</string>
 	<string name="notificationSummary">If selected, the code is not popping up.</string>
 	<string name="keepSMS">Keep SMS</string>
