@@ -1,0 +1,13 @@
+#summary SMS OTP Display Application description
+
+= Introduction =
+
+SODA is a simple application to catch and process SMS that are delivering One-Time-Passwords of the Banks for login or transaction signing purposes.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
