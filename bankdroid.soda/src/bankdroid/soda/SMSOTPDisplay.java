@@ -35,6 +35,7 @@ import android.widget.TextView;
  * <li>TODO: let the user to register new banks, store settings in DB</li>
  * <li>TODO: let the user to post the bank settings to the bankdroid@googlecode.com</li>
  * <li>TODO: displays a count-down to indicate when the OTP will expire</li>
+ * <li>TODO: additional banks: Raiffeisen HU</li>
  * </ul>
  * 
  * @author user

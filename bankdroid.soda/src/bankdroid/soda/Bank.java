@@ -20,33 +20,33 @@ public class Bank implements Serializable
 
 	private final static Bank[] banks = new Bank[] { //
 			new Bank("OTP", 3600, new String[] { "+36309400700", "+36209400700" }, //FIXME phone numbers
-					new String[] { "OTPdirekt - [^:]*: ([0-9]*)" }, R.drawable.otp_logo),
+					new String[] { "OTPdirekt - [^:]*: ([0-9]*)" }, R.drawable.otp2_logo),
 
 			new Bank("KHB", 10800, new String[] { "+36209000703" }, //FIXME phone numbers
-					new String[] { ".*K.H MOBILINFO[^:]*: ([a-zA-Z0-9]{6}).*" }, R.drawable.khb_logo),
+					new String[] { ".*K.H MOBILINFO[^:]*: ([a-zA-Z0-9]{6}).*" }, R.drawable.kh_logo),
 
 			new Bank("Unicredit", -1,
 					new String[] { "+36303444504" }, //FIXME phone numbers
 					new String[] { "[^:]* SpectraNet [^:]*: ([0-9A-Z]*)", "SpectraNet [^:]*: ([0-9 -]*)" },
-					R.drawable.khb_logo),//FIXME Logo validity
+					R.drawable.unicredit_logo),//FIXME validity
 
 			new Bank("ERSTE", -1, new String[] { "+36303444481" }, //
-					new String[] { ".* ERSTE NetBank [^:]*: ([0-9]*)" }, R.drawable.khb_logo), //FIXME Logo, validity
+					new String[] { ".* ERSTE NetBank [^:]*: ([0-9]*)" }, R.drawable.erste_logo), //FIXME  validity
 
 			new Bank("Allianz", -1, new String[] { "+36303444664" }, //
-					new String[] { "Az [^:]*: ([0-9]*).* Netbank .*" }, R.drawable.khb_logo), //FIXME Logo, validity
+					new String[] { "Az [^:]*: ([0-9]*).* Netbank .*" }, R.drawable.allianz_logo), //FIXME  validity
 
 			new Bank("Citibank", -1, new String[] { "+36303444455" }, //
-					new String[] { "[^:]*: ([0-9]*).*citibank.*" }, R.drawable.khb_logo), //FIXME Logo, validity
+					new String[] { "[^:]*: ([0-9]*).*citibank.*" }, R.drawable.citibank_logo), //FIXME  validity
 
 			new Bank("FHB", -1, new String[] { "+36303444043" }, //
-					new String[] { "[^:]*: ([0-9]*-[0-9]*).* FHB" }, R.drawable.khb_logo), //FIXME Logo, validity
+					new String[] { "[^:]*: ([0-9]*-[0-9]*).* FHB" }, R.drawable.fhb_logo), //FIXME  validity
 
 			new Bank("BudapestBank", -1, new String[] { "+36309266245" }, //
-					new String[] { "[^:]*: ([0-9]*) .*Budapest" }, R.drawable.khb_logo), //FIXME Logo, validity
+					new String[] { "[^:]*: ([0-9]*) .*Budapest" }, R.drawable.budapestbank_logo), //FIXME  validity
 
 			new Bank("MKB", -1, new String[] { "+36707060652", "+36209000652" }, //
-					new String[] { "MKB .* jelszó: ([0-9a-zA-Z]*)" }, R.drawable.khb_logo), //FIXME Logo, validity, code complexity
+					new String[] { "MKB .* jelszó: ([0-9a-zA-Z]*)" }, R.drawable.mkb_logo), //FIXME  validity, code complexity
 
 	};
 
