@@ -14,4 +14,6 @@ public interface Codes
 	public static final String PREF_KEEP_SMS = "bankdroid.soda.KeepSMS";
 
 	public final static String TAG = "SODA";
+
+	public static final int NOTIFICATION_ID = 7632;
 }
