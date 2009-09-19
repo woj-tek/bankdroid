@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.ClipboardManager;
@@ -26,9 +27,9 @@ import android.widget.TextView;
  * <li>create menu: clear, preferences, bank list</li>
  * <li>handle preferences</li>
  * <li>improved design</li>
- * <li>TODO: use notifications instead of direct pop-up based on user preferences</li>
+ * <li>use notifications instead of direct pop-up based on user preferences</li>
  * <li>TODO: clear SMS based on preferences (that may be problematic. There is no good tip for it on forums.</li>
- * <li>TODO: maintain how many OTP to be stored per bank</li>
+ * <li>TODO: maintain how many OTP to be stored per bank - it makes no sense. Only one should be stored per bank.</li>
  * <li>TODO: display last SMS on start up</li>
  * <li>TODO: display list of banks and their settings</li>
  * <li>TODO: let the user to register new banks, store settings in DB</li>
@@ -60,6 +61,12 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 	{
 		super.onResume();
 
+		//clear notification if there is any
+		final NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+		nm.cancel(NOTIFICATION_ID);
+
+		//process intent
 		final Intent intent = getIntent();
 
 		Serializable timestampSource = null;
@@ -83,7 +90,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 		}
 		else
 		{
-			Log.d(TAG, "Clear fields.");
+			Log.d(TAG, "Clear fields as there is no intent and no previously set values.");
 			setValues(null, null, null);
 		}
 
