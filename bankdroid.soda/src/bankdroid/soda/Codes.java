@@ -13,7 +13,15 @@ public interface Codes
 	public static final String PREF_NOTIFICATION = "bankdroid.soda.Notification";
 	public static final String PREF_KEEP_SMS = "bankdroid.soda.KeepSMS";
 
-	public final static String TAG = "SODA";
+	public static final String TAG = "SODA";
 
 	public static final int NOTIFICATION_ID = 7632;
+
+	public static final String PROVIDER_AUTHORITY = "bankdroid.soda.Bank";
+
+	public static final String F__ID = "_ID";
+	public static final String F_ID = "ID";
+	public static final String F_VALIDITY = "VALIDITY";
+	public static final String F_ICON = "ICON";
+
 }
