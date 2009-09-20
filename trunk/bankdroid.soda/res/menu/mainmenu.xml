@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:id="@+id/MenuPreferences"  android:icon="@android:drawable/ic_menu_preferences" android:titleCondensed="@string/menuPref" android:title="@string/menuPref"></item>
+	<item 
+		android:id="@+id/MenuPreferences"  
+		android:icon="@android:drawable/ic_menu_preferences" 
+		android:titleCondensed="@string/menuPref" 
+		android:title="@string/menuPref"/>
 	<item android:title="@string/menuBanks" android:id="@+id/MenuBanks" android:icon="@android:drawable/ic_menu_gallery" android:titleCondensed="@string/menuBanks"></item>
-<item android:title="@string/menuClear" android:id="@+id/MenuClear" android:titleCondensed="@string/menuClear" android:icon="@android:drawable/ic_menu_close_clear_cancel"></item>
+	<item android:title="@string/menuClear" android:id="@+id/MenuClear" android:titleCondensed="@string/menuClear" android:icon="@android:drawable/ic_menu_close_clear_cancel"></item>
 </menu>
