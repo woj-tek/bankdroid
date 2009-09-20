@@ -1,6 +1,8 @@
 package bankdroid.soda;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,37 +20,60 @@ public class Bank implements Serializable
 	 */
 	private static final long serialVersionUID = -9140003377538504964L;
 
+	/**
+	 * The MIME type of {@link #CONTENT_URI} providing a directory of banks.
+	 */
+	public static final String CONTENT_TYPE = "vnd.android.cursor.dir/bankdroid.soda.bank";
+
+	/**
+	 * The MIME type of a {@link #CONTENT_URI} sub-directory of a single bank.
+	 */
+	public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/bankdroid.soda.bank";
+
 	private final static Bank[] banks = new Bank[] { //
-			new Bank("OTP", 3600, new String[] { "+36309400700", "+36209400700" }, //FIXME phone numbers
+			new Bank("OTP", 3600, new String[] { "+36309400700", "+36209400700" }, //
 					new String[] { "OTPdirekt - [^:]*: ([0-9]*)" }, R.drawable.otp2_logo),
 
-			new Bank("KHB", 10800, new String[] { "+36209000703" }, //FIXME phone numbers
+			new Bank("KHB", 1800, new String[] { "+36209000703" }, //FIXME message has changed
 					new String[] { ".*K.H MOBILINFO[^:]*: ([a-zA-Z0-9]{6}).*" }, R.drawable.kh_logo),
 
 			new Bank("Unicredit", -1,
-					new String[] { "+36303444504" }, //FIXME phone numbers
+					new String[] { "+36303444504" }, //
 					new String[] { "[^:]* SpectraNet [^:]*: ([0-9A-Z]*)", "SpectraNet [^:]*: ([0-9 -]*)" },
-					R.drawable.unicredit_logo),//FIXME validity
+					R.drawable.unicredit_logo),//
 
 			new Bank("ERSTE", -1, new String[] { "+36303444481" }, //
-					new String[] { ".* ERSTE NetBank [^:]*: ([0-9]*)" }, R.drawable.erste_logo), //FIXME  validity
+					new String[] { ".* ERSTE NetBank [^:]*: ([0-9]*)" }, R.drawable.erste_logo), //
 
 			new Bank("Allianz", -1, new String[] { "+36303444664" }, //
-					new String[] { "Az [^:]*: ([0-9]*).* Netbank .*" }, R.drawable.allianz_logo), //FIXME  validity
+					new String[] { "Az [^:]*: ([0-9]*).* Netbank .*" }, R.drawable.allianz_logo), //
 
 			new Bank("Citibank", -1, new String[] { "+36303444455" }, //
-					new String[] { "[^:]*: ([0-9]*).*citibank.*" }, R.drawable.citibank_logo), //FIXME  validity
+					new String[] { "[^:]*: ([0-9]*).*citibank.*" }, R.drawable.citibank_logo), //
 
 			new Bank("FHB", -1, new String[] { "+36303444043" }, //
-					new String[] { "[^:]*: ([0-9]*-[0-9]*).* FHB" }, R.drawable.fhb_logo), //FIXME  validity
+					new String[] { "[^:]*: ([0-9]*-[0-9]*).* FHB" }, R.drawable.fhb_logo), //
 
 			new Bank("BudapestBank", -1, new String[] { "+36309266245" }, //
-					new String[] { "[^:]*: ([0-9]*) .*Budapest" }, R.drawable.budapestbank_logo), //FIXME  validity
+					new String[] { "[^:]*: ([0-9]*) .*Budapest" }, R.drawable.budapestbank_logo), //
 
 			new Bank("MKB", -1, new String[] { "+36707060652", "+36209000652" }, //
-					new String[] { "MKB .* jelszó: ([0-9a-zA-Z]*)" }, R.drawable.mkb_logo), //FIXME  validity, code complexity
+					new String[] { "MKB .* jelszó: ([0-9a-zA-Z]*)" }, R.drawable.mkb_logo), //
 
 	};
+
+	static
+	{
+		Arrays.sort(banks, new Comparator<Bank>()
+		{
+
+			@Override
+			public int compare( final Bank object1, final Bank object2 )
+			{
+				return object1.id.compareTo(object2.id);
+			}
+		});
+	}
 
 	public static Bank[] getAvailableBanks()
 	{//
@@ -164,4 +189,9 @@ public class Bank implements Serializable
 		return iconId;
 	}
 
+	@Override
+	public String toString()
+	{
+		return id;
+	}
 }
