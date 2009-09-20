@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<!-- Bank List Activity -->
+	<string name="bankListTitle">List of Banks:</string>
+	
+	<!-- SMS OTP Display Activity -->
 	<string name="copyright">SODA, BankDroid, 2009 (c)</string>
 	<string name="clickToClose">Tap on the code to copy and close.</string>
-	<string name="notification">Notification only</string>
-	<string name="notificationSummary">If selected, the code is not popping up.</string>
-	<string name="notificationTicker">Password received form {0}</string>
-	<string name="notificationTitle">SODA</string>
-	<string name="notificationText">Password received form {0}. Click here to view it.</string>
-	<string name="keepSMS">Keep SMS</string>
-	<string name="keepSMSSummary">If selected, the original SMS is kept in messages.</string>
 	<string name="menuClear">Clear</string>
 	<string name="menuBanks">Banks</string>
 	<string name="menuPref">Preferences</string>
-	<string name="hello">Hello World, SMSOTPDisplay!</string>
 	<string name="app_name">SMS OTP Display</string>
 	<string name="received.prefix">Received at: </string>
 	<string name="nocode">-- no code --</string>
+	
+	<!-- Preferences -->
+	<string name="keepSMS">Keep SMS</string>
+	<string name="keepSMSSummary">If selected, the original SMS is kept in messages.</string>
+	<string name="notification">Notification only</string>
+	<string name="notificationSummary">If selected, the code is not popping up.</string>
+	
+	<!-- Notification -->
+	<string name="notificationTicker">Password received form {0}</string>
+	<string name="notificationTitle">SODA</string>
+	<string name="notificationText">Password received form {0}. Click here to view it.</string>
 </resources>
