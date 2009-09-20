@@ -16,3 +16,11 @@ The most important features:
 = Screens =
 
 Here comes a few screenshots from the emulator:
+
+[/svn/wiki/screenshots/otpcode.png]
+
+[/svn/wiki/screenshots/notification.png]
+
+[/svn/wiki/screenshots/menu.png]
+
+
