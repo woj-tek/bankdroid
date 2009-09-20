@@ -187,6 +187,9 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 		else if ( item.getItemId() == R.id.MenuBanks )
 		{
 			Log.d(TAG, "Bank List menu selected.");
+			final Intent bankListIntent = new Intent();
+			bankListIntent.setClass(getBaseContext(), BankListActivity.class);
+			startActivity(bankListIntent);
 		}
 		else if ( item.getItemId() == R.id.MenuClear )
 		{
