@@ -13,6 +13,10 @@ public class BankTest extends TestCase
 		bank = Bank.findByPhoneNumber("+3646509112");
 		assertNull("Failed to realize invalid phonenumber.", bank);
 
+		//Raiffeisen
+		bank = Bank.findByPhoneNumber("+36707060660");
+		assertTrue("Failed to realize Raiffeisen phonenumber.", "Raiffeisen Bank".equals(bank.getId()));
+
 		//ERSTE
 		bank = Bank.findByPhoneNumber("+36303444481");
 		assertTrue("Failed to realize ERSTE phonenumber.", "ERSTE".equals(bank.getId()));
@@ -51,7 +55,7 @@ public class BankTest extends TestCase
 
 		//BudapestBank
 		bank = Bank.findByPhoneNumber("+36309266245");
-		assertTrue("Failed to realize BudapestBank phonenumber.", "BudapestBank".equals(bank.getId()));
+		assertTrue("Failed to realize BudapestBank phonenumber.", "Budapest Bank".equals(bank.getId()));
 
 	}
 
@@ -59,61 +63,68 @@ public class BankTest extends TestCase
 	{
 		Bank bank = null;
 
+		//Raiffeisen Bank
+		bank = Bank.findByPhoneNumber("+36707060660");
+		assertTrue("76037367".equals(bank
+				.getCode("Az Ã–n Raiffeisen DirektNet egyszer hasznÃ¡latos jelszava: 76037367 Raiffeisen Bank Zrt.")));
+		assertNull(bank
+				.getCode("Erste Reggeli egyenleg: Idï¿½pont: 2009.09.07. 06.51 Szï¿½mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+
 		//KHB
 		bank = Bank.findByPhoneNumber("+36209000703");
-		assertTrue("dDqgap"
+		assertTrue("hNmKmp"
 				.equals(bank
-						.getCode("**K&H MOBILINFO** Az ön egyszer használatos jelszava: dDqgap A jelszó egy bejelentkezés idötartalmára, de maximum 3 órán belül érvényes.")));
+						.getCode("**K&H e-bank** Az Ã–n egy bejelentkezÃ©s idÅ‘tartalmÃ¡ra vonatkozÃ³ sms jelszava: hNmKmp A jelszÃ³ maximum 30 percen belÃ¼l Ã©rvÃ©nyes.")));
 		assertNull(bank
-				.getCode("Erste Reggeli egyenleg: Idöpont: 2009.09.07. 06.51 Számla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.getCode("Erste Reggeli egyenleg: Idï¿½pont: 2009.09.07. 06.51 Szï¿½mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//ERSTE
 		bank = Bank.findByPhoneNumber("+36303444481");
-		assertTrue("45087768".equals(bank.getCode("Az Ön ERSTE NetBank belépési kódja: 45087768")));
+		assertTrue("45087768".equals(bank.getCode("Az ï¿½n ERSTE NetBank belï¿½pï¿½si kï¿½dja: 45087768")));
 		assertNull(bank
-				.getCode("Erste Reggeli egyenleg: Idöpont: 2009.09.07. 06.51 Számla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.getCode("Erste Reggeli egyenleg: Idï¿½pont: 2009.09.07. 06.51 Szï¿½mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//OTP
 		bank = Bank.findByPhoneNumber("+36309400700");
 		assertTrue("90120437"
 				.equals(bank
-						.getCode("OTPdirekt - Belföldi forint átutalás xxx számlán yyy HUF összeggel zzz számlára. Azonosító: 90120437 Jóváhagyás 23:55-ig.")));
+						.getCode("OTPdirekt - Belfï¿½ldi forint ï¿½tutalï¿½s xxx szï¿½mlï¿½n yyy HUF ï¿½sszeggel zzz szï¿½mlï¿½ra. Azonosï¿½tï¿½: 90120437 Jï¿½vï¿½hagyï¿½s 23:55-ig.")));
 		assertTrue("84165595"
 				.equals(bank
-						.getCode("OTPdirekt - Lekötött betét feltörése xxx számlán yyy összeggel. Azonosító: 84165595 Jóváhagyás 23:51-ig.")));
+						.getCode("OTPdirekt - Lekï¿½tï¿½tt betï¿½t feltï¿½rï¿½se xxx szï¿½mlï¿½n yyy ï¿½sszeggel. Azonosï¿½tï¿½: 84165595 Jï¿½vï¿½hagyï¿½s 23:51-ig.")));
 		assertNull(bank
-				.getCode("Erste Reggeli egyenleg: Idöpont: 2009.09.07. 06.51 Számla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.getCode("Erste Reggeli egyenleg: Idï¿½pont: 2009.09.07. 06.51 Szï¿½mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//Unicredit
 		bank = Bank.findByPhoneNumber("+36303444504");
-		assertTrue("2HWNVRNJ".equals(bank.getCode("Az ön kezdeti SpectraNet bejelentkezési jelszava: 2HWNVRNJ")));
-		assertTrue("000-912 089".equals(bank.getCode("SpectraNet tranzakciós kód: 000-912 089")));
+		assertTrue("2HWNVRNJ".equals(bank.getCode("Az ï¿½n kezdeti SpectraNet bejelentkezï¿½si jelszava: 2HWNVRNJ")));
+		assertTrue("000-912 089".equals(bank.getCode("SpectraNet tranzakciï¿½s kï¿½d: 000-912 089")));
 		assertNull(bank
-				.getCode("Erste Reggeli egyenleg: Idöpont: 2009.09.07. 06.51 Számla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.getCode("Erste Reggeli egyenleg: Idï¿½pont: 2009.09.07. 06.51 Szï¿½mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//MKB
 		bank = Bank.findByPhoneNumber("+36209000652");
 		assertTrue("g985P"
 				.equals(bank
-						.getCode("MKB NetBANKár Forint átutalás rögzítése. Kedvezményezett 103000021231313213131, Összeg: 10000 HUF. Aláíró jelszó: g985P")));
+						.getCode("MKB NetBANKï¿½r Forint ï¿½tutalï¿½s rï¿½gzï¿½tï¿½se. Kedvezmï¿½nyezett 103000021231313213131, ï¿½sszeg: 10000 HUF. Alï¿½ï¿½rï¿½ jelszï¿½: g985P")));
 		assertNull(bank
-				.getCode("Erste Reggeli egyenleg: Idöpont: 2009.09.07. 06.51 Számla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.getCode("Erste Reggeli egyenleg: Idï¿½pont: 2009.09.07. 06.51 Szï¿½mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//Allianz
 		bank = Bank.findByPhoneNumber("+36303444664");
 		assertTrue("74716681"
 				.equals(bank
-						.getCode("Az Ön egyszer használatos jelszava: 74716681. Kérjük, ezt a jelszót alkalmazza a tranzakciókhoz és a módsításokhoz a Netbank használata során!")));
+						.getCode("Az ï¿½n egyszer hasznï¿½latos jelszava: 74716681. Kï¿½rjï¿½k, ezt a jelszï¿½t alkalmazza a tranzakciï¿½khoz ï¿½s a mï¿½dsï¿½tï¿½sokhoz a Netbank hasznï¿½lata sorï¿½n!")));
 		assertNull(bank
-				.getCode("Erste Reggeli egyenleg: Idöpont: 2009.09.07. 06.51 Számla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.getCode("Erste Reggeli egyenleg: Idï¿½pont: 2009.09.07. 06.51 Szï¿½mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//FHB
 		bank = Bank.findByPhoneNumber("+36303444043");
 		assertTrue("84-591727"
 				.equals(bank
-						.getCode("Tisztelt Ügyfelünk ! Az Ön által indított tranzakcióhoz tartozó egyszer használható jelszava: 84-591727. FHB Zrt.")));
+						.getCode("Tisztelt ï¿½gyfelï¿½nk ! Az ï¿½n ï¿½ltal indï¿½tott tranzakciï¿½hoz tartozï¿½ egyszer hasznï¿½lhatï¿½ jelszava: 84-591727. FHB Zrt.")));
 		assertNull(bank
-				.getCode("Sikeres bejelentkezés - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
+				.getCode("Sikeres bejelentkezï¿½s - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
 
 		//Citibank
 		bank = Bank.findByPhoneNumber("+36303444455");
@@ -121,15 +132,15 @@ public class BankTest extends TestCase
 				.equals(bank
 						.getCode("OAC - Online Aktivalasi kod: 633831. Kartyaszam: XX3013; Kedvezmenyezett: LUDNYI ZOLTN2 www.citibank.hu Tel: +3612888888")));
 		assertNull(bank
-				.getCode("Sikeres bejelentkezés - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
+				.getCode("Sikeres bejelentkezï¿½s - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
 
 		//BudapestBank
 		bank = Bank.findByPhoneNumber("+36309266245");
 		assertTrue("51930398"
 				.equals(bank
-						.getCode("Az Ön ideiglenes kódja: 51930398 Ez a kód belépéshez 13:47:58-ig használhatja, de örizze meg a tranzakcióhoz! Kapcsolat azonosító: 133758 Budapest Bank")));
+						.getCode("Az ï¿½n ideiglenes kï¿½dja: 51930398 Ez a kï¿½d belï¿½pï¿½shez 13:47:58-ig hasznï¿½lhatja, de ï¿½rizze meg a tranzakciï¿½hoz! Kapcsolat azonosï¿½tï¿½: 133758 Budapest Bank")));
 		assertNull(bank
-				.getCode("Sikeres bejelentkezés - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
+				.getCode("Sikeres bejelentkezï¿½s - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
 
 	}
 

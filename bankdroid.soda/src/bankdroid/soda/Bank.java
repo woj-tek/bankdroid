@@ -34,8 +34,12 @@ public class Bank implements Serializable
 			new Bank("OTP", 3600, new String[] { "+36309400700", "+36209400700" }, //
 					new String[] { "OTPdirekt - [^:]*: ([0-9]*)" }, R.drawable.otp2_logo),
 
-			new Bank("KHB", 1800, new String[] { "+36209000703" }, //FIXME message has changed
-					new String[] { ".*K.H MOBILINFO[^:]*: ([a-zA-Z0-9]{6}).*" }, R.drawable.kh_logo),
+			new Bank("KHB", 1800, new String[] { "+36209000703" }, //
+					new String[] { ".*K.H e-bank[^:]*: ([a-zA-Z0-9]{6}).*" }, R.drawable.kh_logo),
+
+			//+36707060660Az On Raiffeisen DirektNet egyszer hasznalatos jelszava: 76037367 Raiffeisen Bank Zrt.
+			new Bank("Raiffeisen Bank", 3600, new String[] { "+36707060660" }, //
+					new String[] { ".* Raiffeisen DirektNet .* jelszava: ([0-9]*) .*" }, R.drawable.raiffeisen_logo),
 
 			new Bank("Unicredit", -1,
 					new String[] { "+36303444504" }, //
@@ -54,11 +58,11 @@ public class Bank implements Serializable
 			new Bank("FHB", -1, new String[] { "+36303444043" }, //
 					new String[] { "[^:]*: ([0-9]*-[0-9]*).* FHB" }, R.drawable.fhb_logo), //
 
-			new Bank("BudapestBank", -1, new String[] { "+36309266245" }, //
+			new Bank("Budapest Bank", -1, new String[] { "+36309266245" }, //
 					new String[] { "[^:]*: ([0-9]*) .*Budapest" }, R.drawable.budapestbank_logo), //
 
 			new Bank("MKB", -1, new String[] { "+36707060652", "+36209000652" }, //
-					new String[] { "MKB .* jelszó: ([0-9a-zA-Z]*)" }, R.drawable.mkb_logo), //
+					new String[] { "MKB .* jelsz.: ([0-9a-zA-Z]*)" }, R.drawable.mkb_logo), //
 
 	};
 
