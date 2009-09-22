@@ -3,6 +3,14 @@
 	<!-- Bank List Activity -->
 	<string name="bankListTitle">List of Banks:</string>
 	
+	<!-- Bank Edit Activity -->
+	<string name="phoneNumber">Phone number(s):</string>
+	<string name="messagePatterns">Message pattern(s):</string>
+	<string name="expiry">Expiry in seconds:</string>
+	<string name="btnDone">Done</string>
+	<string name="btnCancel">Cancel</string>
+	
+
 	<!-- SMS OTP Display Activity -->
 	<string name="copyright">SODA, BankDroid, 2009 (c)</string>
 	<string name="clickToClose">Tap on the code to copy and close.</string>

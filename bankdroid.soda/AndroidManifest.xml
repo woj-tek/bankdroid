@@ -18,6 +18,7 @@
 		</receiver>
 		<provider android:exported="false" android:name="BankProvider" android:label="Banks" android:enabled="true" android:authorities="bankdroid.soda.Bank"></provider>
 	<activity android:name="BankListActivity"></activity>
+<activity android:name="BankEditActivity" android:screenOrientation="portrait"></activity>
 </application>
 	<uses-sdk android:minSdkVersion="3" />
 

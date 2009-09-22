@@ -4,16 +4,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.DataSetObserver;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
-public class BankListActivity extends Activity
+public class BankListActivity extends Activity implements Codes, OnItemClickListener
 {
 
 	@Override
@@ -23,10 +27,8 @@ public class BankListActivity extends Activity
 
 		setContentView(R.layout.banklist);
 
-		/*final ArrayAdapter<Bank> bankAdapter = new ArrayAdapter<Bank>(getBaseContext(), R.layout.banklistitem, Bank
-				.getAvailableBanks());*/
-
 		( (ListView) findViewById(R.id.bankListView) ).setAdapter(new BankArrayAdapter(Bank.getAvailableBanks()));
+		( (ListView) findViewById(R.id.bankListView) ).setOnItemClickListener(this);
 
 	}
 
@@ -127,5 +129,19 @@ public class BankListActivity extends Activity
 			dsos.remove(dso);
 		}
 
+	}
+
+	@Override
+	public void onItemClick( final AdapterView<?> parent, final View view, final int position, final long id )
+	{
+		if ( parent.getId() == R.id.bankListView )
+		{
+			Log.d(TAG, "Following pos is selected: " + position);
+
+			final Intent intent = new Intent();
+			intent.setClass(getBaseContext(), BankEditActivity.class);
+			intent.putExtra(BANKDROID_SODA_BANK, (Bank) parent.getAdapter().getItem(position));
+			startActivity(intent);
+		}
 	}
 }
