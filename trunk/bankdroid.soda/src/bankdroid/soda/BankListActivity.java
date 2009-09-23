@@ -87,7 +87,7 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 				result = LayoutInflater.from(getBaseContext()).inflate(R.layout.banklistitem, parent, false);
 			}
 
-			( (TextView) result.findViewById(R.id.bankName) ).setText(banks[position].getId());
+			( (TextView) result.findViewById(R.id.bankName) ).setText(banks[position].getName());
 			( (TextView) result.findViewById(R.id.phoneNumber) ).setText(banks[position].getPhoneNumbers()[0]);
 
 			return result;

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
 public class BankEditActivity extends Activity implements OnClickListener, Codes
@@ -28,6 +29,8 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 	private int numberOfPhones = 1;
 	private int numberOfPatterns = 1;
 
+	private Bank bank;
+
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
 	{
@@ -41,8 +44,10 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		( (ImageButton) findViewById(R.id.addPattern) ).setOnClickListener(this);
 		( (ImageButton) findViewById(R.id.removePattern3) ).setOnClickListener(this);
 		( (ImageButton) findViewById(R.id.removePattern2) ).setOnClickListener(this);
+		( (ImageButton) findViewById(R.id.removePattern1) ).setOnClickListener(this);
 		( (ImageButton) findViewById(R.id.removePhoneNumber3) ).setOnClickListener(this);
 		( (ImageButton) findViewById(R.id.removePhoneNumber2) ).setOnClickListener(this);
+		( (ImageButton) findViewById(R.id.removePhoneNumber1) ).setOnClickListener(this);
 
 		showLines(R.id.addPattern, PATTERN_FIELDS, numberOfPatterns);
 		showLines(R.id.addPhoneNumber, PHONE_FIELDS, numberOfPhones);
@@ -59,10 +64,25 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 			final Bank bank = (Bank) intent.getSerializableExtra(BANKDROID_SODA_BANK);
 
 			( (ImageView) findViewById(R.id.bankLogo) ).setImageResource(bank.getIconId());
-			( (EditText) findViewById(R.id.bankName) ).setText(bank.getId());
-			( (EditText) findViewById(R.id.phoneNumber1) ).setText(bank.getPhoneNumbers()[0]);
-			( (EditText) findViewById(R.id.pattern1) ).setText(bank.getExtractExpression()[0]);
-			( (EditText) findViewById(R.id.expiry) ).setText(String.valueOf(bank.getOtpValidityPeriod()));
+			( (EditText) findViewById(R.id.bankName) ).setText(bank.getName());
+			( (EditText) findViewById(R.id.expiry) ).setText(String.valueOf(bank.getExpiry()));
+
+			final String[] pn = bank.getPhoneNumbers();
+			final String[] ee = bank.getExtractExpression();
+
+			showLines(R.id.addPattern, PATTERN_FIELDS, ee.length);
+			for ( int i = 0; i < ee.length; i++ )
+			{
+				( (EditText) findViewById(PATTERN_FIELDS[i][1]) ).setText(ee[i]);
+			}
+
+			showLines(R.id.addPhoneNumber, PHONE_FIELDS, pn.length);
+			for ( int i = 0; i < pn.length; i++ )
+			{
+				( (EditText) findViewById(PHONE_FIELDS[i][1]) ).setText(pn[i]);
+			}
+
+			this.bank = bank;
 		}
 	}
 
@@ -106,6 +126,20 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 	}
 
 	@Override
+	protected void onSaveInstanceState( final Bundle outState )
+	{
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	protected void onRestoreInstanceState( final Bundle savedInstanceState )
+	{
+		// TODO Auto-generated method stub
+		super.onRestoreInstanceState(savedInstanceState);
+	}
+
+	@Override
 	public void onClick( final View button )
 	{
 		if ( button.getId() == R.id.done )
@@ -136,15 +170,31 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 			numberOfPhones = 2;
 			showLines(R.id.addPhoneNumber, PHONE_FIELDS, 2);
 		}
-		else if ( button.getId() == R.id.addPhoneNumber && numberOfPhones < 3 )
+		else if ( button.getId() == R.id.addPhoneNumber )
 		{
-			numberOfPhones++;
-			showLines(R.id.addPhoneNumber, PHONE_FIELDS, numberOfPhones);
+			if ( numberOfPhones > 2 )
+			{
+				final Toast toast = Toast.makeText(getBaseContext(), R.string.tooMuchPhoneNumber, Toast.LENGTH_SHORT);
+				toast.show();
+			}
+			else
+			{
+				numberOfPhones++;
+				showLines(R.id.addPhoneNumber, PHONE_FIELDS, numberOfPhones);
+			}
 		}
-		else if ( button.getId() == R.id.addPattern && numberOfPatterns < 3 )
+		else if ( button.getId() == R.id.addPattern )
 		{
-			numberOfPatterns++;
-			showLines(R.id.addPattern, PATTERN_FIELDS, numberOfPatterns);
+			if ( numberOfPatterns > 2 )
+			{
+				final Toast toast = Toast.makeText(getBaseContext(), R.string.tooMuchPattern, Toast.LENGTH_SHORT);
+				toast.show();
+			}
+			else
+			{
+				numberOfPatterns++;
+				showLines(R.id.addPattern, PATTERN_FIELDS, numberOfPatterns);
+			}
 		}
 
 	}
