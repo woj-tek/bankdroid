@@ -103,7 +103,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 
 		if ( displayedCode != null )
 		{
-			Log.d(TAG, "Values going to be saved for code: " + displayedCode + "(" + bank.getId() + ")");
+			Log.d(TAG, "Values going to be saved for code: " + displayedCode + "(" + bank.getName() + ")");
 			outState.putCharSequence(BANKDROID_SODA_SMSCODE, displayedCode);
 			outState.putSerializable(BANKDROID_SODA_SMSTIMESTAMP, receivedAt);
 			outState.putSerializable(BANKDROID_SODA_BANK, bank);
@@ -120,7 +120,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 			bank = (Bank) savedInstanceState.getSerializable(BANKDROID_SODA_BANK);
 			receivedAt = (Date) savedInstanceState.getSerializable(BANKDROID_SODA_SMSTIMESTAMP);
 			displayedCode = savedInstanceState.getCharSequence(BANKDROID_SODA_SMSCODE);
-			Log.d(TAG, "Values restored for code: " + displayedCode + "(" + bank.getId() + ")");
+			Log.d(TAG, "Values restored for code: " + displayedCode + "(" + bank.getName() + ")");
 		}
 	}
 
@@ -133,7 +133,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 		CharSequence timestampText = "";
 		if ( source != null )
 		{
-			Log.i(TAG, "One time password to display from Bank = " + source.getId());
+			Log.i(TAG, "One time password to display from Bank = " + source.getName());
 			timestampText = Formatters.getTimstampFormat().format(receivedAt);
 		}
 

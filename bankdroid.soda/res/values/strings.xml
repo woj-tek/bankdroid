@@ -9,6 +9,8 @@
 	<string name="expiry">Expiry in seconds:</string>
 	<string name="btnDone">Done</string>
 	<string name="btnCancel">Cancel</string>
+	<string name="tooMuchPhoneNumber">Maximum 3 phone numbers are allowed.</string>
+	<string name="tooMuchPattern">Maximum 3 patterns are allowed</string>
 	
 
 	<!-- SMS OTP Display Activity -->

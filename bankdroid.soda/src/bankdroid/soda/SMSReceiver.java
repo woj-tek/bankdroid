@@ -40,7 +40,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 				{
 					//extract code
 					final String message = sms.getMessageBody();
-					final String code = source.getCode(message);
+					final String code = source.extractCode(message);
 
 					if ( code != null )
 					{
@@ -57,7 +57,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 							//create notification
 							final int icon = android.R.drawable.stat_sys_warning;
 							final CharSequence tickerText = MessageFormat.format(context.getText(
-									R.string.notificationTicker).toString(), source.getId());
+									R.string.notificationTicker).toString(), source.getName());
 							final long when = System.currentTimeMillis();
 
 							final Notification notification = new Notification(icon, tickerText, when);
@@ -65,7 +65,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 							//set extended message
 							final CharSequence contentTitle = context.getText(R.string.notificationTitle);
 							final CharSequence contentText = MessageFormat.format(context.getText(
-									R.string.notificationText).toString(), source.getId());
+									R.string.notificationText).toString(), source.getName());
 
 							final Intent notificationIntent = new Intent(context, bankdroid.soda.SMSOTPDisplay.class);
 							notificationIntent.putExtra(BANKDROID_SODA_SMSMESSAGE, message); // key/value pair, where key needs current package prefix.

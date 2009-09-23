@@ -50,8 +50,8 @@ public class BankProvider extends ContentProvider implements Codes
 				final Bank bank = banks[i];
 				stmt.clearBindings();
 				stmt.bindLong(0, i);
-				stmt.bindString(1, bank.getId());
-				stmt.bindLong(2, bank.getOtpValidityPeriod());
+				stmt.bindString(1, bank.getName());
+				stmt.bindLong(2, bank.getExpiry());
 				stmt.bindLong(3, bank.getIconId());
 
 				stmt.execute();
