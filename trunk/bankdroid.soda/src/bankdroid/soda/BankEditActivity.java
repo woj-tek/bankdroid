@@ -26,9 +26,6 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 			{ R.id.removePhoneNumber2, R.id.phoneNumber2 },//
 			{ R.id.removePhoneNumber3, R.id.phoneNumber3 } };
 
-	private int numberOfPhones = 1;
-	private int numberOfPatterns = 1;
-
 	private Bank bank;
 
 	@Override
@@ -48,9 +45,6 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		( (ImageButton) findViewById(R.id.removePhoneNumber3) ).setOnClickListener(this);
 		( (ImageButton) findViewById(R.id.removePhoneNumber2) ).setOnClickListener(this);
 		( (ImageButton) findViewById(R.id.removePhoneNumber1) ).setOnClickListener(this);
-
-		showLines(R.id.addPattern, PATTERN_FIELDS, numberOfPatterns);
-		showLines(R.id.addPhoneNumber, PHONE_FIELDS, numberOfPhones);
 	}
 
 	@Override
@@ -59,35 +53,49 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		super.onResume();
 
 		final Intent intent = getIntent();
-		if ( intent != null && intent.getSerializableExtra(BANKDROID_SODA_BANK) != null )
+		if ( bank == null && intent != null && intent.getSerializableExtra(BANKDROID_SODA_BANK) != null )
 		{
 			final Bank bank = (Bank) intent.getSerializableExtra(BANKDROID_SODA_BANK);
+			this.bank = (Bank) bank.clone();
+		}
+
+		if ( bank != null )
+		{
 
 			( (ImageView) findViewById(R.id.bankLogo) ).setImageResource(bank.getIconId());
 			( (EditText) findViewById(R.id.bankName) ).setText(bank.getName());
 			( (EditText) findViewById(R.id.expiry) ).setText(String.valueOf(bank.getExpiry()));
 
 			final String[] pn = bank.getPhoneNumbers();
-			final String[] ee = bank.getExtractExpression();
+			final String[] ee = bank.getExtractExpressions();
 
-			showLines(R.id.addPattern, PATTERN_FIELDS, ee.length);
-			for ( int i = 0; i < ee.length; i++ )
-			{
-				( (EditText) findViewById(PATTERN_FIELDS[i][1]) ).setText(ee[i]);
-			}
+			showLines(R.id.addPattern, PATTERN_FIELDS, ee);
 
-			showLines(R.id.addPhoneNumber, PHONE_FIELDS, pn.length);
-			for ( int i = 0; i < pn.length; i++ )
-			{
-				( (EditText) findViewById(PHONE_FIELDS[i][1]) ).setText(pn[i]);
-			}
-
-			this.bank = bank;
+			showLines(R.id.addPhoneNumber, PHONE_FIELDS, pn);
 		}
 	}
 
-	private void showLines( final int topId, final int[][] fields, final int row )
+	private void storeValues()
 	{
+		bank.setName(( (EditText) findViewById(R.id.bankName) ).getText().toString());
+		bank.setExpiry(Integer.parseInt(( (EditText) findViewById(R.id.expiry) ).getText().toString()));
+
+		saveFields(PATTERN_FIELDS, bank.getExtractExpressions());
+		saveFields(PHONE_FIELDS, bank.getPhoneNumbers());
+	}
+
+	private void saveFields( final int[][] fields, final String[] store )
+	{
+		final int count = store.length;
+		for ( int i = 0; i < count; i++ )
+		{
+			store[i] = ( (EditText) findViewById(fields[i][1]) ).getText().toString();
+		}
+	}
+
+	private void showLines( final int topId, final int[][] fields, final String[] values )
+	{
+		final int row = values.length;
 		//set visibility
 		for ( int i = 0; i < row; i++ )
 		{
@@ -123,79 +131,135 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		layoutParams.addRule(RelativeLayout.BELOW, topId);
 
 		high.getParent().requestLayout();
+
+		//set values
+		for ( int i = 0; i < row; i++ )
+		{
+			( (EditText) findViewById(fields[i][1]) ).setText(values[i]);
+		}
 	}
 
 	@Override
 	protected void onSaveInstanceState( final Bundle outState )
 	{
-		// TODO Auto-generated method stub
 		super.onSaveInstanceState(outState);
+		storeValues();
+		outState.putSerializable(BANKDROID_SODA_BANK, bank);
 	}
 
 	@Override
 	protected void onRestoreInstanceState( final Bundle savedInstanceState )
 	{
-		// TODO Auto-generated method stub
 		super.onRestoreInstanceState(savedInstanceState);
+		if ( savedInstanceState.containsKey(BANKDROID_SODA_BANK) )
+		{
+			this.bank = (Bank) savedInstanceState.getSerializable(BANKDROID_SODA_BANK);
+		}
 	}
 
 	@Override
 	public void onClick( final View button )
 	{
-		if ( button.getId() == R.id.done )
+		switch ( button.getId() )
 		{
-			finish(); //FIXME save changes here
-		}
-		else if ( button.getId() == R.id.cancel )
-		{
+		case R.id.done: //FIXME save changes here
+		case R.id.cancel:
 			finish();
-		}
-		else if ( button.getId() == R.id.removePattern2 )
-		{
-			numberOfPatterns = 1;
-			showLines(R.id.addPattern, PATTERN_FIELDS, 1);
-		}
-		else if ( button.getId() == R.id.removePattern3 )
-		{
-			numberOfPatterns = 2;
-			showLines(R.id.addPattern, PATTERN_FIELDS, 2);
-		}
-		else if ( button.getId() == R.id.removePhoneNumber2 )
-		{
-			numberOfPhones = 1;
-			showLines(R.id.addPhoneNumber, PHONE_FIELDS, 1);
-		}
-		else if ( button.getId() == R.id.removePhoneNumber3 )
-		{
-			numberOfPhones = 2;
-			showLines(R.id.addPhoneNumber, PHONE_FIELDS, 2);
-		}
-		else if ( button.getId() == R.id.addPhoneNumber )
-		{
-			if ( numberOfPhones > 2 )
-			{
-				final Toast toast = Toast.makeText(getBaseContext(), R.string.tooMuchPhoneNumber, Toast.LENGTH_SHORT);
-				toast.show();
-			}
-			else
-			{
-				numberOfPhones++;
-				showLines(R.id.addPhoneNumber, PHONE_FIELDS, numberOfPhones);
-			}
-		}
-		else if ( button.getId() == R.id.addPattern )
-		{
-			if ( numberOfPatterns > 2 )
-			{
-				final Toast toast = Toast.makeText(getBaseContext(), R.string.tooMuchPattern, Toast.LENGTH_SHORT);
-				toast.show();
-			}
-			else
-			{
-				numberOfPatterns++;
-				showLines(R.id.addPattern, PATTERN_FIELDS, numberOfPatterns);
-			}
+			break;
+
+		case R.id.removePattern1:
+			removePattern(1);
+			break;
+
+		case R.id.removePattern2:
+			removePattern(2);
+			break;
+
+		case R.id.removePattern3:
+			removePattern(3);
+			break;
+
+		case R.id.removePhoneNumber1:
+			removePhoneNumber(1);
+			break;
+
+		case R.id.removePhoneNumber2:
+			removePhoneNumber(2);
+			break;
+
+		case R.id.removePhoneNumber3:
+			removePhoneNumber(3);
+			break;
+
+		case R.id.addPhoneNumber:
+			addPhoneNumber();
+			break;
+
+		case R.id.addPattern:
+			addPattern();
+			break;
 		}
 
 	}
+
+	private void addPattern()
+	{
+		final int numberOfPatterns = bank.getExtractExpressions().length;
+		if ( numberOfPatterns > 2 )
+		{
+			final Toast toast = Toast.makeText(getBaseContext(), R.string.tooMuchPattern, Toast.LENGTH_SHORT);
+			toast.show();
+		}
+		else
+		{
+			bank.addExtractExpression("");
+			showLines(R.id.addPattern, PATTERN_FIELDS, bank.getExtractExpressions());
+		}
+	}
+
+	private void addPhoneNumber()
+	{
+		final int numberOfPhones = bank.getPhoneNumbers().length;
+		if ( numberOfPhones > 2 )
+		{
+			final Toast toast = Toast.makeText(getBaseContext(), R.string.tooMuchPhoneNumber, Toast.LENGTH_SHORT);
+			toast.show();
+		}
+		else
+		{
+			bank.addPhoneNumber("");
+			showLines(R.id.addPhoneNumber, PHONE_FIELDS, bank.getPhoneNumbers());
+		}
+	}
+
+	private void removePhoneNumber( final int i )
+	{
+		if ( bank.getPhoneNumbers().length == 1 )
+		{
+			final Toast toast = Toast.makeText(getBaseContext(), R.string.minPhoneNumber, Toast.LENGTH_SHORT);
+			toast.show();
+		}
+		else
+		{
+			storeValues();
+			bank.removePhoneNumber(i - 1);
+			showLines(R.id.addPhoneNumber, PHONE_FIELDS, bank.getPhoneNumbers());
+		}
+	}
+
+	private void removePattern( final int i )
+	{
+		if ( bank.getExtractExpressions().length == 1 )
+		{
+			final Toast toast = Toast.makeText(getBaseContext(), R.string.minPattern, Toast.LENGTH_SHORT);
+			toast.show();
+		}
+		else
+		{
+			storeValues();
+			bank.removeExtractExpression(i - 1);
+			showLines(R.id.addPattern, PATTERN_FIELDS, bank.getExtractExpressions());
+		}
+	}
+
 }

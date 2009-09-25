@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * TODO phone number matching should rely on the number endings.
  *
  */
-public class Bank implements Serializable
+public class Bank implements Serializable, Cloneable
 {
 	/**
 	 * 
@@ -103,12 +103,12 @@ public class Bank implements Serializable
 
 	///NON-STATIC MEMBERS
 	private final int id;
-	private final String name;
+	private String name;
 
 	/**
 	 * Validity period of an SMS OTP expressed in seconds.
 	 */
-	private final int expiry;
+	private int expiry;
 	/**
 	 * One or more phone number can be registered to the Bank.
 	 */
@@ -134,10 +134,22 @@ public class Bank implements Serializable
 		this.iconId = iconId;
 	}
 
+	@Override
+	public Object clone()
+	{
+		final String[] pn = new String[phoneNumbers.length];
+		System.arraycopy(phoneNumbers, 0, pn, 0, pn.length);
+
+		final String[] ee = new String[extractExpressions.length];
+		System.arraycopy(extractExpressions, 0, ee, 0, ee.length);
+
+		return new Bank(id, name, expiry, pn, ee, iconId);
+	}
+
 	public void addPhoneNumber( final String phoneNumber )
 	{
 		final String[] pn = new String[phoneNumbers.length + 1];
-		System.arraycopy(phoneNumber, 0, pn, 0, phoneNumbers.length);
+		System.arraycopy(phoneNumbers, 0, pn, 0, phoneNumbers.length);
 		pn[pn.length - 1] = phoneNumber;
 		phoneNumbers = pn;
 	}
@@ -172,7 +184,7 @@ public class Bank implements Serializable
 		extractExpressions = ee;
 	}
 
-	public void removeExtratExpression( final int index )
+	public void removeExtractExpression( final int index )
 	{
 		final String[] eeOld = extractExpressions;
 		final int len = eeOld.length;
@@ -248,7 +260,7 @@ public class Bank implements Serializable
 		return phoneNumbers;
 	}
 
-	public String[] getExtractExpression()
+	public String[] getExtractExpressions()
 	{
 		return extractExpressions;
 	}
@@ -268,4 +280,15 @@ public class Bank implements Serializable
 	{
 		return id;
 	}
+
+	public void setName( final String name )
+	{
+		this.name = name;
+	}
+
+	public void setExpiry( final int expiry )
+	{
+		this.expiry = expiry;
+	}
+
 }
