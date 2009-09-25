@@ -68,7 +68,7 @@ public class BankTest extends TestCase
 		assertTrue("76037367".equals(bank
 				.extractCode("Az Ön Raiffeisen DirektNet egyszer használatos jelszava: 76037367 Raiffeisen Bank Zrt.")));
 		assertNull(bank
-				.extractCode("Erste Reggeli egyenleg: Id�pont: 2009.09.07. 06.51 Sz�mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//KHB
 		bank = Bank.findByPhoneNumber("+36209000703");
@@ -76,55 +76,55 @@ public class BankTest extends TestCase
 				.equals(bank
 						.extractCode("**K&H e-bank** Az Ön egy bejelentkezés időtartalmára vonatkozó sms jelszava: hNmKmp A jelszó maximum 30 percen belül érvényes.")));
 		assertNull(bank
-				.extractCode("Erste Reggeli egyenleg: Id�pont: 2009.09.07. 06.51 Sz�mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//ERSTE
 		bank = Bank.findByPhoneNumber("+36303444481");
-		assertTrue("45087768".equals(bank.extractCode("Az �n ERSTE NetBank bel�p�si k�dja: 45087768")));
+		assertTrue("45087768".equals(bank.extractCode("Az an ERSTE NetBank belapasi kadja: 45087768")));
 		assertNull(bank
-				.extractCode("Erste Reggeli egyenleg: Id�pont: 2009.09.07. 06.51 Sz�mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//OTP
 		bank = Bank.findByPhoneNumber("+36309400700");
 		assertTrue("90120437"
 				.equals(bank
-						.extractCode("OTPdirekt - Belf�ldi forint �tutal�s xxx sz�ml�n yyy HUF �sszeggel zzz sz�ml�ra. Azonos�t�: 90120437 J�v�hagy�s 23:55-ig.")));
+						.extractCode("OTPdirekt - Belfaldi forint atutalas xxx szamlan yyy HUF asszeggel zzz szamlara. Azonosata: 90120437 Javahagyas 23:55-ig.")));
 		assertTrue("84165595"
 				.equals(bank
-						.extractCode("OTPdirekt - Lek�t�tt bet�t felt�r�se xxx sz�ml�n yyy �sszeggel. Azonos�t�: 84165595 J�v�hagy�s 23:51-ig.")));
+						.extractCode("OTPdirekt - Lekatatt betat feltarase xxx szamlan yyy asszeggel. Azonosata: 84165595 Javahagyas 23:51-ig.")));
 		assertNull(bank
-				.extractCode("Erste Reggeli egyenleg: Id�pont: 2009.09.07. 06.51 Sz�mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//Unicredit
 		bank = Bank.findByPhoneNumber("+36303444504");
-		assertTrue("2HWNVRNJ".equals(bank.extractCode("Az �n kezdeti SpectraNet bejelentkez�si jelszava: 2HWNVRNJ")));
-		assertTrue("000-912 089".equals(bank.extractCode("SpectraNet tranzakci�s k�d: 000-912 089")));
+		assertTrue("2HWNVRNJ".equals(bank.extractCode("Az an kezdeti SpectraNet bejelentkezasi jelszava: 2HWNVRNJ")));
+		assertTrue("000-912 089".equals(bank.extractCode("SpectraNet tranzakcias kad: 000-912 089")));
 		assertNull(bank
-				.extractCode("Erste Reggeli egyenleg: Id�pont: 2009.09.07. 06.51 Sz�mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//MKB
 		bank = Bank.findByPhoneNumber("+36209000652");
 		assertTrue("g985P"
 				.equals(bank
-						.extractCode("MKB NetBANK�r Forint �tutal�s r�gz�t�se. Kedvezm�nyezett 103000021231313213131, �sszeg: 10000 HUF. Al��r� jelsz�: g985P")));
+						.extractCode("MKB NetBANKar Forint atutalas ragzatase. Kedvezmanyezett 103000021231313213131, asszeg: 10000 HUF. Alaara jelsza: g985P")));
 		assertNull(bank
-				.extractCode("Erste Reggeli egyenleg: Id�pont: 2009.09.07. 06.51 Sz�mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//Allianz
 		bank = Bank.findByPhoneNumber("+36303444664");
 		assertTrue("74716681"
 				.equals(bank
-						.extractCode("Az �n egyszer haszn�latos jelszava: 74716681. K�rj�k, ezt a jelsz�t alkalmazza a tranzakci�khoz �s a m�ds�t�sokhoz a Netbank haszn�lata sor�n!")));
+						.extractCode("Az an egyszer hasznalatos jelszava: 74716681. Karjak, ezt a jelszat alkalmazza a tranzakciakhoz as a madsatasokhoz a Netbank hasznalata soran!")));
 		assertNull(bank
-				.extractCode("Erste Reggeli egyenleg: Id�pont: 2009.09.07. 06.51 Sz�mla: 00000000-12345678 Egyenleg: 123.456 HUF"));
+				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//FHB
 		bank = Bank.findByPhoneNumber("+36303444043");
 		assertTrue("84-591727"
 				.equals(bank
-						.extractCode("Tisztelt �gyfel�nk ! Az �n �ltal ind�tott tranzakci�hoz tartoz� egyszer haszn�lhat� jelszava: 84-591727. FHB Zrt.")));
+						.extractCode("Tisztelt agyfelank ! Az an altal indatott tranzakciahoz tartoza egyszer hasznalhata jelszava: 84-591727. FHB Zrt.")));
 		assertNull(bank
-				.extractCode("Sikeres bejelentkez�s - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
+				.extractCode("Sikeres bejelentkezas - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
 
 		//Citibank
 		bank = Bank.findByPhoneNumber("+36303444455");
@@ -132,15 +132,15 @@ public class BankTest extends TestCase
 				.equals(bank
 						.extractCode("OAC - Online Aktivalasi kod: 633831. Kartyaszam: XX3013; Kedvezmenyezett: LUDNYI ZOLTN2 www.citibank.hu Tel: +3612888888")));
 		assertNull(bank
-				.extractCode("Sikeres bejelentkez�s - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
+				.extractCode("Sikeres bejelentkezas - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
 
 		//BudapestBank
 		bank = Bank.findByPhoneNumber("+36309266245");
 		assertTrue("51930398"
 				.equals(bank
-						.extractCode("Az �n ideiglenes k�dja: 51930398 Ez a k�d bel�p�shez 13:47:58-ig haszn�lhatja, de �rizze meg a tranzakci�hoz! Kapcsolat azonos�t�: 133758 Budapest Bank")));
+						.extractCode("Az an ideiglenes kadja: 51930398 Ez a kad belapashez 13:47:58-ig hasznalhatja, de arizze meg a tranzakciahoz! Kapcsolat azonosata: 133758 Budapest Bank")));
 		assertNull(bank
-				.extractCode("Sikeres bejelentkez�s - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
+				.extractCode("Sikeres bejelentkezas - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
 
 	}
 

@@ -10,7 +10,9 @@
 	<string name="btnDone">Done</string>
 	<string name="btnCancel">Cancel</string>
 	<string name="tooMuchPhoneNumber">Maximum 3 phone numbers are allowed.</string>
-	<string name="tooMuchPattern">Maximum 3 patterns are allowed</string>
+	<string name="minPhoneNumber">Minimum 1 phone number is required.</string>
+	<string name="tooMuchPattern">Maximum 3 patterns are allowed.</string>
+	<string name="minPattern">Minimum 1 patter is required.</string>
 	
 
 	<!-- SMS OTP Display Activity -->
