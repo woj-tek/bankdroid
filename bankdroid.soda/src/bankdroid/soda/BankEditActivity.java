@@ -163,6 +163,11 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		switch ( button.getId() )
 		{
 		case R.id.done: //FIXME save changes here
+			storeValues();
+			bank.store();
+			finish();
+			break;
+
 		case R.id.cancel:
 			finish();
 			break;

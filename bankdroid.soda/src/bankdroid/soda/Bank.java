@@ -79,7 +79,7 @@ public class Bank implements Serializable, Cloneable
 		});
 	}
 
-	public static Bank[] getAvailableBanks()
+	public static Bank[] getDefaultBanks()
 	{//
 		return banks;
 	}
@@ -87,7 +87,7 @@ public class Bank implements Serializable, Cloneable
 	public static Bank findByPhoneNumber( final String phoneNumber )
 	{
 		//filter for Bank phone number
-		final Bank[] banks = Bank.getAvailableBanks();
+		final Bank[] banks = Bank.getAllBanks();
 		Bank source = null;
 		for ( final Bank bank : banks )
 		{
@@ -289,6 +289,30 @@ public class Bank implements Serializable, Cloneable
 	public void setExpiry( final int expiry )
 	{
 		this.expiry = expiry;
+	}
+
+	/**
+	 * Store in the database.
+	 */
+	public void store()
+	{
+		// TODO implement store based on database operations
+		final Bank[] banks = Bank.banks;
+		final int len = banks.length;
+		for ( int i = 0; i < len; i++ )
+		{
+			if ( banks[i].id == id )
+			{
+				banks[i] = this;
+				break;
+			}
+		}
+	}
+
+	public static Bank[] getAllBanks()
+	{
+		//FIXME implement database operation here
+		return getDefaultBanks();
 	}
 
 }

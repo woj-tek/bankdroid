@@ -19,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class BankListActivity extends Activity implements Codes, OnItemClickListener
 {
+	BankArrayAdapter bankArrayAdapter;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -27,9 +28,18 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 
 		setContentView(R.layout.banklist);
 
-		( (ListView) findViewById(R.id.bankListView) ).setAdapter(new BankArrayAdapter(Bank.getAvailableBanks()));
-		( (ListView) findViewById(R.id.bankListView) ).setOnItemClickListener(this);
+		bankArrayAdapter = new BankArrayAdapter(Bank.getAllBanks());
 
+		( (ListView) findViewById(R.id.bankListView) ).setAdapter(bankArrayAdapter);
+		( (ListView) findViewById(R.id.bankListView) ).setOnItemClickListener(this);
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+
+		bankArrayAdapter.notifyDatasetChanged();
 	}
 
 	class BankArrayAdapter implements ListAdapter
@@ -40,6 +50,15 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 		public BankArrayAdapter( final Bank[] banks )
 		{
 			this.banks = banks;
+		}
+
+		public void notifyDatasetChanged()
+		{
+			for ( final DataSetObserver dso : dsos )
+			{
+				dso.onChanged();
+			}
+
 		}
 
 		@Override
