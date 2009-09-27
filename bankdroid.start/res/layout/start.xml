@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    
+	<TextView  
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content" 
+	    android:text="@string/loginId"
+	    android:id="@+id/loginIdLabel"
+	    
+	    android:layout_alignParentTop="true"
+	    android:layout_alignParentLeft="true"
+	    />
+	    
+	<EditText
+		android:id="@+id/loginIdField"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		
+		android:layout_toRightOf="@id/loginIdLabel"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		/>
+		    
+	<TextView  
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content" 
+	    android:text="@string/password"
+	    android:id="@+id/passwordLabel"
+	    
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@id/loginIdField"
+	    />
+	    
+	<EditText
+		android:id="@+id/passwordField"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:inputType="textPassword"
+		
+		android:layout_toRightOf="@id/passwordLabel"
+		android:layout_alignParentRight="true"
+		android:layout_below="@id/loginIdField"
+		/>
+		
+	<Button
+		android:id="@+id/loginButton"
+		android:text="@string/loginButton"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		
+		android:layout_below="@id/passwordField"
+		/>
+	    
+	    
+</RelativeLayout>
