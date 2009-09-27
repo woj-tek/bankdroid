@@ -44,7 +44,7 @@ public class BankProvider extends ContentProvider implements Codes
 
 			//load constants here
 			final SQLiteStatement stmt = db.compileStatement("INSERT INTO " + T_BANK + " VALUES (?,?,?,?)");
-			final Bank[] banks = Bank.getAvailableBanks();
+			final Bank[] banks = Bank.getDefaultBanks();
 			for ( int i = 0; i < banks.length; i++ )
 			{
 				final Bank bank = banks[i];
