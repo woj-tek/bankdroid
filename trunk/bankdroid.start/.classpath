@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.csaba.connector"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.csaba.connector.bha"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.csaba.connector.web.util"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.csaba.util"/>
+	<classpathentry kind="lib" path="/com.csaba.connector.bha/lib/external.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.csaba.connector.dummy"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
