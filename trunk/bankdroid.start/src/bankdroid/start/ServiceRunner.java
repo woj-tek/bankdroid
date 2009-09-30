@@ -1,9 +1,14 @@
 package bankdroid.start;
 
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+
 import com.csaba.connector.BankService;
 import com.csaba.connector.model.Session;
 
-public class ServiceRunner implements Runnable
+public class ServiceRunner implements Runnable, Codes
 {
 
 	public interface ServiceListener
@@ -17,30 +22,70 @@ public class ServiceRunner implements Runnable
 	private final BankService service;
 	private final Session session;
 
-	private ServiceRunner( final ServiceListener listener, final BankService service, final Session session )
+	private ProgressDialog dialog;
+	private final Context context;
+	private Handler handler;
+
+	public ServiceRunner( final Context context, final ServiceListener listener, final BankService service,
+			final Session session )
 	{
 		this.listener = listener;
 		this.service = service;
 		this.session = session;
+		this.context = context;
+	}
+
+	public void start()
+	{
+		handler = new Handler()
+		{
+			@Override
+			public void handleMessage( final Message msg )
+			{
+				super.handleMessage(msg);
+
+				if ( msg.what == SERVICE_FAILED || msg.what == SERVICE_PROCESS )
+				{
+					if ( dialog != null )
+					{
+						dialog.dismiss();
+						dialog = null;
+					}
+
+					if ( msg.what == SERVICE_PROCESS )
+					{
+						listener.onServiceFinished(service);
+					}
+					else if ( msg.what == SERVICE_FAILED )
+					{
+						listener.onServiceFailed(service, (Throwable) msg.getData().getSerializable(SERVICE_EXCEPTION)); //FIXME pass exception
+					}
+
+				}
+			}
+		};
+
+		new Thread(this).start();
+
+		dialog = ProgressDialog.show(context, "", context.getText(R.string.progressText), true, false);
 	}
 
 	@Override
 	public void run()
 	{
+		Message message = null;
 		try
 		{
 			service.execute(session);
-			listener.onServiceFinished(service);
+			message = Message.obtain(handler, SERVICE_PROCESS);
 		}
 		catch ( final Exception e )
 		{
-			listener.onServiceFailed(service, e);
+			message = Message.obtain(handler, SERVICE_FAILED);
+			message.getData().putSerializable(SERVICE_EXCEPTION, e);
 		}
-	}
 
-	public static void runService( final BankService service, final ServiceListener listener, final Session session )
-	{
-		new Thread(new ServiceRunner(listener, service, session)).start();
+		handler.sendMessage(message);
 	}
 
 }
