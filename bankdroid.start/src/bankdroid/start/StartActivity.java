@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 import bankdroid.start.ServiceRunner.ServiceListener;
 
 import com.csaba.connector.BankService;
@@ -24,6 +25,7 @@ import com.csaba.connector.service.LoginService;
 
 public class StartActivity extends Activity implements OnClickListener, Codes, ServiceListener
 {
+
 	static
 	{
 		final Set<ServicePluginConfiguration> plugins = new HashSet<ServicePluginConfiguration>();
@@ -66,25 +68,31 @@ public class StartActivity extends Activity implements OnClickListener, Codes, S
 				final LoginService login = BankServiceFactory.getBankService(banks[0], LoginService.class);
 				login.setCustomer(customer);
 
-				ServiceRunner.runService(login, this, null);
+				( new ServiceRunner(getBaseContext(), this, login, null) ).start();
+
+				Log.d(TAG, "Progress dialog is over.");
+
 			}
 			catch ( final ServiceException e )
 			{
 				Log.e(TAG, "Failed to get list of Banks.", e);
 			}
 		}
-
 	}
 
 	@Override
 	public void onServiceFailed( final BankService service, final Throwable tr )
 	{
 		Log.e(TAG, "Login failed.", tr);
+		final Toast toast = Toast.makeText(getBaseContext(), "Service failed: " + tr.getMessage(), Toast.LENGTH_SHORT);
+		toast.show();
 	}
 
 	@Override
 	public void onServiceFinished( final BankService service )
 	{
 		Log.i(TAG, "Login was succesful.");
+		final Toast toast = Toast.makeText(getBaseContext(), "Service finished.", Toast.LENGTH_SHORT);
+		toast.show();
 	}
 }
