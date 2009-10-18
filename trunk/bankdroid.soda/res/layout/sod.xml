@@ -27,16 +27,17 @@
 				android:id="@+id/BankLogo" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
-				android:src="@drawable/unicredit_logo"
+				android:src="@drawable/bankdroid_logo"
 				android:padding="10sp"
 				/>
 			<TextView 
-				android:text="Az On Raiffeisen DirektNet egyszer hasznalatos jelszava: 76037367 Raiffeisen Bank Zrt." 
+				android:text="Az an ideiglenes kadja: 51930398 Ez a kad belapashez 13:47:58-ig hasznalhatja, de arizze meg a tranzakciahoz! Kapcsolat azonosata: 133758 Budapest Bank" 
 				android:id="@+id/messageBody" 
 				android:layout_gravity="center_horizontal"
 				android:textSize="10sp"
 				android:layout_width="wrap_content" 
 				android:layout_height="fill_parent"
+				android:textColor="#000000" 
 				android:background="@android:drawable/editbox_background"/>
 		</LinearLayout>
 	</FrameLayout>
