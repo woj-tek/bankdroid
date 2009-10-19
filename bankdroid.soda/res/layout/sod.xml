@@ -13,7 +13,7 @@
 
 	<FrameLayout
 		android:layout_width="wrap_content" 
-		android:layout_height="100sp"
+		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
 		>
 		<LinearLayout
@@ -24,21 +24,22 @@
 			android:orientation="horizontal"
 			>
 			<ImageView 
-				android:id="@+id/BankLogo" 
+				android:id="@+id/bankLogo" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
-				android:src="@drawable/bankdroid_logo"
+				android:src="@drawable/budapestbank_logo"
 				android:padding="10sp"
 				/>
 			<TextView 
 				android:text="Az an ideiglenes kadja: 51930398 Ez a kad belapashez 13:47:58-ig hasznalhatja, de arizze meg a tranzakciahoz! Kapcsolat azonosata: 133758 Budapest Bank" 
 				android:id="@+id/messageBody" 
 				android:layout_gravity="center_horizontal"
-				android:textSize="10sp"
+				android:textSize="12sp"
 				android:layout_width="wrap_content" 
-				android:layout_height="fill_parent"
+				android:layout_height="wrap_content"
 				android:textColor="#000000" 
-				android:background="@android:drawable/editbox_background"/>
+				android:background="@android:drawable/editbox_background"
+				/>
 		</LinearLayout>
 	</FrameLayout>
 		
@@ -46,7 +47,7 @@
 		
 
 	<LinearLayout 
-		android:id="@+id/ButtonRow" 
+		android:id="@+id/buttonRow" 
 		android:layout_gravity="center_horizontal"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content">
@@ -70,15 +71,16 @@
 	
 	<TextView 
 		android:text="Received at: 2009.12.20 12:34:11" 
-		android:id="@+id/ReceivedAt" 
+		android:id="@+id/receivedAt" 
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
+		android:paddingTop="5sp"
 		android:layout_gravity="center_horizontal"
 		/>
 		
 	<TextView 
 		android:text="Remaining time: 00:12:22" 
-		android:id="@+id/CountDown" 
+		android:id="@+id/countDown" 
 		android:layout_gravity="center_horizontal"
 		android:visibility="invisible"
 		android:layout_width="wrap_content" 

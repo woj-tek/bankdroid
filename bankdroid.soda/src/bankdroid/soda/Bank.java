@@ -31,6 +31,7 @@ public class Bank implements Serializable, Cloneable
 	public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/bankdroid.soda.bank";
 
 	private final static Bank[] banks = new Bank[] { //
+			// +36309400700OTPdirekt - Belfoldi forint atutalas xxx szamlan yyy HUF osszeggel zzz szamlara. Azonosito: 90120437 
 			new Bank(1, "OTP", 3600, new String[] { "+36309400700", "+36209400700" }, //
 					new String[] { "OTPdirekt - [^:]*: ([0-9]*)" }, R.drawable.otp2_logo),
 
@@ -41,6 +42,7 @@ public class Bank implements Serializable, Cloneable
 			new Bank(3, "Raiffeisen Bank", 3600, new String[] { "+36707060660" }, //
 					new String[] { ".* Raiffeisen DirektNet .* jelszava: ([0-9]*) .*" }, R.drawable.raiffeisen_logo),
 
+			// +36303444504Az on kezdeti SpectraNet bejelentkezesi jelszava: 2HWNVRNJ
 			new Bank(4, "Unicredit", -1,
 					new String[] { "+36303444504" }, //
 					new String[] { "[^:]* SpectraNet [^:]*: ([0-9A-Z]*)", "SpectraNet [^:]*: ([0-9 -]*)" },
@@ -51,7 +53,7 @@ public class Bank implements Serializable, Cloneable
 
 			new Bank(6, "Allianz", -1, new String[] { "+36303444664" }, //
 					new String[] { "Az [^:]*: ([0-9]*).* Netbank .*" }, R.drawable.allianz_logo), //
-
+			//+36303444455OAC - Online Aktivalasi kod: 633831. Kartyaszam: XX3013; Kedvezmenyezett: LUDNYI ZOLTN2 www.citibank.hu Tel: +3612888888
 			new Bank(7, "Citibank", -1, new String[] { "+36303444455" }, //
 					new String[] { "[^:]*: ([0-9]*).*citibank.*" }, R.drawable.citibank_logo), //
 
