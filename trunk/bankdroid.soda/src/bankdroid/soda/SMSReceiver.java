@@ -15,8 +15,6 @@ import android.preference.PreferenceManager;
 import android.telephony.gsm.SmsMessage;
 import android.util.Log;
 
-// +36309400700OTPdirekt - Belfoldi forint atutalas xxx szamlan yyy HUF osszeggel zzz szamlara. Azonosito: 90120437 
-// +36303444504Az on kezdeti SpectraNet bejelentkezesi jelszava: 2HWNVRNJ
 public class SMSReceiver extends BroadcastReceiver implements Codes
 {
 	private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
@@ -68,13 +66,14 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 									R.string.notificationText).toString(), source.getName());
 
 							final Intent notificationIntent = new Intent(context, bankdroid.soda.SMSOTPDisplay.class);
+							notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 							notificationIntent.putExtra(BANKDROID_SODA_SMSMESSAGE, message); // key/value pair, where key needs current package prefix.
 							notificationIntent.putExtra(BANKDROID_SODA_BANK, source); // key/value pair, where key needs current package prefix.
 							notificationIntent.putExtra(BANKDROID_SODA_SMSCODE, code); // key/value pair, where key needs current package prefix.
 							notificationIntent.putExtra(BANKDROID_SODA_SMSTIMESTAMP, Calendar.getInstance().getTime()); // key/value pair, where key needs current package prefix.
 
 							final PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
-									notificationIntent, 0);
+									notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 							notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
 

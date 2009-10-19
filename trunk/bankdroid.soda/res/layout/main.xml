@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:orientation="vertical"
+  	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent"
+  	android:background="#56748E"
+   	>
+   	
+	<TextView 
+		android:text="@+id/titleView" 
+		android:id="@+id/titleView" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentLeft="true"
+		/>
+	
+	<Button 
+		android:text="View Last Code" 
+		android:id="@+id/viewLast" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_below="@id/titleView"
+		/>
+		
+	<Button 
+		android:text="Manage Banks" 
+		android:id="@+id/manageBanks" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_below="@id/viewLast"
+		/>
+		
+	<Button 
+		android:text="Submit Sample" 
+		android:id="@+id/submitSample" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_below="@id/manageBanks"
+		/>
+
+	<Button 
+		android:text="Help and Information" 
+		android:id="@+id/help" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		
+		android:layout_below="@id/submitSample"
+		/>
+
+	<Button 
+		android:text="About" 
+		android:id="@+id/about" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		
+		android:layout_below="@id/help"
+		/>
+
+
+</RelativeLayout>
