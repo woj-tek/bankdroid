@@ -26,6 +26,9 @@
 	<string name="countdown.prefix">Remaining time: </string>
 	<string name="nocode">-- no code --</string>
 	
+	<!-- SMS pick activity -->
+	<string name="smsListTitle">Please select an SMS sample:</string>
+	
 	<!-- Preferences -->
 	<string name="keepSMS">Keep SMS</string>
 	<string name="keepSMSSummary">If selected, the original SMS is kept in messages.</string>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  
+  android:background="#56748E"
+  >
+	<TextView 
+		android:text="The submition requires 4 easy steps:" 
+		android:id="@+id/TextView01" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		/>
+		
+	<TextView 
+		android:text="1. Select a sample SMS." 
+		android:id="@+id/TextView02" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		
+		android:layout_below="@id/TextView01"
+		/>
+		
+	<TextView 
+		android:text="2. Provide few additional details." 
+		android:id="@+id/TextView03" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_below="@id/TextView02"
+		/>
+		
+	<TextView 
+		android:text="3. Review e-mail before submission." 
+		android:id="@+id/TextView04" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_below="@id/TextView03"
+		/>
+		
+	<TextView 
+		android:text="4. Send the e-mail." 
+		android:id="@+id/TextView05" 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_below="@id/TextView04"
+		/>
+
+			
+	<Button 
+		android:layout_below="@+id/TextView05" 
+		android:layout_height="wrap_content" 
+		android:layout_width="wrap_content" 
+		android:id="@+id/start" 
+		android:text="@+id/Button01"
+		/>
+</RelativeLayout>

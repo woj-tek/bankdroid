@@ -8,10 +8,16 @@
    	>
    	
 	<TextView 
-		android:text="@+id/titleView" 
+		android:text="SODA" 
 		android:id="@+id/titleView" 
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
+		android:paddingLeft="20sp"
+		android:paddingRight="20sp"
+		android:gravity="center"
+		android:textColor="#FFFFFF"
+		android:textSize="30sp"
+		
 		android:layout_alignParentTop="true"
 		android:layout_alignParentLeft="true"
 		/>
@@ -21,6 +27,9 @@
 		android:id="@+id/viewLast" 
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
+
+		android:layout_marginLeft="20sp"
+		android:layout_marginRight="20sp"
 		android:layout_below="@id/titleView"
 		/>
 		
@@ -29,6 +38,9 @@
 		android:id="@+id/manageBanks" 
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
+
+		android:layout_marginLeft="20sp"
+		android:layout_marginRight="20sp"
 		android:layout_below="@id/viewLast"
 		/>
 		
@@ -37,6 +49,9 @@
 		android:id="@+id/submitSample" 
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
+
+		android:layout_marginLeft="20sp"
+		android:layout_marginRight="20sp"
 		android:layout_below="@id/manageBanks"
 		/>
 
@@ -46,6 +61,8 @@
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		
+		android:layout_marginLeft="20sp"
+		android:layout_marginRight="20sp"
 		android:layout_below="@id/submitSample"
 		/>
 
@@ -55,6 +72,8 @@
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		
+		android:layout_marginLeft="20sp"
+		android:layout_marginRight="20sp"
 		android:layout_below="@id/help"
 		/>
 
