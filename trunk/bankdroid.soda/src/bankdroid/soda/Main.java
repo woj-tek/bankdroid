@@ -45,8 +45,10 @@ public class Main extends Activity implements Codes, OnClickListener
 		else if ( v.getId() == R.id.submitSample )
 		{
 			final Intent submitIntent = new Intent();
-			submitIntent.setClass(getBaseContext(), SubmitActivity.class);
+			submitIntent.setClass(getBaseContext(), SMSListActivity.class);
 			startActivity(submitIntent);
+
+			//TODO display thank you message for submission
 		}
 	}
 

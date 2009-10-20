@@ -14,6 +14,10 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class SMSListActivity extends Activity implements Codes, OnItemClickListener
 {
+	private static final String SUBMISSION_ADDRESS = "bankdroid@gmail.com"; //FIXME set correct e-mail
+
+	private static final int EMAIL_SEND = 1001;
+
 	private SimpleCursorAdapter adapter;
 
 	private String[] addresses;
@@ -72,18 +76,46 @@ public class SMSListActivity extends Activity implements Codes, OnItemClickListe
 	}
 
 	@Override
+	protected void onActivityResult( final int requestCode, final int resultCode, final Intent data )
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if ( requestCode == EMAIL_SEND )
+		{
+			//FIXME find out whether the e-mail is sent or not.
+			//setResult(RESULT_OK);
+			//finish();
+		}
+	}
+
+	@Override
 	public void onItemClick( final AdapterView<?> adapter, final View view, final int position, final long id )
 	{
 		final String address = addresses[position];
 		final String body = bodies[position];
 
-		Log.d(TAG, " Selected item address and body: " + address + ":" + body);
+		Log.d(TAG, "SMS was selected: " + address + " :: " + body);
 
-		final Intent resultData = new Intent();
-		resultData.putExtra(BANKDROID_SODA_ADDRESS, address);
-		resultData.putExtra(BANKDROID_SODA_SMSMESSAGE, body);
-		setResult(RESULT_OK, resultData);
+		//FIXME forward action to bank name selection
 
-		finish();
+		//construct e-mail body
+		final StringBuilder builder = new StringBuilder();
+
+		builder.append("Bank address: ").append(address).append("\n").append("\n");
+		builder.append("SMS OTP text: ").append(body).append("\n");
+
+		sendEmail(new String[] { SUBMISSION_ADDRESS }, "SMS OTP Sample", builder.toString());
 	}
+
+	private void sendEmail( final String[] address, final String subject, final String msg )
+	{
+		final Intent send = new Intent(Intent.ACTION_SEND);
+		send.putExtra(Intent.EXTRA_EMAIL, address);
+		send.putExtra(Intent.EXTRA_SUBJECT, subject);
+		send.putExtra(Intent.EXTRA_TEXT, msg);
+		//send.setType("message/rfc822");
+		send.setType("text/plain");
+		startActivityForResult(Intent.createChooser(send, "Select account:"), EMAIL_SEND);
+	}
+
 }
