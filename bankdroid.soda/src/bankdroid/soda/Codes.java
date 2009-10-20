@@ -2,6 +2,7 @@ package bankdroid.soda;
 
 public interface Codes
 {
+	public static final String BANKDROID_SODA_ADDRESS = "bankdroid.soda.Address";
 	public static final String BANKDROID_SODA_SMSMESSAGE = "bankdroid.soda.SMSMessage";
 	public static final String BANKDROID_SODA_SMSTIMESTAMP = "bankdroid.soda.SMSTimestamp";
 

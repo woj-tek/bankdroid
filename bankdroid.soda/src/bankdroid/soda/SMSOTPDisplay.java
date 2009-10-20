@@ -193,8 +193,11 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 			countDownView.setText(getResources().getText(R.string.countdown_prefix).toString()
 					+ convertTime(remainingTime));
 
-			countDown = new CountDown(this, remainingTime);
-			countDown.start();
+			if ( remainingTime > 0 )
+			{
+				countDown = new CountDown(this, remainingTime);
+				countDown.start();
+			}
 		}
 		else
 		{
