@@ -39,4 +39,12 @@
 	<string name="notificationTicker">Password received form {0}</string>
 	<string name="notificationTitle">SODA</string>
 	<string name="notificationText">Password received form {0}. Click here to view it.</string>
+	
+	<!-- About -->
+	<string name="aboutId">BankDroid SODA</string>
+	<string name="aboutDesc">The SODA is product of the BankDroid open source project. Special thanks to Google for all those services that are made available for the world for free!</string>
+	<string name="aboutUrl1">http://bankdroid.googlecode.com</string>
+	<string name="aboutUrl2">http://www.bankdroid.info</string>
+	<string name="projectHome">Project Home</string>
+	<string name="productInfoSite">Product InfoSite</string>
 </resources>

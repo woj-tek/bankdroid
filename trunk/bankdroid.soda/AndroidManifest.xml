@@ -28,6 +28,7 @@
 			android:label="Banks" android:enabled="true" android:authorities="bankdroid.soda.Bank"/>
 
 
+		<activity android:name="AboutActivity"/>
 		<activity android:name="SMSListActivity"/>
 		<activity android:name="BankListActivity"/>
 		<activity android:name="BankEditActivity"

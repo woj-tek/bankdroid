@@ -10,8 +10,6 @@ import android.widget.Button;
 
 public class Main extends Activity implements Codes, OnClickListener
 {
-	private static final String HOME_SITE_URL = "http://www.bankdroid.info";
-
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
 	{
@@ -42,11 +40,13 @@ public class Main extends Activity implements Codes, OnClickListener
 		}
 		else if ( v.getId() == R.id.about )
 		{
-			//TODO handle about
+			final Intent aboutIntent = new Intent();
+			aboutIntent.setClass(getBaseContext(), AboutActivity.class);
+			startActivity(aboutIntent);
 		}
 		else if ( v.getId() == R.id.help )
 		{
-			final Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(HOME_SITE_URL));
+			final Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(INFO_SITE_URL));
 			startActivity(viewIntent);
 		}
 		else if ( v.getId() == R.id.submitSample )

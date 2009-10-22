@@ -2,6 +2,11 @@ package bankdroid.soda;
 
 public interface Codes
 {
+	public static final String VERSION = "1.0"; //XXX keep up-to-date
+
+	public static final String INFO_SITE_URL = "http://www.bankdroid.info";
+	public static final String PROJECT_HOME_URL = "http://bankdroid.googlecode.com";
+
 	public static final String BANKDROID_SODA_ADDRESS = "bankdroid.soda.Address";
 	public static final String BANKDROID_SODA_SMSMESSAGE = "bankdroid.soda.SMSMessage";
 	public static final String BANKDROID_SODA_SMSTIMESTAMP = "bankdroid.soda.SMSTimestamp";
