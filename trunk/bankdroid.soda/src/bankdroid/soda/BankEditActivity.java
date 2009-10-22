@@ -13,6 +13,12 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
+/**
+ * FIXME work with direct DB modifications / read
+ * FIXME implement new bank creation
+ * @author gyenes
+ *
+ */
 public class BankEditActivity extends Activity implements OnClickListener, Codes
 {
 
@@ -162,9 +168,9 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 	{
 		switch ( button.getId() )
 		{
-		case R.id.done: //FIXME save changes here
+		case R.id.done:
 			storeValues();
-			bank.store();
+			bank.store(getBaseContext());
 			finish();
 			break;
 

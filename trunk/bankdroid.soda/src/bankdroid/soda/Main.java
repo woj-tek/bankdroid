@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class Main extends Activity implements Codes, OnClickListener
 {
-	private static final String HOME_SITE_URL = "http://sites.google.com/site/bankdroidsoda/";
+	private static final String HOME_SITE_URL = "http://www.bankdroid.info";
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -29,13 +29,20 @@ public class Main extends Activity implements Codes, OnClickListener
 	@Override
 	public void onClick( final View v )
 	{
-		//TODO handle viewLast
-		//TODO handle about
 		if ( v.getId() == R.id.manageBanks )
 		{
 			final Intent bankListIntent = new Intent();
 			bankListIntent.setClass(getBaseContext(), BankListActivity.class);
 			startActivity(bankListIntent);
+		}
+		else if ( v.getId() == R.id.viewLast )
+		{
+			//TODO handle viewLast
+			Bank.getAllBanks(getBaseContext());
+		}
+		else if ( v.getId() == R.id.about )
+		{
+			//TODO handle about
 		}
 		else if ( v.getId() == R.id.help )
 		{

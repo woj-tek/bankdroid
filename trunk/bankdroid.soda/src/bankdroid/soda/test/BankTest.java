@@ -6,6 +6,7 @@ import bankdroid.soda.Bank;
 public class BankTest extends TestCase
 {
 
+	@SuppressWarnings( "deprecation" )
 	public void testIsBankPhoneNumber()
 	{
 		Bank bank = null;
@@ -59,6 +60,7 @@ public class BankTest extends TestCase
 
 	}
 
+	@SuppressWarnings( "deprecation" )
 	public void testGetCode()
 	{
 		Bank bank = null;
@@ -142,6 +144,29 @@ public class BankTest extends TestCase
 		assertNull(bank
 				.extractCode("Sikeres bejelentkezas - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
 
+	}
+
+	public void testEscape()
+	{
+		final String escaped = Bank.escapeStrings(new String[] { "\"escape\"char\"", "coma,", ",after\"", "normal", "",
+				"afterEmpty", "" });
+
+		assertEquals("\"\"\"escape\"\"char\"\"\",\"coma,\",\",after\"\"\",normal,,afterEmpty,,", escaped);
+	}
+
+	public void testUnescape()
+	{
+		final String[] unescaped = Bank
+				.unescapeStrings("\"\"\"escape\"\"char\"\"\",\"coma,\",\",after\"\"\",normal,,afterEmpty,,");
+		//"""escape""char""","coma,",",after""",normal,,afterEmpty,,
+		final String[] expected = new String[] { "\"escape\"char\"", "coma,", ",after\"", "normal", "", "afterEmpty",
+				"" };
+
+		assertEquals(expected.length, unescaped.length);
+		for ( int i = 0; i < expected.length; i++ )
+		{
+			assertEquals(expected[i], unescaped[i]);
+		}
 	}
 
 }

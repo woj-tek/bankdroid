@@ -14,7 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class SMSListActivity extends Activity implements Codes, OnItemClickListener
 {
-	private static final String SUBMISSION_ADDRESS = "bankdroid@gmail.com"; //FIXME set correct e-mail
+	private static final String SUBMISSION_ADDRESS = "sample@bankdroid.info";
 
 	private static final int EMAIL_SEND = 1001;
 
