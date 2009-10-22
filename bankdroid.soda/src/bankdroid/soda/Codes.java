@@ -20,9 +20,4 @@ public interface Codes
 
 	public static final String PROVIDER_AUTHORITY = "bankdroid.soda.Bank";
 
-	public static final String F__ID = "_ID";
-	public static final String F_ID = "ID";
-	public static final String F_VALIDITY = "VALIDITY";
-	public static final String F_ICON = "ICON";
-
 }

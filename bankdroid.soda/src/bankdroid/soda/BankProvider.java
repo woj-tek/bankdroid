@@ -3,10 +3,12 @@ package bankdroid.soda;
 import java.util.HashMap;
 
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
@@ -25,7 +27,7 @@ public class BankProvider extends ContentProvider implements Codes
 	{
 
 		private static final String DATABASE_NAME = "bank.db";
-		private static final int DATABASE_VERSION = 1;
+		private static final int DATABASE_VERSION = 3;
 
 		DatabaseHelper( final Context context )
 		{
@@ -36,25 +38,32 @@ public class BankProvider extends ContentProvider implements Codes
 		public void onCreate( final SQLiteDatabase db )
 		{
 			db.execSQL("CREATE TABLE " + T_BANK + " (" + //
-					F__ID + " INTEGER PRIMARY KEY," + // 
-					F_ID + " TEXT," + //
-					F_VALIDITY + " INTEGER," + //
-					F_ICON + " INTEGER," + //
+					Bank.F__ID + " INTEGER PRIMARY KEY," + // 
+					Bank.F_NAME + " TEXT," + //
+					Bank.F_VALIDITY + " INTEGER," + //
+					Bank.F_ICON + " INTEGER," + //
+					Bank.F_COUNTRY + " TEXT," + //
+					Bank.F_PHONENUMBERS + " TEXT," + //
+					Bank.F_EXPRESSIONS + " TEXT" + //
 					");");
 
 			//load constants here
-			final SQLiteStatement stmt = db.compileStatement("INSERT INTO " + T_BANK + " VALUES (?,?,?,?)");
+			final SQLiteStatement stmt = db.compileStatement("INSERT INTO " + T_BANK + " VALUES (?,?,?,?,?,?,?)");
 			final Bank[] banks = Bank.getDefaultBanks();
 			for ( int i = 0; i < banks.length; i++ )
 			{
 				final Bank bank = banks[i];
-				stmt.clearBindings();
-				stmt.bindLong(0, i);
-				stmt.bindString(1, bank.getName());
-				stmt.bindLong(2, bank.getExpiry());
-				stmt.bindLong(3, bank.getIconId());
+				stmt.bindLong(1, bank.getId());
+				stmt.bindString(2, bank.getName());
+				stmt.bindLong(3, bank.getExpiry());
+				stmt.bindLong(4, bank.getIconId());
+				stmt.bindString(5, bank.getCountryCode());
+				stmt.bindString(6, bank.getPhoneNumbersString());
+				stmt.bindString(7, bank.getExpressionsString());
 
 				stmt.execute();
+
+				stmt.clearBindings();
 			}
 		}
 
@@ -79,8 +88,6 @@ public class BankProvider extends ContentProvider implements Codes
 
 	private static final UriMatcher uriMatcher;
 
-	private static final String DEFAULT_SORT_ORDER = F_ID;
-
 	static
 	{
 		uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -88,17 +95,38 @@ public class BankProvider extends ContentProvider implements Codes
 		uriMatcher.addURI(PROVIDER_AUTHORITY, "banks/#", BANK_ID);
 
 		projectionMap = new HashMap<String, String>();
-		projectionMap.put(F__ID, F__ID);
-		projectionMap.put(F_ID, F_ID);
-		projectionMap.put(F_VALIDITY, F_VALIDITY);
-		projectionMap.put(F_ICON, F_ICON);
+		projectionMap.put(Bank.F__ID, Bank.F__ID);
+		projectionMap.put(Bank.F_NAME, Bank.F_NAME);
+		projectionMap.put(Bank.F_VALIDITY, Bank.F_VALIDITY);
+		projectionMap.put(Bank.F_ICON, Bank.F_ICON);
+		projectionMap.put(Bank.F_COUNTRY, Bank.F_COUNTRY);
+		projectionMap.put(Bank.F_EXPRESSIONS, Bank.F_EXPRESSIONS);
+		projectionMap.put(Bank.F_PHONENUMBERS, Bank.F_PHONENUMBERS);
 	}
 
 	@Override
-	public int delete( final Uri arg0, final String arg1, final String[] arg2 )
+	public int delete( final Uri uri, final String selection, final String[] selectionArgs )
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		final SQLiteDatabase db = dbHelper.getWritableDatabase();
+		int count;
+		switch ( uriMatcher.match(uri) )
+		{
+		case BANKS:
+			count = db.delete(T_BANK, selection, selectionArgs);
+			break;
+
+		case BANK_ID:
+			final String bankId = uri.getPathSegments().get(1);
+			count = db.delete(T_BANK, Bank.F__ID + "=" + bankId
+					+ ( !TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : "" ), selectionArgs);
+			break;
+
+		default:
+			throw new IllegalArgumentException("Unknown URI " + uri);
+		}
+
+		getContext().getContentResolver().notifyChange(uri, null);
+		return count;
 	}
 
 	@Override
@@ -120,8 +148,31 @@ public class BankProvider extends ContentProvider implements Codes
 	@Override
 	public Uri insert( final Uri uri, final ContentValues values )
 	{
-		// TODO Auto-generated method stub
-		return null;
+		// Validate the requested uri
+		if ( uriMatcher.match(uri) != BANKS )
+		{
+			throw new IllegalArgumentException("Unknown URI " + uri);
+		}
+
+		//Make sure that the fields are all set
+		if ( !values.containsKey(Bank.F_NAME) || !values.containsKey(Bank.F_COUNTRY)
+				|| !values.containsKey(Bank.F_EXPRESSIONS) || !values.containsKey(Bank.F_PHONENUMBERS)
+				|| !values.containsKey(Bank.F_VALIDITY) || !values.containsKey(Bank.F_ICON) )
+		{
+			throw new IllegalArgumentException("New bank record is not complete. Missing values!");
+		}
+
+		final SQLiteDatabase db = dbHelper.getWritableDatabase();
+		final long rowId = db.insert(T_BANK, "bank", values);
+
+		if ( rowId > 0 )
+		{
+			final Uri noteUri = ContentUris.withAppendedId(Bank.CONTENT_URI, rowId);
+			getContext().getContentResolver().notifyChange(noteUri, null);
+			return noteUri;
+		}
+
+		throw new SQLException("Failed to insert row into " + uri);
 	}
 
 	@Override
@@ -147,7 +198,7 @@ public class BankProvider extends ContentProvider implements Codes
 		case BANK_ID:
 			qb.setTables(T_BANK);
 			qb.setProjectionMap(projectionMap);
-			qb.appendWhere(F__ID + "=" + uri.getPathSegments().get(1));
+			qb.appendWhere(Bank.F__ID + "=" + uri.getPathSegments().get(1));
 			break;
 
 		default:
@@ -158,7 +209,7 @@ public class BankProvider extends ContentProvider implements Codes
 		String orderBy;
 		if ( TextUtils.isEmpty(sortOrder) )
 		{
-			orderBy = DEFAULT_SORT_ORDER;
+			orderBy = Bank.DEFAULT_SORT_ORDER;
 		}
 		else
 		{
@@ -177,8 +228,27 @@ public class BankProvider extends ContentProvider implements Codes
 	@Override
 	public int update( final Uri uri, final ContentValues values, final String selection, final String[] selectionArgs )
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		final SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+		int count;
+		switch ( uriMatcher.match(uri) )
+		{
+		case BANKS:
+			count = db.update(T_BANK, values, selection, selectionArgs);
+			break;
+
+		case BANK_ID:
+			final String bankId = uri.getPathSegments().get(1);
+			count = db.update(T_BANK, values, Bank.F__ID + "=" + bankId
+					+ ( !TextUtils.isEmpty(selection) ? " AND (" + selection + ')' : "" ), selectionArgs);
+			break;
+
+		default:
+			throw new IllegalArgumentException("Unknown URI " + uri);
+		}
+
+		getContext().getContentResolver().notifyChange(uri, null);
+		return count;
 	}
 
 }

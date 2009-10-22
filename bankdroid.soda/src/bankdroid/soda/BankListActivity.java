@@ -17,6 +17,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ *FIXME use SimpleCursorAdapter
+ *FIXME implement bank deletion
+ * @author gyenes
+ *
+ */
 public class BankListActivity extends Activity implements Codes, OnItemClickListener
 {
 	BankArrayAdapter bankArrayAdapter;
@@ -28,7 +34,7 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 
 		setContentView(R.layout.banklist);
 
-		bankArrayAdapter = new BankArrayAdapter(Bank.getAllBanks());
+		bankArrayAdapter = new BankArrayAdapter(Bank.getAllBanks(getBaseContext()));
 
 		( (ListView) findViewById(R.id.bankListView) ).setAdapter(bankArrayAdapter);
 		( (ListView) findViewById(R.id.bankListView) ).setOnItemClickListener(this);
