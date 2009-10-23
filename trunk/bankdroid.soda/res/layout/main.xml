@@ -56,6 +56,17 @@
 		/>
 
 	<Button 
+		android:text="Preferences" 
+		android:id="@+id/preferences" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		
+		android:layout_marginLeft="20sp"
+		android:layout_marginRight="20sp"
+		android:layout_below="@id/submitSample"
+		/>
+
+	<Button 
 		android:text="Help and Information" 
 		android:id="@+id/help" 
 		android:layout_width="fill_parent" 
@@ -63,7 +74,7 @@
 		
 		android:layout_marginLeft="20sp"
 		android:layout_marginRight="20sp"
-		android:layout_below="@id/submitSample"
+		android:layout_below="@id/preferences"
 		/>
 
 	<Button 
