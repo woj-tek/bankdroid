@@ -2,6 +2,7 @@ package bankdroid.soda.test;
 
 import junit.framework.TestCase;
 import bankdroid.soda.Bank;
+import bankdroid.soda.BankManager;
 
 public class BankTest extends TestCase
 {
@@ -11,51 +12,51 @@ public class BankTest extends TestCase
 	{
 		Bank bank = null;
 
-		bank = Bank.findByPhoneNumber("+3646509112");
+		bank = BankManager.findByPhoneNumber("+3646509112");
 		assertNull("Failed to realize invalid phonenumber.", bank);
 
 		//Raiffeisen
-		bank = Bank.findByPhoneNumber("+36707060660");
+		bank = BankManager.findByPhoneNumber("+36707060660");
 		assertTrue("Failed to realize Raiffeisen phonenumber.", "Raiffeisen Bank".equals(bank.getName()));
 
 		//ERSTE
-		bank = Bank.findByPhoneNumber("+36303444481");
+		bank = BankManager.findByPhoneNumber("+36303444481");
 		assertTrue("Failed to realize ERSTE phonenumber.", "ERSTE".equals(bank.getName()));
 
 		//KHB
-		bank = Bank.findByPhoneNumber("+36209000703");
+		bank = BankManager.findByPhoneNumber("+36209000703");
 		assertTrue("Failed to realize KHB phonenumber.", "KHB".equals(bank.getName()));
 
 		//OTP
-		bank = Bank.findByPhoneNumber("+36309400700");
+		bank = BankManager.findByPhoneNumber("+36309400700");
 		assertTrue("Failed to realize OTP phonenumber.", "OTP".equals(bank.getName()));
-		bank = Bank.findByPhoneNumber("+36209400700");
+		bank = BankManager.findByPhoneNumber("+36209400700");
 		assertTrue("Failed to realize OTP phonenumber.", "OTP".equals(bank.getName()));
 
 		//Unicredit
-		bank = Bank.findByPhoneNumber("+36303444504");
+		bank = BankManager.findByPhoneNumber("+36303444504");
 		assertTrue("Failed to realize Unicredit phonenumber.", "Unicredit".equals(bank.getName()));
 
 		//MKB
-		bank = Bank.findByPhoneNumber("+36707060652");
+		bank = BankManager.findByPhoneNumber("+36707060652");
 		assertTrue("Failed to realize MKB phonenumber.", "MKB".equals(bank.getName()));
-		bank = Bank.findByPhoneNumber("+36209000652");
+		bank = BankManager.findByPhoneNumber("+36209000652");
 		assertTrue("Failed to realize MKB phonenumber.", "MKB".equals(bank.getName()));
 
 		//Allianz
-		bank = Bank.findByPhoneNumber("+36303444664");
+		bank = BankManager.findByPhoneNumber("+36303444664");
 		assertTrue("Failed to realize Allianz phonenumber.", "Allianz".equals(bank.getName()));
 
 		//Citibank
-		bank = Bank.findByPhoneNumber("+36303444455");
+		bank = BankManager.findByPhoneNumber("+36303444455");
 		assertTrue("Failed to realize Citibank phonenumber.", "Citibank".equals(bank.getName()));
 
 		//FHB
-		bank = Bank.findByPhoneNumber("+36303444043");
+		bank = BankManager.findByPhoneNumber("+36303444043");
 		assertTrue("Failed to realize FHB phonenumber.", "FHB".equals(bank.getName()));
 
 		//BudapestBank
-		bank = Bank.findByPhoneNumber("+36309266245");
+		bank = BankManager.findByPhoneNumber("+36309266245");
 		assertTrue("Failed to realize BudapestBank phonenumber.", "Budapest Bank".equals(bank.getName()));
 
 	}
@@ -66,14 +67,14 @@ public class BankTest extends TestCase
 		Bank bank = null;
 
 		//Raiffeisen Bank
-		bank = Bank.findByPhoneNumber("+36707060660");
+		bank = BankManager.findByPhoneNumber("+36707060660");
 		assertTrue("76037367".equals(bank
 				.extractCode("Az Ön Raiffeisen DirektNet egyszer használatos jelszava: 76037367 Raiffeisen Bank Zrt.")));
 		assertNull(bank
 				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//KHB
-		bank = Bank.findByPhoneNumber("+36209000703");
+		bank = BankManager.findByPhoneNumber("+36209000703");
 		assertTrue("hNmKmp"
 				.equals(bank
 						.extractCode("**K&H e-bank** Az Ön egy bejelentkezés időtartalmára vonatkozó sms jelszava: hNmKmp A jelszó maximum 30 percen belül érvényes.")));
@@ -81,13 +82,13 @@ public class BankTest extends TestCase
 				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//ERSTE
-		bank = Bank.findByPhoneNumber("+36303444481");
+		bank = BankManager.findByPhoneNumber("+36303444481");
 		assertTrue("45087768".equals(bank.extractCode("Az an ERSTE NetBank belapasi kadja: 45087768")));
 		assertNull(bank
 				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//OTP
-		bank = Bank.findByPhoneNumber("+36309400700");
+		bank = BankManager.findByPhoneNumber("+36309400700");
 		assertTrue("90120437"
 				.equals(bank
 						.extractCode("OTPdirekt - Belfaldi forint atutalas xxx szamlan yyy HUF asszeggel zzz szamlara. Azonosata: 90120437 Javahagyas 23:55-ig.")));
@@ -98,14 +99,14 @@ public class BankTest extends TestCase
 				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//Unicredit
-		bank = Bank.findByPhoneNumber("+36303444504");
+		bank = BankManager.findByPhoneNumber("+36303444504");
 		assertTrue("2HWNVRNJ".equals(bank.extractCode("Az an kezdeti SpectraNet bejelentkezasi jelszava: 2HWNVRNJ")));
 		assertTrue("000-912 089".equals(bank.extractCode("SpectraNet tranzakcias kad: 000-912 089")));
 		assertNull(bank
 				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//MKB
-		bank = Bank.findByPhoneNumber("+36209000652");
+		bank = BankManager.findByPhoneNumber("+36209000652");
 		assertTrue("g985P"
 				.equals(bank
 						.extractCode("MKB NetBANKar Forint atutalas ragzatase. Kedvezmanyezett 103000021231313213131, asszeg: 10000 HUF. Alaara jelsza: g985P")));
@@ -113,7 +114,7 @@ public class BankTest extends TestCase
 				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//Allianz
-		bank = Bank.findByPhoneNumber("+36303444664");
+		bank = BankManager.findByPhoneNumber("+36303444664");
 		assertTrue("74716681"
 				.equals(bank
 						.extractCode("Az an egyszer hasznalatos jelszava: 74716681. Karjak, ezt a jelszat alkalmazza a tranzakciakhoz as a madsatasokhoz a Netbank hasznalata soran!")));
@@ -121,7 +122,7 @@ public class BankTest extends TestCase
 				.extractCode("Erste Reggeli egyenleg: Idapont: 2009.09.07. 06.51 Szamla: 00000000-12345678 Egyenleg: 123.456 HUF"));
 
 		//FHB
-		bank = Bank.findByPhoneNumber("+36303444043");
+		bank = BankManager.findByPhoneNumber("+36303444043");
 		assertTrue("84-591727"
 				.equals(bank
 						.extractCode("Tisztelt agyfelank ! Az an altal indatott tranzakciahoz tartoza egyszer hasznalhata jelszava: 84-591727. FHB Zrt.")));
@@ -129,7 +130,7 @@ public class BankTest extends TestCase
 				.extractCode("Sikeres bejelentkezas - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
 
 		//Citibank
-		bank = Bank.findByPhoneNumber("+36303444455");
+		bank = BankManager.findByPhoneNumber("+36303444455");
 		assertTrue("633831"
 				.equals(bank
 						.extractCode("OAC - Online Aktivalasi kod: 633831. Kartyaszam: XX3013; Kedvezmenyezett: LUDNYI ZOLTN2 www.citibank.hu Tel: +3612888888")));
@@ -137,7 +138,7 @@ public class BankTest extends TestCase
 				.extractCode("Sikeres bejelentkezas - FHB NetB@nk. Felhasznalonev: Minta Janos. Idopont: 2009.08.24 14:30"));
 
 		//BudapestBank
-		bank = Bank.findByPhoneNumber("+36309266245");
+		bank = BankManager.findByPhoneNumber("+36309266245");
 		assertTrue("51930398"
 				.equals(bank
 						.extractCode("Az an ideiglenes kadja: 51930398 Ez a kad belapashez 13:47:58-ig hasznalhatja, de arizze meg a tranzakciahoz! Kapcsolat azonosata: 133758 Budapest Bank")));
@@ -148,15 +149,15 @@ public class BankTest extends TestCase
 
 	public void testEscape()
 	{
-		final String escaped = Bank.escapeStrings(new String[] { "\"escape\"char\"", "coma,", ",after\"", "normal", "",
-				"afterEmpty", "" });
+		final String escaped = BankManager.escapeStrings(new String[] { "\"escape\"char\"", "coma,", ",after\"",
+				"normal", "", "afterEmpty", "" });
 
 		assertEquals("\"\"\"escape\"\"char\"\"\",\"coma,\",\",after\"\"\",normal,,afterEmpty,,", escaped);
 	}
 
 	public void testUnescape()
 	{
-		final String[] unescaped = Bank
+		final String[] unescaped = BankManager
 				.unescapeStrings("\"\"\"escape\"\"char\"\"\",\"coma,\",\",after\"\"\",normal,,afterEmpty,,");
 		//"""escape""char""","coma,",",after""",normal,,afterEmpty,,
 		final String[] expected = new String[] { "\"escape\"char\"", "coma,", ",after\"", "normal", "", "afterEmpty",

@@ -49,7 +49,7 @@ public class BankProvider extends ContentProvider implements Codes
 
 			//load constants here
 			final SQLiteStatement stmt = db.compileStatement("INSERT INTO " + T_BANK + " VALUES (?,?,?,?,?,?,?)");
-			final Bank[] banks = Bank.getDefaultBanks();
+			final Bank[] banks = BankManager.getDefaultBanks();
 			for ( int i = 0; i < banks.length; i++ )
 			{
 				final Bank bank = banks[i];
@@ -58,8 +58,8 @@ public class BankProvider extends ContentProvider implements Codes
 				stmt.bindLong(3, bank.getExpiry());
 				stmt.bindLong(4, bank.getIconId());
 				stmt.bindString(5, bank.getCountryCode());
-				stmt.bindString(6, bank.getPhoneNumbersString());
-				stmt.bindString(7, bank.getExpressionsString());
+				stmt.bindString(6, BankManager.escapeStrings(bank.getPhoneNumbers()));
+				stmt.bindString(7, BankManager.escapeStrings(bank.getExtractExpressions()));
 
 				stmt.execute();
 
