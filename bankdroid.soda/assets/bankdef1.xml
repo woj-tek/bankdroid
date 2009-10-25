@@ -72,20 +72,15 @@
 	<Bank>
 		<!-- Sample: 
 		 -->
-		<Name>ERSTE Bank</Name>
-		<IconId>erste_logo</IconId>
+		<Name>Allianz Bank</Name>
+		<IconId>allianz_logo</IconId>
 		<Phones>
-			<Phone>+36303444481</Phone>
+			<Phone>+36303444664</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[.* ERSTE NetBank [^:]*: ([0-9]*)]]></Expression>
+			<Expression><![CDATA[Az [^:]*: ([0-9]*).* Netbank .*]]></Expression>
 		</Expressions>
 	</Bank>		
-		
-
-			new Bank(6, "Allianz", -1, new String[] { "+36303444664" }, //
-					new String[] { "Az [^:]*: ([0-9]*).* Netbank .*" }, R.drawable.allianz_logo, "HU"), //
-
 		
 	<Bank>
 		<!-- Sample: 
