@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Banks package="bankdroid.soda" county="HU">
+	<Bank>
+		<Name>OTP Bank</Name>
+		<IconId>otp2_logo</IconId>
+		<Expiry>3600</Expiry>
+		<Phones>
+			<Phone>+36309400700</Phone>
+			<Phone>+36209400700</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[OTPdirekt - [^:]*: ([0-9]*)]]></Expression>
+		</Expressions>
+	</Bank>
+	
+	<Bank>
+		<Name><![CDATA[K&H Bank]]></Name>
+		<IconId>kh_logo</IconId>
+		<Expiry>1800</Expiry>
+		<Phones>
+			<Phone>+36209000703</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.*K.H e-bank[^:]*: ([a-zA-Z0-9]{6}).*]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+	<Bank>
+		<!-- Sample: 
+			+36707060660Az On Raiffeisen DirektNet egyszer hasznalatos jelszava: 76037367 Raiffeisen Bank Zrt.
+		 -->
+		<Name>Raiffeisen Bank</Name>
+		<IconId>raiffeisen_logo</IconId>
+		<Expiry>3600</Expiry>
+		<Phones>
+			<Phone>+36707060660</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.* Raiffeisen DirektNet .* jelszava: ([0-9]*) .*]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+	<Bank>
+		<!-- Sample: 
+			+36303444504Az on kezdeti SpectraNet bejelentkezesi jelszava: 2HWNVRNJ
+		 -->
+		<Name>Unicredit Bank</Name>
+		<IconId>unicredit_logo</IconId>
+		<Phones>
+			<Phone>+36303444504</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[[^:]* SpectraNet [^:]*: ([0-9A-Z]*)", "SpectraNet [^:]*: ([0-9 -]*)]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+	<Bank>
+		<!-- Sample: 
+		 -->
+		<Name>ERSTE Bank</Name>
+		<IconId>erste_logo</IconId>
+		<Phones>
+			<Phone>+36303444481</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.* ERSTE NetBank [^:]*: ([0-9]*)]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+	<Bank>
+		<!-- Sample: 
+		 -->
+		<Name>ERSTE Bank</Name>
+		<IconId>erste_logo</IconId>
+		<Phones>
+			<Phone>+36303444481</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.* ERSTE NetBank [^:]*: ([0-9]*)]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+
+			new Bank(6, "Allianz", -1, new String[] { "+36303444664" }, //
+					new String[] { "Az [^:]*: ([0-9]*).* Netbank .*" }, R.drawable.allianz_logo, "HU"), //
+
+		
+	<Bank>
+		<!-- Sample: 
+		+36303444455OAC - Online Aktivalasi kod: 633831. Kartyaszam: XX1111; Kedvezmenyezett: AAAAA BBBB www.citibank.hu Tel: +3612888888
+		 -->
+		<Name>Citibank</Name>
+		<IconId>citibank_logo</IconId>
+		<Phones>
+			<Phone>+36303444455</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[[^:]*: ([0-9]*).*citibank.*]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+	<Bank>
+		<!-- Sample: 
+		 -->
+		<Name>FHB Bank</Name>
+		<IconId>fhb_logo</IconId>
+		<Phones>
+			<Phone>+36303444043</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[[^:]*: ([0-9]*-[0-9]*).* FHB]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+	<Bank>
+		<!-- Sample: 
+		 -->
+		<Name>Budapest Bank</Name>
+		<IconId>budapestbank_logo</IconId>
+		<Phones>
+			<Phone>+36309266245</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[[^:]*: ([0-9]*) .*Budapest]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+	<Bank>
+		<!-- Sample: 
+		 -->
+		<Name>MKB Bank</Name>
+		<IconId>mkb_logo</IconId>
+		<Phones>
+			<Phone>+36707060652</Phone>
+			<Phone>+36209000652</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[MKB .* jelsz.: ([0-9a-zA-Z]*)]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+</Banks>

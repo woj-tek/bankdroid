@@ -34,7 +34,7 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 
 		setContentView(R.layout.banklist);
 
-		bankArrayAdapter = new BankArrayAdapter(Bank.getAllBanks(getBaseContext()));
+		bankArrayAdapter = new BankArrayAdapter(BankManager.getAllBanks(getBaseContext()));
 
 		( (ListView) findViewById(R.id.bankListView) ).setAdapter(bankArrayAdapter);
 		( (ListView) findViewById(R.id.bankListView) ).setOnItemClickListener(this);

@@ -12,6 +12,11 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * FIXME make a better header for the screen. Include link to the user guide.
+ * @author gyenes
+ *
+ */
 public class SMSListActivity extends Activity implements Codes, OnItemClickListener
 {
 	private static final String SUBMISSION_ADDRESS = "sample@bankdroid.info";

@@ -16,6 +16,7 @@ import android.widget.RelativeLayout.LayoutParams;
 /**
  * FIXME work with direct DB modifications / read
  * FIXME implement new bank creation
+ * FIXME the button row should be always at the bottom of the screen, and the scroll area should be above it.
  * @author gyenes
  *
  */
@@ -170,7 +171,7 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		{
 		case R.id.done:
 			storeValues();
-			bank.store(getBaseContext());
+			BankManager.storeBank(getBaseContext(), bank);
 			finish();
 			break;
 
