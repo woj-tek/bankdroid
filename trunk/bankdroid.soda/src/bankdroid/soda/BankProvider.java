@@ -21,17 +21,21 @@ public class BankProvider extends ContentProvider implements Codes
 {
 
 	/**
+	 * TODO update mechanism is required to refresh the default banks
 	 * This class helps open, create, and upgrade the database file.
 	 */
 	private static class DatabaseHelper extends SQLiteOpenHelper
 	{
 
 		private static final String DATABASE_NAME = "bank.db";
-		private static final int DATABASE_VERSION = 3;
+		private static final int DATABASE_VERSION = 7;
+
+		private final Context context;
 
 		DatabaseHelper( final Context context )
 		{
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
+			this.context = context;
 		}
 
 		@Override
@@ -48,22 +52,30 @@ public class BankProvider extends ContentProvider implements Codes
 					");");
 
 			//load constants here
-			final SQLiteStatement stmt = db.compileStatement("INSERT INTO " + T_BANK + " VALUES (?,?,?,?,?,?,?)");
-			final Bank[] banks = BankManager.getDefaultBanks();
-			for ( int i = 0; i < banks.length; i++ )
+			try
 			{
-				final Bank bank = banks[i];
-				stmt.bindLong(1, bank.getId());
-				stmt.bindString(2, bank.getName());
-				stmt.bindLong(3, bank.getExpiry());
-				stmt.bindLong(4, bank.getIconId());
-				stmt.bindString(5, bank.getCountryCode());
-				stmt.bindString(6, BankManager.escapeStrings(bank.getPhoneNumbers()));
-				stmt.bindString(7, BankManager.escapeStrings(bank.getExtractExpressions()));
+				final Bank[] banks = BankManager.getDefaultBanks(context);
+				final SQLiteStatement stmt = db.compileStatement("INSERT INTO " + T_BANK + " VALUES (?,?,?,?,?,?,?)");
+				for ( int i = 0; i < banks.length; i++ )
+				{
+					final Bank bank = banks[i];
+					stmt.bindLong(1, bank.getId());
+					stmt.bindString(2, bank.getName());
+					stmt.bindLong(3, bank.getExpiry());
+					stmt.bindLong(4, bank.getIconId());
+					stmt.bindString(5, bank.getCountryCode());
+					stmt.bindString(6, BankManager.escapeStrings(bank.getPhoneNumbers()));
+					stmt.bindString(7, BankManager.escapeStrings(bank.getExtractExpressions()));
 
-				stmt.execute();
+					stmt.execute();
 
-				stmt.clearBindings();
+					stmt.clearBindings();
+				}
+				stmt.close();
+			}
+			catch ( final Exception e )
+			{
+				Log.e(TAG, "Failed to load initial list of banks.", e);
 			}
 		}
 

@@ -3,7 +3,7 @@ package bankdroid.soda;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -20,7 +20,6 @@ import android.net.Uri;
 import android.util.Log;
 
 /**
- * TODO currently the bank list is hard coded but it should come from a configuration file.
  * TODO extensible default phone number list
  * @author gyenes
  *
@@ -31,78 +30,6 @@ public final class BankManager implements Codes
 	private BankManager()
 	{
 		// static class. Do not instantiate it...
-	}
-
-	private final static Bank[] banks = new Bank[] { //
-			// +36309400700OTPdirekt - Belfoldi forint atutalas xxx szamlan yyy HUF osszeggel zzz szamlara. Azonosito: 90120437 
-			new Bank(1, "OTP", 3600, new String[] { "+36309400700", "+36209400700" }, //
-					new String[] { "OTPdirekt - [^:]*: ([0-9]*)" }, R.drawable.otp2_logo, "HU"),
-
-			new Bank(2, "KHB", 1800, new String[] { "+36209000703" }, //
-					new String[] { ".*K.H e-bank[^:]*: ([a-zA-Z0-9]{6}).*" }, R.drawable.kh_logo, "HU"),
-
-			//+36707060660Az On Raiffeisen DirektNet egyszer hasznalatos jelszava: 76037367 Raiffeisen Bank Zrt.
-			new Bank(3, "Raiffeisen Bank", 3600,
-					new String[] { "+36707060660" }, //
-					new String[] { ".* Raiffeisen DirektNet .* jelszava: ([0-9]*) .*" }, R.drawable.raiffeisen_logo,
-					"HU"),
-
-			// +36303444504Az on kezdeti SpectraNet bejelentkezesi jelszava: 2HWNVRNJ
-			new Bank(4, "Unicredit", -1,
-					new String[] { "+36303444504" }, //
-					new String[] { "[^:]* SpectraNet [^:]*: ([0-9A-Z]*)", "SpectraNet [^:]*: ([0-9 -]*)" },
-					R.drawable.unicredit_logo, "HU"),//
-
-			new Bank(5, "ERSTE", -1, new String[] { "+36303444481" }, //
-					new String[] { ".* ERSTE NetBank [^:]*: ([0-9]*)" }, R.drawable.erste_logo, "HU"), //
-
-			new Bank(6, "Allianz", -1, new String[] { "+36303444664" }, //
-					new String[] { "Az [^:]*: ([0-9]*).* Netbank .*" }, R.drawable.allianz_logo, "HU"), //
-
-			//+36303444455OAC - Online Aktivalasi kod: 633831. Kartyaszam: XX1111; Kedvezmenyezett: AAAAA BBBB www.citibank.hu Tel: +3612888888
-			new Bank(7, "Citibank", -1, new String[] { "+36303444455" }, //
-					new String[] { "[^:]*: ([0-9]*).*citibank.*" }, R.drawable.citibank_logo, "HU"), //
-
-			new Bank(8, "FHB", -1, new String[] { "+36303444043" }, //
-					new String[] { "[^:]*: ([0-9]*-[0-9]*).* FHB" }, R.drawable.fhb_logo, "HU"), //
-
-			new Bank(9, "Budapest Bank", -1, new String[] { "+36309266245" }, //
-					new String[] { "[^:]*: ([0-9]*) .*Budapest" }, R.drawable.budapestbank_logo, "HU"), //
-
-			new Bank(10, "MKB", -1, new String[] { "+36707060652", "+36209000652" }, //
-					new String[] { "MKB .* jelsz.: ([0-9a-zA-Z]*)" }, R.drawable.mkb_logo, "HU"), //
-
-	};
-
-	static
-	{
-		Arrays.sort(banks, new Comparator<Bank>()
-		{
-
-			@Override
-			public int compare( final Bank object1, final Bank object2 )
-			{
-				return object1.getName().compareTo(object2.getName());
-			}
-		});
-	}
-
-	public static Bank[] getDefaultBanks()
-	{//
-		return banks;
-	}
-
-	/**
-	 * This method is defined for only unit testing purposes. This is searching in the default list of 
-	 * banks, and not in the database.
-	 * @param phoneNumber
-	 * @return
-	 * @deprecated
-	 */
-	@Deprecated
-	public static Bank findByPhoneNumber( final String phoneNumber )
-	{
-		return findByPhoneNumber(getDefaultBanks(), phoneNumber);
 	}
 
 	public static Bank findByPhoneNumber( final Context context, final String phoneNumber )
@@ -335,50 +262,67 @@ public final class BankManager implements Codes
 		}
 	}
 
+	private static Bank[] defaultBanks = null;
+
 	public static Bank[] getDefaultBanks( final Context context ) throws ParserConfigurationException, SAXException,
 			IOException
 	{
-		SAXParser parser = null;
-		BankDefinitionHandler handler = null;
-
-		final List<Bank> result = new ArrayList<Bank>();
-
-		int index = 0;
-		while ( true )
+		if ( defaultBanks == null )
 		{
-			index++;
+			SAXParser parser = null;
+			BankDefinitionHandler handler = null;
 
-			final String fileName = "bankdef" + index + ".xml";
-			InputStream open = null;
-			try
+			final List<Bank> result = new ArrayList<Bank>();
+
+			int index = 0;
+			while ( true )
 			{
-				open = context.getAssets().open(fileName); //FIXME try to load it dynamically
+				index++;
+
+				final String fileName = "bankdef" + index + ".xml";
+				InputStream open = null;
+				try
+				{
+					open = context.getAssets().open(fileName); //FIXME try to load it dynamically
+				}
+				catch ( final IOException e )
+				{
+					Log.d(TAG, "There is no more bank definition XML. Last item: " + ( index - 1 ), e);
+					break;
+				}
+
+				if ( parser == null )
+				{//lazy initialization
+					final SAXParserFactory parserFactory = SAXParserFactory.newInstance();
+					//parserFactory.setValidating(true); - no validation is available on android
+					parser = parserFactory.newSAXParser();
+					handler = new BankDefinitionHandler();
+				}
+				handler.reset();
+				parser.parse(open, handler);
+
+				final Bank[] parsed = handler.getBanks();
+
+				Log.d(TAG, fileName + " file contained " + parsed.length + " banks.");
+
+				for ( final Bank bank : parsed )
+				{
+					result.add(bank);
+				}
 			}
-			catch ( final IOException e )
+
+			Collections.sort(result, new Comparator<Bank>()
 			{
-				Log.d(TAG, "There is no more bank definition XML. Last item: " + ( index - 1 ), e);
-				break;
-			}
 
-			if ( parser == null )
-			{//lazy initialization
-				final SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-				//parserFactory.setValidating(true); - no validation is available on android
-				parser = parserFactory.newSAXParser();
-				handler = new BankDefinitionHandler();
-			}
-			handler.reset();
-			parser.parse(open, handler);
+				@Override
+				public int compare( final Bank object1, final Bank object2 )
+				{
+					return object1.getName().compareTo(object2.getName());
+				}
+			});
 
-			final Bank[] parsed = handler.getBanks();
-
-			Log.d(TAG, fileName + " file contained " + parsed.length + " banks.");
-
-			for ( final Bank bank : parsed )
-			{
-				result.add(bank);
-			}
+			defaultBanks = result.toArray(new Bank[result.size()]);
 		}
-		return result.toArray(new Bank[result.size()]);
+		return defaultBanks;
 	}
 }

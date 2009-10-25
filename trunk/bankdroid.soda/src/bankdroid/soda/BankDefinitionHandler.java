@@ -24,11 +24,15 @@ public class BankDefinitionHandler extends DefaultHandler
 	public final static String A_PACKAGE = "package";
 	public final static String A_COUNTRY = "county";
 
+	private static int idCounter = 0;
+
 	private LinkedList<String> elements;
 	private String country;
 	private String packageName;
 	private Class<?> drawable;
 	private LinkedList<Bank> banks;
+
+	private final StringBuilder elementValue = new StringBuilder();
 
 	/**
 	 * Reset the handler. Call it before starting to parse any XML.
@@ -102,23 +106,31 @@ public class BankDefinitionHandler extends DefaultHandler
 		{
 			//create a new Bank
 			final Bank bank = new Bank();
+			bank.setCountryCode(country);
+			bank.setId(idCounter++);
 			banks.add(bank);
 		}
+
+		elementValue.delete(0, elementValue.length());
 	}
 
 	@Override
 	public void characters( final char[] ch, final int start, final int length ) throws SAXException
 	{
-		final String element = elements.getLast();
+		elementValue.append(ch, start, length);
+	}
+
+	private void processElementValue( final String element ) throws SAXException
+	{
 		final Bank bank = banks.size() > 0 ? banks.getLast() : null;
 		if ( element.equals(E_EXPIRY) )
 		{
-			final int expiry = Integer.parseInt(new String(ch, start, length));
+			final int expiry = Integer.parseInt(elementValue.toString());
 			bank.setExpiry(expiry);
 		}
 		else if ( element.equals(E_EXPRESSION) )
 		{
-			bank.addExtractExpression(new String(ch, start, length));
+			bank.addExtractExpression(elementValue.toString());
 		}
 		else if ( element.equals(E_ICONID) )
 		{
@@ -127,7 +139,7 @@ public class BankDefinitionHandler extends DefaultHandler
 
 			try
 			{
-				final Field iconIdField = drawable.getDeclaredField(new String(ch, start, length));
+				final Field iconIdField = drawable.getDeclaredField(elementValue.toString());
 				final int iconId = iconIdField.getInt(null);
 
 				bank.setIconId(iconId);
@@ -139,11 +151,11 @@ public class BankDefinitionHandler extends DefaultHandler
 		}
 		else if ( element.equals(E_NAME) )
 		{
-			bank.setName(new String(ch, start, length));
+			bank.setName(elementValue.toString());
 		}
 		else if ( element.equals(E_PHONE) )
 		{
-			bank.addPhoneNumber(new String(ch, start, length));
+			bank.addPhoneNumber(elementValue.toString());
 		}
 	}
 
@@ -151,9 +163,12 @@ public class BankDefinitionHandler extends DefaultHandler
 	public void endElement( final String uri, final String localName, final String qName ) throws SAXException
 	{
 		super.endElement(uri, localName, qName);
+
 		String name = localName;
 		if ( TextUtils.isEmpty(name) )
 			name = qName;
+
+		processElementValue(name);
 
 		final String elementToClose = elements.removeLast();
 
