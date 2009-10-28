@@ -18,7 +18,6 @@ public class AboutActivity extends Activity implements OnClickListener, Codes
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
 
-		( (Button) findViewById(R.id.projectHomeButton) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.productInfoButton) ).setOnClickListener(this);
 		( (TextView) findViewById(R.id.version) ).setText(VERSION);
 	}
@@ -29,11 +28,6 @@ public class AboutActivity extends Activity implements OnClickListener, Codes
 		if ( v.getId() == R.id.productInfoButton )
 		{
 			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_INFO_SITE));
-			startActivity(viewIntent);
-		}
-		else if ( v.getId() == R.id.projectHomeButton )
-		{
-			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_PROJECT_HOME));
 			startActivity(viewIntent);
 		}
 	}

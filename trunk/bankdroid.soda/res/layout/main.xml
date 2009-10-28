@@ -70,7 +70,7 @@
 				/>
 		
 			<Button 
-				android:text="@string/btnSubmitSample" 
+				android:text="@string/btnAbout" 
 				android:id="@+id/about" 
 				android:layout_width="fill_parent" 
 				android:layout_height="wrap_content"
