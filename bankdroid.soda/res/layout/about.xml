@@ -84,8 +84,8 @@
 			/>
 			
 		<TextView 
-			android:text="@string/aboutUrl1" 
-			android:id="@+id/url1" 
+			android:text="@string/aboutUrl2" 
+			android:id="@+id/url2" 
 			android:textSize="12sp"
 			android:gravity="right"
 			
@@ -96,40 +96,15 @@
 			android:layout_below="@id/divider2"
 			/>
 			
-		<TextView 
-			android:text="@string/aboutUrl2" 
-			android:id="@+id/url2" 
-			android:textSize="12sp"
-			android:gravity="right"
-			
-			android:layout_width="fill_parent" 
-			android:layout_height="wrap_content"
-			android:paddingRight="5sp"
-			
-			android:layout_below="@id/url1"
-			/>
-			
 	</RelativeLayout>
 		
 	
-	<LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="wrap_content"
+	<Button 
+		android:text="@string/btnInfoSite" 
+		android:id="@+id/productInfoButton" 
+		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
-		>
-		<Button 
-			android:text="@string/projectHome" 
-			android:id="@+id/projectHomeButton" 
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"
-			/>
-		<Button 
-			android:text="@string/productInfoSite" 
-			android:id="@+id/productInfoButton" 
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"
-			/>
-	</LinearLayout>
+		/>
 
 </LinearLayout>
