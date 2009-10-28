@@ -71,8 +71,6 @@ public class Main extends Activity implements Codes, OnClickListener
 		{
 			final Intent submitIntent = new Intent(getBaseContext(), SMSListActivity.class);
 			startActivity(submitIntent);
-
-			//TODO display thank you message for submission
 		}
 	}
 

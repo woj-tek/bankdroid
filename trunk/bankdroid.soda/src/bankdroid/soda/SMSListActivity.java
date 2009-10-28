@@ -100,7 +100,7 @@ public class SMSListActivity extends Activity implements Codes, OnItemClickListe
 
 		if ( requestCode == REQUEST_EMAIL_SEND )
 		{
-			//TODO 2.0 find out whether the e-mail is sent or not.
+			//XXX find out whether the e-mail is sent or not.
 			//setResult(RESULT_OK);
 			//finish();
 		}
@@ -114,7 +114,7 @@ public class SMSListActivity extends Activity implements Codes, OnItemClickListe
 
 		Log.d(TAG, "SMS was selected: " + address + " :: " + body);
 
-		//TODO 2.0 forward action to bank name selection
+		//XXX forward action to bank name selection
 
 		//construct e-mail body
 		final StringBuilder builder = new StringBuilder();
