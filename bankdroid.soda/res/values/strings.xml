@@ -28,6 +28,9 @@
 	
 	<!-- SMS pick activity -->
 	<string name="smsListTitle">Please select an SMS sample:</string>
+	<string name="selectEmail">Please select an E-mail account:</string>
+	<string name="noSMSInInbox">There is no SMS in your inbox.</string>
+	<string name="btnHelp">Help</string>
 	
 	<!-- Preferences -->
 	<string name="keepSMS">Keep SMS</string>
@@ -40,6 +43,15 @@
 	<string name="notificationTitle">SODA</string>
 	<string name="notificationText">Password received form {0}. Click here to view it.</string>
 	
+	<!-- Main -->
+	<string name="mainTitle">BankDroid SODA</string>
+	<string name="btnViewLast">View Last Code</string>
+	<string name="btnManageBanks">Manage Banks</string>
+	<string name="btnSubmitSample">Submit Sample</string>
+	<string name="btnPrefs">Preferences</string>
+	<string name="btnInfoSite">Information Site</string>
+	<string name="btnAbout">About</string>
+
 	<!-- About -->
 	<string name="aboutId">BankDroid SODA</string>
 	<string name="aboutDesc">The SODA is product of the BankDroid open source project. Special thanks to Google for all those services that are made available for the world for free!</string>

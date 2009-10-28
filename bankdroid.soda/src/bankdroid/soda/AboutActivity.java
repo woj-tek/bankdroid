@@ -28,12 +28,12 @@ public class AboutActivity extends Activity implements OnClickListener, Codes
 	{
 		if ( v.getId() == R.id.productInfoButton )
 		{
-			final Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(INFO_SITE_URL));
+			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_INFO_SITE));
 			startActivity(viewIntent);
 		}
 		else if ( v.getId() == R.id.projectHomeButton )
 		{
-			final Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(PROJECT_HOME_URL));
+			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_PROJECT_HOME));
 			startActivity(viewIntent);
 		}
 	}
