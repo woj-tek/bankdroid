@@ -4,8 +4,9 @@ public interface Codes
 {
 	public static final String VERSION = "1.0"; //XXX keep up-to-date
 
-	public static final String INFO_SITE_URL = "http://www.bankdroid.info";
-	public static final String PROJECT_HOME_URL = "http://bankdroid.googlecode.com";
+	public static final String URL_INFO_SITE = "http://www.bankdroid.info";
+	public static final String URL_SUBMIT_SAMPLE = "http://www.bankdroid.info"; //FIXME use correct url here
+	public static final String URL_PROJECT_HOME = "http://bankdroid.googlecode.com";
 
 	public static final String BANKDROID_SODA_ADDRESS = "bankdroid.soda.Address";
 	public static final String BANKDROID_SODA_SMSMESSAGE = "bankdroid.soda.SMSMessage";
@@ -24,5 +25,9 @@ public interface Codes
 	public static final int NOTIFICATION_ID = 7632;
 
 	public static final String PROVIDER_AUTHORITY = "bankdroid.soda.Bank";
+
+	//activity results
+	public static final int REQUEST_EMAIL_SEND = 1001;
+	public static final int REQUEST_SELECT_SMS = 1002;
 
 }

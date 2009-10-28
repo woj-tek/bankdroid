@@ -64,7 +64,7 @@ public class Main extends Activity implements Codes, OnClickListener
 		}
 		else if ( v.getId() == R.id.help )
 		{
-			final Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse(INFO_SITE_URL));
+			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_INFO_SITE));
 			startActivity(viewIntent);
 		}
 		else if ( v.getId() == R.id.submitSample )
