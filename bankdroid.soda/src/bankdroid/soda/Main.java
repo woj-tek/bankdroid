@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -36,21 +35,9 @@ public class Main extends Activity implements Codes, OnClickListener
 		}
 		else if ( v.getId() == R.id.viewLast )
 		{
-			//TODO handle viewLast
-			try
-			{
-				final Bank[] defaultBanks = BankManager.getDefaultBanks(getBaseContext());
-				Log.d(TAG, "Number of banks:" + defaultBanks.length);
-				for ( final Bank bank : defaultBanks )
-				{
-					Log.d(TAG, "Default: " + bank);
-				}
-			}
-			catch ( final Exception e )
-			{
-				throw new IllegalStateException("Unable to load default banks.", e);
-			}
+			startActivity(new Intent(getBaseContext(), SMSOTPDisplay.class));
 
+			//FIXME handle viewLast
 		}
 		else if ( v.getId() == R.id.about )
 		{
