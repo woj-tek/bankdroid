@@ -1,31 +1,31 @@
 package bankdroid.soda;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.database.DataSetObserver;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.Toast;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 /**
- *FIXME use SimpleCursorAdapter
- *FIXME implement bank deletion
  * @author gyenes
  *
  */
 public class BankListActivity extends Activity implements Codes, OnItemClickListener
 {
-	BankArrayAdapter bankArrayAdapter;
+	SimpleCursorAdapter adapter;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -34,126 +34,20 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 
 		setContentView(R.layout.banklist);
 
-		bankArrayAdapter = new BankArrayAdapter(BankManager.getAllBanks(getBaseContext()));
+		final Cursor cursor = getContentResolver().query(Bank.CONTENT_URI,
+				new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_PHONENUMBERS }, null, null, Bank.DEFAULT_SORT_ORDER);
 
-		( (ListView) findViewById(R.id.bankListView) ).setAdapter(bankArrayAdapter);
-		( (ListView) findViewById(R.id.bankListView) ).setOnItemClickListener(this);
-	}
+		startManagingCursor(cursor);
 
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
+		final String[] columns = new String[] { Bank.F_NAME, Bank.F_PHONENUMBERS };
+		final int[] names = new int[] { R.id.bankName, R.id.phoneNumber };
 
-		bankArrayAdapter.notifyDatasetChanged();
-	}
+		adapter = new SimpleCursorAdapter(this, R.layout.banklistitem, cursor, columns, names);
 
-	class BankArrayAdapter implements ListAdapter
-	{
-		Bank[] banks;
-		private Set<DataSetObserver> dsos;
-
-		public BankArrayAdapter( final Bank[] banks )
-		{
-			this.banks = banks;
-		}
-
-		public void notifyDatasetChanged()
-		{
-			for ( final DataSetObserver dso : dsos )
-			{
-				dso.onChanged();
-			}
-
-		}
-
-		@Override
-		public boolean areAllItemsEnabled()
-		{
-			return true;
-		}
-
-		@Override
-		public boolean isEnabled( final int position )
-		{
-			return true;
-		}
-
-		@Override
-		public int getCount()
-		{
-			return banks.length;
-		}
-
-		@Override
-		public Object getItem( final int index )
-		{
-			return banks[index];
-		}
-
-		@Override
-		public long getItemId( final int index )
-		{
-			return index;
-		}
-
-		@Override
-		public int getItemViewType( final int arg0 )
-		{
-			return 0; //only one view type will be used.
-		}
-
-		@Override
-		public View getView( final int position, final View contentView, final ViewGroup parent )
-		{
-			View result = contentView; // always the same view will be used
-			if ( result == null )
-			{//no view was created yet
-				result = LayoutInflater.from(getBaseContext()).inflate(R.layout.banklistitem, parent, false);
-			}
-
-			( (TextView) result.findViewById(R.id.bankName) ).setText(banks[position].getName());
-			( (TextView) result.findViewById(R.id.phoneNumber) ).setText(banks[position].getPhoneNumbers()[0]);
-
-			return result;
-		}
-
-		@Override
-		public int getViewTypeCount()
-		{
-			return 1;
-		}
-
-		@Override
-		public boolean hasStableIds()
-		{
-			return true;
-		}
-
-		@Override
-		public boolean isEmpty()
-		{
-			return banks == null || banks.length == 0;
-		}
-
-		@Override
-		public void registerDataSetObserver( final DataSetObserver dso )
-		{
-			if ( dsos == null )
-				dsos = new HashSet<DataSetObserver>();
-
-			dsos.add(dso);
-		}
-
-		@Override
-		public void unregisterDataSetObserver( final DataSetObserver dso )
-		{
-			if ( dsos == null )
-				return;
-
-			dsos.remove(dso);
-		}
-
+		final ListView list = (ListView) findViewById(R.id.bankListView);
+		list.setAdapter(adapter);
+		list.setOnItemClickListener(this);
+		registerForContextMenu(list);
 	}
 
 	@Override
@@ -162,11 +56,64 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 		if ( parent.getId() == R.id.bankListView )
 		{
 			Log.d(TAG, "Following pos is selected: " + position);
+			startEdit(id);
+		}
+	}
 
-			final Intent intent = new Intent();
+	private void startEdit( final long id )
+	{
+		final Intent intent = new Intent(Intent.ACTION_EDIT);
+		intent.setClass(getBaseContext(), BankEditActivity.class);
+		intent.setData(Uri.withAppendedPath(Bank.CONTENT_URI, String.valueOf(id)));
+		startActivity(intent);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected( final MenuItem item )
+	{
+		if ( item.getItemId() == R.id.addBank )
+		{
+			final Intent intent = new Intent(Intent.ACTION_INSERT);
+			intent.setData(Bank.CONTENT_URI);
 			intent.setClass(getBaseContext(), BankEditActivity.class);
-			intent.putExtra(BANKDROID_SODA_BANK, (Bank) parent.getAdapter().getItem(position));
 			startActivity(intent);
 		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onContextItemSelected( final MenuItem item )
+	{
+		if ( item.getItemId() == R.id.deleteBank )
+		{
+			final long id = ( (AdapterContextMenuInfo) item.getMenuInfo() ).id;
+			getContentResolver().delete(Uri.withAppendedPath(Bank.CONTENT_URI, String.valueOf(id)), null, null);
+			final Toast succes = Toast.makeText(getBaseContext(), R.string.bankDeleted, Toast.LENGTH_SHORT);
+			succes.show();
+		}
+		else if ( item.getItemId() == R.id.editBank )
+		{
+			startEdit(( (AdapterContextMenuInfo) item.getMenuInfo() ).id);
+		}
+		return super.onContextItemSelected(item);
+	}
+
+	@Override
+	public void onCreateContextMenu( final ContextMenu menu, final View v, final ContextMenuInfo menuInfo )
+	{
+		if ( v.getId() == R.id.bankListView )
+		{
+			final MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.banklistcontextmenu, menu);
+		}
+		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu( final Menu menu )
+	{
+		final MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.banklistmenu, menu);
+		return true;
 	}
 }

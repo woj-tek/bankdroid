@@ -8,9 +8,6 @@ import android.net.Uri;
 
 /**
  * @author user
- * 
- * TODO phone number matching should rely on the number endings.
- *
  */
 public class Bank implements Serializable, Cloneable, Codes
 {
@@ -38,13 +35,15 @@ public class Bank implements Serializable, Cloneable, Codes
 
 	public static final int UNASSIGNED_ID = -1;
 
-	public static final String F__ID = "_ID";
-	public static final String F_NAME = "NAME";
-	public static final String F_VALIDITY = "VALIDITY";
-	public static final String F_ICON = "ICON";
-	public static final String F_COUNTRY = "COUNTRY";
-	public static final String F_PHONENUMBERS = "PHONENUMBERS";
-	public static final String F_EXPRESSIONS = "EXPRESSIONS";
+	public static final String F__ID = "_id";
+	public static final String F_NAME = "name";
+	public static final String F_VALIDITY = "validity";
+	public static final String F_ICON = "icon";
+	public static final String F_COUNTRY = "country";
+	public static final String F_PHONENUMBERS = "phonenumbers";
+	public static final String F_EXPRESSIONS = "expressions";
+
+	public static final String DEFAULT_COUNTRY = "HU";
 
 	///NON-STATIC MEMBERS
 	private int id;
@@ -75,14 +74,17 @@ public class Bank implements Serializable, Cloneable, Codes
 	{
 		// empty constructor
 		id = UNASSIGNED_ID;
-		phoneNumbers = new String[0];
-		extractExpressions = new String[0];
+		name = "";
+		expiry = -1;
+		phoneNumbers = new String[] { "" };//minimum 1 phone number is required
+		extractExpressions = new String[] { "" };//minimum 1 pattern is required
+		countryCode = DEFAULT_COUNTRY;
+		iconId = R.drawable.bankdroid_logo;
 	}
 
 	public Bank( final int id, final String name, final int expiry, final String[] phoneNumber,
 			final String[] extractExpression, final int iconId, final String countryCode )
 	{
-		super();
 		this.id = id;
 		this.name = name;
 		this.expiry = expiry;

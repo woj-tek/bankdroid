@@ -2,7 +2,9 @@ package bankdroid.soda;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -15,7 +17,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 /**
  * FIXME work with direct DB modifications / read
- * FIXME implement new bank creation
+ * FIXME test new bank creation: something is still not good.
  * @author gyenes
  *
  */
@@ -59,15 +61,27 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		super.onResume();
 
 		final Intent intent = getIntent();
-		if ( bank == null && intent != null && intent.getSerializableExtra(BANKDROID_SODA_BANK) != null )
+		if ( bank == null && intent != null )
 		{
-			final Bank bank = (Bank) intent.getSerializableExtra(BANKDROID_SODA_BANK);
-			this.bank = (Bank) bank.clone();
+			if ( intent.getAction().equals(Intent.ACTION_EDIT) )
+			{
+				final Uri uri = intent.getData();
+				bank = BankManager.findByUri(getApplicationContext(), uri);
+			}
+			else if ( intent.getAction().equals(Intent.ACTION_INSERT) )
+			{
+				Log.d(TAG, "Bank to be created.");
+				bank = new Bank();
+			}
+			else
+			{
+				Log.w(TAG, "Invalid Intent Action: " + intent.getAction());
+			}
 		}
 
 		if ( bank != null )
 		{
-
+			Log.d(TAG, "Initializing the layout for bank: " + bank);
 			( (ImageView) findViewById(R.id.bankLogo) ).setImageResource(bank.getIconId());
 			( (EditText) findViewById(R.id.bankName) ).setText(bank.getName());
 			( (EditText) findViewById(R.id.expiry) ).setText(String.valueOf(bank.getExpiry()));
@@ -101,7 +115,18 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 
 	private void showLines( final int topId, final int[][] fields, final String[] values )
 	{
-		final int row = values.length;
+		int row = values.length;
+		//set values
+		for ( int i = 0; i < row; i++ )
+		{
+			( (EditText) findViewById(fields[i][1]) ).setText(values[i]);
+		}
+
+		if ( row == 0 )
+		{
+			row = 1;
+			( (EditText) findViewById(fields[row][1]) ).setText("");
+		}
 		//set visibility
 		for ( int i = 0; i < row; i++ )
 		{
@@ -138,11 +163,6 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 
 		high.getParent().requestLayout();
 
-		//set values
-		for ( int i = 0; i < row; i++ )
-		{
-			( (EditText) findViewById(fields[i][1]) ).setText(values[i]);
-		}
 	}
 
 	@Override
@@ -170,6 +190,8 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		{
 		case R.id.done:
 			storeValues();
+			if ( !isValid() )
+				return;
 			BankManager.storeBank(getBaseContext(), bank);
 			finish();
 			break;
@@ -213,13 +235,35 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 
 	}
 
+	private boolean isValid()
+	{
+		if ( bank.getName() == null || bank.getName().trim().length() < 1 )
+			return showError(R.string.specifyBankName);
+
+		if ( bank.getPhoneNumbers() == null || bank.getPhoneNumbers().length < 1 )
+			return showError(R.string.minPhoneNumber);
+
+		if ( bank.getExtractExpressions() == null || bank.getExtractExpressions().length < 1 )
+			return showError(R.string.minPattern);
+
+		//FIXME check empty phone numbers and patterns.
+
+		return true;
+	}
+
+	private boolean showError( final int messageId )
+	{
+		final Toast toast = Toast.makeText(getBaseContext(), messageId, Toast.LENGTH_SHORT);
+		toast.show();
+		return false;
+	}
+
 	private void addPattern()
 	{
 		final int numberOfPatterns = bank.getExtractExpressions().length;
 		if ( numberOfPatterns > 2 )
 		{
-			final Toast toast = Toast.makeText(getBaseContext(), R.string.tooMuchPattern, Toast.LENGTH_SHORT);
-			toast.show();
+			showError(R.string.tooMuchPattern);
 		}
 		else
 		{
@@ -233,8 +277,7 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		final int numberOfPhones = bank.getPhoneNumbers().length;
 		if ( numberOfPhones > 2 )
 		{
-			final Toast toast = Toast.makeText(getBaseContext(), R.string.tooMuchPhoneNumber, Toast.LENGTH_SHORT);
-			toast.show();
+			showError(R.string.tooMuchPhoneNumber);
 		}
 		else
 		{
@@ -247,8 +290,7 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 	{
 		if ( bank.getPhoneNumbers().length == 1 )
 		{
-			final Toast toast = Toast.makeText(getBaseContext(), R.string.minPhoneNumber, Toast.LENGTH_SHORT);
-			toast.show();
+			showError(R.string.minPhoneNumber);
 		}
 		else
 		{
@@ -262,8 +304,7 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 	{
 		if ( bank.getExtractExpressions().length == 1 )
 		{
-			final Toast toast = Toast.makeText(getBaseContext(), R.string.minPattern, Toast.LENGTH_SHORT);
-			toast.show();
+			showError(R.string.minPattern);
 		}
 		else
 		{

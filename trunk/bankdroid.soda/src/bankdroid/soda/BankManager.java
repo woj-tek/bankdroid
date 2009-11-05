@@ -32,28 +32,6 @@ public final class BankManager implements Codes
 		// static class. Do not instantiate it...
 	}
 
-	public static Bank findByPhoneNumber( final Context context, final String phoneNumber )
-	{
-		//FIXME implement with direct URI find
-		return findByPhoneNumber(getAllBanks(context), phoneNumber);
-	}
-
-	public static Bank findByPhoneNumber( final Bank[] banks, final String phoneNumber )
-	{
-		//filter for Bank phone number
-		Bank source = null;
-		for ( final Bank bank : banks )
-		{
-			if ( bank.isBankPhoneNumber(phoneNumber) )
-			{
-				source = bank;
-				break;
-			}
-		}
-
-		return source;
-	}
-
 	private static final char SEPARATOR_CHAR = ',';
 	private static final char ESCAPE_CHAR = '"';
 	private static final String EMPTY_WORD = "";
@@ -77,14 +55,18 @@ public final class BankManager implements Codes
 			}
 			builder.append(SEPARATOR_CHAR);
 		}
+		if ( builder.length() > 0 )
+			builder.delete(builder.length() - 1, builder.length());
 		return builder.toString();
 	}
 
 	public static String[] unescapeStrings( final String string )
 	{
-		final List<String> result = new ArrayList<String>();
-
 		final int len = string.length();
+		if ( len == 0 )
+			return new String[0];
+
+		final List<String> result = new ArrayList<String>();
 		boolean wordStarted = false;
 		int wordStartIndex = -1;
 		boolean wordEscaped = false;
@@ -170,37 +152,61 @@ public final class BankManager implements Codes
 				//do nothing, go forward
 			}
 		}
+		if ( wordStarted && wordEscaped )
+			throw new IllegalArgumentException("Unclosed quotes at " + wordStartIndex);
+
+		if ( wordStarted )
+		{
+			//save last word
+			final String unescaped = string.substring(wordStartIndex, len);
+			result.add(unescaped);
+		}
+		else if ( string.charAt(len - 1) == SEPARATOR_CHAR )
+		{
+			//finish with empty word
+			result.add(EMPTY_WORD);
+		}
 
 		return result.toArray(new String[result.size()]);
 	}
 
-	public static Bank findByUri( final Context context, final Uri uri )
-	{//TODO finish
-		final Cursor cursor = context.getContentResolver().query(
-				Bank.CONTENT_URI,
-				new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_VALIDITY, Bank.F_ICON, Bank.F_COUNTRY,
-						Bank.F_PHONENUMBERS, Bank.F_EXPRESSIONS }, null, null, Bank.DEFAULT_SORT_ORDER);
+	public static Bank findByPhoneNumber( final Context context, final String phoneNumber )
+	{
+		return findBank(context, Bank.CONTENT_URI, Bank.F_PHONENUMBERS + " like '%" + phoneNumber + "%'", null);
+	}
 
-		final List<Bank> banks = new ArrayList<Bank>();
-		while ( cursor.moveToNext() )
+	public static Bank findByUri( final Context context, final Uri uri )
+	{
+		return findBank(context, uri, null, null);
+	}
+
+	private static Bank findBank( final Context context, final Uri uri, final String selection,
+			final String[] selectionArgs )
+	{
+		final Cursor cursor = context.getContentResolver().query(
+				uri,
+				new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_VALIDITY, Bank.F_ICON, Bank.F_COUNTRY,
+						Bank.F_PHONENUMBERS, Bank.F_EXPRESSIONS }, selection, selectionArgs, Bank.DEFAULT_SORT_ORDER);
+
+		if ( cursor.getCount() > 1 )
+			throw new IllegalArgumentException("Too many result.");
+
+		Bank bank = null;
+		if ( cursor.moveToFirst() )
 		{
 			final int id = cursor.getInt(0);
 			final String name = cursor.getString(1);
 
-			//Log.d(Codes.TAG, "Bank read: " + id + " - " + name);
 			final int expiry = cursor.getInt(2);
 			final int icon = cursor.getInt(3);
 			final String country = cursor.getString(4);
 			final String phoneNumbers = cursor.getString(5);
 			final String expressions = cursor.getString(6);
 
-			final Bank bank = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), unescapeStrings(expressions),
-					icon, country);
-
-			banks.add(bank);
+			bank = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), unescapeStrings(expressions), icon,
+					country);
 		}
-
-		return banks.get(1);
+		return bank;
 	}
 
 	public static Bank[] getAllBanks( final Context context )
