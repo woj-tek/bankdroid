@@ -4,6 +4,8 @@ public interface Codes
 {
 	public static final String VERSION = "1.0"; //XXX keep up-to-date
 
+	public static final String DEFAULT_COUNTRY = "HU";
+
 	public static final String URL_INFO_SITE = "http://www.bankdroid.info";
 	public static final String URL_SUBMIT_SAMPLE = "http://www.bankdroid.info"; //FIXME use correct url here
 	public static final String URL_PROJECT_HOME = "http://bankdroid.googlecode.com";

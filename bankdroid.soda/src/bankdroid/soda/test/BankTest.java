@@ -151,22 +151,33 @@ public class BankTest extends TestCase
 		final String escaped = BankManager.escapeStrings(new String[] { "\"escape\"char\"", "coma,", ",after\"",
 				"normal", "", "afterEmpty", "" });
 
-		assertEquals("\"\"\"escape\"\"char\"\"\",\"coma,\",\",after\"\"\",normal,,afterEmpty,,", escaped);
+		assertEquals("\"\"\"escape\"\"char\"\"\",\"coma,\",\",after\"\"\",normal,,afterEmpty,", escaped);
 	}
 
 	public void testUnescape()
 	{
-		final String[] unescaped = BankManager
-				.unescapeStrings("\"\"\"escape\"\"char\"\"\",\"coma,\",\",after\"\"\",normal,,afterEmpty,,");
+		String[] unescaped = BankManager
+				.unescapeStrings("\"\"\"escape\"\"char\"\"\",\"coma,\",\",after\"\"\",normal,,afterEmpty,kaka");
 		//"""escape""char""","coma,",",after""",normal,,afterEmpty,,
-		final String[] expected = new String[] { "\"escape\"char\"", "coma,", ",after\"", "normal", "", "afterEmpty",
-				"" };
+		String[] expected = new String[] { "\"escape\"char\"", "coma,", ",after\"", "normal", "", "afterEmpty", "kaka" };
 
-		assertEquals(expected.length, unescaped.length);
+		assertEquals("With normal ending", expected.length, unescaped.length);
 		for ( int i = 0; i < expected.length; i++ )
 		{
 			assertEquals(expected[i], unescaped[i]);
 		}
+
+		unescaped = BankManager
+				.unescapeStrings("\"\"\"escape\"\"char\"\"\",\"coma,\",\",after\"\"\",normal,,afterEmpty,");
+		//"""escape""char""","coma,",",after""",normal,,afterEmpty,,
+		expected = new String[] { "\"escape\"char\"", "coma,", ",after\"", "normal", "", "afterEmpty", "" };
+
+		assertEquals("With empty ending", expected.length, unescaped.length);
+		for ( int i = 0; i < expected.length; i++ )
+		{
+			assertEquals(expected[i], unescaped[i]);
+		}
+
 	}
 
 }
