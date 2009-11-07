@@ -1,8 +1,11 @@
 #summary SMS OTP Display Application description
+#labels Featured
 
 = Introduction =
 
 SODA is a simple application to catch and process SMS that are delivering One-Time-Passwords of the Banks for login or transaction signing purposes. In this way you easily read and copy one time passwords into your bank site.
+
+Here you can find a short summary about the application. Full description can be found at http://www.bankdroid.info.
 
 = Features =
 
@@ -22,5 +25,3 @@ Here comes a few screenshots from the emulator:
 [http://bankdroid.googlecode.com/svn/wiki/screenshots/notification.png]
 
 [http://bankdroid.googlecode.com/svn/wiki/screenshots/menu.png]
-
-
