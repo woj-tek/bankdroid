@@ -16,8 +16,6 @@ import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 
 /**
- * FIXME work with direct DB modifications / read
- * FIXME test new bank creation: something is still not good.
  * @author gyenes
  *
  */
@@ -107,9 +105,10 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 	private void saveFields( final int[][] fields, final String[] store )
 	{
 		final int count = store.length;
+		Log.d(TAG, "number of fields to save: " + count);
 		for ( int i = 0; i < count; i++ )
 		{
-			store[i] = ( (EditText) findViewById(fields[i][1]) ).getText().toString();
+			store[i] = ( (EditText) findViewById(fields[i][1]) ).getText().toString().trim();
 		}
 	}
 
@@ -237,16 +236,29 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 
 	private boolean isValid()
 	{
-		if ( bank.getName() == null || bank.getName().trim().length() < 1 )
+		final String name = bank.getName();
+		if ( name == null || name.trim().length() < 1 )
 			return showError(R.string.specifyBankName);
 
-		if ( bank.getPhoneNumbers() == null || bank.getPhoneNumbers().length < 1 )
+		final String[] pn = bank.getPhoneNumbers();
+		if ( pn == null || pn.length < 1 )
 			return showError(R.string.minPhoneNumber);
 
-		if ( bank.getExtractExpressions() == null || bank.getExtractExpressions().length < 1 )
+		for ( final String phoneNumber : pn )
+		{
+			if ( phoneNumber == null || phoneNumber.length() < 1 )
+				return showError(R.string.noEmptyPhoneNumber);
+		}
+
+		final String[] ee = bank.getExtractExpressions();
+		if ( ee == null || ee.length < 1 )
 			return showError(R.string.minPattern);
 
-		//FIXME check empty phone numbers and patterns.
+		for ( final String expression : ee )
+		{
+			if ( expression == null || expression.length() < 1 )
+				return showError(R.string.noEmptyExpression);
+		}
 
 		return true;
 	}
