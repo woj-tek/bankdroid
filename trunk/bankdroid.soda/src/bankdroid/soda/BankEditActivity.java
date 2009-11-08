@@ -105,7 +105,6 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 	private void saveFields( final int[][] fields, final String[] store )
 	{
 		final int count = store.length;
-		Log.d(TAG, "number of fields to save: " + count);
 		for ( int i = 0; i < count; i++ )
 		{
 			store[i] = ( (EditText) findViewById(fields[i][1]) ).getText().toString().trim();

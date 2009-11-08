@@ -7,7 +7,11 @@ import java.util.Date;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.Menu;
@@ -30,13 +34,14 @@ import bankdroid.soda.CountDown.CountDownListener;
  * <li>handle preferences</li>
  * <li>improved design</li>
  * <li>use notifications instead of direct pop-up based on user preferences</li>
- * <li>TODO: clear SMS based on preferences (that may be problematic. There is no good tip for it on forums.</li>
+ * <li>clear SMS based on preferences (that may be problematic. There is no good tip for it on forums.</li>
  * <li>XXX: maintain how many OTP to be stored per bank - it makes no sense. Only one should be stored per bank.</li>
  * <li>display a different activity on start up, from where various actions can be started.</li>
  * <li>displays list of banks and their settings</li>
- * <li>TODO: let the user to register new banks, store settings in DB</li>
+ * <li>let the user to register new banks, store settings in DB</li>
  * <li>let the user to post the sample SMS to the sample@bankdroid.info</li>
  * <li>displays a count-down to indicate when the OTP will expire</li>
+ * <li>XXX German and Hungarian translations</li>
  * </ul>
  * 
  * @author user
@@ -256,6 +261,24 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 			{
 				( (ClipboardManager) getSystemService(CLIPBOARD_SERVICE) ).setText(displayedCode);
 			}
+
+			final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, true);
+
+			if ( !keepSMS )
+			{
+				final Uri uri = Uri.parse("content://sms");
+
+				final Cursor cursor = getContentResolver().query(uri, new String[] { "_id" }, "body=?",
+						new String[] { smsMessage }, null);
+
+				while ( cursor.moveToNext() )
+				{
+					final int id = cursor.getInt(0);
+					getContentResolver().delete(Uri.withAppendedPath(uri, String.valueOf(id)), null, null);
+				}
+			}
+
 			finish();
 		}
 	}
