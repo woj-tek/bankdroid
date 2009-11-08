@@ -2,9 +2,11 @@ package bankdroid.soda;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -239,7 +241,10 @@ public final class BankManager implements Codes
 	}
 
 	/**
-	 * Store in the database.
+	 * Store Bank in the database. Inserts or updates a bank depending on, whether a valid ID is assigned to the 
+	 * Bank or not.
+	 * @param context Context is used for get reference to the database.
+	 * @param b Bank to be inserted or updated.
 	 */
 	public static void storeBank( final Context context, final Bank b )
 	{
@@ -268,6 +273,55 @@ public final class BankManager implements Codes
 		}
 	}
 
+	public static void updateLastMessage( final Context context, final Message msg )
+	{
+		if ( msg.bank.getId() == Bank.UNASSIGNED_ID )
+			throw new IllegalArgumentException("The bank is not stored in the database yet: " + msg.bank);
+
+		final ContentValues values = new ContentValues();
+
+		values.put(Bank.F_LASTMESSAGE, msg.message);
+		values.put(Bank.F_TIMESTAMP, Formatters.getTimstampFormat().format(msg.timestamp));
+
+		//update the bank
+		final Uri thisUri = Bank.CONTENT_URI.buildUpon().appendEncodedPath(String.valueOf(msg.bank.getId())).build();
+		context.getContentResolver().update(thisUri, values, null, null);
+		Log.d(TAG, "Bank " + msg.bank.getName() + " is updated with last message.");
+	}
+
+	/**
+	 * Returns the last message (irrespectively to the bank) from the database.
+	 * @param context
+	 * @return null if no message is received on the phone yet, since the application is installed.
+	 */
+	public static Message getLastMessage( final Context context )
+	{
+		Message result = null;
+		final Cursor cursor = context.getContentResolver().query(Bank.CONTENT_URI,
+				new String[] { Bank.F__ID, Bank.F_LASTMESSAGE, Bank.F_TIMESTAMP }, Bank.F_TIMESTAMP + " IS NOT NULL",
+				null, Bank.F_TIMESTAMP + " ASC");
+
+		if ( cursor.getCount() > 0 )
+		{
+			cursor.moveToFirst();
+			final int id = cursor.getInt(0);
+			final String message = cursor.getString(1);
+			Date timestamp;
+			try
+			{
+				timestamp = Formatters.getTimstampFormat().parse(cursor.getString(2));
+			}
+			catch ( final ParseException e )
+			{
+				throw new IllegalStateException(
+						"Database contains invalid value for timestamp: " + cursor.getString(2), e);
+			}
+			result = new Message(findByUri(context, Uri.withAppendedPath(Bank.CONTENT_URI, String.valueOf(id))),
+					message, timestamp);
+		}
+
+		return result;
+	}
 	private static Bank[] defaultBanks = null;
 
 	public static Bank[] getDefaultBanks( final Context context ) throws ParserConfigurationException, SAXException,

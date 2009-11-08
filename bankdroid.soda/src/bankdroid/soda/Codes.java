@@ -28,6 +28,9 @@ public interface Codes
 
 	public static final String PROVIDER_AUTHORITY = "bankdroid.soda.Bank";
 
+	public static final String ACTION_DISPLAY = "bankdroid.soda.action.Display";
+	public static final String ACTION_REDISPLAY = "bankdroid.soda.action.Redisplay";
+
 	//activity results
 	public static final int REQUEST_EMAIL_SEND = 1001;
 	public static final int REQUEST_SELECT_SMS = 1002;
