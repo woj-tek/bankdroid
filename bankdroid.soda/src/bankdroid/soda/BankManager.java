@@ -20,7 +20,7 @@ import android.net.Uri;
 import android.util.Log;
 
 /**
- * TODO extensible default phone number list
+ * XXX extensible default phone number list
  * @author gyenes
  *
  */
@@ -289,7 +289,7 @@ public final class BankManager implements Codes
 				InputStream open = null;
 				try
 				{
-					open = context.getAssets().open(fileName); //FIXME try to load it dynamically
+					open = context.getAssets().open(fileName); //XXX try to load it dynamically
 				}
 				catch ( final IOException e )
 				{
