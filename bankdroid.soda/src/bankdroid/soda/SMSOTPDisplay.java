@@ -178,7 +178,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 				: code);
 		( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
 				.toString()
-				+ timestampText);
+				+ " " + timestampText);
 		( (TextView) findViewById(R.id.messageBody) ).setText(smsMessage);
 
 		final TextView countDownView = (TextView) findViewById(R.id.countDown);
@@ -190,7 +190,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 			//calculate correct validity period from receivedAt and expiry
 			final long ellapsedTime = ( Calendar.getInstance().getTimeInMillis() - receivedAt.getTime() ) / 1000; //convert to seconds
 			final int remainingTime = (int) Math.max(0, source.getExpiry() - ellapsedTime);
-			countDownView.setText(getResources().getText(R.string.countdown_prefix).toString()
+			countDownView.setText(getResources().getText(R.string.countdown_prefix).toString() + " "
 					+ convertTime(remainingTime));
 
 			if ( remainingTime > 0 )
@@ -303,6 +303,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 	public void tick( final int remainingSec )
 	{
 		final TextView countDown = (TextView) findViewById(R.id.countDown);
-		countDown.setText(getResources().getText(R.string.countdown_prefix).toString() + convertTime(remainingSec));
+		countDown.setText(getResources().getText(R.string.countdown_prefix).toString() + " "
+				+ convertTime(remainingSec));
 	}
 }
