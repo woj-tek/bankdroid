@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class Main extends Activity implements Codes, OnClickListener
 {
@@ -35,9 +36,23 @@ public class Main extends Activity implements Codes, OnClickListener
 		}
 		else if ( v.getId() == R.id.viewLast )
 		{
-			startActivity(new Intent(getBaseContext(), SMSOTPDisplay.class));
+			final Message message = BankManager.getLastMessage(getApplicationContext());
+			if ( message == null )
+			{
+				final Toast toast = Toast.makeText(getApplicationContext(), R.string.noMessageYet, Toast.LENGTH_SHORT);
+				toast.show();
+			}
+			else
+			{
+				final Intent intent = new Intent(getBaseContext(), SMSOTPDisplay.class);
+				intent.setAction(ACTION_REDISPLAY);
+				intent.putExtra(BANKDROID_SODA_SMSMESSAGE, message.message);
+				intent.putExtra(BANKDROID_SODA_BANK, message.bank);
+				intent.putExtra(BANKDROID_SODA_SMSCODE, message.bank.extractCode(message.message));
+				intent.putExtra(BANKDROID_SODA_SMSTIMESTAMP, message.timestamp);
 
-			//FIXME handle viewLast
+				startActivity(intent);
+			}
 		}
 		else if ( v.getId() == R.id.about )
 		{

@@ -58,6 +58,7 @@
 	<string name="btnPrefs">Preferences</string>
 	<string name="btnInfoSite">Information Site</string>
 	<string name="btnAbout">About</string>
+	<string name="noMessageYet">You have received no SMS code yet.</string>
 
 	<!-- About -->
 	<string name="aboutId">BankDroid SODA</string>

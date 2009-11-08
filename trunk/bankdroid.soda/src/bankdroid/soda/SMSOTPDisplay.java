@@ -113,6 +113,10 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 			final Bank source = (Bank) intent.getSerializableExtra(BANKDROID_SODA_BANK);
 
 			setValues(source, smsCode, (Date) timestampSource, smsMessage);
+
+			if ( intent.getAction().equals(ACTION_DISPLAY) )
+				BankManager.updateLastMessage(getApplicationContext(), new Message(bank, smsMessage, receivedAt));
+
 			return true;
 		}
 
@@ -266,7 +270,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 			final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, true);
 
 			if ( !keepSMS )
-			{
+			{//XXX simplify deletion: use selection criteria directly in delete
 				final Uri uri = Uri.parse("content://sms");
 
 				final Cursor cursor = getContentResolver().query(uri, new String[] { "_id" }, "body=?",

@@ -66,11 +66,12 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 									R.string.notificationText).toString(), source.getName());
 
 							final Intent notificationIntent = new Intent(context, bankdroid.soda.SMSOTPDisplay.class);
+							notificationIntent.setAction(ACTION_DISPLAY);
 							notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-							notificationIntent.putExtra(BANKDROID_SODA_SMSMESSAGE, message); // key/value pair, where key needs current package prefix.
-							notificationIntent.putExtra(BANKDROID_SODA_BANK, source); // key/value pair, where key needs current package prefix.
-							notificationIntent.putExtra(BANKDROID_SODA_SMSCODE, code); // key/value pair, where key needs current package prefix.
-							notificationIntent.putExtra(BANKDROID_SODA_SMSTIMESTAMP, Calendar.getInstance().getTime()); // key/value pair, where key needs current package prefix.
+							notificationIntent.putExtra(BANKDROID_SODA_SMSMESSAGE, message);
+							notificationIntent.putExtra(BANKDROID_SODA_BANK, source);
+							notificationIntent.putExtra(BANKDROID_SODA_SMSCODE, code);
+							notificationIntent.putExtra(BANKDROID_SODA_SMSTIMESTAMP, Calendar.getInstance().getTime());
 
 							final PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
 									notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -84,12 +85,13 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 						{
 							//start display activity directly.
 							final Intent myIntent = new Intent();
+							myIntent.setAction(ACTION_DISPLAY);
 							myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 							myIntent.setClassName("bankdroid.soda", "bankdroid.soda.SMSOTPDisplay");
-							myIntent.putExtra(BANKDROID_SODA_SMSMESSAGE, message); // key/value pair, where key needs current package prefix.
-							myIntent.putExtra(BANKDROID_SODA_BANK, source); // key/value pair, where key needs current package prefix.
-							myIntent.putExtra(BANKDROID_SODA_SMSCODE, code); // key/value pair, where key needs current package prefix.
-							myIntent.putExtra(BANKDROID_SODA_SMSTIMESTAMP, Calendar.getInstance().getTime()); // key/value pair, where key needs current package prefix.
+							myIntent.putExtra(BANKDROID_SODA_SMSMESSAGE, message);
+							myIntent.putExtra(BANKDROID_SODA_BANK, source);
+							myIntent.putExtra(BANKDROID_SODA_SMSCODE, code);
+							myIntent.putExtra(BANKDROID_SODA_SMSTIMESTAMP, Calendar.getInstance().getTime());
 							context.startActivity(myIntent);
 						}
 

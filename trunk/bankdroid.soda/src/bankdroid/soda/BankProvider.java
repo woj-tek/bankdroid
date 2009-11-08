@@ -28,7 +28,7 @@ public class BankProvider extends ContentProvider implements Codes
 	{
 
 		private static final String DATABASE_NAME = "bank.db";
-		private static final int DATABASE_VERSION = 8;
+		private static final int DATABASE_VERSION = 9;
 
 		private final Context context;
 
@@ -48,14 +48,17 @@ public class BankProvider extends ContentProvider implements Codes
 					Bank.F_ICON + " INTEGER," + //
 					Bank.F_COUNTRY + " TEXT," + //
 					Bank.F_PHONENUMBERS + " TEXT," + //
-					Bank.F_EXPRESSIONS + " TEXT" + //
+					Bank.F_EXPRESSIONS + " TEXT," + //
+					Bank.F_LASTMESSAGE + " TEXT," + //
+					Bank.F_TIMESTAMP + " TEXT" + //
 					");");
 
 			//load constants here
 			try
 			{
 				final Bank[] banks = BankManager.getDefaultBanks(context);
-				final SQLiteStatement stmt = db.compileStatement("INSERT INTO " + T_BANK + " VALUES (?,?,?,?,?,?,?)");
+				final SQLiteStatement stmt = db.compileStatement("INSERT INTO " + T_BANK
+						+ " VALUES (?,?,?,?,?,?,?,?,?)");
 				for ( int i = 0; i < banks.length; i++ )
 				{
 					final Bank bank = banks[i];
@@ -66,6 +69,8 @@ public class BankProvider extends ContentProvider implements Codes
 					stmt.bindString(5, bank.getCountryCode());
 					stmt.bindString(6, BankManager.escapeStrings(bank.getPhoneNumbers()));
 					stmt.bindString(7, BankManager.escapeStrings(bank.getExtractExpressions()));
+					stmt.bindNull(8);
+					stmt.bindNull(9);
 
 					stmt.execute();
 
@@ -114,6 +119,8 @@ public class BankProvider extends ContentProvider implements Codes
 		projectionMap.put(Bank.F_COUNTRY, Bank.F_COUNTRY);
 		projectionMap.put(Bank.F_EXPRESSIONS, Bank.F_EXPRESSIONS);
 		projectionMap.put(Bank.F_PHONENUMBERS, Bank.F_PHONENUMBERS);
+		projectionMap.put(Bank.F_LASTMESSAGE, Bank.F_LASTMESSAGE);
+		projectionMap.put(Bank.F_TIMESTAMP, Bank.F_TIMESTAMP);
 	}
 
 	@Override

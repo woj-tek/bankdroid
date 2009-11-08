@@ -42,6 +42,8 @@ public class Bank implements Serializable, Cloneable, Codes
 	public static final String F_COUNTRY = "country";
 	public static final String F_PHONENUMBERS = "phonenumbers";
 	public static final String F_EXPRESSIONS = "expressions";
+	public static final String F_LASTMESSAGE = "lastmsg";
+	public static final String F_TIMESTAMP = "lastts";
 
 	public static final String DEFAULT_COUNTRY = "HU";
 
