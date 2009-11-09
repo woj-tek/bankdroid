@@ -38,6 +38,10 @@
 	<string name="selectEmail">Please select an E-mail account:</string>
 	<string name="noSMSInInbox">There is no SMS in your inbox.</string>
 	<string name="btnHelp">Help</string>
+	<string name="emailSubject">SMS OTP Sample</string>
+	<string name="emailPrefix">If the "to" field is empty, please enter sample@bankdroid.info. For more info please read help.</string>
+	<string name="emailOriginator">Bank phone number:</string>
+	<string name="emailSMSText">Message text:</string>
 	
 	<!-- Preferences -->
 	<string name="keepSMS">Keep SMS</string>
