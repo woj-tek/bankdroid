@@ -45,7 +45,11 @@ public class Bank implements Serializable, Cloneable, Codes
 	public static final String F_LASTMESSAGE = "lastmsg";
 	public static final String F_TIMESTAMP = "lastts";
 
-	public static final String DEFAULT_COUNTRY = "HU";
+	/**
+	 * Custom country indicates that the bank was created manual, and should not be dropped during
+	 * updated of the database.
+	 */
+	public static final String CUSTOM_COUNTRY = "xx";
 
 	///NON-STATIC MEMBERS
 	private int id;
@@ -78,9 +82,9 @@ public class Bank implements Serializable, Cloneable, Codes
 		id = UNASSIGNED_ID;
 		name = "";
 		expiry = -1;
-		phoneNumbers = new String[] { "" };//minimum 1 phone number is required
-		extractExpressions = new String[] { "" };//minimum 1 pattern is required
-		countryCode = DEFAULT_COUNTRY;
+		phoneNumbers = new String[0];
+		extractExpressions = new String[0];
+		countryCode = CUSTOM_COUNTRY;
 		iconId = R.drawable.bankdroid_logo;
 	}
 

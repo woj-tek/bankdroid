@@ -12,7 +12,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
-import android.database.sqlite.SQLiteStatement;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,14 +20,13 @@ public class BankProvider extends ContentProvider implements Codes
 {
 
 	/**
-	 * TODO update mechanism is required to refresh the default banks
 	 * This class helps open, create, and upgrade the database file.
 	 */
 	private static class DatabaseHelper extends SQLiteOpenHelper
 	{
 
 		private static final String DATABASE_NAME = "bank.db";
-		private static final int DATABASE_VERSION = 9;
+		private static final int DATABASE_VERSION = 13;//2009-11-09
 
 		private final Context context;
 
@@ -53,30 +51,29 @@ public class BankProvider extends ContentProvider implements Codes
 					Bank.F_TIMESTAMP + " TEXT" + //
 					");");
 
+			insertDefaultBanks(db);
+		}
+
+		private void insertDefaultBanks( final SQLiteDatabase db )
+		{
 			//load constants here
 			try
 			{
 				final Bank[] banks = BankManager.getDefaultBanks(context);
-				final SQLiteStatement stmt = db.compileStatement("INSERT INTO " + T_BANK
-						+ " VALUES (?,?,?,?,?,?,?,?,?)");
+				final ContentValues values = new ContentValues(9);
 				for ( int i = 0; i < banks.length; i++ )
 				{
 					final Bank bank = banks[i];
-					stmt.bindLong(1, bank.getId());
-					stmt.bindString(2, bank.getName());
-					stmt.bindLong(3, bank.getExpiry());
-					stmt.bindLong(4, bank.getIconId());
-					stmt.bindString(5, bank.getCountryCode());
-					stmt.bindString(6, BankManager.escapeStrings(bank.getPhoneNumbers()));
-					stmt.bindString(7, BankManager.escapeStrings(bank.getExtractExpressions()));
-					stmt.bindNull(8);
-					stmt.bindNull(9);
+					values.clear();
+					values.put(Bank.F_NAME, bank.getName());
+					values.put(Bank.F_VALIDITY, bank.getExpiry());
+					values.put(Bank.F_ICON, bank.getIconId());
+					values.put(Bank.F_COUNTRY, bank.getCountryCode());
+					values.put(Bank.F_PHONENUMBERS, BankManager.escapeStrings(bank.getPhoneNumbers()));
+					values.put(Bank.F_EXPRESSIONS, BankManager.escapeStrings(bank.getExtractExpressions()));
 
-					stmt.execute();
-
-					stmt.clearBindings();
+					db.insert(T_BANK, null, values);
 				}
-				stmt.close();
 			}
 			catch ( final Exception e )
 			{
@@ -84,13 +81,24 @@ public class BankProvider extends ContentProvider implements Codes
 			}
 		}
 
+		private void fullCleanUp( final SQLiteDatabase db )
+		{
+			Log.w(TAG, "Upgrading database that will destroy all old data.");
+			db.execSQL("DROP TABLE IF EXISTS " + T_BANK);
+			onCreate(db);
+		}
+
 		@Override
 		public void onUpgrade( final SQLiteDatabase db, final int oldVersion, final int newVersion )
 		{
-			Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion
-					+ ", which will destroy all old data");
-			db.execSQL("DROP TABLE IF EXISTS " + T_BANK);
-			onCreate(db);
+			if ( oldVersion <= 10 )
+				fullCleanUp(db);
+			else
+			// if there is not other special reason it means that only the bank list is updated. 
+			{
+				db.delete(T_BANK, Bank.F_COUNTRY + "<>'" + Bank.CUSTOM_COUNTRY + "'", null);
+				insertDefaultBanks(db);
+			}
 		}
 	}
 
