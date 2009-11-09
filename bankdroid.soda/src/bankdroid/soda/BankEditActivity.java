@@ -70,6 +70,8 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 			{
 				Log.d(TAG, "Bank to be created.");
 				bank = new Bank();
+				bank.addPhoneNumber("");
+				bank.addExtractExpression("");
 			}
 			else
 			{

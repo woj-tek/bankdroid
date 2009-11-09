@@ -8,9 +8,9 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.ClipboardManager;
 import android.util.Log;
@@ -50,6 +50,7 @@ import bankdroid.soda.CountDown.CountDownListener;
  */
 public class SMSOTPDisplay extends Activity implements View.OnClickListener, Codes, CountDownListener
 {
+	protected static final int MSG_DELETE_SMS = 0;
 	private CharSequence displayedCode;
 	private Bank bank;
 	private Date receivedAt;
@@ -92,6 +93,32 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 			}
 		}
 		isActive = true;
+
+		if ( smsMessage != null )
+		{
+			final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, true);
+
+			if ( !keepSMS )
+			{
+				final Handler handler = new Handler()
+				{
+					@Override
+					public void handleMessage( final android.os.Message msg )
+					{
+						super.handleMessage(msg);
+						if ( msg.what == MSG_DELETE_SMS )
+						{
+							final Uri uri = Uri.parse("content://sms");
+							getContentResolver().delete(uri, "body=?", new String[] { (String) msg.obj });
+						}
+					}
+				};
+
+				handler.sendMessageDelayed(handler.obtainMessage(MSG_DELETE_SMS, smsMessage), 2500);
+			}
+		}
+
 	}
 
 	private boolean processIntent()
@@ -265,23 +292,6 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 			if ( displayedCode != null )
 			{
 				( (ClipboardManager) getSystemService(CLIPBOARD_SERVICE) ).setText(displayedCode);
-			}
-
-			final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-			final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, true);
-
-			if ( !keepSMS )
-			{//XXX simplify deletion: use selection criteria directly in delete
-				final Uri uri = Uri.parse("content://sms");
-
-				final Cursor cursor = getContentResolver().query(uri, new String[] { "_id" }, "body=?",
-						new String[] { smsMessage }, null);
-
-				while ( cursor.moveToNext() )
-				{
-					final int id = cursor.getInt(0);
-					getContentResolver().delete(Uri.withAppendedPath(uri, String.valueOf(id)), null, null);
-				}
 			}
 
 			finish();
