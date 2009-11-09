@@ -119,10 +119,11 @@ public class SMSListActivity extends Activity implements Codes, OnItemClickListe
 		//construct e-mail body
 		final StringBuilder builder = new StringBuilder();
 
-		builder.append("Bank address: ").append(address).append("\n").append("\n"); //no I18N
-		builder.append("SMS OTP text: ").append(body).append("\n");//no I18N
+		builder.append(getString(R.string.emailPrefix)).append("\n\n");
+		builder.append(getString(R.string.emailOriginator)).append(address).append("\n\n");
+		builder.append(getString(R.string.emailSMSText)).append(body).append("\n");
 
-		sendEmail(new String[] { SUBMISSION_ADDRESS }, "SMS OTP Sample", builder.toString());//no I18N
+		sendEmail(new String[] { SUBMISSION_ADDRESS }, getString(R.string.emailSubject), builder.toString());//no I18N
 	}
 
 	private void sendEmail( final String[] address, final String subject, final String msg )
