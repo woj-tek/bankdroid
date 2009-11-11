@@ -65,6 +65,8 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 	{
 		super.onCreate(savedInstanceState);
 
+		Eula.show(this);
+
 		setContentView(R.layout.sod);
 		( (Button) findViewById(R.id.codeButton) ).setOnClickListener(this);
 	}
