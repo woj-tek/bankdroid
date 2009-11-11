@@ -16,6 +16,8 @@ public class Main extends Activity implements Codes, OnClickListener
 	{
 		super.onCreate(savedInstanceState);
 
+		Eula.show(this);
+
 		setContentView(R.layout.main);
 
 		( (Button) findViewById(R.id.viewLast) ).setOnClickListener(this);
@@ -58,6 +60,8 @@ public class Main extends Activity implements Codes, OnClickListener
 		{
 			final Intent aboutIntent = new Intent(getBaseContext(), AboutActivity.class);
 			startActivity(aboutIntent);
+			//getSharedPreferences(Eula.PREFERENCES_EULA, Activity.MODE_PRIVATE).edit().putBoolean(
+			//		Eula.PREFERENCE_EULA_ACCEPTED, false).commit();// use this line for eula testing
 		}
 		else if ( v.getId() == R.id.preferences )
 		{

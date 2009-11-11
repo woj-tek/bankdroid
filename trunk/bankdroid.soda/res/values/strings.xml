@@ -68,4 +68,10 @@
 	<string name="aboutId">BankDroid SODA</string>
 	<string name="aboutDesc">The SODA is product of the BankDroid open source project. Special thanks to Google for all those services that are made available for the world for free!</string>
 	<string name="aboutUrl2">http://www.bankdroid.info</string>
+	
+	<!-- EULA -->
+	<string name="eula_title">License</string>
+	<string name="eula_accept">Accept</string>
+	<string name="eula_refuse">Refuse</string>
+
 </resources>
