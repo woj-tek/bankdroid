@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+	
+	<Button 
+		android:text="RSS API Test" 
+		android:id="@+id/testRSSAPI" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>
+	
+	<Button 
+		android:text="RSS Provider Test" 
+		android:id="@+id/testRSSProvider" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>
+	
+	<Button 
+		android:text="Clean Database" 
+		android:id="@+id/cleanDatabase" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>
+	
+	<Button 
+		android:text="Full List" 
+		android:id="@+id/testFullList" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>
+</LinearLayout>
