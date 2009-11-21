@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent"
+  	>
+  	
+  	<ImageView
+  		android:src="@drawable/droidlogo"
+  		android:id="@+id/droidLogo"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:background="#369E50"
+  		android:maxWidth="32sp"
+  		android:maxHeight="32sp"
+  		
+  		android:layout_alignParentTop="true"
+  		android:layout_alignParentLeft="true"
+  		/>
+  	<TextView
+  		android:text="androidprotal.hu"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:background="#369E50"
+  		android:textColor="#FFFFFF"
+  		android:textSize="18sp"
+  		android:textStyle="bold"
+  		android:paddingLeft="10sp"
+  		android:paddingBottom="3sp"
+  		android:gravity="bottom"
+  		
+  		android:layout_alignParentTop="true"
+  		android:layout_toRightOf="@id/droidLogo"
+  		android:layout_alignBottom="@id/droidLogo"
+  		android:layout_alignParentRight="true"
+  		/>
+
+	<ListView
+		android:id="@+id/rssItemList"
+	  	android:layout_width="fill_parent"
+	  	android:layout_height="fill_parent"
+	  	
+	  	android:layout_below="@id/droidLogo"
+	  	/>
+
+</RelativeLayout>
+
