@@ -16,6 +16,13 @@
 		<activity android:name="ItemListActivity" />
 		<activity android:name="ItemViewActivity" />
 
+		<receiver android:name="hu.androidportal.widget.PortalWidgetProvider" >
+		    <intent-filter>
+		        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+		    </intent-filter>
+		    <meta-data android:name="android.appwidget.provider"
+		               android:resource="@xml/portal_widget_info" />
+		</receiver>
 
 		<provider android:name="RSSItemProvider" android:authorities="hu.androidportal.RSSItem" />
 	</application>
