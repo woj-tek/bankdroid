@@ -11,15 +11,18 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.TextView;
 
-public class ItemViewActivity extends Activity implements Codes
+public class ItemViewActivity extends Activity implements Codes, OnClickListener
 {
 	private final static String STORE_URI = "STORE_URI";
 
 	private Uri uriToDisplay = null;
+	private String url = null;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -32,6 +35,10 @@ public class ItemViewActivity extends Activity implements Codes
 
 		if ( savedInstanceState != null && savedInstanceState.containsKey(STORE_URI) )
 			uriToDisplay = Uri.parse(savedInstanceState.getString(STORE_URI));
+
+		( (TextView) findViewById(R.id.appName) ).setOnClickListener(this);
+		( (TextView) findViewById(R.id.titleText) ).setOnClickListener(this);
+		( (TextView) findViewById(R.id.author) ).setOnClickListener(this);
 	}
 
 	@Override
@@ -86,7 +93,7 @@ public class ItemViewActivity extends Activity implements Codes
 		final Cursor cursor = getContentResolver().query(
 				uriToDisplay,
 				new String[] { RSSObject.F__ID, RSSObject.F_TITLE, RSSObject.F_DESCRIPTION, RSSItem.F_AUTHOR,
-						RSSItem.F_PUBDATE }, null, null, RSSItem.DEFAULT_SORT_ORDER);
+						RSSItem.F_PUBDATE, RSSObject.F_LINK }, null, null, RSSItem.DEFAULT_SORT_ORDER);
 
 		if ( cursor.moveToFirst() )
 		{
@@ -104,10 +111,26 @@ public class ItemViewActivity extends Activity implements Codes
 					.getString(cursor.getColumnIndex(RSSItem.F_TITLE)));
 			( (TextView) findViewById(R.id.author) ).setText(ItemListActivity.getAuthorText(cursor.getString(cursor
 					.getColumnIndex(RSSItem.F_AUTHOR)), cursor.getString(cursor.getColumnIndex(RSSItem.F_PUBDATE))));
+
+			url = cursor.getString(cursor.getColumnIndex(RSSObject.F_LINK));
 		}
 		else
 		{
 			Log.w(TAG, "Item is not found in DB: " + uriToDisplay);
 		}
 	}
+
+	@Override
+	public void onClick( final View view )
+	{
+		if ( view.getId() == R.id.appName )
+		{
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL_ANDROIDPORTAL_HU)));
+		}
+		if ( view.getId() == R.id.titleView || view.getId() == R.id.author )
+		{
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+		}
+	}
+
 }
