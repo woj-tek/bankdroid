@@ -18,6 +18,7 @@
   		android:layout_alignParentLeft="true"
   		/>
   	<TextView
+  		android:id="@+id/appName"
   		android:text="androidprotal.hu"
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"

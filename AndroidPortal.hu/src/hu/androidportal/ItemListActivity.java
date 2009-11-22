@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -23,7 +24,7 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 
-public class ItemListActivity extends Activity implements OnItemClickListener, Codes
+public class ItemListActivity extends Activity implements OnItemClickListener, Codes, OnClickListener
 {
 
 	private SimpleCursorAdapter adapter;
@@ -70,6 +71,8 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 		final ListView list = (ListView) findViewById(R.id.rssItemList);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(this);
+
+		( (TextView) findViewById(R.id.appName) ).setOnClickListener(this);
 	}
 
 	@Override
@@ -110,5 +113,14 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 			Log.d(TAG, "Failed to parse date: " + e);
 		}
 		return builder;
+	}
+
+	@Override
+	public void onClick( final View view )
+	{
+		if ( view.getId() == R.id.appName )
+		{
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL_ANDROIDPORTAL_HU)));
+		}
 	}
 }
