@@ -30,6 +30,13 @@ public class RSSHandler extends DefaultHandler
 
 	private final StringBuilder elementValue = new StringBuilder();
 
+	private int maxId = -1;
+
+	public RSSHandler( final int maxId )
+	{
+		this.maxId = maxId;
+	}
+
 	@Override
 	public void startElement( final String uri, final String localName, final String qName, final Attributes atts )
 	{
@@ -98,6 +105,9 @@ public class RSSHandler extends DefaultHandler
 			else if ( name.equals(ITEM) )
 			{
 				//item ready
+				if ( item.id <= maxId )
+					throw new SAXException(LIMIT_REACHED);
+
 				channel.items.add(item);
 				item.generateSummary();
 				item = null;

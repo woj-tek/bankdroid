@@ -18,7 +18,7 @@ public class RSSStreamTest extends TestCase
 	public void testParser() throws ParserConfigurationException, SAXException, IOException
 	{
 		final RSSChannel channel = RSSStream.readChannelContent(getClass().getResourceAsStream(
-				"magyarandroidportal.xml"));
+				"magyarandroidportal.xml"), -1);
 
 		assertNotNull(channel);
 

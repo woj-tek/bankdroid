@@ -6,25 +6,31 @@
 	android:layout_height="wrap_content">
 	
 	<Button 
-		android:text="RSS API Test" 
-		android:id="@+id/testRSSAPI" 
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"/>
-	
-	<Button 
-		android:text="RSS Provider Test" 
+		android:text="Adatbázis feltöltés" 
 		android:id="@+id/testRSSProvider" 
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"/>
 	
 	<Button 
-		android:text="Clean Database" 
+		android:text="Adatbázis űrítés" 
 		android:id="@+id/cleanDatabase" 
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"/>
 	
 	<Button 
-		android:text="Full List" 
+		android:text="Utolsó elem törlése" 
+		android:id="@+id/deleteLast" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>
+	
+	<Button 
+		android:text="Adatbázis szinkron" 
+		android:id="@+id/synchDatabase" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>
+	
+	<Button 
+		android:text="Cikk lista" 
 		android:id="@+id/testFullList" 
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"/>
