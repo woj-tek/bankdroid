@@ -71,7 +71,7 @@ public class RSSItemProvider extends ContentProvider implements Codes
 	private static final int RSSITEMS = 1;
 	private static final int RSSITEM_ID = 2;
 
-	private static final String T_RSSITEM = "T_RSSITEM";
+	public static final String T_RSSITEM = "T_RSSITEM";
 
 	private static final UriMatcher uriMatcher;
 
