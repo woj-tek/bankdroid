@@ -7,6 +7,7 @@ import java.net.URL;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,8 +16,6 @@ import android.widget.Toast;
 
 public class Test extends Activity implements OnClickListener, Codes
 {
-
-	public static final String TEST_FEED = "http://feeds.feedburner.com/magyarandroidportalblogok";
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -51,7 +50,8 @@ public class Test extends Activity implements OnClickListener, Codes
 		{
 			try
 			{
-				final boolean newArrived = RSSStream.synchronize(getBaseContext(), new URL(TEST_FEED));
+				final boolean newArrived = RSSStream.synchronize(getBaseContext(), new URL(PreferenceManager
+						.getDefaultSharedPreferences(getBaseContext()).getString(PREF_FEED, DEFAULT_FEED)));
 				message(newArrived ? "Új bejegyzés érkezet..." : "Nincs új bejegyzés.");
 			}
 			catch ( final Exception e )
@@ -64,7 +64,8 @@ public class Test extends Activity implements OnClickListener, Codes
 		{
 			try
 			{
-				RSSStream.readAndStoreContent(getApplicationContext(), new URL(TEST_FEED));
+				RSSStream.readAndStoreContent(getApplicationContext(), new URL(PreferenceManager
+						.getDefaultSharedPreferences(getBaseContext()).getString(PREF_FEED, DEFAULT_FEED)));
 			}
 			catch ( final Exception e )
 			{

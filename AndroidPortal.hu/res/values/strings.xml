@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">AndroidPortal.hu</string>
+    
+    <!-- menu -->
+    <string name="menuPref">Beállítások</string>
+    <string name="menuRefresh">Frissít</string>
+    <string name="menuAbout">Névjegy</string>
+    
+    <!-- preferences -->
+    <string name="prefNoti">Értesítés engedélyezése</string>
+    <string name="prefNotiSummary">Értesítések megjelenítése, ha új cikk érkezik</string>
+    <string name="prefFreq">Frissítési gyakoriság</string>
+    <string name="prefFreqSummary">Cikkek frissítési gyakoriság</string>
+    <string name="prefFeed">Hírforrás kiválasztása</string>
+    <string name="prefFeedSummary">Választhatsz a portál hírforrásaiból</string>
 </resources>

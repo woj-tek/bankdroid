@@ -14,6 +14,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -96,12 +99,12 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 			if ( diff >= 0 && diff < 60 * 60 * 1000L )
 			{//within an hour
 				builder.append(diff / 60000L);
-				builder.append(" perccel ezelõtt"); //FIXME I18N
+				builder.append(" perccel ezelõtt");
 			}
 			else if ( diff >= 0 && diff < 24 * 60 * 60 * 1000L )
 			{//within a day
 				builder.append(diff / 3600000L);
-				builder.append(" órával ezelõtt"); //FIXME I18N
+				builder.append(" órával ezelõtt");
 			}
 			else
 			{
@@ -122,5 +125,31 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL_ANDROIDPORTAL_HU)));
 		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected( final MenuItem item )
+	{
+		if ( item.getItemId() == R.id.menuRefresh )
+		{
+			//FIXME refresh menu
+		}
+		else if ( item.getItemId() == R.id.menuPref )
+		{
+			startActivity(new Intent(getApplicationContext(), PreferencesActivity.class));
+		}
+		else if ( item.getItemId() == R.id.menuAbout )
+		{
+			//FIXME about menu
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu( final Menu menu )
+	{
+		final MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.mainmenu, menu);
+		return true;
 	}
 }
