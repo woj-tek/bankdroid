@@ -14,6 +14,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="ItemListActivity" />
+		<activity android:name="PreferencesActivity" />
 		<activity android:name="ItemViewActivity" />
 
 		<receiver android:name="hu.androidportal.widget.PortalWidgetProvider" >
@@ -25,7 +26,10 @@
 		</receiver>
 
 		<provider android:name="RSSItemProvider" android:authorities="hu.androidportal.RSSItem" />
-	</application>
+	
+<service android:name="RSSSyncService"></service>
+
+</application>
 
 
 </manifest> 

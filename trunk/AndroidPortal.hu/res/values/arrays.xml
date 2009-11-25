@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="freqValues">
+		<item>0</item>
+		<item>5</item>
+		<item>15</item>
+		<item>60</item>
+		<item>1440</item>
+	</string-array>
+	<string-array name="freqTitles">
+		<item>Kézi frissítés</item>
+		<item>5 percenként</item>
+		<item>15 percenként</item>
+		<item>Óránként</item>
+		<item>Naponta</item>
+	</string-array>
+	<string-array name="feedValues">
+		<item>http://feeds.feedburner.com/magyarandroidportal</item>
+		<item>http://feeds.feedburner.com/magyarandroidportalblogok</item>
+	</string-array>
+	<string-array name="feedTitles">
+		<item>Főoldal hírei</item>
+		<item>Blogok</item>
+	</string-array>
+</resources>
