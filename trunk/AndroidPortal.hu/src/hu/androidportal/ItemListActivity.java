@@ -132,7 +132,9 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 	{
 		if ( item.getItemId() == R.id.menuRefresh )
 		{
-			//FIXME refresh menu
+			final Intent intent = new Intent(ACTION_MANUAL_START);
+			intent.setClass(getBaseContext(), RSSSyncService.class);
+			startService(intent);
 		}
 		else if ( item.getItemId() == R.id.menuPref )
 		{
