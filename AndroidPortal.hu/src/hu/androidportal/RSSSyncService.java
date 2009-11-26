@@ -15,9 +15,11 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
- * TODO handle prefernces for frequency, and feed url
+ * FIXME implement preferences change starts
+ * 
  * TODO listen for internet connection to suspend/resume synch
  * TODO listen for phone start up to start synch
+ * TODO handle manual refresh
  * 
  * @author Gabe
  */
@@ -31,7 +33,6 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	public static void startService( final Context context )
 	{
 		context.startService(new Intent(context, RSSSyncService.class));
-
 	}
 
 	public final static int CMD_SHOW_REFRESH = 1;
@@ -39,6 +40,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	public final static int CMD_SHOW_NEWITEM = 3;
 
 	private Handler handler;
+
 	private boolean run;
 	private Thread background;
 
@@ -47,13 +49,19 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	private String frequency;
 	private long frequencyInMillis;
 
-	//FIXME set frequency changed somewhere
 	private boolean frequencyChanged = false;
+	private boolean feedChanged = false;
 
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
+		Log.d(TAG, "Service onCreate called.");
+
+		//initialize preferences
+		updateFrequency(null);
+
+		updateFeed(null);
 
 		//create handler (to show icons, notifications, read preferences, etc...)
 		handler = new Handler()
@@ -70,10 +78,12 @@ public class RSSSyncService extends Service implements Runnable, Codes
 				else if ( msg.what == CMD_HIDE_REFRESH )
 				{
 					//FIXME hide refresh icon in notification bar
+					Log.d(TAG, "HIDE refresh icon.");
 				}
 				else if ( msg.what == CMD_SHOW_NEWITEM )
 				{
 					//FIXME show new icon in the notification bar
+					Log.d(TAG, "Show NEW ITEM icon.");
 				}
 			}
 		};
@@ -84,26 +94,26 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		run = false;
 		background = new Thread(this);
 
-		//initialize preferences
-		updateFrequency();
-
-		updateFeed();
 	}
 
 	/**
-	 * Updates the feed url from preferences.
+	 * Updates the feed url from preferences or from the parameter.
 	 * @return True, if the current and the new urls are not the same.
 	 */
-	private boolean updateFeed()
+	private boolean updateFeed( String feed )
 	{
-		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		final String feed = preferences.getString(PREF_FEED, DEFAULT_FEED);
+		if ( feed == null )
+		{
+			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+			feed = preferences.getString(PREF_FEED, DEFAULT_FEED);
+		}
 
-		if ( !feed.equals(this.feed) )
+		if ( feed.equals(this.feed) )
 			return false;
 
 		try
 		{
+			Log.d(TAG, "Setting feed to: " + feed);
 			feedUrl = new URL(feed);
 			this.feed = feed;
 
@@ -117,15 +127,18 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	}
 
 	/**
-	 * Updates the frequency from preferences.
+	 * Updates the frequency from preferences or from the parameter.
 	 * @return True, if the current and the new frequency are not the same.
 	 */
-	private boolean updateFrequency()
+	private boolean updateFrequency( String frequency )
 	{
-		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		final String frequency = preferences.getString(PREF_FREQUENCY, DEFAULT_FREQUENCY);
+		if ( frequency == null )
+		{
+			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+			frequency = preferences.getString(PREF_FREQUENCY, DEFAULT_FREQUENCY);
+		}
 
-		if ( !frequency.equals(this.frequency) )
+		if ( frequency.equals(this.frequency) )
 			return false;
 
 		this.frequency = frequency;
@@ -139,12 +152,46 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	{
 		super.onStart(intent, startId);
 
-		//FIXME handle preferences changes somewhere (problem could be here that the new preferences are not yet set
-		if ( !background.isAlive() )
+		Log.d(TAG, "Service onStart called.");
+
+		if ( intent.getAction().equals(ACTION_MANUAL_START) )
 		{
-			run = true;
-			background.start();
+			//start synch immediately in a seperate thread.
+			new Thread(new Runnable()
+			{
+				public void run()
+				{
+					synch(false);
+				}
+			}).start();
 		}
+		else
+		{
+			if ( intent.getAction().equals(ACTION_FEED_CHANGED) )
+			{
+				updateFeed(intent.getStringExtra(PREF_FEED));
+				feedChanged = true;
+				//clean up database and start synch immediately in a seperate thread.
+				notifyAll();
+			}
+			else if ( intent.getAction().equals(ACTION_FREQ_CHANGED) )
+			{
+				updateFeed(intent.getStringExtra(PREF_FREQUENCY));
+				frequencyChanged = true;
+				notifyAll(); //inform the thread that something happened.
+			}
+
+			if ( frequencyInMillis > 0 && !background.isAlive() )
+			{
+				run = true;
+				background.start();
+			}
+			else if ( frequencyInMillis == 0 )
+			{
+				stopSelf();
+			}
+		}
+
 	}
 
 	@Override
@@ -154,7 +201,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 
 		run = false;
 		if ( background.isAlive() )
-			background.interrupt();
+			notifyAll();
 	}
 
 	@Override
@@ -177,25 +224,49 @@ public class RSSSyncService extends Service implements Runnable, Codes
 			else
 			{
 				//do a refresh
-				try
-				{
-					RSSStream.synchronize(getBaseContext(), feedUrl);
-				}
-				catch ( final Exception e )
-				{
-					Log.e(TAG, "Unable to synchronise the feed: " + feed, e);
-				}
+				synch(feedChanged);
+				feedChanged = false;
 			}
 
 			//wait
 			try
 			{
-				Thread.sleep(frequencyInMillis);
+				wait(frequencyInMillis);
 			}
-			catch ( final Exception e )
+			catch ( final InterruptedException e )
 			{
-				//do nothing. If necessary the thread will be stoped on the "run" variable.
+				// do nothing, thread will stop, if run flag changes.
 			}
+		}
+	}
+
+	/**
+	 * This method does the actual synch from the stream. It is also handling notifications and 
+	 * able to clean up the dB before refresh (this may be necessary, if the feed is changed).
+	 * @param cleanUpDB if true, the all cahced item will be deleted before the refresh.
+	 */
+	private synchronized void synch( final boolean cleanUpDB )
+	{
+		try
+		{
+			handler.sendMessage(handler.obtainMessage(CMD_SHOW_REFRESH));
+			if ( cleanUpDB )
+				RSSStream.deleteItems(getApplicationContext());
+			final boolean newItems = RSSStream.synchronize(getBaseContext(), feedUrl);
+			if ( newItems
+					&& PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getBoolean(PREF_NOTIFICATION,
+							DEFAULT_NOTIFICATION) )
+			{
+				handler.sendMessage(handler.obtainMessage(CMD_SHOW_NEWITEM));
+			}
+		}
+		catch ( final Exception e )
+		{
+			Log.e(TAG, "Unable to synchronise the feed: " + feed, e);
+		}
+		finally
+		{
+			handler.sendMessage(handler.obtainMessage(CMD_HIDE_REFRESH));
 		}
 	}
 }

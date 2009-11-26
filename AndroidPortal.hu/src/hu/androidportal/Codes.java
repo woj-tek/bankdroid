@@ -16,4 +16,8 @@ public interface Codes
 	public static final String DEFAULT_FEED = "http://feeds.feedburner.com/magyarandroidportal";
 	public static final boolean DEFAULT_NOTIFICATION = true;
 
+	public static final String ACTION_NORMAL_START = "hu.androidportal.action.NORMAL_START";
+	public static final String ACTION_FREQ_CHANGED = "hu.androidportal.action.FREQ_CHANGED";
+	public static final String ACTION_FEED_CHANGED = "hu.androidportal.action.FEED_CHANGED";
+	public static final String ACTION_MANUAL_START = "hu.androidportal.action.MANUAL_START";
 }
