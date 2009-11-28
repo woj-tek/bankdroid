@@ -1,23 +1,15 @@
 package hu.androidportal;
 
-import hu.androidportal.rss.RSSStream;
-
-import java.net.URL;
-
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.util.Log;
-import android.widget.Toast;
 
 /**
  * @author Gabe
- *
- *FIXME set frequency text based on the selected pref
- *FIXME set blog text based on the selected pref
  */
 public class PreferencesActivity extends PreferenceActivity implements Codes, OnPreferenceChangeListener
 {
@@ -61,25 +53,20 @@ public class PreferencesActivity extends PreferenceActivity implements Codes, On
 		if ( pref.getKey().equals(PREF_FEED) )
 		{
 			pref.setSummary(getTitleForValue(R.array.feedTitles, R.array.feedValues, (String) newValue));
-			//FIXME delete database content and start synch in background
-			try
-			{
-				RSSStream.deleteItems(getBaseContext());
-				RSSStream.readAndStoreContent(getBaseContext(), new URL((String) newValue));
-			}
-			catch ( final Exception e )
-			{
-				Log.e(TAG, "Failed to update the stream.", e);
-				final Toast toast = Toast.makeText(getBaseContext(), "Nem sikerült frissíteni a hírcsatornát.",
-						Toast.LENGTH_LONG);
-				toast.show();
-				return false;
-			}
+
+			final Intent intent = new Intent(ACTION_FEED_CHANGED);
+			intent.setClass(getBaseContext(), RSSSyncService.class);
+			intent.putExtra(PREF_FEED, (String) newValue);
+			startService(intent);
 		}
 		else if ( pref.getKey().equals(PREF_FREQUENCY) )
 		{
 			pref.setSummary(getTitleForValue(R.array.freqTitles, R.array.freqValues, (String) newValue));
-			//FIXME update service in background if necessarys
+
+			final Intent intent = new Intent(ACTION_FREQ_CHANGED);
+			intent.setClass(getBaseContext(), RSSSyncService.class);
+			intent.putExtra(PREF_FREQUENCY, (String) newValue);
+			startService(intent);
 		}
 		return true;
 	}

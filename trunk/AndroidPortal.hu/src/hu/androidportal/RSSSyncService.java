@@ -4,6 +4,9 @@ import hu.androidportal.rss.RSSStream;
 
 import java.net.URL;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -15,11 +18,8 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
- * FIXME implement preferences change starts
- * 
  * TODO listen for internet connection to suspend/resume synch
  * TODO listen for phone start up to start synch
- * TODO handle manual refresh
  * 
  * @author Gabe
  */
@@ -56,7 +56,11 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	public void onCreate()
 	{
 		super.onCreate();
-		Log.d(TAG, "Service onCreate called.");
+		if ( DEBUG )
+		{
+			Log.d(TAG, "Service onCreate() called.");
+			debugNotification("Service onCreate() called.");
+		}
 
 		//initialize preferences
 		updateFrequency(null);
@@ -70,20 +74,71 @@ public class RSSSyncService extends Service implements Runnable, Codes
 			public void handleMessage( final Message msg )
 			{
 				super.handleMessage(msg);
+
+				final Context context = getBaseContext();
+				final NotificationManager nm = (NotificationManager) context
+						.getSystemService(Context.NOTIFICATION_SERVICE);
+
 				if ( msg.what == CMD_SHOW_REFRESH )
 				{
-					//FIXME show refresh icon in notification bar
-					Log.d(TAG, "Show refresh icon.");
+					//show refresh icon in notification bar
+					if ( DEBUG )
+						Log.d(TAG, "Show refresh icon.");
+
+					//show new icon in the notification bar
+					final int icon = android.R.drawable.stat_notify_sync;
+					final long when = System.currentTimeMillis();
+
+					final Notification notification = new Notification(icon, "", when);
+
+					final Intent notificationIntent = new Intent(context, ItemListActivity.class);
+					notificationIntent.setAction(Intent.ACTION_VIEW);
+					notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+					final PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
+							PendingIntent.FLAG_UPDATE_CURRENT);
+
+					notification.setLatestEventInfo(context, "AndroidPortal.hu",
+							"Frissítem az AndroidPortal.hu híreit...", contentIntent);
+					notification.flags |= Notification.FLAG_ONGOING_EVENT;
+
+					//display notification
+					nm.notify(NOTIFICATION_REFRESH, notification);
 				}
 				else if ( msg.what == CMD_HIDE_REFRESH )
 				{
-					//FIXME hide refresh icon in notification bar
-					Log.d(TAG, "HIDE refresh icon.");
+					//hide refresh icon in notification bar
+					if ( DEBUG )
+						Log.d(TAG, "HIDE refresh icon.");
+
+					nm.cancel(NOTIFICATION_REFRESH);
 				}
 				else if ( msg.what == CMD_SHOW_NEWITEM )
 				{
-					//FIXME show new icon in the notification bar
-					Log.d(TAG, "Show NEW ITEM icon.");
+					if ( DEBUG )
+						Log.d(TAG, "Show NEW ITEM icon.");
+
+					//show new icon in the notification bar
+					final int icon = android.R.drawable.stat_notify_chat;
+					final long when = System.currentTimeMillis();
+
+					final Notification notification = new Notification(icon,
+							"Új cikk érkezett az AndroidPortal.hu-ról.", when);
+
+					final Intent notificationIntent = new Intent(context, ItemListActivity.class);
+					notificationIntent.setAction(Intent.ACTION_VIEW);
+					notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+					final PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
+							PendingIntent.FLAG_UPDATE_CURRENT);
+
+					notification.setLatestEventInfo(context, "AndroidPortal.hu",
+							"Új cikk érkezett az AndroidPortal.hu-ról.", contentIntent);
+					notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+					//display notification
+					nm.notify(NOTIFICATION_NEWITEM, notification);
+
 				}
 			}
 		};
@@ -152,7 +207,11 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	{
 		super.onStart(intent, startId);
 
-		Log.d(TAG, "Service onStart called.");
+		if ( DEBUG )
+		{
+			Log.d(TAG, "Service onStart called.");
+			debugNotification("Service onStart() called.");
+		}
 
 		if ( intent.getAction().equals(ACTION_MANUAL_START) )
 		{
@@ -172,36 +231,49 @@ public class RSSSyncService extends Service implements Runnable, Codes
 				updateFeed(intent.getStringExtra(PREF_FEED));
 				feedChanged = true;
 				//clean up database and start synch immediately in a seperate thread.
-				notifyAll();
+				synchronized ( this )
+				{
+					notifyAll();
+				}
 			}
 			else if ( intent.getAction().equals(ACTION_FREQ_CHANGED) )
 			{
-				updateFeed(intent.getStringExtra(PREF_FREQUENCY));
+				updateFrequency(intent.getStringExtra(PREF_FREQUENCY));
 				frequencyChanged = true;
-				notifyAll(); //inform the thread that something happened.
-			}
-
-			if ( frequencyInMillis > 0 && !background.isAlive() )
-			{
-				run = true;
-				background.start();
-			}
-			else if ( frequencyInMillis == 0 )
-			{
-				stopSelf();
+				synchronized ( this )
+				{
+					notifyAll();
+				}
 			}
 		}
 
+		if ( frequencyInMillis > 0 && !background.isAlive() )
+		{
+			run = true;
+			background.start();
+		}
+		else if ( frequencyInMillis == 0 )
+		{
+			stopSelf();
+		}
 	}
 
 	@Override
 	public void onDestroy()
 	{
 		super.onDestroy();
+		if ( DEBUG )
+		{
+			Log.d(TAG, "Service onDestroy() called.");
+			debugNotification("Service onDestroy() called.");
+		}
 
 		run = false;
 		if ( background.isAlive() )
-			notifyAll();
+			synchronized ( this )
+			{
+				notifyAll();
+			}
 	}
 
 	@Override
@@ -231,7 +303,10 @@ public class RSSSyncService extends Service implements Runnable, Codes
 			//wait
 			try
 			{
-				wait(frequencyInMillis);
+				synchronized ( this )
+				{
+					wait(frequencyInMillis);
+				}
 			}
 			catch ( final InterruptedException e )
 			{
@@ -263,10 +338,39 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		catch ( final Exception e )
 		{
 			Log.e(TAG, "Unable to synchronise the feed: " + feed, e);
+			if ( DEBUG )
+				debugNotification("Exception: " + e);
 		}
 		finally
 		{
 			handler.sendMessage(handler.obtainMessage(CMD_HIDE_REFRESH));
 		}
+	}
+
+	private void debugNotification( final String message )
+	{
+		final Context context = getApplicationContext();
+		//display notification
+		final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+		//create notification
+		final int icon = android.R.drawable.stat_sys_warning;
+		final long when = System.currentTimeMillis();
+
+		final Notification notification = new Notification(icon, message, when);
+
+		final Intent notificationIntent = new Intent(context, ItemListActivity.class);
+		notificationIntent.setAction(Intent.ACTION_VIEW);
+		notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+		final PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
+				PendingIntent.FLAG_UPDATE_CURRENT);
+
+		notification.setLatestEventInfo(context, "Debug", message, contentIntent);
+
+		notification.flags |= Notification.FLAG_AUTO_CANCEL;
+
+		//display notification
+		nm.notify(NOTIFICATION_DEBUG, notification);
 	}
 }

@@ -154,7 +154,7 @@ public class RSSStream implements Codes
 				new String[] { RSSItem.F__ID }, "_id = (select max(_id) from " + RSSItemProvider.T_RSSITEM + " )",
 				null, null);
 		maxIdCursor.moveToFirst();
-		final int maxId = maxIdCursor.getInt(0);
+		final int maxId = maxIdCursor.getInt(0);//FIXME fails if there is no record in database.
 
 		//read RSS feed
 		final RSSChannel channel = readChannelContent(url, maxId);
