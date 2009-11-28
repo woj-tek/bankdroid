@@ -2,6 +2,7 @@ package hu.androidportal;
 
 public interface Codes
 {
+	public static final boolean DEBUG = true;
 	public static final String URL_ANDROIDPORTAL_HU = "http://androidportal.hu";
 
 	public static final String TAG = "ap.hu";
@@ -20,4 +21,8 @@ public interface Codes
 	public static final String ACTION_FREQ_CHANGED = "hu.androidportal.action.FREQ_CHANGED";
 	public static final String ACTION_FEED_CHANGED = "hu.androidportal.action.FEED_CHANGED";
 	public static final String ACTION_MANUAL_START = "hu.androidportal.action.MANUAL_START";
+
+	public static final int NOTIFICATION_DEBUG = 1;
+	public static final int NOTIFICATION_REFRESH = 2;
+	public static final int NOTIFICATION_NEWITEM = 3;
 }

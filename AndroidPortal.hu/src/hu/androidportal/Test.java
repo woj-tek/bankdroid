@@ -14,6 +14,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+/**
+ * FIXME investigate parseexceptions
+ * FIXME investigate invalid articles.
+ * @author Gabe
+ *
+ */
 public class Test extends Activity implements OnClickListener, Codes
 {
 

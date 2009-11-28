@@ -27,8 +27,13 @@
 
 		<provider android:name="RSSItemProvider" android:authorities="hu.androidportal.RSSItem" />
 	
-<service android:name="RSSSyncService"></service>
+		<service android:name="RSSSyncService"/>
 
+		<receiver android:name="RSSServiceStartReceiver">
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED"/>
+			</intent-filter>
+		</receiver>
 </application>
 
 

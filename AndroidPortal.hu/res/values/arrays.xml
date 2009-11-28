@@ -2,6 +2,7 @@
 <resources>
 	<string-array name="freqValues">
 		<item>0</item>
+		<item>1</item>
 		<item>5</item>
 		<item>15</item>
 		<item>60</item>
@@ -9,6 +10,7 @@
 	</string-array>
 	<string-array name="freqTitles">
 		<item>Kézi frissítés</item>
+		<item>Percenként</item>
 		<item>5 percenként</item>
 		<item>15 percenként</item>
 		<item>Óránként</item>
