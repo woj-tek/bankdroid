@@ -75,7 +75,7 @@ public class BankDefinitionHandler extends DefaultHandler
 		if ( name.equals(E_BANKS) )
 		{
 			//root tag. Look for country and package attributes
-			country = attributes.getValue(A_PACKAGE);
+			country = attributes.getValue(A_COUNTRY);
 			if ( country == null )
 				throw new SAXException("Missing country attribute in the root tag.");
 

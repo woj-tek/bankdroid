@@ -39,9 +39,9 @@
 	<string name="noSMSInInbox">There is no SMS in your inbox.</string>
 	<string name="btnHelp">Help</string>
 	<string name="emailSubject">SMS OTP Sample</string>
-	<string name="emailPrefix">If the "to" field is empty, please enter sample@bankdroid.info. For more info please read help.</string>
-	<string name="emailOriginator">Bank phone number:</string>
-	<string name="emailSMSText">Message text:</string>
+	<string name="emailPrefix">Thank you for submitting sample codes! Please leave the bank phone number unchanged, and the code unchanged. You may replace personal data in the message.</string>
+	<string name="emailOriginator">Bank phone number: </string>
+	<string name="emailSMSText">Message text: </string>
 	
 	<!-- Preferences -->
 	<string name="keepSMS">Keep SMS</string>

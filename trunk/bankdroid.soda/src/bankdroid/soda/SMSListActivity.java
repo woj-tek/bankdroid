@@ -119,22 +119,32 @@ public class SMSListActivity extends Activity implements Codes, OnItemClickListe
 		//construct e-mail body
 		final StringBuilder builder = new StringBuilder();
 
-		builder.append(getString(R.string.emailPrefix)).append("\n\n");
-		builder.append(getString(R.string.emailOriginator)).append(address).append("\n\n");
-		builder.append(getString(R.string.emailSMSText)).append(body).append("\n");
+		builder.append(getString(R.string.emailPrefix)).append(" ");
+		builder.append(getString(R.string.emailOriginator)).append(" ").append(address).append(". ");
+		builder.append(getString(R.string.emailSMSText)).append(" ").append(body).append("\n");
 
 		sendEmail(new String[] { SUBMISSION_ADDRESS }, getString(R.string.emailSubject), builder.toString());//no I18N
 	}
 
 	private void sendEmail( final String[] address, final String subject, final String msg )
 	{
-		final Intent send = new Intent(Intent.ACTION_SEND);
+		/*final Intent send = new Intent(Intent.ACTION_SEND);
 		send.putExtra(Intent.EXTRA_EMAIL, address);
 		send.putExtra(Intent.EXTRA_SUBJECT, subject);
 		send.putExtra(Intent.EXTRA_TEXT, msg);
+		//send.setType("message/rfc2822");
 		//send.setType("message/rfc822");
 		send.setType("text/plain");
-		startActivityForResult(Intent.createChooser(send, getString(R.string.selectEmail)), REQUEST_EMAIL_SEND);
+		startActivityForResult(Intent.createChooser(send, getString(R.string.selectEmail)), REQUEST_EMAIL_SEND);*/
+
+		final Intent view = new Intent(Intent.ACTION_VIEW);
+		final StringBuilder uri = new StringBuilder("mailto:");
+		uri.append(address[0]);
+		uri.append("?subject=").append(Uri.encode(subject));
+		uri.append("&body=").append(Uri.encode(msg));
+		Log.d(TAG, "URI: " + uri);
+		view.setData(Uri.parse(uri.toString()));
+		startActivity(view);
 	}
 
 	@Override
