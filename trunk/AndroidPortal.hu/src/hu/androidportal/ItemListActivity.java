@@ -142,7 +142,7 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 		}
 		else if ( item.getItemId() == R.id.menuAbout )
 		{
-			//FIXME about menu
+			//TODO about menu
 		}
 		return super.onOptionsItemSelected(item);
 	}

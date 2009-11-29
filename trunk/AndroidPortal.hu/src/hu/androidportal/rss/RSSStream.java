@@ -22,20 +22,16 @@ import android.database.Cursor;
 import android.util.Log;
 
 /**
- * FIXME create service to read the stream
- * FIXME create widget that shows the last item
+ * TODO create widget that shows the last item
  * 
- * http://feeds.feedburner.com/magyarandroidportalblogok
- * http://feeds.feedburner.com/magyarandroidportal
  * @author Gabe
- *
  */
 public class RSSStream implements Codes
 {
 	/**
 	 * Number of days that the items should be stored.
 	 */
-	public final static int MAX_ITEMS_TO_STORE = 3;//FIXME add to preferences
+	public final static int MAX_ITEMS_TO_STORE = 10;//XXX add to preferences
 
 	private RSSStream()
 	{
@@ -153,8 +149,10 @@ public class RSSStream implements Codes
 		final Cursor maxIdCursor = context.getContentResolver().query(RSSItem.CONTENT_URI,
 				new String[] { RSSItem.F__ID }, "_id = (select max(_id) from " + RSSItemProvider.T_RSSITEM + " )",
 				null, null);
-		maxIdCursor.moveToFirst();
-		final int maxId = maxIdCursor.getInt(0);//FIXME fails if there is no record in database.
+
+		int maxId = -1;
+		if ( maxIdCursor.moveToFirst() )
+			maxId = maxIdCursor.getInt(0);
 
 		//read RSS feed
 		final RSSChannel channel = readChannelContent(url, maxId);
@@ -203,7 +201,10 @@ public class RSSStream implements Codes
 				new String[] { RSSItem.F__ID }, "_id = (select max(_id) from " + RSSItemProvider.T_RSSITEM + " )",
 				null, null);
 		maxIdCursor.moveToFirst();
-		final int maxId = maxIdCursor.getInt(0);
+
+		int maxId = -1;
+		if ( maxIdCursor.moveToFirst() )
+			maxId = maxIdCursor.getInt(0);
 
 		context.getContentResolver().delete(RSSItem.CONTENT_URI, RSSItem.F__ID + "=?",
 				new String[] { String.valueOf(maxId) });
