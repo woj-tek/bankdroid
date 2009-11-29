@@ -15,9 +15,11 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.SimpleCursorAdapter.ViewBinder;
 
 /**
  * @author gyenes
@@ -35,7 +37,8 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 		setContentView(R.layout.banklist);
 
 		final Cursor cursor = getContentResolver().query(Bank.CONTENT_URI,
-				new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_PHONENUMBERS }, null, null, Bank.DEFAULT_SORT_ORDER);
+				new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_PHONENUMBERS, Bank.F_COUNTRY }, null, null,
+				Bank.DEFAULT_SORT_ORDER);
 
 		startManagingCursor(cursor);
 
@@ -43,6 +46,23 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 		final int[] names = new int[] { R.id.bankName, R.id.phoneNumber };
 
 		adapter = new SimpleCursorAdapter(this, R.layout.banklistitem, cursor, columns, names);
+		final int nameIndex = cursor.getColumnIndex(Bank.F_NAME);
+		final int countryIndex = cursor.getColumnIndex(Bank.F_COUNTRY);
+		adapter.setViewBinder(new ViewBinder()
+		{
+
+			@Override
+			public boolean setViewValue( final View view, final Cursor cursor, final int columnIndex )
+			{
+				if ( columnIndex == nameIndex )
+				{
+					( (TextView) view ).setText(new StringBuilder(cursor.getString(nameIndex)).append(" [").append(
+							cursor.getString(countryIndex)).append(']'));
+					return true;
+				}
+				return false;
+			}
+		});
 
 		final ListView list = (ListView) findViewById(R.id.bankListView);
 		list.setAdapter(adapter);
