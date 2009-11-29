@@ -279,7 +279,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	@Override
 	public IBinder onBind( final Intent intent )
 	{
-		// TODO Auto-generated method stub
+		//XXX maybe something should be put here
 		return null;
 	}
 
