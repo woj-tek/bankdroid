@@ -35,7 +35,7 @@ import bankdroid.soda.CountDown.CountDownListener;
  * <li>improved design</li>
  * <li>use notifications instead of direct pop-up based on user preferences</li>
  * <li>clear SMS based on preferences (that may be problematic. There is no good tip for it on forums.</li>
- * <li>XXX: maintain how many OTP to be stored per bank - it makes no sense. Only one should be stored per bank.</li>
+ * <li>XXX maintain how many OTP to be stored per bank - it makes no sense. Only one should be stored per bank.</li>
  * <li>display a different activity on start up, from where various actions can be started.</li>
  * <li>displays list of banks and their settings</li>
  * <li>let the user to register new banks, store settings in DB</li>

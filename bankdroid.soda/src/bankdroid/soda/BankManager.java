@@ -299,7 +299,7 @@ public final class BankManager implements Codes
 		Message result = null;
 		final Cursor cursor = context.getContentResolver().query(Bank.CONTENT_URI,
 				new String[] { Bank.F__ID, Bank.F_LASTMESSAGE, Bank.F_TIMESTAMP }, Bank.F_TIMESTAMP + " IS NOT NULL",
-				null, Bank.F_TIMESTAMP + " ASC");
+				null, Bank.F_TIMESTAMP + " DESC");
 
 		if ( cursor.getCount() > 0 )
 		{
