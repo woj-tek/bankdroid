@@ -6,6 +6,12 @@
 	android:layout_height="wrap_content">
 	
 	<Button 
+		android:text="Test" 
+		android:id="@+id/test" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"/>
+	
+	<Button 
 		android:text="Adatbázis feltöltés" 
 		android:id="@+id/testRSSProvider" 
 		android:layout_width="fill_parent"

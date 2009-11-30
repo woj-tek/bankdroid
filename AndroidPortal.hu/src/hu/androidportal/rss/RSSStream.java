@@ -50,7 +50,7 @@ public class RSSStream implements Codes
 		return readChannelContent(url.openStream(), -1);
 	}
 
-	private static RSSChannel readChannelContent( final URL url, final int maxId ) throws ParserConfigurationException,
+	public static RSSChannel readChannelContent( final URL url, final int maxId ) throws ParserConfigurationException,
 			SAXException, IOException
 	{
 		return readChannelContent(url.openStream(), maxId);
@@ -80,11 +80,6 @@ public class RSSStream implements Codes
 		try
 		{
 			xr.parse(is);
-		}
-		catch ( final SAXException e )
-		{
-			if ( !e.getMessage().equals(RSSHandler.LIMIT_REACHED) )
-				throw e;
 		}
 		finally
 		{

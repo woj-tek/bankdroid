@@ -1,25 +1,62 @@
 package hu.androidportal.test;
 
 import hu.androidportal.rss.RSSChannel;
+import hu.androidportal.rss.RSSHandler;
 import hu.androidportal.rss.RSSObject;
-import hu.androidportal.rss.RSSStream;
 
-import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import junit.framework.TestCase;
 
-import org.xml.sax.SAXException;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
 
 public class RSSStreamTest extends TestCase
 {
 
-	public void testParser() throws ParserConfigurationException, SAXException, IOException
+	private RSSChannel readChannelContent( final InputStream stream, final int maxId ) throws Exception
 	{
-		final RSSChannel channel = RSSStream.readChannelContent(getClass().getResourceAsStream(
-				"magyarandroidportal.xml"), -1);
+		final RSSHandler handler = new RSSHandler(maxId);
 
+		final SAXParserFactory spf = SAXParserFactory.newInstance();
+		final SAXParser sp = spf.newSAXParser();
+		final XMLReader xr = sp.getXMLReader();
+		xr.setContentHandler(handler);
+
+		final InputSource is = new InputSource(stream);
+		try
+		{
+			xr.parse(is);
+		}
+		finally
+		{
+			try
+			{
+				stream.close();
+			}
+			catch ( final Exception e2 )
+			{
+				System.err.println("Failed to close the RSS stream.");
+				e2.printStackTrace();
+			}
+		}
+
+		return handler.getChannel();
+
+	}
+
+	public void testParser() throws Exception
+	{
+		RSSChannel channel = readChannelContent(new URL("http://feeds.feedburner.com/magyarandroidportal")
+				.openConnection().getInputStream(), 170);
+		channel = readChannelContent(new URL("http://feeds.feedburner.com/magyarandroidportal").openConnection()
+				.getInputStream(), 170);
+		channel = readChannelContent(new URL("http://feeds.feedburner.com/magyarandroidportal").openConnection()
+				.getInputStream(), 170);
 		assertNotNull(channel);
 
 		System.out.println(channel.toString());
