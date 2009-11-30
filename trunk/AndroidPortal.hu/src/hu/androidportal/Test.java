@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 /**
- * FIXME investigate parseexceptions
  * FIXME investigate invalid articles.
  * @author Gabe
  *
@@ -30,6 +29,7 @@ public class Test extends Activity implements OnClickListener, Codes
 
 		setContentView(R.layout.test);
 
+		( (Button) findViewById(R.id.test) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.deleteLast) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.synchDatabase) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.testRSSProvider) ).setOnClickListener(this);
@@ -91,6 +91,19 @@ public class Test extends Activity implements OnClickListener, Codes
 				error(e);
 			}
 		}
+		else if ( view.getId() == R.id.test )
+		{
+			try
+			{
+				RSSStream.readChannelContent(new URL(DEFAULT_FEED).openConnection().getInputStream(), 170);
+				message("Download ok: " + System.currentTimeMillis());
+			}
+			catch ( final Exception e )
+			{
+				Log.d(TAG, "Failed to clean stream in DB", e);
+				error(e);
+			}
+		}
 		else if ( view.getId() == R.id.testFullList )
 		{
 			startActivity(new Intent(getBaseContext(), ItemListActivity.class));
@@ -105,7 +118,7 @@ public class Test extends Activity implements OnClickListener, Codes
 
 	private void message( final String msg )
 	{
-		final Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG);
+		final Toast toast = Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT);
 		toast.show();
 	}
 }

@@ -22,7 +22,6 @@ public class RSSHandler extends DefaultHandler
 
 	// Number of articles to download
 	private static final int ITEM_LIMIT = 15; //XXX convert it to preference
-	public static final String LIMIT_REACHED = "LIMIT_REACHED";
 
 	// Feed and Article objects to use for temporary storage
 	private RSSItem item = null;
@@ -105,17 +104,13 @@ public class RSSHandler extends DefaultHandler
 			else if ( name.equals(ITEM) )
 			{
 				//item ready
-				if ( item.id <= maxId )
-					throw new SAXException(LIMIT_REACHED);
-
-				channel.items.add(item);
-				item.generateSummary();
-				item = null;
-
-				if ( channel.items.size() >= ITEM_LIMIT )
+				if ( item.id > maxId && channel.items.size() < ITEM_LIMIT )
 				{
-					throw new SAXException(LIMIT_REACHED);
+					channel.items.add(item);
+					item.generateSummary();
 				}
+
+				item = null;
 			}
 		}
 		else if ( channel != null )

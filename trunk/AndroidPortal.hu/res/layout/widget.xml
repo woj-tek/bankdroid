@@ -5,53 +5,12 @@
   android:layout_height="fill_parent"
   android:background="@android:drawable/dialog_frame"
   >
-  	<TextView
-  		android:text="Halad a portal widget..."
-  		android:textColor="#FFFFFF"
-  		android:textStyle="bold"
-  		
-  		android:id="@+id/titleText"
-  		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content"
-  		android:paddingLeft="5sp"
-  		android:paddingRight="5sp"
-  		android:paddingTop="5sp"
-  		
-  		android:layout_alignParentTop="true"
-  		android:layout_alignParentLeft="true"
-  		android:layout_alignParentRight="true"
-  		/>
-  	<TextView
-  		android:text="Lassacskán készülget az androidportal.hu-ra specializált hírolvasó."
-  		android:textColor="#FFFFFF"
-  		android:maxLines="2"
-  		
-  		android:id="@+id/itemBody"
-  		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content"
-  		android:paddingLeft="5sp"
-  		android:paddingRight="5sp"
-  		
-  		android:layout_below="@id/titleText"
-  		android:layout_alignParentLeft="true"
-  		android:layout_alignParentRight="true"
-  		/>
-  	<TextView
-  		android:text="lipilee, 5 perccel ezelőtt"
-  		android:textColor="#CCCCCC"
-  		android:textStyle="bold"
-  		android:textSize="10sp"
-  		
-  		android:id="@+id/author"
-  		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content"
-  		android:paddingLeft="5sp"
-  		android:paddingRight="5sp"
-  		android:paddingBottom="5sp"
-  		android:gravity="right"
-  		
-  		android:layout_below="@id/itemBody"
-  		android:layout_alignParentLeft="true"
-  		android:layout_alignParentRight="true"
-  		/>
+	<ListView
+		android:id="@+id/rssItemList"
+	  	android:layout_width="fill_parent"
+	  	android:layout_height="fill_parent"
+	  	android:padding="5sp"
+	  	
+	  	android:layout_below="@id/droidLogo"
+	  	/>
 </RelativeLayout>
