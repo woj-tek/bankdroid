@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 /**
- * FIXME investigate invalid articles.
  * @author Gabe
  *
  */

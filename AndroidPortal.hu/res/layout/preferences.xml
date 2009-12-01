@@ -23,4 +23,10 @@
 		android:summary="@string/prefNotiSummary" 
 		android:key="hu.androidportal.Notification" 
 		/>
+	<CheckBoxPreference 
+		android:title="@string/prefDebug" 
+		android:defaultValue="false"
+		android:summary="@string/prefDebugSummary" 
+		android:key="hu.androidportal.Debug" 
+		/>
 </PreferenceScreen>
