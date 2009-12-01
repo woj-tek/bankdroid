@@ -21,6 +21,9 @@ import android.util.Log;
  * TODO listen for internet connection to suspend/resume synch
  * TODO listen for phone start up to start synch
  * 
+ * TODO remove 1 minute frequency
+ * TODO add menu to the item view activity: share link, preferences, about
+ * 
  * @author Gabe
  */
 public class RSSSyncService extends Service implements Runnable, Codes
@@ -56,11 +59,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	public void onCreate()
 	{
 		super.onCreate();
-		if ( DEBUG )
-		{
-			Log.d(TAG, "Service onCreate() called.");
-			debugNotification("Service onCreate() called.");
-		}
+		debugNotification(NOTIFICATION_SERVICE_LIFECYCLE, "Service onCreate() called.");
 
 		//initialize preferences
 		updateFrequency(null);
@@ -82,8 +81,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 				if ( msg.what == CMD_SHOW_REFRESH )
 				{
 					//show refresh icon in notification bar
-					if ( DEBUG )
-						Log.d(TAG, "Show refresh icon.");
+					Log.d(TAG, "Show refresh icon.");
 
 					//show new icon in the notification bar
 					final int icon = android.R.drawable.stat_notify_sync;
@@ -108,15 +106,13 @@ public class RSSSyncService extends Service implements Runnable, Codes
 				else if ( msg.what == CMD_HIDE_REFRESH )
 				{
 					//hide refresh icon in notification bar
-					if ( DEBUG )
-						Log.d(TAG, "HIDE refresh icon.");
+					Log.d(TAG, "HIDE refresh icon.");
 
 					nm.cancel(NOTIFICATION_REFRESH);
 				}
 				else if ( msg.what == CMD_SHOW_NEWITEM )
 				{
-					if ( DEBUG )
-						Log.d(TAG, "Show NEW ITEM icon.");
+					Log.d(TAG, "Show NEW ITEM icon.");
 
 					//show new icon in the notification bar
 					final int icon = android.R.drawable.stat_notify_chat;
@@ -207,11 +203,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	{
 		super.onStart(intent, startId);
 
-		if ( DEBUG )
-		{
-			Log.d(TAG, "Service onStart called.");
-			debugNotification("Service onStart() called.");
-		}
+		debugNotification(NOTIFICATION_SERVICE_LIFECYCLE, "Service onStart() called.");
 
 		if ( intent.getAction().equals(ACTION_MANUAL_START) )
 		{
@@ -262,11 +254,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	public void onDestroy()
 	{
 		super.onDestroy();
-		if ( DEBUG )
-		{
-			Log.d(TAG, "Service onDestroy() called.");
-			debugNotification("Service onDestroy() called.");
-		}
+		debugNotification(NOTIFICATION_SERVICE_LIFECYCLE, "Service onDestroy() called.");
 
 		run = false;
 		if ( background.isAlive() )
@@ -279,6 +267,8 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	@Override
 	public IBinder onBind( final Intent intent )
 	{
+		debugNotification(NOTIFICATION_SERVICE_LIFECYCLE, "Service onBind() called.");
+
 		//XXX maybe something should be put here
 		return null;
 	}
@@ -286,6 +276,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	@Override
 	public void run()
 	{
+		debugNotification(NOTIFICATION_THREAD_LIFECYCLE, "Thread started.");
 		while ( run )
 		{
 			if ( frequencyChanged )
@@ -313,6 +304,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 				// do nothing, thread will stop, if run flag changes.
 			}
 		}
+		debugNotification(NOTIFICATION_THREAD_LIFECYCLE, "Thread stopped.");
 	}
 
 	/**
@@ -334,12 +326,13 @@ public class RSSSyncService extends Service implements Runnable, Codes
 			{
 				handler.sendMessage(handler.obtainMessage(CMD_SHOW_NEWITEM));
 			}
+
+			debugNotification(NOTIFICATION_THREAD_LIFECYCLE, "Synch item found: " + newItems);
 		}
 		catch ( final Exception e )
 		{
 			Log.e(TAG, "Unable to synchronise the feed: " + feed, e);
-			if ( DEBUG )
-				debugNotification("Exception: " + e);
+			debugNotification(NOTIFICATION_ERRORS, "Exception: " + e);
 		}
 		finally
 		{
@@ -347,8 +340,13 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		}
 	}
 
-	private void debugNotification( final String message )
+	private void debugNotification( final int level, final String message )
 	{
+		if ( !PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getBoolean(PREF_DEBUG, DEFAULT_DEBUG) )
+			return;
+
+		Log.d(TAG, message);
+
 		final Context context = getApplicationContext();
 		//display notification
 		final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -371,6 +369,6 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
 		//display notification
-		nm.notify(NOTIFICATION_DEBUG, notification);
+		nm.notify(level, notification);
 	}
 }

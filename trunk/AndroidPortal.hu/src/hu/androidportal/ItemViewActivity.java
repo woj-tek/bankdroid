@@ -2,9 +2,6 @@ package hu.androidportal;
 
 import hu.androidportal.rss.RSSItem;
 import hu.androidportal.rss.RSSObject;
-
-import java.io.UnsupportedEncodingException;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -98,15 +95,8 @@ public class ItemViewActivity extends Activity implements Codes, OnClickListener
 		if ( cursor.moveToFirst() )
 		{
 			final String description = cursor.getString(cursor.getColumnIndex(RSSItem.F_DESCRIPTION));
-			try
-			{
-				( (WebView) findViewById(R.id.webView) ).loadData(new String(description.getBytes("utf-8"), 0),
-						"text/html", "utf-8");
-			}
-			catch ( final UnsupportedEncodingException e )
-			{
-				Log.e(TAG, "Encoding issue.", e);
-			}
+			( (WebView) findViewById(R.id.webView) ).loadDataWithBaseURL("http://androidportal.hu", description,
+					"text/html", "utf-8", "http://androidportal.hu");
 			( (TextView) findViewById(R.id.titleText) ).setText(cursor
 					.getString(cursor.getColumnIndex(RSSItem.F_TITLE)));
 			( (TextView) findViewById(R.id.author) ).setText(ItemListActivity.getAuthorText(cursor.getString(cursor
