@@ -28,10 +28,6 @@ import android.util.Log;
  */
 public class RSSStream implements Codes
 {
-	/**
-	 * Number of days that the items should be stored.
-	 */
-	public final static int MAX_ITEMS_TO_STORE = 10;//XXX add to preferences
 
 	private RSSStream()
 	{
@@ -172,7 +168,7 @@ public class RSSStream implements Codes
 
 		//delete old values
 		final Calendar limit = Calendar.getInstance();
-		limit.roll(Calendar.DATE, -MAX_ITEMS_TO_STORE);
+		limit.add(Calendar.DATE, -MAX_ITEMS_TO_STORE);
 
 		final int delete = context.getContentResolver().delete(RSSItem.CONTENT_URI, RSSItem.F_PUBDATE + "<?",
 				new String[] { Formatters.getTimstampFormat().format(limit.getTime()) });

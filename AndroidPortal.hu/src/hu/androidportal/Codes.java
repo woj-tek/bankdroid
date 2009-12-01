@@ -25,4 +25,9 @@ public interface Codes
 	public static final int NOTIFICATION_DEBUG = 1;
 	public static final int NOTIFICATION_REFRESH = 2;
 	public static final int NOTIFICATION_NEWITEM = 3;
+
+	/**
+	 * Number of days that the items should be stored.
+	 */
+	public final static int MAX_ITEMS_TO_STORE = 10;//XXX add to preferences
 }
