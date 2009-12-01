@@ -144,6 +144,7 @@ public class RSSStream implements Codes
 		int maxId = -1;
 		if ( maxIdCursor.moveToFirst() )
 			maxId = maxIdCursor.getInt(0);
+		maxIdCursor.close();
 
 		//read RSS feed
 		final RSSChannel channel = readChannelContent(url, maxId);
@@ -196,6 +197,8 @@ public class RSSStream implements Codes
 		int maxId = -1;
 		if ( maxIdCursor.moveToFirst() )
 			maxId = maxIdCursor.getInt(0);
+
+		maxIdCursor.close();
 
 		context.getContentResolver().delete(RSSItem.CONTENT_URI, RSSItem.F__ID + "=?",
 				new String[] { String.valueOf(maxId) });

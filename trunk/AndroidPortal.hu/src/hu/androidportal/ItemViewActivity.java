@@ -108,6 +108,8 @@ public class ItemViewActivity extends Activity implements Codes, OnClickListener
 		{
 			Log.w(TAG, "Item is not found in DB: " + uriToDisplay);
 		}
+
+		cursor.close();
 	}
 
 	@Override
