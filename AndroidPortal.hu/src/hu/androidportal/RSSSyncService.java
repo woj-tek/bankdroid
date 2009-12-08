@@ -24,6 +24,8 @@ import android.util.Log;
  * TODO remove 1 minute frequency
  * TODO add menu to the item view activity: share link, preferences, about
  * 
+ * FIXME change scheduling to use ALARM_MANAGER
+ * FIXME check the ConnectivityManager.getBackgroudDataService() state
  * @author Gabe
  */
 public class RSSSyncService extends Service implements Runnable, Codes
