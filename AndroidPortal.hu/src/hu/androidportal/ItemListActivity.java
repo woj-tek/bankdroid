@@ -27,6 +27,10 @@ import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SimpleCursorAdapter.ViewBinder;
 
+/**
+ * @author Gabe
+ * FIXME HTML comments are not removed from the HTML view.
+ */
 public class ItemListActivity extends Activity implements OnItemClickListener, Codes, OnClickListener
 {
 
