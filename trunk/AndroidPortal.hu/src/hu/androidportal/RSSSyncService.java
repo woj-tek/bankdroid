@@ -4,6 +4,7 @@ import hu.androidportal.rss.RSSStream;
 
 import java.net.URL;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -46,16 +47,13 @@ public class RSSSyncService extends Service implements Runnable, Codes
 
 	private Handler handler;
 
-	private boolean run;
-	private Thread background;
-
 	private String feed;
 	private URL feedUrl;
 	private String frequency;
 	private long frequencyInMillis;
 
-	private boolean frequencyChanged = false;
 	private boolean feedChanged = false;
+	private boolean running = false;
 
 	@Override
 	public void onCreate()
@@ -140,13 +138,6 @@ public class RSSSyncService extends Service implements Runnable, Codes
 				}
 			}
 		};
-
-		//create a thread to do the real background work
-		if ( background != null )
-			throw new IllegalStateException("Invalid object state. Background thread already created.");
-		run = false;
-		background = new Thread(this);
-
 	}
 
 	/**
@@ -207,49 +198,82 @@ public class RSSSyncService extends Service implements Runnable, Codes
 
 		debugNotification(NOTIFICATION_SERVICE_LIFECYCLE, "Service onStart() called.");
 
+		boolean stopService = false;
 		if ( intent.getAction().equals(ACTION_MANUAL_START) )
 		{
 			//start synch immediately in a seperate thread.
-			new Thread(new Runnable()
+			if ( !running )
 			{
-				public void run()
-				{
-					synch(false);
-				}
-			}).start();
-		}
-		else
-		{
-			if ( intent.getAction().equals(ACTION_FEED_CHANGED) )
-			{
-				updateFeed(intent.getStringExtra(PREF_FEED));
-				feedChanged = true;
-				//clean up database and start synch immediately in a seperate thread.
-				synchronized ( this )
-				{
-					notifyAll();
-				}
+				clearSchedule();
+				execute();
 			}
-			else if ( intent.getAction().equals(ACTION_FREQ_CHANGED) )
+		}
+		else if ( intent.getAction().equals(ACTION_FEED_CHANGED) )
+		{
+			//start service asap with flag clears database
+			feedChanged = updateFeed(intent.getStringExtra(PREF_FEED));
+			if ( feedChanged )
 			{
-				updateFrequency(intent.getStringExtra(PREF_FREQUENCY));
-				frequencyChanged = true;
-				synchronized ( this )
-				{
-					notifyAll();
-				}
+				clearSchedule();
+				execute();
+			}
+		}
+		else if ( intent.getAction().equals(ACTION_FREQ_CHANGED) )
+		{
+			if ( updateFrequency(intent.getStringExtra(PREF_FREQUENCY)) )
+			{
+				clearSchedule();
+				schedule();
+			}
+			stopService = true;
+		}
+		else if ( intent.getAction().equals(ACTION_NORMAL_START) )
+		{
+			if ( !isScheduled() )
+			{
+				schedule();
+			}
+			stopService = true;
+		}
+		else if ( intent.getAction().equals(ACTION_SYNCH_NOW) )
+		{
+			if ( !running )
+			{
+				execute();
 			}
 		}
 
-		if ( frequencyInMillis > 0 && !background.isAlive() )
-		{
-			run = true;
-			background.start();
-		}
-		else if ( frequencyInMillis == 0 )
-		{
+		if ( stopService )
 			stopSelf();
-		}
+	}
+
+	private boolean isScheduled()
+	{
+		// TODO Auto-generated method stub: ajaj! az alarmot nem lehet lekérdezni
+		return false;
+	}
+
+	private void schedule()
+	{
+		// FIXME handle intent on the broadcast receiver
+		final Intent i = new Intent(getBaseContext(), RSSServiceStartReceiver.class);
+		i.setAction(ACTION_SYNCH_NOW);
+		final PendingIntent pi = PendingIntent.getBroadcast(getBaseContext(), 0, i, 0);
+
+		final long nextTime = System.currentTimeMillis() + frequencyInMillis;
+
+		final AlarmManager alarm = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
+		alarm.set(AlarmManager.RTC_WAKEUP, nextTime, pi);
+	}
+
+	private void clearSchedule()
+	{
+		final Intent i = new Intent(getBaseContext(), RSSServiceStartReceiver.class);
+		i.setAction(ACTION_SYNCH_NOW);
+		final PendingIntent pi = PendingIntent.getBroadcast(getBaseContext(), 0, i, 0);
+
+		final AlarmManager alarm = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
+		alarm.cancel(pi);
 	}
 
 	@Override
@@ -257,56 +281,38 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	{
 		super.onDestroy();
 		debugNotification(NOTIFICATION_SERVICE_LIFECYCLE, "Service onDestroy() called.");
-
-		run = false;
-		if ( background.isAlive() )
-			synchronized ( this )
-			{
-				notifyAll();
-			}
 	}
 
 	@Override
 	public IBinder onBind( final Intent intent )
 	{
 		debugNotification(NOTIFICATION_SERVICE_LIFECYCLE, "Service onBind() called.");
-
-		//XXX maybe something should be put here
 		return null;
+	}
+
+	private void execute()
+	{
+		new Thread(this).start();
 	}
 
 	@Override
 	public void run()
 	{
-		debugNotification(NOTIFICATION_THREAD_LIFECYCLE, "Thread started.");
-		while ( run )
+		running = true;
+		try
 		{
-			if ( frequencyChanged )
-			{
-				//do nothing, no refresh is required but only after the first round
-				frequencyChanged = false;
-			}
-			else
-			{
-				//do a refresh
-				synch(feedChanged);
-				feedChanged = false;
-			}
+			//do a refresh
+			synch(feedChanged);
+			feedChanged = false;
 
-			//wait
-			try
-			{
-				synchronized ( this )
-				{
-					wait(frequencyInMillis);
-				}
-			}
-			catch ( final InterruptedException e )
-			{
-				// do nothing, thread will stop, if run flag changes.
-			}
+			//FIXME reschedule
+
+			stopSelf();
 		}
-		debugNotification(NOTIFICATION_THREAD_LIFECYCLE, "Thread stopped.");
+		finally
+		{
+			running = false;
+		}
 	}
 
 	/**
