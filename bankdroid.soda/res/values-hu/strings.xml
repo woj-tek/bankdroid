@@ -47,7 +47,7 @@
 	<string name="keepSMS">SMS megőrzése</string>
 	<string name="keepSMSSummary">Az eredeti üzenet megőrzése az üzenetek között.</string>
 	<string name="notification">Csak értesítés</string>
-	<string name="notificationSummary">Az jelszót ne mutassa azonnal, csak egy figyelmeztetést.</string>
+	<string name="notificationSummary">A jelszót ne mutassa azonnal, csak egy figyelmeztetést.</string>
 	
 	<!-- Notification -->
 	<string name="notificationTicker">Jelszó érkezett a {0} bankból.</string>
