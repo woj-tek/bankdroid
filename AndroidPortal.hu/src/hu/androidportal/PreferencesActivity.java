@@ -63,10 +63,14 @@ public class PreferencesActivity extends PreferenceActivity implements Codes, On
 		{
 			pref.setSummary(getTitleForValue(R.array.freqTitles, R.array.freqValues, (String) newValue));
 
-			final Intent intent = new Intent(ACTION_FREQ_CHANGED);
-			intent.setClass(getBaseContext(), RSSSyncService.class);
-			intent.putExtra(PREF_FREQUENCY, (String) newValue);
-			startService(intent);
+			if ( newValue.equals("0") )
+			{
+				RSSSyncService.clearSchedule(getBaseContext());
+			}
+			else
+			{
+				RSSSyncService.schedule(getBaseContext(), (String) newValue);
+			}
 		}
 		return true;
 	}

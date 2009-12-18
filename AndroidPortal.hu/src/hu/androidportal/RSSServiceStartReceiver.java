@@ -4,8 +4,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
+import android.util.Log;
 
-public class RSSServiceStartReceiver extends BroadcastReceiver
+public class RSSServiceStartReceiver extends BroadcastReceiver implements Codes
 {
 
 	@Override
@@ -13,17 +14,40 @@ public class RSSServiceStartReceiver extends BroadcastReceiver
 	{
 		if ( Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction()) )
 		{
-			//FIXME start service on boot
+			Log.d(TAG, "Boot completed.");
+			RSSSyncService.schedule(context, null);
 		}
 		else if ( ConnectivityManager.CONNECTIVITY_ACTION.equals(intent.getAction()) )
 		{
 			final boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-			//FIXME handle connectity change event.
+			Log.d(TAG, "Connectivity changed: " + noConnectivity);
+			if ( noConnectivity )
+			{
+				RSSSyncService.clearSchedule(context);
+			}
+			else
+			{
+				RSSSyncService.schedule(context, null);
+			}
 		}
 		else if ( ConnectivityManager.ACTION_BACKGROUND_DATA_SETTING_CHANGED.equals(intent.getAction()) )
 		{
-			//FIXME handle background data service changed event
+			final boolean backgroundData = ( (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE) ).getBackgroundDataSetting();
+			Log.d(TAG, "Background data service settings changed: " + backgroundData);
+			if ( !backgroundData )
+			{
+				RSSSyncService.clearSchedule(context);
+			}
+			else
+			{
+				RSSSyncService.schedule(context, null);
+			}
+		}
+		else if ( Codes.ACTION_SYNCH_NOW.equals(intent.getAction()) )
+		{
+			Log.d(TAG, "Alarm activated.");
+			RSSSyncService.startService(context, ACTION_SYNCH_NOW);
 		}
 	}
-
 }

@@ -79,7 +79,7 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(this);
 
-		( (TextView) findViewById(R.id.appName) ).setOnClickListener(this);
+		findViewById(R.id.droidLogo).setOnClickListener(this);
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 	@Override
 	public void onClick( final View view )
 	{
-		if ( view.getId() == R.id.appName )
+		if ( view.getId() == R.id.droidLogo )
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL_ANDROIDPORTAL_HU)));
 		}
