@@ -252,7 +252,7 @@ public class HTMLEntities
 	 */
 	public static String fromHtmlEntities( final String str )
 	{
-
+		//XXX rework it to work with StringBuilder input
 		//initialize html translation maps table the first time is called
 		if ( htmlEntitiesMap.isEmpty() )
 		{

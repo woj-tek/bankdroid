@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -29,7 +31,6 @@ import android.widget.SimpleCursorAdapter.ViewBinder;
 
 /**
  * @author Gabe
- * FIXME HTML comments are not removed from the HTML view.
  */
 public class ItemListActivity extends Activity implements OnItemClickListener, Codes, OnClickListener
 {
@@ -127,7 +128,13 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 	{
 		super.onResume();
 
-		RSSSyncService.schedule(getBaseContext(), null);
+		final Context context = getBaseContext();
+		RSSSyncService.schedule(context, null);
+
+		//remove notification intent
+		final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+		nm.cancel(NOTIFICATION_NEWITEM);
+
 	}
 
 	@Override
