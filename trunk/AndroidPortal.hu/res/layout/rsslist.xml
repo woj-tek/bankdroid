@@ -6,33 +6,32 @@
   	>
   	
   	<ImageView
-  		android:src="@drawable/droidlogo"
+  		android:src="@drawable/androidportal"
   		android:id="@+id/droidLogo"
-  		android:layout_width="wrap_content"
+  		android:layout_width="fill_parent"
   		android:layout_height="wrap_content"
-  		android:background="#369E50"
-  		android:maxWidth="32sp"
+  		android:background="@drawable/titlebackground"
   		android:maxHeight="32sp"
+  		
+  		android:paddingLeft="10sp"
+  		android:paddingTop="3sp"
+  		android:paddingBottom="3sp"
+  		android:clickable="true"
+  		
   		
   		android:layout_alignParentTop="true"
   		android:layout_alignParentLeft="true"
+  		android:layout_alignParentRight="true"
   		/>
-  	<TextView
-  		android:id="@+id/appName"
-  		android:text="androidportal.hu"
-  		android:layout_width="wrap_content"
-  		android:layout_height="wrap_content"
-  		android:background="#369E50"
-  		android:textColor="#FFFFFF"
-  		android:textSize="18sp"
-  		android:textStyle="bold"
-  		android:paddingLeft="10sp"
-  		android:paddingBottom="3sp"
-  		android:gravity="bottom"
+
+  	<ImageView
+  		android:src="@drawable/titleborder"
+  		android:id="@+id/titleBorder"
+  		android:layout_width="fill_parent"
+  		android:layout_height="4sp"
   		
-  		android:layout_alignParentTop="true"
-  		android:layout_toRightOf="@id/droidLogo"
-  		android:layout_alignBottom="@id/droidLogo"
+  		android:layout_below="@id/droidLogo"
+  		android:layout_alignParentLeft="true"
   		android:layout_alignParentRight="true"
   		/>
 
@@ -41,7 +40,7 @@
 	  	android:layout_width="fill_parent"
 	  	android:layout_height="fill_parent"
 	  	
-	  	android:layout_below="@id/droidLogo"
+	  	android:layout_below="@id/titleBorder"
 	  	/>
 
 </RelativeLayout>

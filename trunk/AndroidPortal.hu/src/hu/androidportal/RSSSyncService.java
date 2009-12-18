@@ -12,6 +12,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -19,14 +20,10 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
- * TODO listen for internet connection to suspend/resume synch
- * TODO listen for phone start up to start synch
- * 
  * TODO remove 1 minute frequency
  * TODO add menu to the item view activity: share link, preferences, about
  * 
- * FIXME change scheduling to use ALARM_MANAGER
- * FIXME check the ConnectivityManager.getBackgroudDataService() state
+ * FIXME impelment CPU wake lock mechanism
  * @author Gabe
  */
 public class RSSSyncService extends Service implements Runnable, Codes
@@ -36,9 +33,11 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	 * 
 	 * @param context
 	 */
-	public static void startService( final Context context )
+	public static void startService( final Context context, final String action )
 	{
-		context.startService(new Intent(context, RSSSyncService.class));
+		final Intent normalStart = new Intent(action);
+		normalStart.setClass(context, RSSSyncService.class);
+		context.startService(normalStart);
 	}
 
 	public final static int CMD_SHOW_REFRESH = 1;
@@ -49,20 +48,16 @@ public class RSSSyncService extends Service implements Runnable, Codes
 
 	private String feed;
 	private URL feedUrl;
-	private String frequency;
-	private long frequencyInMillis;
 
 	private boolean feedChanged = false;
 	private boolean running = false;
+	private boolean manualStart;
 
 	@Override
 	public void onCreate()
 	{
 		super.onCreate();
 		debugNotification(NOTIFICATION_SERVICE_LIFECYCLE, "Service onCreate() called.");
-
-		//initialize preferences
-		updateFrequency(null);
 
 		updateFeed(null);
 
@@ -170,27 +165,6 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		}
 	}
 
-	/**
-	 * Updates the frequency from preferences or from the parameter.
-	 * @return True, if the current and the new frequency are not the same.
-	 */
-	private boolean updateFrequency( String frequency )
-	{
-		if ( frequency == null )
-		{
-			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-			frequency = preferences.getString(PREF_FREQUENCY, DEFAULT_FREQUENCY);
-		}
-
-		if ( frequency.equals(this.frequency) )
-			return false;
-
-		this.frequency = frequency;
-		frequencyInMillis = Long.parseLong(frequency) * 60 * 1000;
-
-		return true;
-	}
-
 	@Override
 	public void onStart( final Intent intent, final int startId )
 	{
@@ -198,82 +172,76 @@ public class RSSSyncService extends Service implements Runnable, Codes
 
 		debugNotification(NOTIFICATION_SERVICE_LIFECYCLE, "Service onStart() called.");
 
-		boolean stopService = false;
-		if ( intent.getAction().equals(ACTION_MANUAL_START) )
+		boolean start = false;
+		if ( intent.getAction().equals(ACTION_SYNCH_NOW) )
 		{
-			//start synch immediately in a seperate thread.
-			if ( !running )
-			{
-				clearSchedule();
-				execute();
-			}
+			start = true;
+		}
+		else if ( intent.getAction().equals(ACTION_MANUAL_START) )
+		{
+			start = manualStart = true;
 		}
 		else if ( intent.getAction().equals(ACTION_FEED_CHANGED) )
 		{
 			//start service asap with flag clears database
-			feedChanged = updateFeed(intent.getStringExtra(PREF_FEED));
-			if ( feedChanged )
-			{
-				clearSchedule();
-				execute();
-			}
-		}
-		else if ( intent.getAction().equals(ACTION_FREQ_CHANGED) )
-		{
-			if ( updateFrequency(intent.getStringExtra(PREF_FREQUENCY)) )
-			{
-				clearSchedule();
-				schedule();
-			}
-			stopService = true;
-		}
-		else if ( intent.getAction().equals(ACTION_NORMAL_START) )
-		{
-			if ( !isScheduled() )
-			{
-				schedule();
-			}
-			stopService = true;
-		}
-		else if ( intent.getAction().equals(ACTION_SYNCH_NOW) )
-		{
-			if ( !running )
-			{
-				execute();
-			}
+			start = feedChanged = true;
+			updateFeed(intent.getStringExtra(PREF_FEED));
 		}
 
-		if ( stopService )
-			stopSelf();
+		if ( start && !running )
+		{
+			clearSchedule(getBaseContext());
+			execute();
+		}
 	}
 
-	private boolean isScheduled()
+	/**
+	 * Updates the frequency from preferences or from the parameter.
+	 * @param newFrequency 
+	 * @return True, if the current and the new frequency are not the same.
+	 */
+	private static long getFrequency( final Context context, final String newFrequency )
 	{
-		// TODO Auto-generated method stub: ajaj! az alarmot nem lehet lekérdezni
-		return false;
+		String frequency = newFrequency;
+		if ( frequency == null )
+		{
+			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+			frequency = preferences.getString(PREF_FREQUENCY, DEFAULT_FREQUENCY);
+		}
+		final long frequencyInMillis = Long.parseLong(frequency) * 60 * 1000;
+
+		return frequencyInMillis;
 	}
 
-	private void schedule()
+	public static void schedule( final Context context, final String newFrequency )
 	{
-		// FIXME handle intent on the broadcast receiver
-		final Intent i = new Intent(getBaseContext(), RSSServiceStartReceiver.class);
+		//FIXME problem may occure if schedule is invoked in the middle of the synch period. Some it should be find out whether real scheduling is required.
+		final long frequency = getFrequency(context, newFrequency);
+		if ( frequency == 0 )
+		{
+			Log.w(TAG, "Skip schedule as it is manually scheduled.");
+			return;
+		}
+
+		final Intent i = new Intent(context, RSSServiceStartReceiver.class);
 		i.setAction(ACTION_SYNCH_NOW);
-		final PendingIntent pi = PendingIntent.getBroadcast(getBaseContext(), 0, i, 0);
+		final PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
 
-		final long nextTime = System.currentTimeMillis() + frequencyInMillis;
-
-		final AlarmManager alarm = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
+		final AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+		final long nextTime = System.currentTimeMillis() + frequency;
 		alarm.set(AlarmManager.RTC_WAKEUP, nextTime, pi);
+		Log.d(TAG, "Feed synch activated to " + nextTime);
 	}
 
-	private void clearSchedule()
+	public static void clearSchedule( final Context context )
 	{
-		final Intent i = new Intent(getBaseContext(), RSSServiceStartReceiver.class);
+		final Intent i = new Intent(context, RSSServiceStartReceiver.class);
 		i.setAction(ACTION_SYNCH_NOW);
-		final PendingIntent pi = PendingIntent.getBroadcast(getBaseContext(), 0, i, 0);
+		final PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
 
-		final AlarmManager alarm = (AlarmManager) getBaseContext().getSystemService(Context.ALARM_SERVICE);
+		final AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		alarm.cancel(pi);
+		Log.d(TAG, "Feed synch cleared.");
 	}
 
 	@Override
@@ -302,10 +270,17 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		try
 		{
 			//do a refresh
-			synch(feedChanged);
-			feedChanged = false;
+			final boolean backgroundData = ( (ConnectivityManager) getBaseContext().getSystemService(
+					Context.CONNECTIVITY_SERVICE) ).getBackgroundDataSetting();
 
-			//FIXME reschedule
+			//manual start and feed changed is not a background process
+			if ( backgroundData || manualStart || feedChanged )
+				synch(feedChanged);
+
+			feedChanged = false;
+			manualStart = false;
+
+			schedule(getBaseContext(), null);
 
 			stopSelf();
 		}

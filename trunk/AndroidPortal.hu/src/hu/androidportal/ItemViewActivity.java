@@ -33,9 +33,9 @@ public class ItemViewActivity extends Activity implements Codes, OnClickListener
 		if ( savedInstanceState != null && savedInstanceState.containsKey(STORE_URI) )
 			uriToDisplay = Uri.parse(savedInstanceState.getString(STORE_URI));
 
-		( (TextView) findViewById(R.id.appName) ).setOnClickListener(this);
-		( (TextView) findViewById(R.id.titleText) ).setOnClickListener(this);
-		( (TextView) findViewById(R.id.author) ).setOnClickListener(this);
+		findViewById(R.id.droidLogo).setOnClickListener(this);
+		findViewById(R.id.titleText).setOnClickListener(this);
+		findViewById(R.id.author).setOnClickListener(this);
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class ItemViewActivity extends Activity implements Codes, OnClickListener
 	@Override
 	public void onClick( final View view )
 	{
-		if ( view.getId() == R.id.appName )
+		if ( view.getId() == R.id.droidLogo )
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL_ANDROIDPORTAL_HU)));
 		}
