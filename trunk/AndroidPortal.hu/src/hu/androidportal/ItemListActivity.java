@@ -123,6 +123,14 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 	}
 
 	@Override
+	protected void onResume()
+	{
+		super.onResume();
+
+		RSSSyncService.schedule(getBaseContext(), null);
+	}
+
+	@Override
 	public void onClick( final View view )
 	{
 		if ( view.getId() == R.id.droidLogo )

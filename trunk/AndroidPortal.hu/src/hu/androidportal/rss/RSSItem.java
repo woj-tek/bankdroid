@@ -6,6 +6,7 @@ import android.net.Uri;
 
 public class RSSItem extends RSSObject
 {
+	private static final String BREAK = "&amp;lt;!--break--&gt;";
 	public final static String F_PUBDATE = "pubdate";
 	public final static String F_AUTHOR = "author";
 	public final static int MAX_SUMMARY_LENGTH = 400;
@@ -75,6 +76,14 @@ public class RSSItem extends RSSObject
 		if ( start >= 0 )
 		{ // this happens only when i runs out of the length
 			builder.delete(start, i); //remove all white spaces at the end of the text
+		}
+
+		//remove mistic break text from the article.
+		int breakIndex = builder.indexOf(BREAK);
+		while ( breakIndex >= 0 )
+		{
+			builder.delete(breakIndex, breakIndex + BREAK.length());
+			breakIndex = builder.indexOf(BREAK);
 		}
 
 		//trim to maximum length

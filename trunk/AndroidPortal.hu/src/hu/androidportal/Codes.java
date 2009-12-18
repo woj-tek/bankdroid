@@ -12,6 +12,7 @@ public interface Codes
 	public static final String PREF_FEED = "hu.androidportal.Feed";
 	public static final String PREF_NOTIFICATION = "hu.androidportal.Notification";
 	public static final String PREF_DEBUG = "hu.androidportal.Debug";
+	public static final String PREF_LAST_SCHEDULE = "hu.androidportal.LastSchedule";
 
 	public static final String DEFAULT_FREQUENCY = "60";
 	public static final String DEFAULT_FEED = "http://feeds.feedburner.com/magyarandroidportal";
