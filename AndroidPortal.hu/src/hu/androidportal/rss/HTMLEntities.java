@@ -26,6 +26,7 @@ public class HTMLEntities
 			{ new String("&lt;"), (int) '<' },//
 			{ new String("&gt;"), (int) '>' },//
 			{ new String("&amp;"), (int) '&' },//
+			{ new String("&quot;"), (int) '"' },//
 			{ new String("&Aacute;"), new Integer(193) },//
 			{ new String("&aacute;"), new Integer(225) }, { new String("&Acirc;"), new Integer(194) },
 			{ new String("&acirc;"), new Integer(226) }, { new String("&acute;"), new Integer(180) },

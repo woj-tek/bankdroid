@@ -12,6 +12,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.os.IBinder;
@@ -38,6 +39,59 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		final Intent normalStart = new Intent(action);
 		normalStart.setClass(context, RSSSyncService.class);
 		context.startService(normalStart);
+	}
+
+	public static void schedule( final Context context, final String newFrequency )
+	{
+		final long frequency = getFrequency(context, newFrequency);
+		if ( frequency == 0 )
+		{
+			Log.w(TAG, "Skip schedule as it is manually scheduled.");
+			return;
+		}
+
+		//check last schedule
+		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+		final long lastSchedule = preferences.getLong(PREF_LAST_SCHEDULE, -1);
+		final long nextTime = System.currentTimeMillis() + frequency;
+		if ( lastSchedule > System.currentTimeMillis() && lastSchedule <= nextTime )
+		{
+			Log.d(TAG, "Refresh is already scheduled for the appropriate time range.");
+			return;
+		}
+
+		final Intent i = new Intent(context, RSSServiceStartReceiver.class);
+		i.setAction(ACTION_SYNCH_NOW);
+		final PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
+
+		final AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+		alarm.set(AlarmManager.RTC_WAKEUP, nextTime, pi);
+
+		//set last schedule
+		final Editor prefEditor = preferences.edit();
+		prefEditor.putLong(PREF_LAST_SCHEDULE, nextTime);
+		prefEditor.commit();
+
+		Log.d(TAG, "Feed synch activated to " + nextTime + "( " + ( nextTime - System.currentTimeMillis() ) + ")");
+	}
+
+	public static void clearSchedule( final Context context )
+	{
+		final Intent i = new Intent(context, RSSServiceStartReceiver.class);
+		i.setAction(ACTION_SYNCH_NOW);
+		final PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
+
+		final AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+		alarm.cancel(pi);
+
+		//clear last schedule pref
+		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		final Editor prefEditor = preferences.edit();
+		prefEditor.putLong(PREF_LAST_SCHEDULE, -1);
+		prefEditor.commit();
+
+		Log.d(TAG, "Feed synch cleared.");
 	}
 
 	public final static int CMD_SHOW_REFRESH = 1;
@@ -211,37 +265,6 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		final long frequencyInMillis = Long.parseLong(frequency) * 60 * 1000;
 
 		return frequencyInMillis;
-	}
-
-	public static void schedule( final Context context, final String newFrequency )
-	{
-		//FIXME problem may occure if schedule is invoked in the middle of the synch period. Some it should be find out whether real scheduling is required.
-		final long frequency = getFrequency(context, newFrequency);
-		if ( frequency == 0 )
-		{
-			Log.w(TAG, "Skip schedule as it is manually scheduled.");
-			return;
-		}
-
-		final Intent i = new Intent(context, RSSServiceStartReceiver.class);
-		i.setAction(ACTION_SYNCH_NOW);
-		final PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-
-		final AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		final long nextTime = System.currentTimeMillis() + frequency;
-		alarm.set(AlarmManager.RTC_WAKEUP, nextTime, pi);
-		Log.d(TAG, "Feed synch activated to " + nextTime);
-	}
-
-	public static void clearSchedule( final Context context )
-	{
-		final Intent i = new Intent(context, RSSServiceStartReceiver.class);
-		i.setAction(ACTION_SYNCH_NOW);
-		final PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
-
-		final AlarmManager alarm = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-		alarm.cancel(pi);
-		Log.d(TAG, "Feed synch cleared.");
 	}
 
 	@Override
