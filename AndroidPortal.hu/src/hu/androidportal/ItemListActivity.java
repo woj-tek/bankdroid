@@ -16,6 +16,8 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
@@ -37,7 +39,14 @@ import android.widget.SimpleCursorAdapter.ViewBinder;
 public class ItemListActivity extends Activity implements OnItemClickListener, Codes, OnClickListener
 {
 
+	protected static final int HANDLER_REFRESH = 812;
+	protected static final int HANDLER_STOP = 813;
+	protected static final int HANDLER_START = 813;
+	protected static final long HANDLER_FREQUENCY = 63000;
+
 	private SimpleCursorAdapter adapter;
+	private long lastSynch = -2;
+	private Handler handler;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -139,9 +148,69 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 		final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		nm.cancel(NOTIFICATION_NEWITEM);
 
-		//set last update time
-		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		setLastSuccesfulSynch();
+
+		//FIXME test the refresh
+		if ( handler == null )
+		{
+			handler = new Handler()
+			{
+				private boolean running = true;
+
+				@Override
+				public void handleMessage( final Message msg )
+				{
+					super.handleMessage(msg);
+
+					if ( msg.what == HANDLER_REFRESH && running )
+					{
+						setLastSuccesfulSynch();
+
+						final Message newMsg = obtainMessage(HANDLER_REFRESH);
+						this.sendMessageAtTime(newMsg, System.currentTimeMillis() + HANDLER_FREQUENCY);
+					}
+					else if ( msg.what == HANDLER_STOP )
+					{
+						running = false;
+					}
+					else if ( msg.what == HANDLER_START )
+					{
+						running = true;
+					}
+				}
+			};
+		}
+		else
+		{
+			final Message msg = handler.obtainMessage(HANDLER_START);
+			handler.sendMessage(msg);
+		}
+
+		final Message msg = handler.obtainMessage(HANDLER_REFRESH);
+		handler.sendMessageAtTime(msg, System.currentTimeMillis() + HANDLER_FREQUENCY);
+	}
+
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+
+		//stop refreshing the last update text 
+		final Message msg = handler.obtainMessage(HANDLER_STOP);
+		handler.sendMessage(msg);
+	}
+
+	private void setLastSuccesfulSynch()
+	{
+		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		final long lastSuccesfulSynch = preferences.getLong(PREF_LAST_SUCCESFUL_SYCNH, -1);
+		if ( lastSuccesfulSynch == lastSynch )
+		{
+			//no change 
+			return;
+		}
+
+		lastSynch = lastSuccesfulSynch;
 
 		String textToDisplay = null;
 		if ( lastSuccesfulSynch > 0 )
@@ -156,6 +225,7 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 		}
 
 		( (TextView) findViewById(R.id.lastSynch) ).setText(textToDisplay);
+
 	}
 
 	@Override
