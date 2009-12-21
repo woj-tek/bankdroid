@@ -22,8 +22,6 @@ import android.database.Cursor;
 import android.util.Log;
 
 /**
- * TODO create widget that shows the last item
- * 
  * @author Gabe
  */
 public class RSSStream implements Codes
