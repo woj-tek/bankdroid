@@ -6,24 +6,52 @@
 	>
 
  	
-  	<ImageView
-  		android:src="@drawable/androidportal"
-  		android:id="@+id/droidLogo"
+  	<RelativeLayout
+  		android:id="@+id/titleArea"
+  		
   		android:layout_width="fill_parent"
   		android:layout_height="wrap_content"
-  		android:background="@drawable/titlebackground"
-  		android:maxHeight="32sp"
-  		
-  		android:paddingLeft="10sp"
-  		android:paddingTop="3sp"
-  		android:paddingBottom="3sp"
-  		android:clickable="true"
-  		
-  		
   		android:layout_alignParentTop="true"
   		android:layout_alignParentLeft="true"
   		android:layout_alignParentRight="true"
-  		/>
+  		
+  		android:background="@drawable/titlebackground"
+  		>
+  		
+	  	<ImageView
+	  		android:src="@drawable/aphu_logo"
+	  		android:id="@+id/droidLogo"
+	  		android:layout_width="42sp"
+	  		android:layout_height="38sp"
+	  		android:scaleType="fitXY"
+	  		
+	  		android:paddingLeft="10sp"
+	  		android:paddingTop="3sp"
+	  		android:paddingBottom="3sp"
+	  		android:clickable="true"
+	  		
+	  		android:layout_alignParentTop="true"
+	  		android:layout_alignParentLeft="true"
+	  		/>
+	
+	  	<ImageView
+	  		android:src="@drawable/aphu_title"
+	  		android:id="@+id/aphuTitle"
+	  		android:layout_width="wrap_content"
+	  		android:layout_height="26sp"
+	  		android:scaleType="fitXY"
+	  		
+	  		android:paddingLeft="5sp"
+	  		android:paddingRight="10sp"
+	  		android:paddingTop="3sp"
+	  		android:clickable="true"
+	  		
+	  		android:layout_alignParentTop="true"
+	  		android:layout_toRightOf="@id/droidLogo"
+	  		android:layout_alignParentRight="true"
+	  		/>
+	
+  	</RelativeLayout>
 
   	<ImageView
   		android:id="@+id/titleBorder"
@@ -31,7 +59,7 @@
   		android:layout_width="fill_parent"
   		android:layout_height="1sp"
   		
-  		android:layout_below="@id/droidLogo"
+  		android:layout_below="@id/titleArea"
   		android:layout_alignParentLeft="true"
   		android:layout_alignParentRight="true"
   		/>

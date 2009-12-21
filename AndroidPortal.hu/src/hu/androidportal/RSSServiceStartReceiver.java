@@ -47,6 +47,8 @@ public class RSSServiceStartReceiver extends BroadcastReceiver implements Codes
 		else if ( Codes.ACTION_SYNCH_NOW.equals(intent.getAction()) )
 		{
 			Log.d(TAG, "Alarm activated.");
+			RSSSyncService.acquireLock(context);
+
 			RSSSyncService.startService(context, ACTION_SYNCH_NOW);
 		}
 	}

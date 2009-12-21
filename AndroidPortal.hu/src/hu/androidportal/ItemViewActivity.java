@@ -14,6 +14,11 @@ import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.TextView;
 
+/**
+ * @author gyenes
+ * TODO add menu to the item view activity: share link, preferences, about
+ *
+ */
 public class ItemViewActivity extends Activity implements Codes, OnClickListener
 {
 	private final static String STORE_URI = "STORE_URI";
