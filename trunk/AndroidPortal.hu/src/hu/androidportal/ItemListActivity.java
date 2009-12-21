@@ -12,9 +12,11 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -99,7 +101,9 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 		{
 			final Date pubDate = Formatters.getTimstampFormat().parse(date);
 
-			builder.append(", ");
+			if ( builder.length() > 0 )
+				builder.append(", ");
+
 			final long diff = Calendar.getInstance().getTime().getTime() - pubDate.getTime();
 			if ( diff >= 0 && diff < 60 * 60 * 1000L )
 			{//within an hour
@@ -135,6 +139,23 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 		final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		nm.cancel(NOTIFICATION_NEWITEM);
 
+		//set last update time
+		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		final long lastSuccesfulSynch = preferences.getLong(PREF_LAST_SUCCESFUL_SYCNH, -1);
+
+		String textToDisplay = null;
+		if ( lastSuccesfulSynch > 0 )
+		{
+			final CharSequence lastSynchText = getAuthorText("", Formatters.getTimstampFormat().format(
+					new Date(lastSuccesfulSynch)));
+			textToDisplay = "Utolsó frissítés: " + lastSynchText;
+		}
+		else
+		{
+			textToDisplay = "Kézi frissítés";
+		}
+
+		( (TextView) findViewById(R.id.lastSynch) ).setText(textToDisplay);
 	}
 
 	@Override

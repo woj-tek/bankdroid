@@ -14,21 +14,57 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
- * TODO remove 1 minute frequency
- * TODO add menu to the item view activity: share link, preferences, about
+ * XXX there should be feedback on manual start
  * 
- * FIXME impelment CPU wake lock mechanism
+ * XXX Introduce read flag on articles
+ * 
+ * TODO remove 1 minute frequency
  * @author Gabe
  */
 public class RSSSyncService extends Service implements Runnable, Codes
 {
+	/**
+	 * Minor time period that is waited when synch has to be started immediately (for example after long period of network 
+	 * unavailability. Value is defined in millisecs.
+	 */
+	private static final long IMMEDIATE_DELAY = 5000;
+	private static PowerManager.WakeLock lockStatic = null;
+
+	public static void acquireLock( final Context context )
+	{
+		getLock(context).acquire();
+	}
+
+	public static void releaseLock( final Context context )
+	{
+		final WakeLock lock = getLock(context);
+		if ( lock.isHeld() )
+			lock.release();
+	}
+
+	synchronized private static PowerManager.WakeLock getLock( final Context context )
+	{
+		if ( lockStatic == null )
+		{
+			final PowerManager mgr = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+
+			lockStatic = mgr.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, CPU_WAKE_LOCK);
+			lockStatic.setReferenceCounted(true);
+		}
+
+		return lockStatic;
+	}
+
 	/**
 	 * Use this static method to start the service.
 	 * 
@@ -50,17 +86,38 @@ public class RSSSyncService extends Service implements Runnable, Codes
 			return;
 		}
 
-		//check last schedule
+		//skip schedule if it is disconnected.
+		final ConnectivityManager connectivityManager = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		final NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+		if ( netInfo == null || netInfo.getState() == NetworkInfo.State.DISCONNECTED )
+		{
+			Log.d(TAG, "No schedule due to lack of network connection.");
+			return;
+		}
+
+		final long rightNow = System.currentTimeMillis();
+
 		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
-		final long lastSchedule = preferences.getLong(PREF_LAST_SCHEDULE, -1);
-		final long nextTime = System.currentTimeMillis() + frequency;
-		if ( lastSchedule > System.currentTimeMillis() && lastSchedule <= nextTime )
+		//verify last success: if there was no succesful synch since a while - within the 
+		//frequency period, synch is started immediately with some delay.
+		long nextTime = rightNow + frequency;
+		final long lastSuccesfulSynch = preferences.getLong(PREF_LAST_SUCCESFUL_SYCNH, -1);
+		if ( rightNow - lastSuccesfulSynch > frequency )
+		{
+			nextTime = rightNow + IMMEDIATE_DELAY;
+		}
+
+		//check last schedule: if it is already in the prefered time period, there is no need for reschedule.
+		final long lastSchedule = preferences.getLong(PREF_NEXT_SCHEDULE, -1);
+		if ( lastSchedule > rightNow && lastSchedule <= nextTime )
 		{
 			Log.d(TAG, "Refresh is already scheduled for the appropriate time range.");
 			return;
 		}
 
+		//schedule alarm according to the calculated time.
 		final Intent i = new Intent(context, RSSServiceStartReceiver.class);
 		i.setAction(ACTION_SYNCH_NOW);
 		final PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, 0);
@@ -70,10 +127,10 @@ public class RSSSyncService extends Service implements Runnable, Codes
 
 		//set last schedule
 		final Editor prefEditor = preferences.edit();
-		prefEditor.putLong(PREF_LAST_SCHEDULE, nextTime);
+		prefEditor.putLong(PREF_NEXT_SCHEDULE, nextTime);
 		prefEditor.commit();
 
-		Log.d(TAG, "Feed synch activated to " + nextTime + "( " + ( nextTime - System.currentTimeMillis() ) + ")");
+		Log.d(TAG, "Feed synch activated to " + nextTime + " (" + ( nextTime - rightNow ) + ")");
 	}
 
 	public static void clearSchedule( final Context context )
@@ -88,7 +145,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		//clear last schedule pref
 		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 		final Editor prefEditor = preferences.edit();
-		prefEditor.putLong(PREF_LAST_SCHEDULE, -1);
+		prefEditor.putLong(PREF_NEXT_SCHEDULE, -1);
 		prefEditor.commit();
 
 		Log.d(TAG, "Feed synch cleared.");
@@ -136,7 +193,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 					final int icon = android.R.drawable.stat_notify_sync;
 					final long when = System.currentTimeMillis();
 
-					final Notification notification = new Notification(icon, "", when);
+					final Notification notification = new Notification(icon, null, when);
 
 					final Intent notificationIntent = new Intent(context, ItemListActivity.class);
 					notificationIntent.setAction(Intent.ACTION_VIEW);
@@ -292,14 +349,30 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		running = true;
 		try
 		{
-			//do a refresh
-			final boolean backgroundData = ( (ConnectivityManager) getBaseContext().getSystemService(
-					Context.CONNECTIVITY_SERVICE) ).getBackgroundDataSetting();
+			//check network state before start.
+			final ConnectivityManager connectivityManager = (ConnectivityManager) getBaseContext().getSystemService(
+					Context.CONNECTIVITY_SERVICE);
+			final NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+			if ( netInfo != null && netInfo.getState() == NetworkInfo.State.CONNECTED )
+			{
+				//do a refresh
+				final boolean backgroundData = connectivityManager.getBackgroundDataSetting();
 
-			//manual start and feed changed is not a background process
-			if ( backgroundData || manualStart || feedChanged )
-				synch(feedChanged);
+				//manual start and feed changed is not a background process
+				if ( backgroundData || manualStart || feedChanged )
+				{
+					synch(feedChanged);
 
+					//store last synch time
+					final SharedPreferences preferences = PreferenceManager
+							.getDefaultSharedPreferences(getBaseContext());
+
+					final Editor prefEditor = preferences.edit();
+					prefEditor.putLong(PREF_LAST_SUCCESFUL_SYCNH, System.currentTimeMillis());
+					prefEditor.commit();
+
+				}
+			}
 			feedChanged = false;
 			manualStart = false;
 
@@ -310,6 +383,8 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		finally
 		{
 			running = false;
+
+			releaseLock(getBaseContext());
 		}
 	}
 
@@ -323,8 +398,10 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		try
 		{
 			handler.sendMessage(handler.obtainMessage(CMD_SHOW_REFRESH));
+
 			if ( cleanUpDB )
 				RSSStream.deleteItems(getApplicationContext());
+
 			final boolean newItems = RSSStream.synchronize(getBaseContext(), feedUrl);
 			if ( newItems
 					&& PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getBoolean(PREF_NOTIFICATION,
