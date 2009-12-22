@@ -35,7 +35,7 @@ public class AboutActivity extends Activity implements Codes, OnClickListener
 		{
 			try
 			{
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=Bankdroid")));
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:BankDroid")));
 			}
 			catch ( final Exception e )
 			{
