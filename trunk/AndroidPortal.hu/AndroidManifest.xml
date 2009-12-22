@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="hu.androidportal"
-	android:versionName="0.4" android:versionCode="4">
+	android:versionCode="5" android:versionName="0.5">
 
 	<uses-sdk android:minSdkVersion="3" />
 	<uses-permission android:name="android.permission.INTERNET"/>
@@ -10,9 +10,6 @@
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name">
 
-		<!-- TODO to be removed -->
-		<activity android:name="Test"/>
-		
 		<provider android:name="RSSItemProvider" android:authorities="hu.androidportal.RSSItem" android:syncable="true"/>
 	
 		<activity android:name="ItemListActivity">
@@ -22,6 +19,7 @@
 			</intent-filter>
 		</activity>
 		<activity android:name="PreferencesActivity" />
+		<activity android:name="AboutActivity" />
 		<activity android:name="ItemViewActivity" />
 
 		<receiver android:name="hu.androidportal.widget.PortalWidgetProvider" >

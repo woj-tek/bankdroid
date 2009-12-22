@@ -27,8 +27,6 @@ import android.util.Log;
  * XXX there should be feedback on manual start
  * 
  * XXX Introduce read flag on articles
- * 
- * TODO remove 1 minute frequency
  * @author Gabe
  */
 public class RSSSyncService extends Service implements Runnable, Codes

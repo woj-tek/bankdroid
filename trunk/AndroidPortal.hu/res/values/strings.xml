@@ -6,6 +6,7 @@
     <string name="menuPref">Beállítások</string>
     <string name="menuRefresh">Frissít</string>
     <string name="menuAbout">Névjegy</string>
+    <string name="menuShare">Elküld</string>
     
     <!-- preferences -->
     <string name="prefNoti">Értesítés engedélyezése</string>

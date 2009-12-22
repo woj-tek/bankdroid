@@ -252,8 +252,7 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 		}
 		else if ( item.getItemId() == R.id.menuAbout )
 		{
-			//TODO about menu
-			startActivity(new Intent(getBaseContext(), Test.class));
+			startActivity(new Intent(getBaseContext(), AboutActivity.class));
 		}
 		return super.onOptionsItemSelected(item);
 	}

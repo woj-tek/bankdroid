@@ -8,6 +8,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -16,8 +19,6 @@ import android.widget.TextView;
 
 /**
  * @author gyenes
- * TODO add menu to the item view activity: share link, preferences, about
- *
  */
 public class ItemViewActivity extends Activity implements Codes, OnClickListener
 {
@@ -128,6 +129,36 @@ public class ItemViewActivity extends Activity implements Codes, OnClickListener
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
 		}
+	}
+
+	@Override
+	public boolean onOptionsItemSelected( final MenuItem item )
+	{
+		if ( item.getItemId() == R.id.menuShare )
+		{
+			final Intent send = new Intent(Intent.ACTION_SEND);
+			send.putExtra(Intent.EXTRA_SUBJECT, "AndroidPortal.hu cikk");
+			send.putExtra(Intent.EXTRA_TEXT, "\tHello!\nAjánlom figyelmedbe a következõ cikket:\n" + url);
+			send.setType("text/plain");
+			startActivity(Intent.createChooser(send, "Válassz alkalmazást:"));
+		}
+		else if ( item.getItemId() == R.id.menuPref )
+		{
+			startActivity(new Intent(getApplicationContext(), PreferencesActivity.class));
+		}
+		else if ( item.getItemId() == R.id.menuAbout )
+		{
+			startActivity(new Intent(getBaseContext(), AboutActivity.class));
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu( final Menu menu )
+	{
+		final MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.itemmenu, menu);
+		return true;
 	}
 
 }
