@@ -6,6 +6,7 @@ import hu.androidportal.RSSItemProvider;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.ParseException;
 import java.util.Calendar;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -190,7 +191,6 @@ public class RSSStream implements Codes
 		final Cursor maxIdCursor = context.getContentResolver().query(RSSItem.CONTENT_URI,
 				new String[] { RSSItem.F__ID }, "_id = (select max(_id) from " + RSSItemProvider.T_RSSITEM + " )",
 				null, null);
-		maxIdCursor.moveToFirst();
 
 		int maxId = -1;
 		if ( maxIdCursor.moveToFirst() )
@@ -201,6 +201,44 @@ public class RSSStream implements Codes
 		context.getContentResolver().delete(RSSItem.CONTENT_URI, RSSItem.F__ID + "=?",
 				new String[] { String.valueOf(maxId) });
 
+	}
+
+	/**
+	 * Reads the latest item from the database. This is primary for the widget 
+	 * @param context
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
+	public static RSSItem getLast( final Context context )
+	{
+		//read database list to get the max ID
+		final Cursor lastCursor = context.getContentResolver()
+				.query(
+						RSSItem.CONTENT_URI,
+						new String[] { RSSItem.F__ID, RSSItem.F_AUTHOR, RSSItem.F_PUBDATE, RSSItem.F_SUMMARY,
+								RSSItem.F_TITLE }, "_id = (select max(_id) from " + RSSItemProvider.T_RSSITEM + " )",
+						null, null);
+
+		RSSItem item = null;
+		if ( lastCursor.moveToFirst() )
+		{
+			item = new RSSItem();
+			item.id = lastCursor.getLong(0);
+			item.author = lastCursor.getString(1);
+			try
+			{
+				item.publishDate = Formatters.getTimstampFormat().parse(lastCursor.getString(2));
+			}
+			catch ( final ParseException e )
+			{
+				Log.e(TAG, "Failed to parse the publish date for item " + item.id, e);
+			}
+			item.summary = lastCursor.getString(3);
+			item.title = lastCursor.getString(4);
+		}
+		lastCursor.close();
+		return item;
 	}
 
 	/**
