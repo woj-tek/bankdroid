@@ -9,6 +9,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * @author gyenes
+ *
+ * FIXME add scrollbar to the view
+ * FIXME add comments for reporting bugs and sending samples
+ * FIXME linkify texts if possible.
+ */
 public class AboutActivity extends Activity implements OnClickListener, Codes
 {
 
