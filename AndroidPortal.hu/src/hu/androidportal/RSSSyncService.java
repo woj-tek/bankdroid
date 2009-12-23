@@ -1,6 +1,7 @@
 package hu.androidportal;
 
 import hu.androidportal.rss.RSSStream;
+import hu.androidportal.widget.PortalWidgetProvider;
 
 import java.net.URL;
 
@@ -9,6 +10,7 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -397,14 +399,19 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		{
 			handler.sendMessage(handler.obtainMessage(CMD_SHOW_REFRESH));
 
+			final Context context = getBaseContext();
 			if ( cleanUpDB )
-				RSSStream.deleteItems(getApplicationContext());
+				RSSStream.deleteItems(context);
 
-			final boolean newItems = RSSStream.synchronize(getBaseContext(), feedUrl);
-			if ( newItems
-					&& PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getBoolean(PREF_NOTIFICATION,
-							DEFAULT_NOTIFICATION) )
+			final boolean newItems = RSSStream.synchronize(context, feedUrl);
+
+			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+			if ( newItems && preferences.getBoolean(PREF_NOTIFICATION, DEFAULT_NOTIFICATION) )
 			{
+				// Push update for thiswidget to the home screen
+				final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+				PortalWidgetProvider.updateWidgets(context, appWidgetManager);
+
 				handler.sendMessage(handler.obtainMessage(CMD_SHOW_NEWITEM));
 			}
 

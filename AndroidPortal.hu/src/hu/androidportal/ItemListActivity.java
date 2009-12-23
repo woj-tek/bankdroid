@@ -103,35 +103,40 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 		startActivity(intent);
 	}
 
-	static CharSequence getAuthorText( final String author, final String date )
+	public static CharSequence getAuthorText( final String author, final String date )
 	{
-		final StringBuilder builder = new StringBuilder(author);
 		try
 		{
-			final Date pubDate = Formatters.getTimstampFormat().parse(date);
-
-			if ( builder.length() > 0 )
-				builder.append(", ");
-
-			final long diff = Calendar.getInstance().getTime().getTime() - pubDate.getTime();
-			if ( diff >= 0 && diff < 60 * 60 * 1000L )
-			{//within an hour
-				builder.append(diff / 60000L);
-				builder.append(" perccel ezelõtt");
-			}
-			else if ( diff >= 0 && diff < 24 * 60 * 60 * 1000L )
-			{//within a day
-				builder.append(diff / 3600000L);
-				builder.append(" órával ezelõtt");
-			}
-			else
-			{
-				builder.append(Formatters.getShortDateFormat().format(pubDate));
-			}
+			return getAuthorText(author, Formatters.getTimstampFormat().parse(date));
 		}
 		catch ( final ParseException e )
 		{
 			Log.d(TAG, "Failed to parse date: " + e);
+		}
+		return author;
+	}
+
+	public static CharSequence getAuthorText( final String author, final Date date )
+	{
+		final StringBuilder builder = new StringBuilder(author);
+
+		if ( builder.length() > 0 )
+			builder.append(", ");
+
+		final long diff = Calendar.getInstance().getTime().getTime() - date.getTime();
+		if ( diff >= 0 && diff < 60 * 60 * 1000L )
+		{//within an hour
+			builder.append(diff / 60000L);
+			builder.append(" perccel ezelõtt");
+		}
+		else if ( diff >= 0 && diff < 24 * 60 * 60 * 1000L )
+		{//within a day
+			builder.append(diff / 3600000L);
+			builder.append(" órával ezelõtt");
+		}
+		else
+		{
+			builder.append(Formatters.getShortDateFormat().format(date));
 		}
 		return builder;
 	}
@@ -215,8 +220,7 @@ public class ItemListActivity extends Activity implements OnItemClickListener, C
 		String textToDisplay = null;
 		if ( lastSuccesfulSynch > 0 )
 		{
-			final CharSequence lastSynchText = getAuthorText("", Formatters.getTimstampFormat().format(
-					new Date(lastSuccesfulSynch)));
+			final CharSequence lastSynchText = getAuthorText("", new Date(lastSuccesfulSynch));
 			textToDisplay = "Utolsó frissítés: " + lastSynchText;
 		}
 		else
