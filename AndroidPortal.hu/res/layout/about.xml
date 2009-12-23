@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
   	xmlns:android="http://schemas.android.com/apk/res/android"
-  	android:orientation="vertical"
   	android:layout_width="fill_parent"
   	android:layout_height="fill_parent"
+  	android:background="#EFF6D5"
+	>
+
+<LinearLayout
+  	android:orientation="vertical"
+  	android:layout_width="fill_parent"
+  	android:layout_height="wrap_content"
   	android:background="@drawable/itembackground"
   	>
   	
@@ -61,8 +67,8 @@
 			/>
 			
 		<TextView 
-			android:text="AndroidPortal.hu alkalmazás egy nyíltforráskódú program, amely Bankdroid csapat támogatásával készült az azonos nevű közösségi portál számára." 
-			android:id="@+id/description" 
+			android:text="AndroidPortal.hu alkalmazás egy nyíltforráskódú program, amely Bankdroid csapat támogatásával készült a magyar android közösségi portál számára." 
+			android:id="@+id/description0" 
 			android:textSize="13sp"
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
@@ -70,6 +76,18 @@
 			android:padding="5sp"
 			
 			android:layout_below="@id/divider"
+			/>
+			
+		<TextView 
+			android:text="Amennyiben bármilyen hibát észlelsz, kérlek jelentsd be, akár e-mailben, vagy a project oldalakon - lásd alant linkeket." 
+			android:id="@+id/description" 
+			android:textSize="13sp"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:textColor="#000000" 
+			android:padding="5sp"
+			
+			android:layout_below="@id/description0"
 			/>
 			
 		<ImageView
@@ -127,7 +145,7 @@
 		
 	
 	<Button 
-		android:text="További Bankdroid programok" 
+		android:text="További BankDroid programok" 
 		android:id="@+id/marketSearch" 
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
@@ -137,3 +155,4 @@
   	
 </LinearLayout>
 
+  </ScrollView>
