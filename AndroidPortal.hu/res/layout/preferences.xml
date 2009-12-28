@@ -17,6 +17,14 @@
 		android:entries="@array/freqTitles"
 		android:entryValues="@array/freqValues" 
 		/>
+	<ListPreference
+		android:title="@string/prefExp"
+		android:summary="@string/prefExpSummary"
+		android:key="hu.androidportal.Expiry"
+		android:defaultValue="60"
+		android:entries="@array/expTitles"
+		android:entryValues="@array/expValues" 
+		/>
 	<CheckBoxPreference 
 		android:title="@string/prefNoti" 
 		android:defaultValue="true"

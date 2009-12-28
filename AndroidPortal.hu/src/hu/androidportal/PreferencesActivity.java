@@ -33,6 +33,11 @@ public class PreferencesActivity extends PreferenceActivity implements Codes, On
 				DEFAULT_FEED)));
 		feed.setOnPreferenceChangeListener(this);
 
+		final Preference expiry = findPreference(PREF_EXPIRY);
+		expiry.setSummary(getTitleForValue(R.array.expTitles, R.array.expValues, preferences.getString(PREF_EXPIRY,
+				DEFAULT_EXPIRY)));
+		expiry.setOnPreferenceChangeListener(this);
+
 	}
 
 	private CharSequence getTitleForValue( final int titles, final int values, final String value )
@@ -71,6 +76,10 @@ public class PreferencesActivity extends PreferenceActivity implements Codes, On
 			{
 				RSSSyncService.schedule(getBaseContext(), (String) newValue);
 			}
+		}
+		else if ( pref.getKey().equals(PREF_EXPIRY) )
+		{
+			pref.setSummary(getTitleForValue(R.array.expTitles, R.array.expValues, (String) newValue));
 		}
 		return true;
 	}

@@ -10,6 +10,7 @@ public interface Codes
 
 	public static final String PREF_FREQUENCY = "hu.androidportal.Frequency";
 	public static final String PREF_FEED = "hu.androidportal.Feed";
+	public static final String PREF_EXPIRY = "hu.androidportal.Expiry";
 	public static final String PREF_NOTIFICATION = "hu.androidportal.Notification";
 	public static final String PREF_DEBUG = "hu.androidportal.Debug";
 
@@ -27,6 +28,7 @@ public interface Codes
 
 	public static final String DEFAULT_FREQUENCY = "60";
 	public static final String DEFAULT_FEED = "http://feeds.feedburner.com/magyarandroidportal";
+	public static final String DEFAULT_EXPIRY = "30";
 	public static final boolean DEFAULT_NOTIFICATION = true;
 	public static final boolean DEFAULT_DEBUG = false;
 
@@ -41,11 +43,6 @@ public interface Codes
 	public static final int NOTIFICATION_THREAD_LIFECYCLE = 13;
 	public static final int NOTIFICATION_REFRESH = 2;
 	public static final int NOTIFICATION_NEWITEM = 3;
-
-	/**
-	 * Number of days that the items should be stored.
-	 */
-	public static final int MAX_ITEMS_TO_STORE = 10;//XXX add to preferences
 
 	public static final String CPU_WAKE_LOCK = "hu.androidportal.WakeLock";
 

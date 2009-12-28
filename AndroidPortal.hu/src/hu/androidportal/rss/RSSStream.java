@@ -19,7 +19,9 @@ import org.xml.sax.XMLReader;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
@@ -167,8 +169,10 @@ public class RSSStream implements Codes
 		}
 
 		//delete old values
+		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		final int expiry = Integer.parseInt(preferences.getString(PREF_EXPIRY, DEFAULT_EXPIRY));
 		final Calendar limit = Calendar.getInstance();
-		limit.add(Calendar.DATE, -MAX_ITEMS_TO_STORE);
+		limit.add(Calendar.DATE, -expiry);
 
 		final int delete = context.getContentResolver().delete(RSSItem.CONTENT_URI, RSSItem.F_PUBDATE + "<?",
 				new String[] { Formatters.getTimstampFormat().format(limit.getTime()) });

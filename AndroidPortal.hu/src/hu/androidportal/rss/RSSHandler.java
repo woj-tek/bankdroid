@@ -20,9 +20,6 @@ public class RSSHandler extends DefaultHandler
 	private static final String PUBLISH_DATE = "pubDate";
 	private static final String AUTHOR = "creator";
 
-	// Number of articles to download
-	private static final int ITEM_LIMIT = 15; //XXX convert it to preference
-
 	// Feed and Article objects to use for temporary storage
 	private RSSItem item = null;
 	private RSSChannel channel = null;
@@ -104,7 +101,7 @@ public class RSSHandler extends DefaultHandler
 			else if ( name.equals(ITEM) )
 			{
 				//item ready
-				if ( item.id > maxId && channel.items.size() < ITEM_LIMIT )
+				if ( item.id > maxId )
 				{
 					channel.items.add(item);
 					item.generateSummary();
