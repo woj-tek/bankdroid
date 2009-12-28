@@ -11,6 +11,8 @@
     <!-- preferences -->
     <string name="prefNoti">Értesítés engedélyezése</string>
     <string name="prefNotiSummary">Értesítések megjelenítése, ha új cikk érkezik</string>
+    <string name="prefExp">Meddig tároljam a cikkeket?</string>
+    <string name="prefExpSummary">Lejárat után a cikkeket törlöm a helyi tárból.</string>
     <string name="prefFreq">Frissítési gyakoriság</string>
     <string name="prefFreqSummary">Cikkek frissítési gyakoriság</string>
     <string name="prefFeed">Hírforrás kiválasztása</string>

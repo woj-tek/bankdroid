@@ -14,6 +14,18 @@
 		<item>Óránként</item>
 		<item>Naponta</item>
 	</string-array>
+	<string-array name="expValues">
+		<item>7</item>
+		<item>30</item>
+		<item>91</item>
+		<item>10000</item>
+	</string-array>
+	<string-array name="expTitles">
+		<item>Egy hétig</item>
+		<item>Egy hónapig</item>
+		<item>3 hónapig</item>
+		<item>Örökre</item>
+	</string-array>
 	<string-array name="feedValues">
 		<item>http://feeds.feedburner.com/magyarandroidportal</item>
 		<item>http://feeds.feedburner.com/magyarandroidportalblogok</item>
