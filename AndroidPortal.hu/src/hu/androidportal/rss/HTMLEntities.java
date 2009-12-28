@@ -252,7 +252,6 @@ public class HTMLEntities
 	 */
 	public static String fromHtmlEntities( final String str )
 	{
-		//XXX rework it to work with StringBuilder input
 		//initialize html translation maps table the first time is called
 		if ( htmlEntitiesMap.isEmpty() )
 		{
@@ -310,6 +309,59 @@ public class HTMLEntities
 			}
 		}
 		return buf.toString();
+	}
+
+	/**
+	 * Convert HTML entities to special and extended unicode characters
+	 * equivalents.
+	 * @param str input string
+	 * @return formatted string
+	 * @see #toHtmlEntities(String)
+	 */
+	public static StringBuilder fromHtmlEntities( final StringBuilder buf )
+	{
+		//initialize html translation maps table the first time is called
+		if ( htmlEntitiesMap.isEmpty() )
+		{
+			initializeEntitiesTables();
+		}
+
+		int i = buf.lastIndexOf("&");
+		while ( i >= 0 )
+		{
+			final int semi = buf.indexOf(";", i + 1);
+			if ( ( semi > -1 ) && ( ( semi - i ) <= 7 ) )
+			{
+				final String entity = buf.substring(i, semi + 1);
+				Integer iso;
+				if ( entity.charAt(1) != ' ' )
+				{
+					if ( entity.charAt(1) == '#' )
+					{
+						if ( entity.charAt(2) == 'x' )
+						{
+							iso = new Integer(Integer.parseInt(entity.substring(3, entity.length() - 1), 16));
+						}
+						else
+						{
+							iso = new Integer(entity.substring(2, entity.length() - 1));
+						}
+					}
+					else
+					{
+						iso = unhtmlEntitiesMap.get(entity);
+					}
+					if ( iso != null )
+					{
+						buf.delete(i, semi + 1);
+						buf.insert(i, (char) ( iso.intValue() ));
+					}
+				}
+			}
+
+			i = buf.lastIndexOf("&", i - 1);
+		}
+		return buf;
 	}
 
 }

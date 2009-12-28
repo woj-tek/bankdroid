@@ -96,6 +96,6 @@ public class RSSItem extends RSSObject
 		if ( builder.length() > MAX_SUMMARY_LENGTH )
 			builder.delete(MAX_SUMMARY_LENGTH, builder.length());
 
-		summary = HTMLEntities.fromHtmlEntities(builder.toString());
+		summary = HTMLEntities.fromHtmlEntities(builder).toString();
 	}
 }
