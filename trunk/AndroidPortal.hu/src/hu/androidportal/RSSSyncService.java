@@ -28,6 +28,8 @@ import android.util.Log;
 /**
  * XXX there should be feedback on manual start
  * 
+ * XXX merge available feeds into one complex feed
+ * 
  * XXX Introduce read flag on articles
  * @author Gabe
  */
