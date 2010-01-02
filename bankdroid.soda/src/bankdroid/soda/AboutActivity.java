@@ -10,11 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * @author gyenes
- *
+ * FIXME donate link on about
+ * FIXME bit.ly links everywhere
  * FIXME add scrollbar to the view
  * FIXME add comments for reporting bugs and sending samples
  * FIXME linkify texts if possible.
+ * @author Gabe
+ *
  */
 public class AboutActivity extends Activity implements OnClickListener, Codes
 {
