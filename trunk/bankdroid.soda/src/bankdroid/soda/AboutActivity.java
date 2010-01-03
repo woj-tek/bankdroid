@@ -15,6 +15,7 @@ import android.widget.TextView;
  * FIXME add scrollbar to the view
  * FIXME add comments for reporting bugs and sending samples
  * FIXME linkify texts if possible.
+ * FIXME include automatic version info update
  * @author Gabe
  *
  */
