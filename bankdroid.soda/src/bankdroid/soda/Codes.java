@@ -19,6 +19,7 @@ public interface Codes
 	public static final String PREF = "bankdroid.soda";
 	public static final String PREF_NOTIFICATION = "bankdroid.soda.Notification";
 	public static final String PREF_KEEP_SMS = "bankdroid.soda.KeepSMS";
+	public static final String PREF_RESET_DB = "bankdroid.soda.ResetDb";
 
 	public static final String TAG = "SODA";
 

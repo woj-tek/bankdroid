@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Banks package="bankdroid.soda" county="CZ">
+
+	<Bank>
+		<!-- Sample: 39601 999020 
+CSOB: 36e-5e5-yte kod transacke 234234 z 2342342342 na 2345-2345234523 castka 123,12 CZK.
+CSOB: xkm-jzj-e3e kod transakce 23423423 z 234234234 na 123-1231231 csatka 1234,12 CZK.
+		 -->
+		<Name>ČSOB</Name>
+		<IconId>csob_logo</IconId>
+		<Phones>
+			<Phone>39601</Phone>
+			<Phone>999020</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[CSOB: ([0-9a-z]*-[0-9a-z]*-[0-9a-z]*) .*]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+</Banks>

@@ -48,6 +48,14 @@
 	<string name="keepSMSSummary">Az eredeti üzenet megőrzése az üzenetek között.</string>
 	<string name="notification">Csak értesítés</string>
 	<string name="notificationSummary">A jelszót ne mutassa azonnal, csak egy figyelmeztetést.</string>
+	<string name="resetDb">Bank DB visszaállítás</string>
+	<string name="resetDbSummary">Visszaállításra kerülnek az alap banki paraméterek</string>
+	<string name="developerPrefs">Fejlesztő beállítások</string>
+	<string name="genericPrefs">Általános beállítások</string>
+	<string name="msgDbReset">A bank adatbázis visszaállításra került.</string>
+	<string name="msgAreYouSure">Biztos benne?</string>
+	<string name="yes">Igen</string>
+	<string name="no">Nem</string>
 	
 	<!-- Notification -->
 	<string name="notificationTicker">Jelszó érkezett a {0} bankból.</string>
