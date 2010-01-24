@@ -152,7 +152,7 @@ public class SMSListActivity extends Activity implements Codes, OnItemClickListe
 	{
 		if ( arg0.getId() == R.id.help )
 		{
-			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_SUBMIT_SAMPLE));
+			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.submitSampleURL)));
 			startActivity(viewIntent);
 		}
 	}

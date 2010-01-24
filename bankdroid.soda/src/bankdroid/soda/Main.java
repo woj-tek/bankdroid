@@ -70,7 +70,7 @@ public class Main extends Activity implements Codes, OnClickListener
 		}
 		else if ( v.getId() == R.id.help )
 		{
-			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_INFO_SITE));
+			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.aboutUrl2)));
 			startActivity(viewIntent);
 		}
 		else if ( v.getId() == R.id.submitSample )
