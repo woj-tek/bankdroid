@@ -19,6 +19,13 @@ import android.util.Log;
 public class BankProvider extends ContentProvider implements Codes
 {
 
+	public static void resetDb( final Context context )
+	{
+		final DatabaseHelper helper = new DatabaseHelper(context);
+		helper.reset();
+		helper.close();
+	}
+
 	/**
 	 * This class helps open, create, and upgrade the database file.
 	 */
@@ -79,6 +86,11 @@ public class BankProvider extends ContentProvider implements Codes
 			{
 				Log.e(TAG, "Failed to load initial list of banks.", e);
 			}
+		}
+
+		public void reset()
+		{
+			fullCleanUp(getWritableDatabase());
 		}
 
 		private void fullCleanUp( final SQLiteDatabase db )
