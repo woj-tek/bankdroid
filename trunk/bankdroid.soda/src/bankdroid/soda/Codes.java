@@ -2,13 +2,11 @@ package bankdroid.soda;
 
 public interface Codes
 {
-	public static final String VERSION = "1.0"; //XXX keep up-to-date
-
 	public static final String DEFAULT_COUNTRY = "HU";
 
-	public static final String URL_INFO_SITE = "http://www.bankdroid.info";
-	public static final String URL_SUBMIT_SAMPLE = "http://www.bankdroid.info/soda/user-reference#TOC-Submit-SMS-Sample";
-	public static final String URL_PROJECT_HOME = "http://bankdroid.googlecode.com";
+	public static final String TWITTER_URL = "http://twitter.com/bankdroid";
+	public static final String GMAIL_URL = "mailto:info@bankdroid.info";
+	public static final String URL_PROJECT_HOME = "http://bit.ly/4Ys9pQ";
 
 	public static final String BANKDROID_SODA_ADDRESS = "bankdroid.soda.Address";
 	public static final String BANKDROID_SODA_SMSMESSAGE = "bankdroid.soda.SMSMessage";

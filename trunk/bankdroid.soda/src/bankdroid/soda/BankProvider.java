@@ -26,7 +26,7 @@ public class BankProvider extends ContentProvider implements Codes
 	{
 
 		private static final String DATABASE_NAME = "bank.db";
-		private static final int DATABASE_VERSION = 17;//2009-12-15
+		private static final int DATABASE_VERSION = 18;//2010-01-18
 
 		private final Context context;
 
