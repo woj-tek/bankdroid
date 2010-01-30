@@ -3,6 +3,9 @@
 
 <Banks package="bankdroid.soda" county="HU">
 	<Bank>
+		<!-- Sample:
+		OTPdirekt - Belfaldi forint atutalas xxx szamlan yyy HUF asszeggel zzz szamlara. Azonosata: 90120437 Javahagyas 23:55-ig.
+		 -->
 		<Name>OTP Bank</Name>
 		<IconId>otp2_logo</IconId>
 		<Expiry>3600</Expiry>
@@ -11,11 +14,14 @@
 			<Phone>+36209400700</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[OTPdirekt - [^:]*: ([0-9]*)]]></Expression>
+			<Expression transactionSign="true"><![CDATA[OTPdirekt - [^:]*: ([0-9]*)]]></Expression>
 		</Expressions>
 	</Bank>
 	
 	<Bank>
+		<!-- Sample:
+		**K&H e-bank** Az Ön egy bejelentkezés időtartalmára vonatkozó sms jelszava: hNmKmp A jelszó maximum 30 percen belül érvényes.
+		-->
 		<Name><![CDATA[K&H Bank]]></Name>
 		<IconId>kh_logo</IconId>
 		<Expiry>1800</Expiry>
@@ -58,6 +64,7 @@
 		
 	<Bank>
 		<!-- Sample: 
+		Az an ERSTE NetBank belapasi kadja: 45087768
 		 -->
 		<Name>ERSTE Bank</Name>
 		<IconId>erste_logo</IconId>
@@ -71,6 +78,7 @@
 		
 	<Bank>
 		<!-- Sample: 
+		Az an egyszer hasznalatos jelszava: 74716681. Karjak, ezt a jelszat alkalmazza a tranzakciakhoz as a madsatasokhoz a Netbank hasznalata soran!
 		 -->
 		<Name>Allianz Bank</Name>
 		<IconId>allianz_logo</IconId>
@@ -92,12 +100,13 @@
 			<Phone>+36303444455</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[[^:]*: ([0-9]*).*citibank.*]]></Expression>
+			<Expression transactionSign="true"><![CDATA[[^:]*: ([0-9]*).*citibank.*]]></Expression>
 		</Expressions>
 	</Bank>		
 		
 	<Bank>
 		<!-- Sample: 
+		Tisztelt agyfelank ! Az an altal indatott tranzakciahoz tartoza egyszer hasznalhata jelszava: 84-591727. FHB Zrt.
 		 -->
 		<Name>FHB Bank</Name>
 		<IconId>fhb_logo</IconId>
@@ -110,7 +119,8 @@
 	</Bank>		
 		
 	<Bank>
-		<!-- Sample: 
+		<!-- Sample:
+		Az an ideiglenes kadja: 51930398 Ez a kad belapashez 13:47:58-ig hasznalhatja, de arizze meg a tranzakciahoz! Kapcsolat azonosata: 133758 Budapest Bank 
 		 -->
 		<Name>Budapest Bank</Name>
 		<IconId>budapestbank_logo</IconId>
@@ -123,7 +133,8 @@
 	</Bank>		
 		
 	<Bank>
-		<!-- Sample: 
+		<!-- Sample:
+		MKB NetBANKar Forint atutalas ragzatase. Kedvezmanyezett 103000021231313213131, asszeg: 10000 HUF. Alaara jelsza: g985P 
 		 -->
 		<Name>MKB Bank</Name>
 		<IconId>mkb_logo</IconId>
@@ -132,7 +143,7 @@
 			<Phone>+36209000652</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[MKB .* jelsz.: ([0-9a-zA-Z]*)]]></Expression>
+			<Expression transactionSign="true"><![CDATA[MKB .* jelsz.: ([0-9a-zA-Z]*)]]></Expression>
 		</Expressions>
 	</Bank>		
 		
