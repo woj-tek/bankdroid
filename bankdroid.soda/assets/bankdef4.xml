@@ -15,7 +15,7 @@ CSOB: xkm-jzj-e3e kod transakce 23423423 z 234234234 na 123-1231231 csatka 1234,
 			<Phone>999020</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[CSOB: ([0-9a-z]*-[0-9a-z]*-[0-9a-z]*) .*]]></Expression>
+			<Expression transactionSign="true"><![CDATA[CSOB: ([0-9a-z]*-[0-9a-z]*-[0-9a-z]*) .*]]></Expression>
 		</Expressions>
 	</Bank>		
 		

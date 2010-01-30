@@ -41,6 +41,8 @@ import bankdroid.soda.CountDown.CountDownListener;
  * <li>let the user to post the sample SMS to the sample@bankdroid.info</li>
  * <li>displays a count-down to indicate when the OTP will expire</li>
  * <li>XXX German and Hungarian translations</li>
+ * <li>FIXME Display transaction signing security warning</li>
+ * <li>FIXME Disable security warning preference</li>
  * </ul>
  * 
  * @author user

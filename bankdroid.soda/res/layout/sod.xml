@@ -52,20 +52,27 @@
 			</LinearLayout>
 		</FrameLayout>
 			
-		<LinearLayout 
-			android:id="@+id/buttonRow" 
+		<TextView 
+			android:text="@string/securityWarning" 
+			android:id="@+id/securityWarning" 
+			android:gravity="center_horizontal"
+			android:background="#FFA000"
+			android:textColor="#FFFFFF"
+			android:textStyle="bold"
+			android:padding="2sp"
+			android:layout_marginBottom="5sp"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"/>
+		
+		<Button 
+			android:text="76037367" 
+			android:id="@+id/codeButton" 
 			android:layout_gravity="center_horizontal"
 			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content">
-			<Button 
-				android:text="76037367" 
-				android:id="@+id/codeButton" 
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-				android:textColor="#EF6A28" 
-				android:textSize="32sp" 
-				/>
-		</LinearLayout>
+			android:layout_height="wrap_content"
+			android:textColor="#EF6A28" 
+			android:textSize="32sp" 
+			/>
 	
 		<TextView 
 			android:text="@string/clickToClose" 

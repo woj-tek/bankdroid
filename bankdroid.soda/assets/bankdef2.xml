@@ -13,7 +13,7 @@ Die TAN für ihre Überweisung über 100,00 Euro auf das Konto 12312312123 laute
 			<Phone>SpkHannover</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[.*TAN.* lautet ([0-9]*).*]]></Expression>
+			<Expression transactionSign="true"><![CDATA[.*TAN.* lautet ([0-9]*).*]]></Expression>
 		</Expressions>
 	</Bank>		
 		

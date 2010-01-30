@@ -32,6 +32,7 @@
 	<string name="received.prefix">Received at: </string>
 	<string name="countdown.prefix">Remaining time: </string>
 	<string name="nocode">-- no code --</string>
+	<string name="securityWarning">Verify transaction details in the message before signing the transaction.</string>
 	
 	<!-- SMS pick activity -->
 	<string name="smsListTitle">Please select an SMS sample:</string>
