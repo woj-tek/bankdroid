@@ -16,8 +16,9 @@ public class MainActivity extends TrackedActivity implements OnClickListener
 	 * Called when the activity is first created.
 	 * FIXME display progressbar on start
 	 * FIXME display license link at the bottom of the screen
-	 * FIXME display the site URL
 	 * FIXME implement dispatch of the analytics
+	 * FIXME implement I18N
+	 * FIXME add Hungarian translation
 	 * 
 	 * http://market.android.com/details?id=bankdroid.andralytics
 	 * - http://bit.ly/aQjh1K

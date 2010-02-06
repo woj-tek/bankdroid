@@ -32,7 +32,7 @@
 		android:id="@+id/introText"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    android:text="Thank you for participating in the statistics!"
+	    android:text="Thank you for participating in the statistics! To view the statistics, tap on the title bar."
 	    android:textColor="#333333"
 	    android:padding="5sp"
 	    
