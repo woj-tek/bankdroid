@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, MainActivity!</string>
+    <string name="licenseLink">http://www.google.com/intl/en/analytics/tos.html</string>
     <string name="app_name">Andralytics</string>
 </resources>

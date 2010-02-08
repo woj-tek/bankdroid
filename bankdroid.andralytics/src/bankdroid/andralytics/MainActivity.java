@@ -14,9 +14,6 @@ public class MainActivity extends TrackedActivity implements OnClickListener
 
 	/** 
 	 * Called when the activity is first created.
-	 * FIXME display progressbar on start
-	 * FIXME display license link at the bottom of the screen
-	 * FIXME implement dispatch of the analytics
 	 * FIXME implement I18N
 	 * FIXME add Hungarian translation
 	 * 
@@ -33,6 +30,7 @@ public class MainActivity extends TrackedActivity implements OnClickListener
 		setContentView(R.layout.main);
 
 		findViewById(R.id.header).setOnClickListener(this);
+		findViewById(R.id.licenseLink).setOnClickListener(this);
 
 		final String shortText = "Join Android community statistics...";
 		final String twitterText = "Join Android community statistics...Download app from Market:";
@@ -41,6 +39,8 @@ public class MainActivity extends TrackedActivity implements OnClickListener
 		ShareUtils.shareOnFacebook(findViewById(R.id.facebookButton), SHORTED_SITE_URL, shortText);
 		ShareUtils.shareOnMySpace(findViewById(R.id.myspaceButton), SHORTED_SITE_URL, shortText);
 		ShareUtils.shareOnTwitter(findViewById(R.id.twitterButton), SHORTED_MARKET_URL, twitterText);
+
+		tracker.setDispatchPeriod(60);
 	}
 
 	@Override
@@ -50,5 +50,33 @@ public class MainActivity extends TrackedActivity implements OnClickListener
 		{
 			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(SHORTED_SITE_URL)));
 		}
+		if ( view.getId() == R.id.licenseLink )
+		{
+			startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.licenseLink))));
+		}
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		( new Thread(new Runnable()
+		{
+
+			@Override
+			public void run()
+			{
+				try
+				{
+					Thread.sleep(1000);
+
+					tracker.dispatch();
+				}
+				catch ( final Exception e )
+				{
+					// skip exception
+				}
+			}
+		}) ).start();
 	}
 }

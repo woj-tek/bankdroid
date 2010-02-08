@@ -14,8 +14,8 @@ public class TrackedActivity extends Activity
 
 	private static final String TRACKER_ID = "UA-12736006-2";
 
-	private GoogleAnalyticsTracker tracker;
-	private String pageId;
+	protected GoogleAnalyticsTracker tracker;
+	protected String pageId;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
