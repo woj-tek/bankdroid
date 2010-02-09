@@ -38,7 +38,7 @@
 		android:id="@+id/introText"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    android:text="Thank you for participating in the statistics! To view the statistics, tap on the title bar."
+	    android:text="@string/thankYou"
 	    android:textColor="#333333"
 	    android:padding="5sp"
 	    
@@ -50,7 +50,7 @@
 		android:id="@+id/shareAppText"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    android:text="In order to give more comprehesive statistics to the World, please share the link of the application with your friends."
+	    android:text="@string/share"
 	    android:textColor="#333333"
 	    android:padding="5sp"
 	    
@@ -110,7 +110,7 @@
 		android:id="@+id/license"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    android:text="The Andralytics app collecting anonym usage statistics using the Google Analytics services. To read full license of Google Analytics click link below."
+	    android:text="@string/readLicense"
 	    android:textColor="#333333"
 	    android:padding="5sp"
 	    
@@ -122,7 +122,7 @@
 		android:id="@+id/licenseLink"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    android:text="Terms of Service"
+	    android:text="@string/termsAndServices"
 	    android:textColor="#0000BB"
 	    android:gravity="center"
 	    android:padding="5sp"
