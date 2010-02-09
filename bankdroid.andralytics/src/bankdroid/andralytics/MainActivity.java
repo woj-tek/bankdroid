@@ -14,8 +14,6 @@ public class MainActivity extends TrackedActivity implements OnClickListener
 
 	/** 
 	 * Called when the activity is first created.
-	 * FIXME implement I18N
-	 * FIXME add Hungarian translation
 	 * 
 	 * http://market.android.com/details?id=bankdroid.andralytics
 	 * - http://bit.ly/aQjh1K
@@ -32,10 +30,11 @@ public class MainActivity extends TrackedActivity implements OnClickListener
 		findViewById(R.id.header).setOnClickListener(this);
 		findViewById(R.id.licenseLink).setOnClickListener(this);
 
-		final String shortText = "Join Android community statistics...";
-		final String twitterText = "Join Android community statistics...Download app from Market:";
+		final String shortText = getString(R.string.joinStatistics);
+		final String gmailText = getString(R.string.joinStatisticsGmail);
+		final String twitterText = getString(R.string.joinStatisticsTwitter);
 
-		ShareUtils.shareInMail(findViewById(R.id.gmailButton), SHORTED_SITE_URL, shortText); // FIXME make more meeningful message body.
+		ShareUtils.shareInMail(findViewById(R.id.gmailButton), gmailText + SHORTED_SITE_URL, shortText);
 		ShareUtils.shareOnFacebook(findViewById(R.id.facebookButton), SHORTED_SITE_URL, shortText);
 		ShareUtils.shareOnMySpace(findViewById(R.id.myspaceButton), SHORTED_SITE_URL, shortText);
 		ShareUtils.shareOnTwitter(findViewById(R.id.twitterButton), SHORTED_MARKET_URL, twitterText);
