@@ -1,0 +1,5 @@
+#summary Client application that generates Google Analytics entries for generating world statistics.
+
+= Introduction =
+
+Simple client that generates Google Analytics entries. Entries will be collected for Android stats. 
