@@ -27,6 +27,8 @@
 		<Expiry>1800</Expiry>
 		<Phones>
 			<Phone>+36209000703</Phone>
+			<Phone>06709000542</Phone>
+			<Phone>+36709000542</Phone>
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.*K.H e-bank[^:]*: ([a-zA-Z0-9]{6}).*]]></Expression>
