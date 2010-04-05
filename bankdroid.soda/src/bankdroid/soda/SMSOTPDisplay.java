@@ -40,9 +40,8 @@ import bankdroid.soda.CountDown.CountDownListener;
  * <li>let the user to register new banks, store settings in DB</li>
  * <li>let the user to post the sample SMS to the sample@bankdroid.info</li>
  * <li>displays a count-down to indicate when the OTP will expire</li>
- * <li>XXX German and Hungarian translations</li>
- * <li>FIXME Display transaction signing security warning</li>
- * <li>FIXME Disable security warning preference</li>
+ * <li>XXX German translations</li>
+ * <li>displays transaction signing security warning</li>
  * </ul>
  * 
  * @author user
@@ -221,6 +220,12 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 		( (TextView) findViewById(R.id.messageBody) ).setText(smsMessage);
 
 		final TextView countDownView = (TextView) findViewById(R.id.countDown);
+
+		if ( source != null && smsMessage != null )
+		{
+			findViewById(R.id.securityWarning).setVisibility(
+					source.isTransactionSign(smsMessage) ? View.VISIBLE : View.INVISIBLE);
+		}
 
 		if ( source != null && source.getExpiry() > 0 )
 		{

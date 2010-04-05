@@ -63,7 +63,7 @@ public class Bank implements Serializable, Cloneable, Codes
 	 * One or more phone number can be registered to the Bank.
 	 */
 	private String[] phoneNumbers;
-	private String[] extractExpressions;
+	private Expression[] extractExpressions;
 	/**
 	 * Contains compiled regular expressions. Initialized in lazy mode, as most of the banks will be never used on
 	 * the same mobile. 
@@ -83,13 +83,13 @@ public class Bank implements Serializable, Cloneable, Codes
 		name = "";
 		expiry = -1;
 		phoneNumbers = new String[0];
-		extractExpressions = new String[0];
+		extractExpressions = new Expression[0];
 		countryCode = CUSTOM_COUNTRY;
 		iconId = R.drawable.bankdroid_logo;
 	}
 
 	public Bank( final int id, final String name, final int expiry, final String[] phoneNumber,
-			final String[] extractExpression, final int iconId, final String countryCode )
+			final Expression[] extractExpression, final int iconId, final String countryCode )
 	{
 		this.id = id;
 		this.name = name;
@@ -100,9 +100,9 @@ public class Bank implements Serializable, Cloneable, Codes
 		this.countryCode = countryCode;
 	}
 
-	public void addExtractExpression( final String extractExpression )
+	public void addExtractExpression( final Expression extractExpression )
 	{
-		final String[] ee = new String[extractExpressions.length + 1];
+		final Expression[] ee = new Expression[extractExpressions.length + 1];
 		System.arraycopy(extractExpressions, 0, ee, 0, extractExpressions.length);
 		ee[ee.length - 1] = extractExpression;
 		extractExpressions = ee;
@@ -123,27 +123,33 @@ public class Bank implements Serializable, Cloneable, Codes
 		final String[] pn = new String[phoneNumbers.length];
 		System.arraycopy(phoneNumbers, 0, pn, 0, pn.length);
 
-		final String[] ee = new String[extractExpressions.length];
+		final Expression[] ee = new Expression[extractExpressions.length];
 		System.arraycopy(extractExpressions, 0, ee, 0, ee.length);
 
 		return new Bank(id, name, expiry, pn, ee, iconId, countryCode);
 	}
 
-	public String extractCode( final String message )
+	private Pattern[] initPattern()
 	{
 		//lazy init with optimization for performance
 		Pattern[] lp = patterns;
 		if ( lp == null )
 		{
-			final String[] ee = extractExpressions;
+			final Expression[] ee = extractExpressions;
 			final int len = ee.length;
 
 			lp = patterns = new Pattern[len];
 			for ( int i = 0; i < len; i++ )
 			{
-				lp[i] = Pattern.compile(ee[i]);
+				lp[i] = Pattern.compile(ee[i].getExpression());
 			}
 		}
+		return lp;
+	}
+
+	public String extractCode( final String message )
+	{
+		final Pattern[] lp = initPattern();
 
 		final int len = lp.length;
 
@@ -156,6 +162,23 @@ public class Bank implements Serializable, Cloneable, Codes
 		return null;
 	}
 
+	public boolean isTransactionSign( final String message )
+	{
+		final Pattern[] lp = initPattern();
+
+		final int len = lp.length;
+
+		for ( int i = 0; i < len; i++ )
+		{
+			final Matcher matcher = lp[i].matcher(message);
+			if ( matcher.find() )
+			{
+				return extractExpressions[i].isTransactionSign();
+			}
+		}
+		return false;
+	}
+
 	public String getCountryCode()
 	{
 		return countryCode;
@@ -166,7 +189,7 @@ public class Bank implements Serializable, Cloneable, Codes
 		return expiry;
 	}
 
-	public String[] getExtractExpressions()
+	public Expression[] getExtractExpressions()
 	{
 		return extractExpressions;
 	}
@@ -205,13 +228,13 @@ public class Bank implements Serializable, Cloneable, Codes
 
 	public void removeExtractExpression( final int index )
 	{
-		final String[] eeOld = extractExpressions;
+		final Expression[] eeOld = extractExpressions;
 		final int len = eeOld.length;
 
 		if ( index < 0 || index >= len )
 			throw new ArrayIndexOutOfBoundsException("Invalid extract expression index: " + index + "(" + len + ")");
 
-		final String[] ee = new String[len - 1];
+		final Expression[] ee = new Expression[len - 1];
 		int eei = 0;
 		for ( int i = 0; i < len; i++ )
 		{

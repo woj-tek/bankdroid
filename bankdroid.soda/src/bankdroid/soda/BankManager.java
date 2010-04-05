@@ -205,8 +205,14 @@ public final class BankManager implements Codes
 			final String phoneNumbers = cursor.getString(5);
 			final String expressions = cursor.getString(6);
 
-			bank = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), unescapeStrings(expressions), icon,
-					country);
+			final String[] exps = unescapeStrings(expressions);
+			final Expression[] exps2 = new Expression[exps.length];
+			for ( int i = 0; i < exps2.length; i++ )
+			{
+				exps2[i] = new Expression(exps[i]);
+			}
+
+			bank = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), exps2, icon, country);
 		}
 		return bank;
 	}
@@ -230,9 +236,14 @@ public final class BankManager implements Codes
 			final String country = cursor.getString(4);
 			final String phoneNumbers = cursor.getString(5);
 			final String expressions = cursor.getString(6);
+			final String[] exps = unescapeStrings(expressions);
+			final Expression[] exps2 = new Expression[exps.length];
+			for ( int i = 0; i < exps2.length; i++ )
+			{
+				exps2[i] = new Expression(exps[i]);
+			}
 
-			final Bank bank = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), unescapeStrings(expressions),
-					icon, country);
+			final Bank bank = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), exps2, icon, country);
 
 			banks.add(bank);
 		}
@@ -254,7 +265,13 @@ public final class BankManager implements Codes
 		values.put(Bank.F_VALIDITY, b.getExpiry());
 		values.put(Bank.F_COUNTRY, b.getCountryCode());
 		values.put(Bank.F_ICON, b.getIconId());
-		values.put(Bank.F_EXPRESSIONS, escapeStrings(b.getExtractExpressions()));
+		final Expression[] exps2 = b.getExtractExpressions();
+		final String[] exps = new String[exps2.length];
+		for ( int i = 0; i < exps.length; i++ )
+		{
+			exps[i] = exps2[i].toString(); // use toString, to store the transaction sign flag.
+		}
+		values.put(Bank.F_EXPRESSIONS, escapeStrings(exps));
 		values.put(Bank.F_PHONENUMBERS, escapeStrings(b.getPhoneNumbers()));
 
 		if ( b.getId() == Bank.UNASSIGNED_ID )
