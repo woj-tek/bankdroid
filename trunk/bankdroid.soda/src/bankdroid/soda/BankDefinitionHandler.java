@@ -23,6 +23,7 @@ public class BankDefinitionHandler extends DefaultHandler
 
 	public final static String A_PACKAGE = "package";
 	public final static String A_COUNTRY = "county";
+	public final static String A_TRANSACTION_SIGN = "transactionSign";
 
 	private static int idCounter = 0;
 
@@ -31,6 +32,8 @@ public class BankDefinitionHandler extends DefaultHandler
 	private String packageName;
 	private Class<?> drawable;
 	private LinkedList<Bank> banks;
+
+	private boolean transactionSignFlag = false;
 
 	private final StringBuilder elementValue = new StringBuilder();
 
@@ -110,7 +113,18 @@ public class BankDefinitionHandler extends DefaultHandler
 			bank.setId(idCounter++);
 			banks.add(bank);
 		}
-
+		else if ( name.equals(E_EXPRESSION) )
+		{
+			final String transactionSign = attributes.getValue(A_TRANSACTION_SIGN);
+			if ( transactionSign == null )
+			{
+				transactionSignFlag = false;
+			}
+			else
+			{
+				transactionSignFlag = Boolean.parseBoolean(transactionSign);
+			}
+		}
 		elementValue.delete(0, elementValue.length());
 	}
 
@@ -130,7 +144,8 @@ public class BankDefinitionHandler extends DefaultHandler
 		}
 		else if ( element.equals(E_EXPRESSION) )
 		{
-			bank.addExtractExpression(elementValue.toString());
+			final String expression = elementValue.toString();
+			bank.addExtractExpression(new Expression(transactionSignFlag, expression));
 		}
 		else if ( element.equals(E_ICONID) )
 		{

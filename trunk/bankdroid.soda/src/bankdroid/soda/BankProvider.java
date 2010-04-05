@@ -33,7 +33,7 @@ public class BankProvider extends ContentProvider implements Codes
 	{
 
 		private static final String DATABASE_NAME = "bank.db";
-		private static final int DATABASE_VERSION = 18;//2010-01-18
+		private static final int DATABASE_VERSION = 19;//2010-04-05
 
 		private final Context context;
 
@@ -77,7 +77,13 @@ public class BankProvider extends ContentProvider implements Codes
 					values.put(Bank.F_ICON, bank.getIconId());
 					values.put(Bank.F_COUNTRY, bank.getCountryCode());
 					values.put(Bank.F_PHONENUMBERS, BankManager.escapeStrings(bank.getPhoneNumbers()));
-					values.put(Bank.F_EXPRESSIONS, BankManager.escapeStrings(bank.getExtractExpressions()));
+					final Expression[] exps2 = bank.getExtractExpressions();
+					final String[] exps = new String[exps2.length];
+					for ( int j = 0; j < exps.length; j++ )
+					{
+						exps[j] = exps2[j].toString(); //toString is necessary to persist the Transaction Sign flag
+					}
+					values.put(Bank.F_EXPRESSIONS, BankManager.escapeStrings(exps));
 
 					db.insert(T_BANK, null, values);
 				}

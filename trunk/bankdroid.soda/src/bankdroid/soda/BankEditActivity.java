@@ -71,7 +71,7 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 				Log.d(TAG, "Bank to be created.");
 				bank = new Bank();
 				bank.addPhoneNumber("");
-				bank.addExtractExpression("");
+				bank.addExtractExpression(new Expression(false, ""));
 			}
 			else
 			{
@@ -86,12 +86,9 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 			( (EditText) findViewById(R.id.bankName) ).setText(bank.getName());
 			( (EditText) findViewById(R.id.expiry) ).setText(String.valueOf(bank.getExpiry()));
 
-			final String[] pn = bank.getPhoneNumbers();
-			final String[] ee = bank.getExtractExpressions();
+			showLines(R.id.addPattern, PATTERN_FIELDS, bank.getExtractExpressions());
 
-			showLines(R.id.addPattern, PATTERN_FIELDS, ee);
-
-			showLines(R.id.addPhoneNumber, PHONE_FIELDS, pn);
+			showLines(R.id.addPhoneNumber, PHONE_FIELDS, bank.getPhoneNumbers());
 		}
 	}
 
@@ -100,7 +97,7 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		bank.setName(( (EditText) findViewById(R.id.bankName) ).getText().toString());
 		bank.setExpiry(Integer.parseInt(( (EditText) findViewById(R.id.expiry) ).getText().toString()));
 
-		saveFields(PATTERN_FIELDS, bank.getExtractExpressions());
+		saveExpressions(PATTERN_FIELDS, bank.getExtractExpressions());
 		saveFields(PHONE_FIELDS, bank.getPhoneNumbers());
 	}
 
@@ -113,13 +110,22 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		}
 	}
 
-	private void showLines( final int topId, final int[][] fields, final String[] values )
+	private void saveExpressions( final int[][] fields, final Expression[] store )
+	{
+		final int count = store.length;
+		for ( int i = 0; i < count; i++ )
+		{
+			store[i].setExpression(( (EditText) findViewById(fields[i][1]) ).getText().toString().trim());
+		}
+	}
+
+	private void showLines( final int topId, final int[][] fields, final Object[] values )
 	{
 		int row = values.length;
 		//set values
 		for ( int i = 0; i < row; i++ )
 		{
-			( (EditText) findViewById(fields[i][1]) ).setText(values[i]);
+			( (EditText) findViewById(fields[i][1]) ).setText(values[i].toString());
 		}
 
 		if ( row == 0 )
@@ -251,13 +257,13 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 				return showError(R.string.noEmptyPhoneNumber);
 		}
 
-		final String[] ee = bank.getExtractExpressions();
+		final Expression[] ee = bank.getExtractExpressions();
 		if ( ee == null || ee.length < 1 )
 			return showError(R.string.minPattern);
 
-		for ( final String expression : ee )
+		for ( final Expression expression : ee )
 		{
-			if ( expression == null || expression.length() < 1 )
+			if ( expression == null || expression.getExpression().length() < 1 )
 				return showError(R.string.noEmptyExpression);
 		}
 
@@ -280,7 +286,7 @@ public class BankEditActivity extends Activity implements OnClickListener, Codes
 		}
 		else
 		{
-			bank.addExtractExpression("");
+			bank.addExtractExpression(new Expression(false, ""));
 			showLines(R.id.addPattern, PATTERN_FIELDS, bank.getExtractExpressions());
 		}
 	}
