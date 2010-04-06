@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><resources>
+	<!-- Bank List Activity -->
+	<string name="bankListTitle">Zoznam bánk:</string>
+    <string name="addBank">Pridať banky</string>
+    <string name="editBank">Upraviť banky</string>
+    <string name="deleteBank">Odstrániť banky</string>
+    <string name="bankDeleted">Banka je úspešne odstránená.</string>
+	
+	<!-- Bank Edit Activity -->
+	<string name="phoneNumber">Telefónne číslo (čísla):</string>
+	<string name="messagePatterns">Správa vzor (y):</string>
+	<string name="expiry">Uplynutí niekoľkých sekúnd:</string>
+	<string name="btnDone">Hotovo</string>
+	<string name="btnCancel">Zrušiť</string>
+	<string name="tooMuchPhoneNumber">Maximálne 3 telefónne čísla sú povolené.</string>
+	<string name="minPhoneNumber">Minimálne 1 telefónne číslo je nutné.</string>
+	<string name="tooMuchPattern">Maximálne 3 vzory sú povolené.</string>
+	<string name="minPattern">Minimálne 1 vzorka je potrebná.</string>
+	<string name="specifyBankName">Uveďte meno banky.</string>
+	<string name="noEmptyPhoneNumber">Prázdne telefónne čísla nie sú povolené.</string>
+	<string name="noEmptyExpression">Prázdne výrazy nie sú povolené.</string>
+	
+
+	<!-- SMS OTP Display Activity -->
+	<string name="copyright">Soda, BankDroid, 2009 (c)</string>
+	<string name="clickToClose">Kliknutím na kód skopírovať a zavrieť.</string>
+	<string name="menuClear">Jasný</string>
+	<string name="menuBanks">Banky</string>
+	<string name="menuPref">Predvoľby</string>
+	<string name="app_name">SMS OTP Display</string>
+	<string name="received.prefix">Podaným: </string>
+	<string name="countdown.prefix">Zostávajúci čas: </string>
+	<string name="nocode">- Bez kódu -</string>
+	<string name="securityWarning">Overte, či transakcia podrobnosti v správe pred podpisom transakcie.</string>
+	
+	<!-- SMS pick activity -->
+	<string name="smsListTitle">Prosím, vyberte vzorka SMS:</string>
+	<string name="selectEmail">Prosím, vyberte E-mailový účet:</string>
+	<string name="noSMSInInbox">Neexistuje žiadny SMS vo vašej e-mailovej schránky.</string>
+	<string name="btnHelp">Pomoc</string>
+	<string name="emailSubject">SMS OTP Ukážka</string>
+	<string name="emailPrefix">Ďakujeme za odoslanie vzorky kódy! Prosím, zanechajte banka telefónne číslo bez zmeny, a kód bez zmeny. Môžete si vymeniť osobné údaje v správe.</string>
+	<string name="emailOriginator">Banka tel číslo: </string>
+	<string name="emailSMSText">Text správy: </string>
+	
+	<!-- Preferences -->
+	<string name="keepSMS">Majte SMS</string>
+	<string name="keepSMSSummary">Ak je zvolené, pôvodný SMS vedené v správach.</string>
+	<string name="notification">Oznámenie iba</string>
+	<string name="notificationSummary">Ak je zvolené, kód nie je oknách.</string>
+	<string name="resetDb">Reset banka DB</string>
+	<string name="resetDbSummary">Vyčistenie DB obsah (vlastné banky budú zmazané!)</string>
+	<string name="developerPrefs">Vývojár Predvoľby</string>
+	<string name="genericPrefs">Generic Predvoľby</string>
+	<string name="msgDbReset">Banka DB bol úspešne vynuluje.</string>
+	<string name="msgAreYouSure">Ste si istí?</string>
+	<string name="yes">Áno</string>
+	<string name="no">Nie</string>
+	
+	<!-- Notification -->
+	<string name="notificationTicker">Heslo dostal formulár (0)</string>
+	<string name="notificationTitle">Soda</string>
+	<string name="notificationText">Heslo dostal formulár (0). Kliknite tu pre zobrazenie.</string>
+	
+	<!-- Main -->
+	<string name="mainTitle">BankDroid soda</string>
+	<string name="btnViewLast">Zobraziť posledný kód</string>
+	<string name="btnManageBanks">Správa bánk</string>
+	<string name="btnSubmitSample">Predložte prípadne vzor</string>
+	<string name="btnPrefs">Predvoľby</string>
+	<string name="btnInfoSite">Info stránky</string>
+	<string name="btnAbout">O</string>
+	<string name="noMessageYet">Dostali ste žiadny kód SMS doteraz.</string>
+
+	<!-- About -->
+	<string name="aboutId">BankDroid soda</string>
+	<string name="aboutDesc">Soda je produktom BankDroid open source projekt. Vyvinuté dobrovoľných programátorov.</string>
+	<string name="aboutDesc2">Ak budete mať akýkoľvek problém s aplikáciou, alebo by ste chceli vidieť nejaké nové funkcie, neváhajte nás kontaktovať.</string>
+	<string name="aboutUrl2">http://www.bankdroid.info</string>
+	<string name="submitSampleURL">http://www.bankdroid.info/soda/user-reference#TOC-Submit-SMS-Sample</string>
+	<string name="donateURL">http://bit.ly/8LrNB9</string>
+	<string name="donateButton"> Darovať</string>
+	
+	<!-- EULA -->
+	<string name="eula_title">Licencia</string>
+	<string name="eula_accept">Prijať</string>
+	<string name="eula_refuse">Odmietnuť</string>
+
+</resources>

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
+ * FIXME new preference option for security warnings
  * @author Gabe
  *
  */
