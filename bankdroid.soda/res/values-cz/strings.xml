@@ -1,86 +1,86 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?><resources>
 	<!-- Bank List Activity -->
 	<string name="bankListTitle">Seznam bank:</string>
-    <string name="addBank">Přidat banky</string>
-    <string name="editBank">Upravit banky</string>
-    <string name="deleteBank">Odstranit banky</string>
-    <string name="bankDeleted">Banka je úspěšně odstraněna.</string>
+    <string name="addBank">Přidat banku</string>
+    <string name="editBank">Upravit banku</string>
+    <string name="deleteBank">Odstranit banku</string>
+    <string name="bankDeleted">Banka byla úspěšně odstraněna.</string>
 	
 	<!-- Bank Edit Activity -->
-	<string name="phoneNumber">Telefonní číslo (čísla):</string>
-	<string name="messagePatterns">Zpráva vzor (y):</string>
-	<string name="expiry">Uplynutí několika sekund:</string>
+	<string name="phoneNumber">Telefonní číslo(a):</string>
+	<string name="messagePatterns">Vzor(y) zpráv:</string>
+	<string name="expiry">Expirace v sekundách:</string>
 	<string name="btnDone">Hotovo</string>
 	<string name="btnCancel">Zrušit</string>
-	<string name="tooMuchPhoneNumber">Maximálně 3 telefonní čísla jsou povolena.</string>
+	<string name="tooMuchPhoneNumber">Povolena jsou maximálně 3 telefonní čísla.</string>
 	<string name="minPhoneNumber">Minimálně 1 telefonní číslo je nutné.</string>
-	<string name="tooMuchPattern">Maximálně 3 vzory jsou povoleny.</string>
-	<string name="minPattern">Minimálně 1 vzorek je zapotřebí.</string>
+	<string name="tooMuchPattern">Jsou povoleny maximálně 3 vzory.</string>
+	<string name="minPattern">Minimálně 1 vzor je nutný.</string>
 	<string name="specifyBankName">Uveďte jméno banky.</string>
-	<string name="noEmptyPhoneNumber">Prázdné telefonní čísla nejsou povoleny.</string>
+	<string name="noEmptyPhoneNumber">Prázdná telefonní čísla nejsou povolena.</string>
 	<string name="noEmptyExpression">Prázdné výrazy nejsou povoleny.</string>
 	
 
 	<!-- SMS OTP Display Activity -->
 	<string name="copyright">Soda, BankDroid, 2009 (c)</string>
-	<string name="clickToClose">Klepnutím na kód zkopírovat a zavřít.</string>
-	<string name="menuClear">Jasný</string>
+	<string name="clickToClose">Klepnutím na kód zkopírujete a zavřete.</string>
+	<string name="menuClear">Vymazat</string>
 	<string name="menuBanks">Banky</string>
 	<string name="menuPref">Předvolby</string>
 	<string name="app_name">SMS OTP Display</string>
-	<string name="received.prefix">Došlým: </string>
+	<string name="received.prefix">Došlo : </string>
 	<string name="countdown.prefix">Zbývající čas: </string>
 	<string name="nocode">- Bez kódu -</string>
-	<string name="securityWarning">Ověřte, zda transakce podrobnosti ve zprávě před podpisem transakce.</string>
+	<string name="securityWarning">Před podepsáním ověřte detaily transakce.</string>
 	
 	<!-- SMS pick activity -->
 	<string name="smsListTitle">Prosím, vyberte vzorek SMS:</string>
 	<string name="selectEmail">Prosím, zvolte E-mailový účet:</string>
-	<string name="noSMSInInbox">Neexistuje žádný SMS ve vaší e-mailové schránky.</string>
-	<string name="btnHelp">Pomoc</string>
+	<string name="noSMSInInbox">Ve vaší Schránce není žádná SMS.</string>
+	<string name="btnHelp">Nápověda</string>
 	<string name="emailSubject">SMS OTP Ukázka</string>
-	<string name="emailPrefix">Děkujeme za odeslání vzorku kódy! Prosím, zanechte banka telefonní číslo beze změny, a kód beze změny. Můžete si vyměnit
+	<string name="emailPrefix">Děkujeme za odeslání vzorku kódu! Prosím, ponechte bankovní telefonní číslo a kód beze změny. Pokud chcete, pozměňte
 		osobní údaje ve zprávě.</string>
-	<string name="emailOriginator">Banka tel. číslo: </string>
+	<string name="emailOriginator">Telefonní číslo banky: </string>
 	<string name="emailSMSText">Text zprávy: </string>
 	
 	<!-- Preferences -->
-	<string name="keepSMS">Mějte SMS</string>
-	<string name="keepSMSSummary">Pokud je zvoleno, původní SMS vedeny ve zprávách.</string>
-	<string name="notification">Oznámení pouze</string>
-	<string name="notificationSummary">Pokud je zvoleno, kód není oknech.</string>
-	<string name="resetDb">Reset banka DB</string>
-	<string name="resetDbSummary">Vyčištění DB obsah (vlastní banky budou smazány!)</string>
-	<string name="developerPrefs">Vývojář Předvolby</string>
-	<string name="genericPrefs">Generic Předvolby</string>
-	<string name="msgDbReset">Banka DB byl úspěšně vynulován.</string>
-	<string name="msgAreYouSure">Jste si jisti?</string>
+	<string name="keepSMS">Ponechání SMS</string>
+	<string name="keepSMSSummary">Pokud je zvoleno, text původní SMS bude ve zprávách zachován.</string>
+	<string name="notification">Pouze oznámení</string>
+	<string name="notificationSummary">Pokud je zvoleno, kód se neobjeví v pop-up okně.</string>
+	<string name="resetDb">Reset DB bank</string>
+	<string name="resetDbSummary">Vymazání databáze (vlastní záznamy bank budou smazány!)</string>
+	<string name="developerPrefs">Předvolby Vývojáře</string>
+	<string name="genericPrefs">Obecné předvolby</string>
+	<string name="msgDbReset">DB bank byla úspěšně vymazána.</string>
+	<string name="msgAreYouSure">Opravdu?</string>
 	<string name="yes">Ano</string>
 	<string name="no">Ne</string>
 	
 	<!-- Notification -->
-	<string name="notificationTicker">Heslo obdržel formulář (0)</string>
+	<string name="notificationTicker">Heslo získáno z  {0}</string>
 	<string name="notificationTitle">Soda</string>
-	<string name="notificationText">Heslo obdržel formulář (0). Klikněte zde pro zobrazení.</string>
+	<string name="notificationText">Heslo získáno z {0}. Klikněte zde pro zobrazení.</string>
 	
 	<!-- Main -->
 	<string name="mainTitle">BankDroid soda</string>
 	<string name="btnViewLast">Zobrazit poslední kód</string>
 	<string name="btnManageBanks">Správa bank</string>
-	<string name="btnSubmitSample">Předložte případně vzor</string>
+	<string name="btnSubmitSample">Odeslat vzorek</string>
 	<string name="btnPrefs">Předvolby</string>
-	<string name="btnInfoSite">Info stránky</string>
-	<string name="btnAbout">O</string>
-	<string name="noMessageYet">Obdrželi jste žádný kód SMS dosud.</string>
+	<string name="btnInfoSite">Informace</string>
+	<string name="btnAbout">O aplikaci</string>
+	<string name="noMessageYet">Dosud jste neobdrželi žádný SMS kód.</string>
 
 	<!-- About -->
 	<string name="aboutId">BankDroid soda</string>
-	<string name="aboutDesc">Soda je produktem BankDroid open source projekt. Vyvinuto dobrovolných programátorů.</string>
-	<string name="aboutDesc2">Pokud budete mít jakýkoliv problém s aplikací, nebo byste chtěli vidět nějaké nové funkce, neváhejte nás kontaktovat.</string>
+	<string name="aboutDesc">Soda je produktem open source projektu BankDroid. Vyvinuto programátory dobrovolníky.</string>
+	<string name="aboutDesc2">Pokud budete mít jakýkoliv problém s aplikací, nebo zájem o nové funkce, neváhejte nás kontaktovat.</string>
 	<string name="aboutUrl2">http://www.bankdroid.info</string>
 	<string name="submitSampleURL">http://www.bankdroid.info/soda/user-reference#TOC-Submit-SMS-Sample</string>
 	<string name="donateURL">http://bit.ly/8LrNB9</string>
-	<string name="donateButton"> Darovat</string>
+	<string name="donateButton"> Podpořit vývoj darem</string>
 	
 	<!-- EULA -->
 	<string name="eula_title">Licence</string>
