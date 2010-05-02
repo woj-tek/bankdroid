@@ -9,6 +9,9 @@
     <string name="password">Password:</string>
     <string name="loginButton">Login</string>
 
+	<!-- MainActivity -->
+    <string name="logoutButton">Logout</string>
+
 	<!-- BankList -->
     <string name="accountListTitle">List of your accounts:</string>
 

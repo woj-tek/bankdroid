@@ -3,34 +3,31 @@ package bankdroid.start;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-import bankdroid.start.ServiceRunner.ServiceListener;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.BankServiceFactory;
 import com.csaba.connector.ClassEnumerationProvider;
 import com.csaba.connector.ServiceException;
 import com.csaba.connector.ServicePluginConfiguration;
-import com.csaba.connector.dummy.DummyPluginConfiguration;
+import com.csaba.connector.bha.BHAPluginConfiguration;
 import com.csaba.connector.model.Bank;
 import com.csaba.connector.model.Customer;
 import com.csaba.connector.service.LoginService;
 
-public class StartActivity extends Activity implements OnClickListener, Codes, ServiceListener
+public class StartActivity extends ServiceActivity implements OnClickListener
 {
-
 	static
 	{
 		final Set<ServicePluginConfiguration> plugins = new HashSet<ServicePluginConfiguration>();
-		//plugins.add(new BHAPluginConfiguration());
-		plugins.add(new DummyPluginConfiguration());
+		plugins.add(new BHAPluginConfiguration());
+		//plugins.add(new DummyPluginConfiguration());
 
 		BankServiceFactory.setProvider(new ClassEnumerationProvider(plugins));
 	}
@@ -68,7 +65,7 @@ public class StartActivity extends Activity implements OnClickListener, Codes, S
 				final LoginService login = BankServiceFactory.getBankService(banks[0], LoginService.class);
 				login.setCustomer(customer);
 
-				( new ServiceRunner(getBaseContext(), this, login, null) ).start();
+				( new ServiceRunner(this, this, login, null) ).start();
 
 				Log.d(TAG, "Progress dialog is over.");
 
@@ -81,18 +78,13 @@ public class StartActivity extends Activity implements OnClickListener, Codes, S
 	}
 
 	@Override
-	public void onServiceFailed( final BankService service, final Throwable tr )
-	{
-		Log.e(TAG, "Login failed.", tr);
-		final Toast toast = Toast.makeText(getBaseContext(), "Service failed: " + tr.getMessage(), Toast.LENGTH_SHORT);
-		toast.show();
-	}
-
-	@Override
 	public void onServiceFinished( final BankService service )
 	{
-		Log.i(TAG, "Login was succesful.");
-		final Toast toast = Toast.makeText(getBaseContext(), "Service finished.", Toast.LENGTH_SHORT);
-		toast.show();
+		SessionManager.getInstance().setSession(( (LoginService) service ).getSession());
+
+		setDialogMessage("Sikeres belépés!"); //FIXME finish this
+		showDialog(MESSAGE_DIALOG);
+
+		startActivity(new Intent(getBaseContext(), MainActivity.class));
 	}
 }
