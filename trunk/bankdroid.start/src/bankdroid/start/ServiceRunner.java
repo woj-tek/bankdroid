@@ -4,8 +4,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.csaba.connector.BankService;
+import com.csaba.connector.ServiceException;
 import com.csaba.connector.model.Session;
 
 public class ServiceRunner implements Runnable, Codes
@@ -67,7 +69,7 @@ public class ServiceRunner implements Runnable, Codes
 
 		new Thread(this).start();
 
-		dialog = ProgressDialog.show(context, "", context.getText(R.string.progressText), true, false);
+		dialog = ProgressDialog.show(context, "Progress", context.getText(R.string.progressText), true);
 	}
 
 	@Override
@@ -77,10 +79,16 @@ public class ServiceRunner implements Runnable, Codes
 		try
 		{
 			service.execute(session);
+			Log.d(TAG, "Service processed succesfully: " + service.getClass().getName());
+
 			message = Message.obtain(handler, SERVICE_PROCESS);
 		}
 		catch ( final Exception e )
 		{
+			Log.d(TAG, "Service request failed.", e);
+			if ( e instanceof ServiceException )
+				Log.d(TAG, ( (ServiceException) e ).getNativeMessage());
+
 			message = Message.obtain(handler, SERVICE_FAILED);
 			message.getData().putSerializable(SERVICE_EXCEPTION, e);
 		}

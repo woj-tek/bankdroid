@@ -3,12 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/rootView"
+    style="@style/Background"
     >
     
 	<TextView  
-	    android:layout_width="wrap_content" 
+	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
 	    android:text="@string/loginId"
+	    style="@style/LabelText"
 	    android:id="@+id/loginIdLabel"
 	    
 	    android:layout_alignParentTop="true"
@@ -17,17 +19,17 @@
 	    
 	<EditText
 		android:id="@+id/loginIdField"
-		android:layout_width="wrap_content"
+	    android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		
-		android:layout_toRightOf="@id/loginIdLabel"
-		android:layout_alignParentRight="true"
-		android:layout_alignParentTop="true"
+		android:layout_below="@id/loginIdLabel"
+		android:layout_alignParentLeft="true"
 		/>
 		    
 	<TextView  
-	    android:layout_width="wrap_content" 
+	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
+	    style="@style/LabelText"
 	    android:text="@string/password"
 	    android:id="@+id/passwordLabel"
 	    
@@ -37,13 +39,14 @@
 	    
 	<EditText
 		android:id="@+id/passwordField"
-		android:layout_width="wrap_content"
+	    android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		android:inputType="textPassword"
+		android:singleLine="true"
+		android:maxLength="20"
 		
-		android:layout_toRightOf="@id/passwordLabel"
-		android:layout_alignParentRight="true"
-		android:layout_below="@id/loginIdField"
+		android:layout_below="@id/passwordLabel"
+		android:layout_alignParentLeft="true"
 		/>
 		
 	<Button
