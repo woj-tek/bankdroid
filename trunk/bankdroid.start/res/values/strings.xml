@@ -10,6 +10,7 @@
     <string name="loginButton">Login</string>
 
 	<!-- MainActivity -->
+    <string name="accountButton">Accounts</string>
     <string name="logoutButton">Logout</string>
 
 	<!-- BankList -->

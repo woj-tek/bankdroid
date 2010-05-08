@@ -16,7 +16,7 @@ import com.csaba.connector.BankServiceFactory;
 import com.csaba.connector.ClassEnumerationProvider;
 import com.csaba.connector.ServiceException;
 import com.csaba.connector.ServicePluginConfiguration;
-import com.csaba.connector.bha.BHAPluginConfiguration;
+import com.csaba.connector.dummy.DummyPluginConfiguration;
 import com.csaba.connector.model.Bank;
 import com.csaba.connector.model.Customer;
 import com.csaba.connector.service.LoginService;
@@ -26,8 +26,8 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 	static
 	{
 		final Set<ServicePluginConfiguration> plugins = new HashSet<ServicePluginConfiguration>();
-		plugins.add(new BHAPluginConfiguration());
-		//plugins.add(new DummyPluginConfiguration());
+		//plugins.add(new BHAPluginConfiguration());
+		plugins.add(new DummyPluginConfiguration());
 
 		BankServiceFactory.setProvider(new ClassEnumerationProvider(plugins));
 	}
@@ -55,8 +55,8 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 					Log.d(TAG, "Bank found: " + bank.getId());
 				}
 
-				final String loginId = ( (EditText) findViewById(R.id.loginIdField) ).getText().toString();
-				final String password = ( (EditText) findViewById(R.id.passwordField) ).getText().toString();
+				final String loginId = ( (EditText) findViewById(R.id.loginId) ).getText().toString();
+				final String password = ( (EditText) findViewById(R.id.password) ).getText().toString();
 
 				final Customer customer = new Customer();
 				customer.setLoginId(loginId);
@@ -81,9 +81,6 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 	public void onServiceFinished( final BankService service )
 	{
 		SessionManager.getInstance().setSession(( (LoginService) service ).getSession());
-
-		setDialogMessage("Sikeres belépés!"); //FIXME finish this
-		showDialog(MESSAGE_DIALOG);
 
 		startActivity(new Intent(getBaseContext(), MainActivity.class));
 	}

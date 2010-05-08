@@ -1,9 +1,11 @@
 package bankdroid.start;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.BankServiceFactory;
@@ -21,6 +23,7 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 		setContentView(R.layout.main);
 
 		( (Button) findViewById(R.id.logoutButton) ).setOnClickListener(this);
+		( (Button) findViewById(R.id.accountButton) ).setOnClickListener(this);
 	}
 
 	@Override
@@ -34,19 +37,31 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 
 				final LogoutService logout = BankServiceFactory.getBankService(session.getBank(), LogoutService.class);
 
-				( new ServiceRunner(this, this, logout, null) ).start();
+				( new ServiceRunner(this, this, logout, session) ).start();
 			}
 			catch ( final ServiceException e )
 			{
 				onServiceFailed(null, e);
 			}
 		}
+		else if ( v.getId() == R.id.accountButton )
+		{
+			startActivity(new Intent(getApplicationContext(), AccountListActivity.class));
+		}
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+
+		( (TextView) findViewById(R.id.customerName) ).setText(SessionManager.getInstance().getSession().getCustomer()
+				.getName());
 	}
 
 	@Override
 	public void onServiceFinished( final BankService service )
 	{
-		setDialogMessage("Succesfully logged out.");//FIXME I18N
-		showDialog(MESSAGE_DIALOG);
+		finish();
 	}
 }
