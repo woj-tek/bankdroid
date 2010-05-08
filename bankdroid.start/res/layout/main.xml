@@ -6,13 +6,32 @@
     style="@style/Background"
     >
     
+    <TextView
+    	android:id="@+id/customerName"
+    	android:gravity="center"
+    	
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	
+    	android:layout_alignParentTop="true"
+    	/>
+    
+	<Button
+		android:id="@+id/accountButton"
+		android:text="@string/accountButton"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		
+		android:layout_below="@id/customerName"
+		/>
+    
 	<Button
 		android:id="@+id/logoutButton"
 		android:text="@string/logoutButton"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		
-		android:layout_alignParentTop="true"
+		android:layout_below="@id/accountButton"
 		/>
 	    
 	    

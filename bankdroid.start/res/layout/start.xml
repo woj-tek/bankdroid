@@ -18,9 +18,10 @@
 	    />
 	    
 	<EditText
-		android:id="@+id/loginIdField"
+		android:id="@+id/loginId"
 	    android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
+		android:text="local"
 		
 		android:layout_below="@id/loginIdLabel"
 		android:layout_alignParentLeft="true"
@@ -34,16 +35,17 @@
 	    android:id="@+id/passwordLabel"
 	    
 	    android:layout_alignParentLeft="true"
-	    android:layout_below="@id/loginIdField"
+	    android:layout_below="@id/loginId"
 	    />
 	    
 	<EditText
-		android:id="@+id/passwordField"
+		android:id="@+id/password"
 	    android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		android:inputType="textPassword"
 		android:singleLine="true"
 		android:maxLength="20"
+		android:text="password"
 		
 		android:layout_below="@id/passwordLabel"
 		android:layout_alignParentLeft="true"
@@ -55,7 +57,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		
-		android:layout_below="@id/passwordField"
+		android:layout_below="@id/password"
 		/>
 	    
 	    

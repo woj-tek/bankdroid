@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:layout_width="fill_parent"
+  	android:layout_height="wrap_content"
+  	android:background="@drawable/itembackground"
+  	android:paddingRight="10sp">
+  	
+  	<TextView
+  		android:id="@+id/accountName"
+  		android:text="Bogi számla"
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content"
+  		android:textStyle="bold"
+  		android:textColor="#000000"
+  		android:paddingTop="3sp"
+  		android:paddingBottom="3sp"
+  		android:paddingRight="3sp"
+  		android:paddingLeft="13sp"
+
+  		android:layout_alignParentTop="true"
+  		/>
+  		
+  	<TextView
+  		android:id="@+id/accountNumber"
+  		android:text="12345678-87654321-12345678"
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content"
+  		android:maxLines="1"
+  		android:textColor="#000000"
+   		android:paddingLeft="13sp"
+  		
+  		android:layout_below="@id/accountName"
+  		/>
+
+  	<TextView
+  		android:id="@+id/availableBalanceLabel"
+  		android:text="Available balance:"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:textColor="#000000"
+   		android:paddingLeft="13sp"
+    	android:gravity="left" 	
+  		
+  		android:layout_below="@id/accountNumber"
+  		android:layout_alignParentLeft="true"
+  		/><!-- FIXME I18N -->
+  		
+  	<TextView
+  		android:id="@+id/availableBalance"
+  		android:text="123 000,00 HUF"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:textColor="#00BB00"
+   		android:paddingRight="13sp"
+    	android:gravity="right" 	
+    	android:textStyle="bold"	
+  		
+  		android:layout_below="@id/accountNumber"
+  		android:layout_toRightOf="@id/availableBalanceLabel"
+  		android:layout_alignParentRight="true"
+  		/>
+  		
+   	<TextView
+  		android:id="@+id/bookedBalanceLabel"
+  		android:text="Booked balance:"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:textColor="#000000"
+   		android:paddingLeft="13sp"
+    	android:gravity="left" 	
+  		
+  		android:layout_below="@id/availableBalanceLabel"
+  		android:layout_alignParentLeft="true"
+  		/><!-- FIXME I18N -->
+  		
+    <TextView
+  		android:id="@+id/bookedBalance"
+  		android:text="-67 000 HUF"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:textColor="#BB0000"
+   		android:paddingRight="13sp"
+   		android:gravity="right"
+    	android:textStyle="bold"	
+  		
+  		android:layout_below="@id/availableBalance"
+ 		android:layout_toRightOf="@id/bookedBalanceLabel"
+  		android:layout_alignParentRight="true"
+  		/>  		
+
+</RelativeLayout>
