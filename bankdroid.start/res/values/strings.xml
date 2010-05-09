@@ -16,6 +16,16 @@
     <string name="accountButton">Accounts</string>
     <string name="logoutButton">Logout</string>
 
+	<!-- main menu -->
+    <string name="menuPref">Settings</string>
+
+	<!-- Preferences -->
+    <string name="loginPrefs">Login Settigns</string>
+    <string name="saveLastLogin">Save Last Login</string>
+    <string name="saveLastLoginSummary">Save last login ID and bank.</string>
+    <string name="savePassword">Save Password</string>
+    <string name="savePasswordSummary">Save password. This can be insecure.</string>
+
 	<!-- BankList -->
     <string name="accountListTitle">List of your accounts:</string>
 

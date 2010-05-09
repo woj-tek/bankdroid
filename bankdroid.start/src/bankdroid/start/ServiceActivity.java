@@ -3,6 +3,10 @@ package bankdroid.start;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import bankdroid.start.ServiceRunner.ServiceListener;
 
 import com.csaba.connector.BankService;
@@ -65,4 +69,21 @@ public abstract class ServiceActivity extends Activity implements Codes, Service
 		return dialogMessage;
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu( final Menu menu )
+	{
+		final MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.mainmenu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected( final MenuItem item )
+	{
+		if ( item.getItemId() == R.id.MenuPreferences )
+		{
+			startActivity(new Intent(getBaseContext(), Preferences.class));
+		}
+		return true;
+	}
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory
+		android:title="@string/loginPrefs">
+			
+		<CheckBoxPreference 
+			android:title="@string/saveLastLogin" 
+			android:defaultValue="true"
+			android:summary="@string/saveLastLoginSummary" 
+			android:key="bankdroid.start.SaveLastLogin" />
+		
+		<CheckBoxPreference 
+			android:title="@string/savePassword" 
+			android:defaultValue="false" 
+			android:summary="@string/savePasswordSummary"
+			android:key="bankdroid.start.SavePassword" />
+	
+	</PreferenceCategory>
+
+</PreferenceScreen>
