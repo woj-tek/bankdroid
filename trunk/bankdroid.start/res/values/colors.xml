@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<color name="sodaBlue">#56748E</color>
+<color name="negativeAmount">#BB0000</color>
+<color name="positiveAmount">#00BB00</color>
+<color name="zeroAmount">#000000</color>
+</resources>

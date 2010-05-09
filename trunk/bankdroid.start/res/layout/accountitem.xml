@@ -51,10 +51,8 @@
   		android:text="123 000,00 HUF"
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
-  		android:textColor="#00BB00"
+  		style="@style/amount"
    		android:paddingRight="13sp"
-    	android:gravity="right" 	
-    	android:textStyle="bold"	
   		
   		android:layout_below="@id/accountNumber"
   		android:layout_toRightOf="@id/availableBalanceLabel"
@@ -79,10 +77,8 @@
   		android:text="-67 000 HUF"
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
-  		android:textColor="#BB0000"
+  		style="@style/amount"
    		android:paddingRight="13sp"
-   		android:gravity="right"
-    	android:textStyle="bold"	
   		
   		android:layout_below="@id/availableBalance"
  		android:layout_toRightOf="@id/bookedBalanceLabel"

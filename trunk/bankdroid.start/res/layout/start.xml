@@ -6,6 +6,78 @@
     style="@style/Background"
     >
     
+    <ImageView
+    	android:id="@+id/logo"
+    	android:src="@drawable/bankdroid_logo"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_alignParentTop="true"
+    	android:layout_alignParentLeft="true"
+    	android:padding="10sp"
+    	/>
+    	
+    <TextView
+    	android:id="@+id/title"
+    	android:text="@string/title"
+    	style="@style/Title"
+    	
+    	android:paddingLeft="5sp"
+    	android:paddingTop="10sp"
+    	
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	
+    	android:layout_alignParentTop="true"
+    	android:layout_toRightOf="@id/logo"
+    	android:layout_alignParentRight="true"
+    	/>
+    
+    <TextView
+    	android:id="@+id/subtitle"
+    	android:text="@string/subtitle"
+    	style="@style/Subtitle"
+    	
+    	android:paddingLeft="5sp"
+    	
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	
+    	android:layout_below="@id/title"
+    	android:layout_toRightOf="@id/logo"
+    	android:layout_alignParentRight="true"
+    	/>
+    
+    <!-- CONTENT -->
+    
+ 	<TextView  
+	    android:id="@+id/bankSelectLabel"
+	    android:text="@string/bankSelect"
+	    style="@style/LabelText"
+
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    
+	    android:layout_below="@id/logo"
+	    android:layout_alignParentLeft="true"
+	    />
+	    
+	<Button
+		android:id="@+id/selectBank"
+		android:src="@drawable/icon"
+		android:text="CIB Bank"
+		android:background="@drawable/select_button"
+		android:gravity="left"
+		style="@style/LabelText"
+
+	    android:padding="10sp"
+	    android:layout_margin="5sp"
+		
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		
+		android:layout_below="@id/bankSelectLabel"
+		/>
+    
 	<TextView  
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
@@ -13,7 +85,7 @@
 	    style="@style/LabelText"
 	    android:id="@+id/loginIdLabel"
 	    
-	    android:layout_alignParentTop="true"
+	    android:layout_below="@id/selectBank"
 	    android:layout_alignParentLeft="true"
 	    />
 	    
@@ -21,6 +93,9 @@
 		android:id="@+id/loginId"
 	    android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
+		android:background="@drawable/select_button"
+	    android:padding="10sp"
+	    android:layout_margin="5sp"
 		android:text="local"
 		
 		android:layout_below="@id/loginIdLabel"
@@ -46,6 +121,9 @@
 		android:singleLine="true"
 		android:maxLength="20"
 		android:text="password"
+		android:background="@drawable/select_button"
+	    android:padding="10sp"
+	    android:layout_margin="5sp"
 		
 		android:layout_below="@id/passwordLabel"
 		android:layout_alignParentLeft="true"
