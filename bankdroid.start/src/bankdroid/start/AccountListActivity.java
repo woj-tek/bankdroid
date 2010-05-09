@@ -2,7 +2,11 @@ package bankdroid.start;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import bankdroid.start.plugin.PluginManager;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.BankServiceFactory;
@@ -18,6 +22,8 @@ public class AccountListActivity extends ServiceActivity
 	{
 		super.onCreate(savedInstanceState);
 
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 		setContentView(R.layout.accountlist);
 	}
 
@@ -26,9 +32,13 @@ public class AccountListActivity extends ServiceActivity
 	{
 		super.onResume();
 
+		final Session session = SessionManager.getInstance().getSession();
+		( (TextView) findViewById(R.id.customerName) ).setText(session.getCustomer().getName());
+		( (ImageView) findViewById(R.id.bankLogo) ).setImageDrawable(PluginManager.getIconDrawable(session.getBank()
+				.getLargeIcon()));
+
 		try
 		{
-			final Session session = SessionManager.getInstance().getSession();
 			final AccountService accounts = BankServiceFactory.getBankService(session.getBank(), AccountService.class);
 			( new ServiceRunner(this, this, accounts, session) ).start();
 		}

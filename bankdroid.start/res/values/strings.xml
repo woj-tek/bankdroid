@@ -5,6 +5,9 @@
     <string name="progressText">Please wait while communicating with server...</string>
 
 	<!-- StartActivity -->
+    <string name="title">BankDroid</string>
+    <string name="subtitle">START</string>
+    <string name="bankSelect">Select your bank:</string>
     <string name="loginId">Login ID:</string>
     <string name="password">Password:</string>
     <string name="loginButton">Login</string>
