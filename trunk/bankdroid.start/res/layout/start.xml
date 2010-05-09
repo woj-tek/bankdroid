@@ -97,6 +97,7 @@
 	    android:padding="10sp"
 	    android:layout_margin="5sp"
 		android:text="local"
+		android:singleLine="true"
 		
 		android:layout_below="@id/loginIdLabel"
 		android:layout_alignParentLeft="true"

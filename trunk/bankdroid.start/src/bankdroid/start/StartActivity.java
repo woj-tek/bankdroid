@@ -30,8 +30,9 @@ import com.csaba.connector.service.LoginService;
  *
  *	TODO make plugins for various login screens
  *	TODO enable different flow for login (to support SMS OTP)
- *	TODO do not save password
  *  TODO handle saved users
+ *  TODO take care of session timeout 
+ *  TODO take care of exiting the application
  */
 public class StartActivity extends ServiceActivity implements OnClickListener
 {
@@ -138,9 +139,9 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 		updateBankSelect();
 
 		//load login ID from preferences
-		loginId = preferences.getString(PREF_LAST_LOGINID, loginId);
+		loginId = preferences.getString(PREF_LAST_LOGINID, DEFAULT_LOGINID);
 		( (TextView) findViewById(R.id.loginId) ).setText(loginId);
-		password = preferences.getString(PREF_LAST_PASSWORD, password);
+		password = preferences.getString(PREF_LAST_PASSWORD, DEFAULT_PASSWORD);
 		( (TextView) findViewById(R.id.password) ).setText(password);
 	}
 
@@ -160,12 +161,20 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 	{
 		SessionManager.getInstance().setSession(( (LoginService) service ).getSession());
 
-		//save last succesful login details into references
+		//save last succesful login details into preferences
 		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 		final Editor editor = preferences.edit();
-		editor.putInt(PREF_LAST_BANK, bankIndex);
-		editor.putString(PREF_LAST_LOGINID, loginId);
-		editor.putString(PREF_LAST_PASSWORD, password);
+		if ( preferences.getBoolean(PREF_SAVE_LAST_LOGIN, true) )
+		{
+			editor.putInt(PREF_LAST_BANK, bankIndex);
+			editor.putString(PREF_LAST_LOGINID, loginId);
+		}
+
+		if ( preferences.getBoolean(PREF_SAVE_PASSWORD, false) )
+		{
+			editor.putString(PREF_LAST_PASSWORD, password);
+		}
 		editor.commit();
 
 		startActivity(new Intent(getBaseContext(), MainActivity.class));
