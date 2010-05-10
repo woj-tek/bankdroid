@@ -3,7 +3,6 @@ package bankdroid.start;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.Drawable;
@@ -47,6 +46,8 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 	public void onCreate( final Bundle savedInstanceState )
 	{
 		super.onCreate(savedInstanceState);
+
+		setSessionOriented(false);
 
 		PluginManager.init();
 		try
@@ -177,6 +178,6 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 		}
 		editor.commit();
 
-		startActivity(new Intent(getBaseContext(), MainActivity.class));
+		finish();
 	}
 }

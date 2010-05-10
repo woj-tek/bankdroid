@@ -11,10 +11,7 @@ import android.widget.TextView;
 import bankdroid.start.plugin.PluginManager;
 
 import com.csaba.connector.BankService;
-import com.csaba.connector.BankServiceFactory;
-import com.csaba.connector.ServiceException;
 import com.csaba.connector.model.Session;
-import com.csaba.connector.service.LogoutService;
 
 public class MainActivity extends ServiceActivity implements OnClickListener
 {
@@ -37,18 +34,7 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 	{
 		if ( v.getId() == R.id.logoutButton )
 		{
-			try
-			{
-				final Session session = SessionManager.getInstance().getSession();
-
-				final LogoutService logout = BankServiceFactory.getBankService(session.getBank(), LogoutService.class);
-
-				( new ServiceRunner(this, this, logout, session) ).start();
-			}
-			catch ( final ServiceException e )
-			{
-				onServiceFailed(null, e);
-			}
+			SessionManager.getInstance().logout(this);
 		}
 		else if ( v.getId() == R.id.accountButton )
 		{
@@ -62,6 +48,9 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 		super.onResume();
 
 		final Session session = SessionManager.getInstance().getSession();
+		if ( session == null )
+			return;
+
 		( (TextView) findViewById(R.id.customerName) ).setText(session.getCustomer().getName());
 		( (ImageView) findViewById(R.id.bankLogo) ).setImageDrawable(PluginManager.getIconDrawable(session.getBank()
 				.getLargeIcon()));

@@ -17,6 +17,7 @@ public abstract class ServiceActivity extends Activity implements Codes, Service
 
 	public static final int MESSAGE_DIALOG = 123;
 	private String dialogMessage = null;
+	private boolean sessionOriented = true;
 
 	public ServiceActivity()
 	{
@@ -26,9 +27,16 @@ public abstract class ServiceActivity extends Activity implements Codes, Service
 	@Override
 	public void onServiceFailed( final BankService service, final Throwable tr )
 	{
-		setDialogMessage(tr instanceof ServiceException ? ( (ServiceException) tr ).getNativeMessage() : tr
-				.getMessage());
-		showDialog(MESSAGE_DIALOG); //FIXME finish this
+		String message = tr.getMessage();
+
+		if ( tr instanceof ServiceException )
+		{
+			final String nativeMessage = ( (ServiceException) tr ).getNativeMessage();
+			if ( nativeMessage != null && nativeMessage.length() > 0 )
+				message = message + "\n" + nativeMessage;
+		}
+		setDialogMessage(message);
+		showDialog(MESSAGE_DIALOG);
 	}
 
 	@Override
@@ -47,6 +55,17 @@ public abstract class ServiceActivity extends Activity implements Codes, Service
 			break;
 		}
 		return dialog;
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+
+		if ( sessionOriented && SessionManager.getInstance().getSession() == null )
+		{
+			startActivity(new Intent(getBaseContext(), StartActivity.class));
+		}
 	}
 
 	@Override
@@ -85,5 +104,15 @@ public abstract class ServiceActivity extends Activity implements Codes, Service
 			startActivity(new Intent(getBaseContext(), Preferences.class));
 		}
 		return true;
+	}
+
+	public void setSessionOriented( final boolean sessionOriented )
+	{
+		this.sessionOriented = sessionOriented;
+	}
+
+	public boolean isSessionOriented()
+	{
+		return sessionOriented;
 	}
 }
