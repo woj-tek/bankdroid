@@ -33,6 +33,9 @@ public class AccountListActivity extends ServiceActivity
 		super.onResume();
 
 		final Session session = SessionManager.getInstance().getSession();
+		if ( session == null )
+			return;
+
 		( (TextView) findViewById(R.id.customerName) ).setText(session.getCustomer().getName());
 		( (ImageView) findViewById(R.id.bankLogo) ).setImageDrawable(PluginManager.getIconDrawable(session.getBank()
 				.getLargeIcon()));
