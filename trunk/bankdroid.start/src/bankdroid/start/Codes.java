@@ -15,8 +15,13 @@ public interface Codes
 	final static String PREF_LAST_PASSWORD = "bankdroid.start.LastPassword";
 	final static String PREF_SAVE_LAST_LOGIN = "bankdroid.start.SaveLastLogin";
 	final static String PREF_SAVE_PASSWORD = "bankdroid.start.SavePassword";
+	final static String PREF_SHOW_DUMMY_BANK = "bankdroid.start.ShowDummyBank";
 
 	//DEFAULTS
-	final static String DEFAULT_LOGINID = "local";
-	final static String DEFAULT_PASSWORD = "password";
+	final static String DEFAULT_LOGINID = "";
+	final static String DEFAULT_PASSWORD = "";
+
+	//OTHERS
+	final static int LOGIN = 0xbaba;
+	final static String DUMMY_BANK_ID = "DUMMY";
 }

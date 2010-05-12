@@ -44,6 +44,9 @@ public class SessionManager implements ServiceListener
 	{
 		try
 		{
+			//dispatch analytics stats here
+			caller.dispatch();
+
 			final Session session = SessionManager.getInstance().getSession();
 
 			final LogoutService logout = BankServiceFactory.getBankService(session.getBank(), LogoutService.class);

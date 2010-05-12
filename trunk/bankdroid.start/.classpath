@@ -8,6 +8,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.csaba.connector.web.util"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.csaba.util"/>
 	<classpathentry kind="lib" path="/com.csaba.connector.bha/lib/external.jar"/>
+	<classpathentry kind="lib" path="libs/libGoogleAnalytics.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.csaba.connector.dummy"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

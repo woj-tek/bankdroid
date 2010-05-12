@@ -1,5 +1,8 @@
 package bankdroid.start;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,23 +14,38 @@ import com.csaba.connector.model.Bank;
 
 public class BankAdapter extends BaseAdapter
 {
-	private final Bank[] banks;
+	private final List<Bank> banks;
+	private Bank dummyBank;
+	private boolean dummyBankShown = false;
 
 	public BankAdapter( final Bank[] banks )
 	{
-		this.banks = banks;
+
+		this.banks = new ArrayList<Bank>();
+
+		for ( final Bank bank : banks )
+		{
+			if ( bank.getId().equals("DUMMY") )
+			{
+				dummyBank = bank;
+			}
+			else
+			{
+				this.banks.add(bank);
+			}
+		}
 	}
 
 	@Override
 	public int getCount()
 	{
-		return banks.length;
+		return banks.size();
 	}
 
 	@Override
-	public Object getItem( final int arg0 )
+	public Object getItem( final int position )
 	{
-		return banks[arg0];
+		return banks.get(position);
 	}
 
 	@Override
@@ -45,10 +63,32 @@ public class BankAdapter extends BaseAdapter
 			view = View.inflate(parent.getContext(), R.layout.bankitem, null);
 		}
 
-		( (ImageView) view.findViewById(R.id.bankLogo) ).setImageDrawable(PluginManager.getIconDrawable(banks[position]
-				.getLargeIcon()));
-		( (TextView) view.findViewById(R.id.bankName) ).setText(banks[position].getName());
+		( (ImageView) view.findViewById(R.id.bankLogo) ).setImageDrawable(PluginManager.getIconDrawable(banks.get(
+				position).getLargeIcon()));
+		( (TextView) view.findViewById(R.id.bankName) ).setText(banks.get(position).getName());
 		return view;
 	}
 
+	public void setDummyAvailable( final boolean dummyBankShown )
+	{
+		if ( dummyBank == null )
+		{
+			return;
+		}
+
+		if ( this.dummyBankShown ^ dummyBankShown )
+		{
+			this.dummyBankShown = dummyBankShown;
+			if ( this.dummyBankShown )
+			{
+				banks.add(dummyBank);
+			}
+			else
+			{
+				banks.remove(dummyBank);
+			}
+
+			notifyDataSetChanged();
+		}
+	}
 }
