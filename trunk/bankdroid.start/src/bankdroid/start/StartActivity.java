@@ -33,6 +33,7 @@ import com.csaba.connector.service.LoginService;
  *  TODO handle saved users
  *  TODO take care of session timeout 
  *  TODO take care of exiting the application
+ *  TODO shortcut widget for the various services - direct access to the service.
  */
 public class StartActivity extends ServiceActivity implements OnClickListener
 {
