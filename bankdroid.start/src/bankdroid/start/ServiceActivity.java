@@ -1,6 +1,5 @@
 package bankdroid.start;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -12,7 +11,7 @@ import bankdroid.start.ServiceRunner.ServiceListener;
 import com.csaba.connector.BankService;
 import com.csaba.connector.ServiceException;
 
-public abstract class ServiceActivity extends Activity implements Codes, ServiceListener
+public abstract class ServiceActivity extends TrackedActivity implements Codes, ServiceListener
 {
 
 	public static final int MESSAGE_DIALOG = 123;
@@ -64,7 +63,7 @@ public abstract class ServiceActivity extends Activity implements Codes, Service
 
 		if ( sessionOriented && SessionManager.getInstance().getSession() == null )
 		{
-			startActivity(new Intent(getBaseContext(), StartActivity.class));
+			startActivityForResult(new Intent(getBaseContext(), StartActivity.class), LOGIN);
 		}
 	}
 
@@ -114,5 +113,15 @@ public abstract class ServiceActivity extends Activity implements Codes, Service
 	public boolean isSessionOriented()
 	{
 		return sessionOriented;
+	}
+
+	@Override
+	protected void onActivityResult( final int requestCode, final int resultCode, final Intent data )
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+		if ( requestCode == LOGIN && resultCode == RESULT_CANCELED )
+		{
+			finish();
+		}
 	}
 }

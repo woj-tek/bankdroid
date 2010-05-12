@@ -18,4 +18,15 @@
 	
 	</PreferenceCategory>
 
+	<PreferenceCategory
+		android:title="@string/developerPrefs">
+			
+		<CheckBoxPreference 
+			android:title="@string/showDummyBank" 
+			android:defaultValue="false"
+			android:summary="@string/showDummyBankSummary" 
+			android:key="bankdroid.start.ShowDummyBank" />
+		
+	</PreferenceCategory>
+
 </PreferenceScreen>

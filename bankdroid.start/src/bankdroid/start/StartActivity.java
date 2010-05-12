@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -37,9 +38,11 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 {
 	private static final int BANK_SELECT_DIALOG = 999122;
 	private Bank[] banks;
-	private int bankIndex = 0;
-	private String loginId = "local";
-	private String password = "password";
+	private String loginId = DEFAULT_LOGINID;
+	private String password = DEFAULT_PASSWORD;
+	protected Bank bankSelected;
+
+	private boolean showDummyBank = false;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -58,7 +61,7 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 				Log.d(TAG, "Bank found: " + bank.getId());
 			}
 		}
-		catch ( final ServiceException e )
+		catch ( final Exception e )
 		{
 			Log.e(TAG, "Failed to initialize bank list.", e);
 		}
@@ -85,7 +88,7 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 				customer.setLoginId(loginId);
 				customer.setPassword(password);
 
-				final LoginService login = BankServiceFactory.getBankService(banks[bankIndex], LoginService.class);
+				final LoginService login = BankServiceFactory.getBankService(bankSelected, LoginService.class);
 				login.setCustomer(customer);
 
 				( new ServiceRunner(this, this, login, null) ).start();
@@ -113,11 +116,13 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 
 			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("Select a bank"); //FIXME I18N
-			builder.setAdapter(new BankAdapter(banks), new DialogInterface.OnClickListener()
+			final BankAdapter adapter = new BankAdapter(banks);
+			adapter.setDummyAvailable(showDummyBank);
+			builder.setAdapter(adapter, new DialogInterface.OnClickListener()
 			{
 				public void onClick( final DialogInterface dialog, final int item )
 				{
-					bankIndex = item;
+					bankSelected = (Bank) adapter.getItem(item);
 
 					updateBankSelect();
 				}
@@ -130,13 +135,35 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 	}
 
 	@Override
+	protected void onPrepareDialog( final int id, final Dialog dialog )
+	{
+		super.onPrepareDialog(id, dialog);
+		if ( id == BANK_SELECT_DIALOG )
+		{
+			final BankAdapter adapter = (BankAdapter) ( (AlertDialog) dialog ).getListView().getAdapter();
+			adapter.setDummyAvailable(showDummyBank);
+		}
+	}
+
+	@Override
 	protected void onResume()
 	{
 		super.onResume();
 
 		//init bank select
 		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		bankIndex = preferences.getInt(PREF_LAST_BANK, bankIndex);
+		showDummyBank = preferences.getBoolean(PREF_SHOW_DUMMY_BANK, false);
+		try
+		{
+			bankSelected = getBankById(preferences.getString(PREF_LAST_BANK, ""));
+			if ( bankSelected == null )
+				bankSelected = getDefaultBank();
+		}
+		catch ( final Exception e )
+		{
+			Log.e(TAG, "Unable to get bank preference.", e);
+			bankSelected = getDefaultBank();
+		}
 		updateBankSelect();
 
 		//load login ID from preferences
@@ -146,15 +173,35 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 		( (TextView) findViewById(R.id.password) ).setText(password);
 	}
 
+	private Bank getBankById( final String string )
+	{
+		for ( final Bank bank : banks )
+		{
+			if ( bank.getId().equals(string) )
+				return bank;
+		}
+		return null;
+	}
+
 	private void updateBankSelect()
 	{
-		final Bank bank = banks[bankIndex];
-
 		final Button bankSelect = (Button) findViewById(R.id.selectBank);
-		bankSelect.setText(bank.getName());
-		final Drawable icon = PluginManager.getIconDrawable(bank.getLargeIcon());
+		bankSelect.setText(bankSelected.getName());
+		final Drawable icon = PluginManager.getIconDrawable(bankSelected.getLargeIcon());
 		bankSelect.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
 		bankSelect.setCompoundDrawablePadding(10);
+	}
+
+	private Bank getDefaultBank()
+	{
+
+		for ( final Bank bank : banks )
+		{
+			if ( bank.getId().equals(DUMMY_BANK_ID) && !showDummyBank )
+				continue;
+			return bank;
+		}
+		throw new IllegalStateException("There is no bank connector available (or dummy is switched off)."); //FIXME I18N
 	}
 
 	@Override
@@ -168,7 +215,7 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 		final Editor editor = preferences.edit();
 		if ( preferences.getBoolean(PREF_SAVE_LAST_LOGIN, true) )
 		{
-			editor.putInt(PREF_LAST_BANK, bankIndex);
+			editor.putString(PREF_LAST_BANK, bankSelected.getId());
 			editor.putString(PREF_LAST_LOGINID, loginId);
 		}
 
@@ -178,6 +225,19 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 		}
 		editor.commit();
 
+		setResult(RESULT_OK);
 		finish();
+	}
+
+	@Override
+	public boolean onKeyUp( final int keyCode, final KeyEvent event )
+	{
+		if ( keyCode == KeyEvent.KEYCODE_BACK )
+		{
+			setResult(RESULT_CANCELED);
+			finish();
+			return true;
+		}
+		return super.onKeyUp(keyCode, event);
 	}
 }
