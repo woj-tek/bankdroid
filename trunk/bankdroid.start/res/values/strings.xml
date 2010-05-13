@@ -14,6 +14,7 @@
 
 	<!-- MainActivity -->
     <string name="accountButton">Accounts</string>
+    <string name="quickHistoryButton">Quick History</string>
     <string name="logoutButton">Logout</string>
 
 	<!-- main menu -->
@@ -32,5 +33,11 @@
 
 	<!-- BankList -->
     <string name="accountListTitle">List of your accounts:</string>
+
+	<!-- TransactionList -->
+    <string name="tranListTitle">Transaction List</string>
+    <string name="tranListSummary">List of transactions for account {0} in date range {1} to {2}.</string>
+    <string name="totalCredit">Total credits: {0}</string>
+    <string name="totalDebit">Total debits: {0}</string>
 
 </resources>

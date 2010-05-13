@@ -32,7 +32,7 @@ public class PluginManager implements Codes
 
 	public static void init()
 	{
-		//TODO do nothing
+		// do nothing
 	}
 
 	private static final Map<URL, Drawable> bankIcons = new HashMap<URL, Drawable>();

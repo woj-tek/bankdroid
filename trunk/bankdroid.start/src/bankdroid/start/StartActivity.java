@@ -28,12 +28,22 @@ import com.csaba.connector.service.LoginService;
 /**
  * @author Gabe
  *
- *	TODO make plugins for various login screens
- *	TODO enable different flow for login (to support SMS OTP)
- *  TODO handle saved users
+ *  FIXME back button problem on start page.
+ *  TODO add account history
+ *  TODO add account filtering
+ *  TODO add transaction details.
+ *  TODO add account details
  *  TODO take care of session timeout 
- *  TODO take care of exiting the application
- *  TODO shortcut widget for the various services - direct access to the service.
+ *  TODO take care of exiting the application - session to be closed
+ *  TODO toolbars instead of menu
+ *  TODO add about window
+ *  TODO shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity. 
+ *  XXX share account information link for account numbers, account details, transaction details, et.c..
+ *	XXX make plugins for various login screens
+ *	XXX enable different flow for login (to support SMS OTP)
+ *  XXX add OTP plugin
+ *  XXX add Citibank plugin
+ *  XXX add K&H plugin
  */
 public class StartActivity extends ServiceActivity implements OnClickListener
 {
