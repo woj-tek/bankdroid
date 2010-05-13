@@ -60,7 +60,7 @@ public class ServiceRunner implements Runnable, Codes
 					}
 					else if ( msg.what == SERVICE_FAILED )
 					{
-						listener.onServiceFailed(service, (Throwable) msg.getData().getSerializable(SERVICE_EXCEPTION)); //FIXME pass exception
+						listener.onServiceFailed(service, (Throwable) msg.getData().getSerializable(SERVICE_EXCEPTION));
 					}
 
 				}

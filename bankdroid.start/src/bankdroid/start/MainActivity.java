@@ -27,6 +27,7 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 
 		( (Button) findViewById(R.id.logoutButton) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.accountButton) ).setOnClickListener(this);
+		( (Button) findViewById(R.id.quickHistoryButton) ).setOnClickListener(this);
 	}
 
 	@Override
@@ -39,6 +40,12 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 		else if ( v.getId() == R.id.accountButton )
 		{
 			startActivity(new Intent(getApplicationContext(), AccountListActivity.class));
+		}
+		else if ( v.getId() == R.id.quickHistoryButton )
+		{
+			final Intent tranList = new Intent(getApplicationContext(), TransactionListActivity.class);
+			tranList.putExtra(EXTRA_TRANSACTION_FILTER, TransactionFilter.getDefaultFilter());
+			startActivity(tranList);
 		}
 	}
 
