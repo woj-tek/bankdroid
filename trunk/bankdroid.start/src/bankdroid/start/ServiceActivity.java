@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import bankdroid.start.ServiceRunner.ServiceListener;
+import bankdroid.util.TrackedActivity;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.ServiceException;

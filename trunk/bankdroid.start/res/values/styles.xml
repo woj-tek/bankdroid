@@ -33,4 +33,8 @@
 		<item name="android:background">#FFFFFF</item>
 	</style>
 	
+	<style name="listBackground">
+		<item name="android:background">#EEEEEE</item>
+	</style>
+	
 </resources>

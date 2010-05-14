@@ -8,16 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.model.Account;
 
 class AccountAdapter extends BaseAdapter
 {
 	private final Account[] accounts;
-
-	private int negativeColor = -1;
-	private int positiveColor = -1;
-	private int zeroColor = -1;
 
 	public AccountAdapter( final Account[] accounts )
 	{
@@ -58,28 +55,13 @@ class AccountAdapter extends BaseAdapter
 
 		final TextView availableBalance = (TextView) contentView.findViewById(R.id.availableBalance);
 		availableBalance.setText(acc.getAvailableBalance().toString());
-		availableBalance.setTextColor(getColor(context, acc.getAvailableBalance().getAmount()));
+		availableBalance.setTextColor(GUIUtil.getColor(context, acc.getAvailableBalance().getAmount()));
 
 		final TextView bookedBalance = (TextView) contentView.findViewById(R.id.bookedBalance);
 		bookedBalance.setText(acc.getBookedBalance().toString());
-		bookedBalance.setTextColor(getColor(context, acc.getBookedBalance().getAmount()));
+		bookedBalance.setTextColor(GUIUtil.getColor(context, acc.getBookedBalance().getAmount()));
 
 		return contentView;
-	}
-
-	private int getColor( final Context context, final double value )
-	{
-		if ( value < 0 )
-		{
-			return negativeColor == -1 ? negativeColor = context.getResources().getColor(R.color.negativeAmount)
-					: negativeColor;
-		}
-		else if ( value > 0 )
-		{
-			return positiveColor == -1 ? positiveColor = context.getResources().getColor(R.color.positiveAmount)
-					: positiveColor;
-		}
-		return zeroColor == -1 ? zeroColor = context.getResources().getColor(R.color.zeroAmount) : zeroColor;
 	}
 
 }

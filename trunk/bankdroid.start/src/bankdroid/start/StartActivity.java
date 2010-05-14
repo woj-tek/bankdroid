@@ -241,7 +241,7 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 	}
 
 	@Override
-	public boolean onKeyUp( final int keyCode, final KeyEvent event )
+	public boolean onKeyDown( final int keyCode, final KeyEvent event )
 	{
 		if ( keyCode == KeyEvent.KEYCODE_BACK )
 		{
@@ -249,6 +249,6 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 			finish();
 			return true;
 		}
-		return super.onKeyUp(keyCode, event);
+		return super.onKeyDown(keyCode, event);
 	}
 }

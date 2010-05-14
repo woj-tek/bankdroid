@@ -1,14 +1,18 @@
 package bankdroid.start;
 
+import java.text.DateFormat;
+import java.text.MessageFormat;
 import java.util.Date;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import bankdroid.start.plugin.PluginManager;
+import bankdroid.util.Formatters;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.BankServiceFactory;
@@ -58,10 +62,16 @@ public class TransactionListActivity extends ServiceActivity
 			callHistoryService(filter.getAccount(), filter.getFrom(), filter.getTo());
 
 		//reset data fields
-		( (TextView) findViewById(R.id.filterOptions) ).setText("");//FIXME set filter options here
+		final String template = getString(R.string.tranListSummary);
+
+		final DateFormat shortFormat = Formatters.getShortDateFormat();
+		final String summary = MessageFormat.format(template, filter.getAccount() == null ? getString(R.string.all)
+				: filter.getAccount().getName(), shortFormat.format(filter.getFrom()), shortFormat.format(filter
+				.getTo()));
+		( (TextView) findViewById(R.id.filterOptions) ).setText(summary);
+
 		( (TextView) findViewById(R.id.totalCredits) ).setText("");
 		( (TextView) findViewById(R.id.totalDebits) ).setText("");
-
 	}
 
 	private void callHistoryService( final Account account, final Date from, final Date to )
@@ -90,9 +100,27 @@ public class TransactionListActivity extends ServiceActivity
 		{
 			final AccountHistoryService history = (AccountHistoryService) service;
 
-			//FIXME check result
 			adapter.addItems(history.getHistory());
-			//FIXME set transaction list content
+
+			String credits = "";
+			String debits = "";
+
+			try
+			{
+				credits = adapter.getCredits().toString();
+				debits = adapter.getDebits().toString();
+			}
+			catch ( final Exception e )
+			{
+				Log.d(TAG, "Currency problem: " + e.toString());
+				credits = debits = getString(R.string.variousCurrencies);
+			}
+
+			( (TextView) findViewById(R.id.totalCredits) ).setText(MessageFormat.format(
+					getString(R.string.totalCredit), credits));
+			( (TextView) findViewById(R.id.totalDebits) ).setText(MessageFormat.format(getString(R.string.totalDebit),
+					debits));
+
 		}
 		else if ( service instanceof AccountService )
 		{

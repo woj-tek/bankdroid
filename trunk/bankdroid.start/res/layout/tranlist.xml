@@ -92,6 +92,7 @@
 			android:id="@+id/transactionList"
 		  	android:layout_width="fill_parent"
 		  	android:layout_height="wrap_content"
+		  	style="@style/listBackground"
 		  	
 		  	android:layout_above="@id/totalDebits"
 		  	android:layout_below="@id/filterOptions"
