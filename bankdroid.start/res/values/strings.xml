@@ -37,6 +37,8 @@
 	<!-- TransactionList -->
     <string name="tranListTitle">Transaction List</string>
     <string name="tranListSummary">List of transactions for account {0} in date range {1} to {2}.</string>
+    <string name="all">any</string>
+    <string name="variousCurrencies">[ various currencies ]</string>
     <string name="totalCredit">Total credits: {0}</string>
     <string name="totalDebit">Total debits: {0}</string>
 

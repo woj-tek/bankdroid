@@ -1,4 +1,4 @@
-package bankdroid.start;
+package bankdroid.util;
 
 import android.app.Activity;
 import android.content.Context;
@@ -55,7 +55,7 @@ public class TrackedActivity extends Activity
 		tracker.stop();
 	}
 
-	protected void dispatch()
+	public void dispatch()
 	{
 		if ( tracker != null )
 			tracker.dispatch();
