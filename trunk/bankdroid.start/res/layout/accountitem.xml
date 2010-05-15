@@ -22,29 +22,17 @@
   		/>
   		
   	<TextView
-  		android:id="@+id/accountNumber"
-  		android:text="12345678-87654321-12345678"
-  		android:layout_width="fill_parent"
-  		android:layout_height="wrap_content"
-  		android:maxLines="1"
-  		android:textColor="#000000"
-   		android:paddingLeft="13sp"
-  		
-  		android:layout_below="@id/accountName"
-  		/>
-
-  	<TextView
   		android:id="@+id/availableBalanceLabel"
-  		android:text="Available balance:"
+  		android:text="@string/availableBalance"
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
   		android:textColor="#000000"
    		android:paddingLeft="13sp"
     	android:gravity="left" 	
   		
-  		android:layout_below="@id/accountNumber"
+  		android:layout_below="@id/accountName"
   		android:layout_alignParentLeft="true"
-  		/><!-- FIXME I18N -->
+  		/>
   		
   	<TextView
   		android:id="@+id/availableBalance"
@@ -54,14 +42,14 @@
   		style="@style/amount"
    		android:paddingRight="13sp"
   		
-  		android:layout_below="@id/accountNumber"
+  		android:layout_below="@id/accountName"
   		android:layout_toRightOf="@id/availableBalanceLabel"
   		android:layout_alignParentRight="true"
   		/>
   		
    	<TextView
   		android:id="@+id/bookedBalanceLabel"
-  		android:text="Booked balance:"
+  		android:text="@string/bookedBalance"
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
   		android:textColor="#000000"
@@ -70,7 +58,7 @@
   		
   		android:layout_below="@id/availableBalanceLabel"
   		android:layout_alignParentLeft="true"
-  		/><!-- FIXME I18N -->
+  		/>
   		
     <TextView
   		android:id="@+id/bookedBalance"

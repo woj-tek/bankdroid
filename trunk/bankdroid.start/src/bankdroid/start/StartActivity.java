@@ -28,8 +28,6 @@ import com.csaba.connector.service.LoginService;
 /**
  * @author Gabe
  *
- *  FIXME back button problem on start page.
- *  TODO add account history
  *  TODO add account filtering
  *  TODO add transaction details.
  *  TODO add account details
@@ -37,6 +35,7 @@ import com.csaba.connector.service.LoginService;
  *  TODO take care of exiting the application - session to be closed
  *  TODO toolbars instead of menu
  *  TODO add about window
+ *  TODO add home to menu
  *  TODO shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity. 
  *  XXX share account information link for account numbers, account details, transaction details, et.c..
  *	XXX make plugins for various login screens
