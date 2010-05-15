@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import bankdroid.util.Formatters;
 import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.model.Amount;
 import com.csaba.connector.model.HistoryItem;
+import com.csaba.util.Formatters;
 
 /**
  * @author Gabe

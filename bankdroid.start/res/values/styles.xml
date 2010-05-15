@@ -20,7 +20,7 @@
 	
 	<style name="CommentText">
 		<item name="android:textSize">14sp</item>
-		<item name="android:textColor">#777777</item>
+		<item name="android:textColor">#333333</item>
 	</style>
 	
 	<style name="amount">
