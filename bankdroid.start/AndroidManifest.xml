@@ -11,6 +11,7 @@
 		<activity android:name=".StartActivity"/>
 		<activity android:name=".AccountListActivity" />
 		<activity android:name=".TransactionListActivity" />
+		<activity android:name=".SearchTransactionActivity" />
 		<activity android:name=".Preferences" />
 	</application>
 	

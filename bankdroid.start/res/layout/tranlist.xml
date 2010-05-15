@@ -3,7 +3,7 @@
   	xmlns:android="http://schemas.android.com/apk/res/android"
   	android:layout_width="fill_parent"
   	android:layout_height="fill_parent"
-  	style="@style/Background"
+  	style="@style/background"
   	>
 
  	<TextView
@@ -11,9 +11,8 @@
 		android:text="@string/tranListTitle"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
-		android:gravity="center"
-		android:padding="5sp" 
-		style="@style/LabelText"
+		
+		style="@style/pageTitle"
 		
 		android:layout_below="@id/bankLogo"
 		/>
@@ -25,7 +24,7 @@
 		android:layout_height="wrap_content"
 		android:gravity="center"
 		android:padding="5sp" 
-		style="@style/CommentText"
+		style="@style/commentText"
 		
 		android:layout_below="@id/title"
 		/>
@@ -36,7 +35,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:padding="5sp" 
-		style="@style/CommentText"
+		style="@style/commentText"
 		
 		android:layout_alignParentBottom="true"
 		/>
