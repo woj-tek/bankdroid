@@ -1,67 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-  	xmlns:android="http://schemas.android.com/apk/res/android"
-  	android:layout_width="fill_parent"
-  	android:layout_height="fill_parent"
-  	style="@style/Background"
-  	>
-  	    
-    <ImageView
-    	android:id="@+id/bankLogo"
-    	android:src="@drawable/icon"
-    	android:padding="10sp"
-    	
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	
-    	android:layout_alignParentLeft="true"
-    	android:layout_alignParentTop="true"
-    	/>
-    
-    <TextView
-    	android:id="@+id/customerName"
-    	android:text="John Local"
-    	android:gravity="center_vertical"
-    	style="@style/LabelText"
-    	android:padding="10sp"
-    	
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	
-    	android:layout_alignParentTop="true"
-    	android:layout_toRightOf="@id/bankLogo"
-    	android:layout_alignBottom="@id/bankLogo"
-    	/>
-    	
-    <RelativeLayout
-    	android:id="@+id/content"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:layout_below="@id/bankLogo"
-    	android:background="@android:drawable/editbox_dropdown_light_frame"
-    	>
-    	
-	 	<TextView
-			android:id="@+id/title"
-			android:text="Account List"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:gravity="center"
-			android:padding="5sp" 
-			style="@style/LabelText"
-			
-			android:layout_below="@id/bankLogo"
-			/><!-- FIXME I18N -->
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/content"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	style="@style/Background"
+	>
+	
+ 	<TextView
+		android:id="@+id/title"
+		android:text="@string/accountListTitle"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:padding="5sp" 
+		style="@style/LabelText"
+		/>
+		
+  	
+	<ListView
+		android:id="@+id/accountList"
+	  	android:layout_width="fill_parent"
+	  	android:layout_height="fill_parent"
+		android:background="@android:drawable/editbox_dropdown_light_frame"
 	  	
-		<ListView
-			android:id="@+id/accountList"
-		  	android:layout_width="fill_parent"
-		  	android:layout_height="fill_parent"
-		  	
-		  	android:layout_below="@id/title"
-		  	/>
-		  	
-   	</RelativeLayout>	
+	  	android:layout_below="@id/title"
+	  	/>
 	  	
 </RelativeLayout>
 
