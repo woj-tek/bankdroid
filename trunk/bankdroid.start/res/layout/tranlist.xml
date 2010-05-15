@@ -30,7 +30,7 @@
 		android:layout_below="@id/title"
 		/>
   	
- 	 	<TextView
+ 	<TextView
 		android:id="@+id/totals"
 		android:text="@string/totals"
 		android:layout_width="fill_parent"

@@ -1,16 +1,17 @@
 package bankdroid.start;
 
 import java.text.DateFormat;
+import java.text.Format;
 import java.text.MessageFormat;
 import java.util.Date;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Window;
 import android.widget.ListView;
 import android.widget.TextView;
-import bankdroid.util.Formatters;
 import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
@@ -21,7 +22,11 @@ import com.csaba.connector.model.Amount;
 import com.csaba.connector.model.Session;
 import com.csaba.connector.service.AccountHistoryService;
 import com.csaba.connector.service.AccountService;
+import com.csaba.util.Formatters;
 
+/**
+ * @author Gabe
+ */
 public class TransactionListActivity extends ServiceActivity
 {
 	private TransactionAdapter adapter;
@@ -96,11 +101,18 @@ public class TransactionListActivity extends ServiceActivity
 			try
 			{
 				final Amount credit = adapter.getCredits();
-				final Amount debits = adapter.getDebits();
-				final Amount total = credit.add(debits);
+				final Amount debit = adapter.getDebits();
+				final Amount total = credit.add(debit);
 
-				( (TextView) findViewById(R.id.totals) ).setText(MessageFormat.format(getString(R.string.totals),
-						credit, debits, total));
+				final Format format = Formatters.getCurrencyFormat(credit.getCurrency());
+				final String creditString = format.format(credit.getAmount());
+				final String debitString = format.format(Math.abs(debit.getAmount()));
+
+				final String totalText = MessageFormat.format(getString(R.string.totals), creditString, debitString,
+						total, GUIUtil.getHtmlColor(credit.getAmount()), GUIUtil.getHtmlColor(debit.getAmount()),
+						GUIUtil.getHtmlColor(total.getAmount()));
+
+				( (TextView) findViewById(R.id.totals) ).setText(Html.fromHtml(totalText));
 			}
 			catch ( final Exception e )
 			{
