@@ -28,15 +28,25 @@ class AccountAdapter extends BaseAdapter
 	}
 
 	@Override
-	public Object getItem( final int arg0 )
+	public Object getItem( final int position )
 	{
-		return accounts[arg0];
+		return accounts[position];
+	}
+
+	public Object getItemById( final long id )
+	{
+		for ( final Account account : accounts )
+		{
+			if ( account.hashCode() == id )
+				return account;
+		}
+		throw new IllegalArgumentException("Invalid account ID: " + id);
 	}
 
 	@Override
-	public long getItemId( final int arg0 )
+	public long getItemId( final int position )
 	{
-		return accounts[arg0].hashCode();
+		return accounts[position].hashCode();
 	}
 
 	@Override
@@ -50,8 +60,7 @@ class AccountAdapter extends BaseAdapter
 
 		final Account acc = accounts[position];
 
-		( (TextView) contentView.findViewById(R.id.accountName) ).setText(acc.getName());
-		( (TextView) contentView.findViewById(R.id.accountNumber) ).setText(acc.getNumber());
+		( (TextView) contentView.findViewById(R.id.accountName) ).setText(GUIUtil.getAccountName(acc));
 
 		final TextView availableBalance = (TextView) contentView.findViewById(R.id.availableBalance);
 		availableBalance.setText(acc.getAvailableBalance().toString());

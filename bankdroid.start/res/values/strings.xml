@@ -34,6 +34,11 @@
 	<!-- BankList -->
     <string name="accountListTitle">List of your accounts:</string>
 
+	<!-- AccountList -->
+    <string name="quickHistory">Quick History</string>
+    <string name="availableBalance">Available balance:</string>
+    <string name="bookedBalance">Booked balance:</string>
+
 	<!-- TransactionList -->
     <string name="tranListTitle">Transaction List</string>
     <string name="tranListSummary">List of transactions for account {0} in date range {1} to {2}.</string>

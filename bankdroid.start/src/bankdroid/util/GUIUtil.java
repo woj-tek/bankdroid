@@ -3,6 +3,8 @@ package bankdroid.util;
 import android.content.Context;
 import bankdroid.start.R;
 
+import com.csaba.connector.model.Account;
+
 public class GUIUtil
 {
 	private static int negativeColor = -1;
@@ -24,4 +26,9 @@ public class GUIUtil
 		return zeroColor == -1 ? zeroColor = context.getResources().getColor(R.color.zeroAmount) : zeroColor;
 	}
 
+	public static String getAccountName( final Account account )
+	{
+		final String name = account.getName();
+		return name == null || name.equals("") ? account.getNumber() : name;
+	}
 }

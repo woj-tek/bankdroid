@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import bankdroid.start.plugin.PluginManager;
 import bankdroid.util.Formatters;
+import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.BankServiceFactory;
@@ -66,8 +67,8 @@ public class TransactionListActivity extends ServiceActivity
 
 		final DateFormat shortFormat = Formatters.getShortDateFormat();
 		final String summary = MessageFormat.format(template, filter.getAccount() == null ? getString(R.string.all)
-				: filter.getAccount().getName(), shortFormat.format(filter.getFrom()), shortFormat.format(filter
-				.getTo()));
+				: GUIUtil.getAccountName(filter.getAccount()), shortFormat.format(filter.getFrom()), shortFormat
+				.format(filter.getTo()));
 		( (TextView) findViewById(R.id.filterOptions) ).setText(summary);
 
 		( (TextView) findViewById(R.id.totalCredits) ).setText("");
