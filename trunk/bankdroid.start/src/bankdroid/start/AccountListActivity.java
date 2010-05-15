@@ -2,21 +2,18 @@ package bankdroid.start;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import bankdroid.start.plugin.PluginManager;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.model.Account;
-import com.csaba.connector.model.Session;
 import com.csaba.connector.service.AccountService;
 
 public class AccountListActivity extends ServiceActivity
@@ -39,15 +36,18 @@ public class AccountListActivity extends ServiceActivity
 	{
 		super.onResume();
 
-		final Session session = SessionManager.getInstance().getSession();
-		if ( session == null )
-			return;
-
-		( (TextView) findViewById(R.id.customerName) ).setText(session.getCustomer().getName());
-		( (ImageView) findViewById(R.id.bankLogo) ).setImageDrawable(PluginManager.getIconDrawable(session.getBank()
-				.getLargeIcon()));
+		Log.d(TAG, "onResume()");
 
 		SessionManager.getInstance().getAccounts(this);
+	}
+
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+
+		Log.d(TAG, "onPause()");
+
 	}
 
 	@Override

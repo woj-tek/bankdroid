@@ -8,10 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import bankdroid.start.plugin.PluginManager;
 import bankdroid.util.Formatters;
 import bankdroid.util.GUIUtil;
 
@@ -19,6 +17,7 @@ import com.csaba.connector.BankService;
 import com.csaba.connector.BankServiceFactory;
 import com.csaba.connector.ServiceException;
 import com.csaba.connector.model.Account;
+import com.csaba.connector.model.Amount;
 import com.csaba.connector.model.Session;
 import com.csaba.connector.service.AccountHistoryService;
 import com.csaba.connector.service.AccountService;
@@ -46,14 +45,6 @@ public class TransactionListActivity extends ServiceActivity
 	{
 		super.onResume();
 
-		final Session session = SessionManager.getInstance().getSession();
-		if ( session == null )
-			return;
-
-		( (TextView) findViewById(R.id.customerName) ).setText(session.getCustomer().getName());
-		( (ImageView) findViewById(R.id.bankLogo) ).setImageDrawable(PluginManager.getIconDrawable(session.getBank()
-				.getLargeIcon()));
-
 		//process intent
 		final Intent filterIntent = getIntent();
 		filter = (TransactionFilter) filterIntent.getSerializableExtra(EXTRA_TRANSACTION_FILTER);
@@ -71,8 +62,7 @@ public class TransactionListActivity extends ServiceActivity
 				.format(filter.getTo()));
 		( (TextView) findViewById(R.id.filterOptions) ).setText(summary);
 
-		( (TextView) findViewById(R.id.totalCredits) ).setText("");
-		( (TextView) findViewById(R.id.totalDebits) ).setText("");
+		( (TextView) findViewById(R.id.totals) ).setText("");
 	}
 
 	private void callHistoryService( final Account account, final Date from, final Date to )
@@ -103,24 +93,20 @@ public class TransactionListActivity extends ServiceActivity
 
 			adapter.addItems(history.getHistory());
 
-			String credits = "";
-			String debits = "";
-
 			try
 			{
-				credits = adapter.getCredits().toString();
-				debits = adapter.getDebits().toString();
+				final Amount credit = adapter.getCredits();
+				final Amount debits = adapter.getDebits();
+				final Amount total = credit.add(debits);
+
+				( (TextView) findViewById(R.id.totals) ).setText(MessageFormat.format(getString(R.string.totals),
+						credit, debits, total));
 			}
 			catch ( final Exception e )
 			{
 				Log.d(TAG, "Currency problem: " + e.toString());
-				credits = debits = getString(R.string.variousCurrencies);
+				( (TextView) findViewById(R.id.totals) ).setText(getString(R.string.variousCurrencies));
 			}
-
-			( (TextView) findViewById(R.id.totalCredits) ).setText(MessageFormat.format(
-					getString(R.string.totalCredit), credits));
-			( (TextView) findViewById(R.id.totalDebits) ).setText(MessageFormat.format(getString(R.string.totalDebit),
-					debits));
 
 		}
 		else if ( service instanceof AccountService )
