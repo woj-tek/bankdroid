@@ -23,7 +23,7 @@
   		android:text="CIB Bank Zrt."
   		android:layout_width="fill_parent"
   		android:layout_height="fill_parent"
-  		style="@style/LabelText"
+  		style="@style/labelText"
   		android:gravity="center_vertical"
   		
   		android:layout_toRightOf="@id/bankLogo"

@@ -2,7 +2,7 @@
 <ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	style="@style/Background"
+	style="@style/background"
 	>
 
 
@@ -11,7 +11,7 @@
     android:layout_height="fill_parent"
     android:id="@+id/rootView"
     android:padding="5sp"
-    style="@style/Background"
+    style="@style/background"
     >
     
     <ImageView
@@ -27,7 +27,7 @@
     <TextView
     	android:id="@+id/title"
     	android:text="@string/title"
-    	style="@style/Title"
+    	style="@style/title"
     	
     	android:paddingLeft="5sp"
     	android:paddingTop="10sp"
@@ -43,7 +43,7 @@
     <TextView
     	android:id="@+id/subtitle"
     	android:text="@string/subtitle"
-    	style="@style/Subtitle"
+    	style="@style/subtitle"
     	
     	android:paddingLeft="5sp"
     	
@@ -60,7 +60,7 @@
  	<TextView  
 	    android:id="@+id/bankSelectLabel"
 	    android:text="@string/bankSelect"
-	    style="@style/LabelText"
+	    style="@style/labelText"
 
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
@@ -75,7 +75,7 @@
 		android:text="CIB Bank"
 		android:background="@drawable/select_button"
 		android:gravity="left"
-		style="@style/LabelText"
+		style="@style/labelText"
 
 	    android:padding="10sp"
 	    android:layout_margin="5sp"
@@ -90,7 +90,7 @@
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
 	    android:text="@string/loginId"
-	    style="@style/LabelText"
+	    style="@style/labelText"
 	    android:id="@+id/loginIdLabel"
 	    
 	    android:layout_below="@id/selectBank"
@@ -114,7 +114,7 @@
 	<TextView  
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
-	    style="@style/LabelText"
+	    style="@style/labelText"
 	    android:text="@string/password"
 	    android:id="@+id/passwordLabel"
 	    

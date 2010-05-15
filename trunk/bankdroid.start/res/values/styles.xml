@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-	<style name="Title">
+	<style name="title">
 		<item name="android:textSize">30sp</item>
 		<item name="android:textStyle">bold</item>
 		<item name="android:textColor">#56748E</item>
 	</style>
 	
-	<style name="Subtitle">
+	<style name="subtitle">
 		<item name="android:textSize">20sp</item>
 		<item name="android:textStyle">italic</item>
 		<item name="android:textColor">#000000</item>
 	</style>
 	
-	<style name="LabelText">
+	<style name="pageTitle">
+		<item name="android:textSize">22sp</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">#56748E</item>
+		<item name="android:gravity">center</item>
+		<item name="android:padding">5sp</item>
+	</style>
+	
+	<style name="labelText">
 		<item name="android:textSize">20sp</item>
 		<item name="android:textColor">#333333</item>
 	</style>
 	
-	<style name="CommentText">
+	<style name="commentText">
 		<item name="android:textSize">14sp</item>
 		<item name="android:textColor">#333333</item>
 	</style>
@@ -29,7 +37,14 @@
 		<item name="android:gravity">right</item>
 	</style>
 	
-	<style name="Background">
+	<style name="button" parent="labelText">
+		<item name="android:background">@drawable/select_button</item>
+		<item name="android:gravity">center</item>
+		<item name="android:padding">8sp</item>
+		<item name="android:layout_margin">3sp</item>
+	</style>
+	
+	<style name="background">
 		<item name="android:background">#FFFFFF</item>
 	</style>
 	
