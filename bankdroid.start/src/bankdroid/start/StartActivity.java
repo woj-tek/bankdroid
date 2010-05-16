@@ -28,7 +28,6 @@ import com.csaba.connector.service.LoginService;
 /**
  * @author Gabe
  *
- *  TODO add account filtering
  *  TODO add transaction details.
  *  TODO add account details
  *  TODO take care of session timeout 
@@ -125,7 +124,7 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 		{
 
 			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle("Select a bank"); //FIXME I18N
+			builder.setTitle(getString(R.string.bankSelect));
 			final BankAdapter adapter = new BankAdapter(banks);
 			adapter.setDummyAvailable(showDummyBank);
 			builder.setAdapter(adapter, new DialogInterface.OnClickListener()
@@ -211,7 +210,7 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 				continue;
 			return bank;
 		}
-		throw new IllegalStateException("There is no bank connector available (or dummy is switched off)."); //FIXME I18N
+		throw new IllegalStateException(getString(R.string.errNoConnector));
 	}
 
 	@Override

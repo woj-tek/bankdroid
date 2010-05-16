@@ -3,6 +3,7 @@
     <string name="app_name">Bankdroid Start</string>
 
     <string name="progressText">Please wait while communicating with server...</string>
+    <string name="errNoConnector">There is no bank connector available (or dummy is switched off).</string>
 
 	<!-- StartActivity -->
     <string name="title">BankDroid</string>
@@ -50,5 +51,6 @@
     <string name="accountSelect">Please select an account:</string>
     <string name="dateRangeLabel">Date from/to:</string>
     <string name="search">Search</string>
+    <string name="datePicker">Pick an account</string>
 
 </resources>
