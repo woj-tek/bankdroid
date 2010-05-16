@@ -24,52 +24,52 @@
 		style="@style/pageTitle"
 		/>
 		
-  	
- 	<TextView  
-	    android:id="@+id/accountSelectLabel"
-	    android:text="@string/accountSelect"
-	    style="@style/labelText"
-
-	    android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
-	    
-	    android:layout_below="@id/title"
-	    android:layout_alignParentLeft="true"
-	    />
-	    
-	<Button
-		android:id="@+id/accountSelect"
-		android:text="any"
-		style="@style/button"
-
+	<RelativeLayout
+		android:id="@+id/formBlock"
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+		android:background="@android:drawable/editbox_dropdown_light_frame"
+		android:padding="10sp"
+		android:layout_margin="5sp"
 		
-		android:layout_below="@id/accountSelectLabel"
-		/>
-
-	<TextView  
-	    android:id="@+id/dateRangeLabel"
-	    android:text="@string/dateRangeLabel"
-	    style="@style/labelText"
-
-	    android:layout_width="fill_parent" 
-	    android:layout_height="wrap_content" 
-	    
-	    android:layout_below="@id/accountSelect"
-	    android:layout_alignParentLeft="true"
-	    />
-	    
-	<LinearLayout
-		android:id="@+id/dateRangeBox"
-		android:orientation="horizontal"
-		
-		android:gravity="center_horizontal"
-		
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/dateRangeLabel"
+		android:layout_below="@id/title"
 		>
+
+	 	<TextView  
+		    android:id="@+id/accountSelectLabel"
+		    android:text="@string/accountSelect"
+		    style="@style/labelText"
+	
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content" 
+		    
+		    android:layout_alignParentTop="true"
+		    android:layout_alignParentLeft="true"
+		    />
+		    
+		<Button
+			android:id="@+id/accountSelect"
+			android:text="any"
+			style="@style/button"
+	
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			
+			android:layout_below="@id/accountSelectLabel"
+			/>
+	
+		<TextView  
+		    android:id="@+id/dateRangeLabel"
+		    android:text="@string/dateRangeLabel"
+		    style="@style/labelText"
+	
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content" 
+		    
+		    android:layout_below="@id/accountSelect"
+		    android:layout_alignParentLeft="true"
+		    />
+		    
 		<Button
 			android:id="@+id/dateFrom"
 			android:text="8888-88-88"
@@ -78,8 +78,9 @@
 			
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_below="@id/dateRangeLabel"
 			/>
-	
+		
 		<Button
 			android:id="@+id/dateTo"
 			android:text="8888-88-88"
@@ -88,8 +89,11 @@
 			
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_below="@id/dateFrom"
 			/>
-	</LinearLayout>
+
+	</RelativeLayout>
+  	
 	    
 
 	<Button
@@ -100,7 +104,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		
-		android:layout_below="@id/dateRangeBox"
+		android:layout_below="@id/formBlock"
 		/>
 
 </RelativeLayout>
