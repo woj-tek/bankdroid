@@ -100,19 +100,37 @@ public class TransactionListActivity extends ServiceActivity
 
 			try
 			{
-				final Amount credit = adapter.getCredits();
-				final Amount debit = adapter.getDebits();
-				final Amount total = credit.add(debit);
+				Amount credit = adapter.getCredits();
+				Amount debit = adapter.getDebits();
 
-				final Format format = Formatters.getCurrencyFormat(credit.getCurrency());
-				final String creditString = format.format(credit.getAmount());
-				final String debitString = format.format(Math.abs(debit.getAmount()));
+				if ( credit == null && debit == null )
+				{
+					//no transaction
+					( (TextView) findViewById(R.id.totals) ).setText(getString(R.string.warnNoTransaction));
+				}
+				else
+				{
+					if ( credit == null )
+					{
+						credit = new Amount(0, debit.getCurrency());
+					}
+					else if ( debit == null )
+					{
+						debit = new Amount(0, credit.getCurrency());
+					}
 
-				final String totalText = MessageFormat.format(getString(R.string.totals), creditString, debitString,
-						total, GUIUtil.getHtmlColor(credit.getAmount()), GUIUtil.getHtmlColor(debit.getAmount()),
-						GUIUtil.getHtmlColor(total.getAmount()));
+					final Amount total = credit.add(debit);
 
-				( (TextView) findViewById(R.id.totals) ).setText(Html.fromHtml(totalText));
+					final Format format = Formatters.getCurrencyFormat(credit.getCurrency());
+					final String creditString = format.format(credit.getAmount());
+					final String debitString = format.format(Math.abs(debit.getAmount()));
+
+					final String totalText = MessageFormat.format(getString(R.string.totals), creditString,
+							debitString, total, GUIUtil.getHtmlColor(credit.getAmount()), GUIUtil.getHtmlColor(debit
+									.getAmount()), GUIUtil.getHtmlColor(total.getAmount()));
+
+					( (TextView) findViewById(R.id.totals) ).setText(Html.fromHtml(totalText));
+				}
 			}
 			catch ( final Exception e )
 			{

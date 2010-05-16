@@ -45,6 +45,7 @@
     <string name="all">any</string>
     <string name="variousCurrencies">[ various currencies ]</string>
     <string name="totals"><![CDATA[<b>Totals:</b> <font color="{3}">{0}</font> - <font color="{4}">{1}</font> = <font color="{5}">{2}</font>]]></string>
+    <string name="warnNoTransaction">No transaction found.</string>
 
 	<!-- SearchTransaction -->
     <string name="searchTranTitle">Search Transactions</string>
