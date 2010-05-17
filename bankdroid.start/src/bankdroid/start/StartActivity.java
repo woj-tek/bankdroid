@@ -29,10 +29,12 @@ import com.csaba.connector.service.LoginService;
  * @author Gabe
  *
  *	FIXME duplicated data load, when phone is switch of during data load
+ *  TODO use AccountManager to handle stored passowrds
+ *  TODO progress bar instead of dialog for screens 
+ *  TODO logout to menu / toolbar / header
  *  TODO add transaction details.
  *  TODO add account details
  *  TODO take care of session timeout 
- *  TODO take care of exiting the application - session to be closed
  *  TODO toolbars instead of menu
  *  TODO add about window
  *  TODO add home to menu
@@ -162,6 +164,9 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 	{
 		super.onResume();
 
+		if ( SessionManager.getInstance().getSession() == null )
+			SessionManager.getInstance().setSession(this, null); // reset session to make sure that the notification is hidden.
+
 		//init bank select
 		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		showDummyBank = preferences.getBoolean(PREF_SHOW_DUMMY_BANK, false);
@@ -219,7 +224,7 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 	@Override
 	public void onServiceFinished( final BankService service )
 	{
-		SessionManager.getInstance().setSession(( (LoginService) service ).getSession());
+		SessionManager.getInstance().setSession(this, ( (LoginService) service ).getSession());
 
 		//save last succesful login details into preferences
 		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Bankdroid Start</string>
+    <string name="app_name">Bankdroid START</string>
 
     <string name="progressText">Please wait while communicating with server...</string>
     <string name="errNoConnector">There is no bank connector available (or dummy is switched off).</string>
+    <string name="warnActiveSession">You have an active banking session.</string>
 
 	<!-- StartActivity -->
     <string name="title">BankDroid</string>

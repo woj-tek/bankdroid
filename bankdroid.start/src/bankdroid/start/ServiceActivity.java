@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import bankdroid.start.ServiceRunner.ServiceListener;
 import bankdroid.util.TrackedActivity;
 
@@ -22,6 +24,28 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 	public ServiceActivity()
 	{
 		super();
+	}
+
+	public boolean startProgress()
+	{
+		final ProgressBar progress = ( (ProgressBar) findViewById(R.id.progressIndicator) );
+		if ( progress != null )
+		{
+			progress.setVisibility(View.VISIBLE);
+		}
+
+		return progress != null;
+	}
+
+	public boolean stopProgress()
+	{
+		final ProgressBar progress = ( (ProgressBar) findViewById(R.id.progressIndicator) );
+		if ( progress != null )
+		{
+			progress.setVisibility(View.INVISIBLE);
+		}
+
+		return progress != null;
 	}
 
 	@Override

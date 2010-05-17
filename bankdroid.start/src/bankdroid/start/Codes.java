@@ -24,6 +24,7 @@ public interface Codes
 	//OTHERS
 	final static int LOGIN = 0xbaba;
 	final static String DUMMY_BANK_ID = "DUMMY";
+	final static int NOTIFICATION_ACTIVE_SESSION = 122112;
 
 	//EXTRAS
 	final static String EXTRA_TRANSACTION_FILTER = "com.bankdroid.TransactionFilter";
