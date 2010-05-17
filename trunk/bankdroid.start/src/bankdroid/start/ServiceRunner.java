@@ -48,12 +48,14 @@ public class ServiceRunner implements Runnable, Codes
 
 				if ( msg.what == SERVICE_FAILED || msg.what == SERVICE_PROCESS )
 				{
-					if ( dialog != null )
+					if ( !( context instanceof ServiceActivity ) || !( (ServiceActivity) context ).stopProgress() )
 					{
-						dialog.dismiss();
-						dialog = null;
+						if ( dialog != null )
+						{
+							dialog.dismiss();
+							dialog = null;
+						}
 					}
-
 					if ( msg.what == SERVICE_PROCESS )
 					{
 						listener.onServiceFinished(service);
@@ -69,7 +71,10 @@ public class ServiceRunner implements Runnable, Codes
 
 		new Thread(this).start();
 
-		dialog = ProgressDialog.show(context, "Progress", context.getText(R.string.progressText), true);
+		if ( !( context instanceof ServiceActivity ) || !( (ServiceActivity) context ).startProgress() )
+		{
+			dialog = ProgressDialog.show(context, "Progress", context.getText(R.string.progressText), true);
+		}
 	}
 
 	@Override

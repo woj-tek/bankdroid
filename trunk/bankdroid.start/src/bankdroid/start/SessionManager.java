@@ -1,5 +1,10 @@
 package bankdroid.start;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import bankdroid.start.ServiceRunner.ServiceListener;
 
 import com.csaba.connector.BankService;
@@ -10,7 +15,7 @@ import com.csaba.connector.model.Session;
 import com.csaba.connector.service.AccountService;
 import com.csaba.connector.service.LogoutService;
 
-public class SessionManager implements ServiceListener
+public class SessionManager implements ServiceListener, Codes
 {
 
 	private SessionManager()
@@ -33,12 +38,41 @@ public class SessionManager implements ServiceListener
 	private Account[] accounts;
 	private ServiceActivity lastCaller;
 
-	public void setSession( final Session session )
+	public void setSession( final ServiceActivity activity, final Session session )
 	{
 		this.session = session;
+
+		final Context context = activity;
+		final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
 		if ( session == null )
 		{
 			accounts = null;
+
+			//hide notification
+			nm.cancel(NOTIFICATION_ACTIVE_SESSION);
+		}
+		else
+		{
+			//show notification
+			final int icon = android.R.drawable.stat_notify_error;
+			final long when = System.currentTimeMillis();
+
+			final Notification notification = new Notification(icon, null, when);
+
+			final Intent notificationIntent = new Intent(context, MainActivity.class);
+			notificationIntent.setAction(Intent.ACTION_VIEW);
+			notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+			final PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
+					PendingIntent.FLAG_UPDATE_CURRENT);
+
+			notification.setLatestEventInfo(context, context.getString(R.string.app_name), context
+					.getString(R.string.warnActiveSession), contentIntent);
+			notification.flags |= Notification.FLAG_ONGOING_EVENT;
+
+			//display notification
+			nm.notify(NOTIFICATION_ACTIVE_SESSION, notification);
 		}
 	}
 
@@ -101,7 +135,7 @@ public class SessionManager implements ServiceListener
 	{
 		if ( service instanceof LogoutService )
 		{
-			setSession(null);
+			setSession(lastCaller, null);
 		}
 		else if ( service instanceof AccountService )
 		{

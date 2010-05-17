@@ -6,6 +6,23 @@
 	android:layout_height="fill_parent"
 	style="@style/background"
 	>
+    
+    <ProgressBar
+    	android:id="@+id/progressIndicator"
+    	
+    	android:indeterminate="true"
+    	android:indeterminateOnly="true"
+    	android:indeterminateBehavior="repeat"
+    	android:visibility="invisible"
+    	
+    	android:layout_width="30sp"
+    	android:layout_height="30sp"
+    	
+    	android:layout_margin="5sp"
+    	
+    	android:layout_alignParentTop="true"
+    	android:layout_alignParentRight="true"
+    	/>
 	
  	<TextView
 		android:id="@+id/title"

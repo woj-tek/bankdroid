@@ -12,7 +12,7 @@
     android:id="@+id/rootView"
     style="@style/background"
     >
-    
+
     <ImageView
     	android:id="@+id/bankLogo"
     	android:src="@drawable/icon"
