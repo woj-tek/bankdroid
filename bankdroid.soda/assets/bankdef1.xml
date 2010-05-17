@@ -143,6 +143,7 @@
 		<Phones>
 			<Phone>+36707060652</Phone>
 			<Phone>+36209000652</Phone>
+			<Phone>5833</Phone>
 		</Phones>
 		<Expressions>
 			<Expression transactionSign="true"><![CDATA[MKB .* jelsz.: ([0-9a-zA-Z]*)]]></Expression>
