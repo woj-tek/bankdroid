@@ -39,6 +39,17 @@ public class ServiceRunner implements Runnable, Codes
 
 	public void start()
 	{
+		final SessionManager sessions = SessionManager.getInstance();
+		try
+		{
+			sessions.setActiveService(service);
+		}
+		catch ( final ServiceException e )
+		{
+			listener.onServiceFailed(service, e);
+			return;
+		}
+
 		handler = new Handler()
 		{
 			@Override
@@ -96,6 +107,10 @@ public class ServiceRunner implements Runnable, Codes
 
 			message = Message.obtain(handler, SERVICE_FAILED);
 			message.getData().putSerializable(SERVICE_EXCEPTION, e);
+		}
+		finally
+		{
+			SessionManager.getInstance().clearActiveService();
 		}
 
 		handler.sendMessage(message);

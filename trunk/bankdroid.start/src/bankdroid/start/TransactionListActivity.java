@@ -31,6 +31,8 @@ public class TransactionListActivity extends ServiceActivity
 {
 	private TransactionAdapter adapter;
 	private TransactionFilter filter;
+	private Account[] accounts;
+	private int lastItem;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -53,10 +55,6 @@ public class TransactionListActivity extends ServiceActivity
 		//process intent
 		final Intent filterIntent = getIntent();
 		filter = (TransactionFilter) filterIntent.getSerializableExtra(EXTRA_TRANSACTION_FILTER);
-		if ( filter.getAccount() == null )
-			SessionManager.getInstance().getAccounts(this);
-		else
-			callHistoryService(filter.getAccount(), filter.getFrom(), filter.getTo());
 
 		//reset data fields
 		final String template = getString(R.string.tranListSummary);
@@ -68,6 +66,12 @@ public class TransactionListActivity extends ServiceActivity
 		( (TextView) findViewById(R.id.filterOptions) ).setText(summary);
 
 		( (TextView) findViewById(R.id.totals) ).setText("");
+
+		//start services	
+		if ( filter.getAccount() == null )
+			SessionManager.getInstance().getAccounts(this);
+		else
+			callHistoryService(filter.getAccount(), filter.getFrom(), filter.getTo());
 	}
 
 	private void callHistoryService( final Account account, final Date from, final Date to )
@@ -138,15 +142,19 @@ public class TransactionListActivity extends ServiceActivity
 				( (TextView) findViewById(R.id.totals) ).setText(getString(R.string.variousCurrencies));
 			}
 
+			if ( filter.getAccount() == null && accounts != null && lastItem < accounts.length - 1 )
+			{
+				lastItem++;
+
+				callHistoryService(accounts[lastItem], filter.getFrom(), filter.getTo());
+			}
 		}
 		else if ( service instanceof AccountService )
 		{
 			//account list received, get history of each account.
-			final Account[] accounts = ( (AccountService) service ).getAccounts();
-			for ( final Account account : accounts )
-			{
-				callHistoryService(account, filter.getFrom(), filter.getTo());
-			}
+			accounts = ( (AccountService) service ).getAccounts();
+			lastItem = 0;
+			callHistoryService(accounts[lastItem], filter.getFrom(), filter.getTo());
 		}
 	}
 }

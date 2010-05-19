@@ -37,6 +37,7 @@ public class SessionManager implements ServiceListener, Codes
 	private Session session;
 	private Account[] accounts;
 	private ServiceActivity lastCaller;
+	private BankService activeService;
 
 	public void setSession( final ServiceActivity activity, final Session session )
 	{
@@ -142,5 +143,25 @@ public class SessionManager implements ServiceListener, Codes
 			accounts = ( (AccountService) service ).getAccounts();
 		}
 		lastCaller.onServiceFinished(service);
+	}
+
+	public void clearActiveService()
+	{
+		this.activeService = null;
+	}
+
+	public void setActiveService( final BankService activeService ) throws ServiceException
+	{
+		if ( this.activeService != null && activeService != null )
+		{
+			throw new ServiceException("Cannot start new service due there is already an active service.");//FIXME I18N
+		}
+
+		this.activeService = activeService;
+	}
+
+	public BankService getActiveService()
+	{
+		return activeService;
 	}
 }
