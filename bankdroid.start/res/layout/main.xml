@@ -13,6 +13,18 @@
     style="@style/background"
     >
 
+    <TextView
+    	android:id="@+id/customerName"
+    	android:text="John Local"
+    	style="@style/pageTitle"
+    	
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	
+    	android:layout_alignParentTop="true"
+    	android:layout_alignBottom="@id/bankLogo"
+    	/>
+    
     <ImageView
     	android:id="@+id/bankLogo"
     	android:src="@drawable/icon"
@@ -23,21 +35,6 @@
     	
     	android:layout_alignParentLeft="true"
     	android:layout_alignParentTop="true"
-    	/>
-    
-    <TextView
-    	android:id="@+id/customerName"
-    	android:text="John Local"
-    	android:gravity="center_vertical"
-    	style="@style/labelText"
-    	android:padding="10sp"
-    	
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	
-    	android:layout_alignParentTop="true"
-    	android:layout_toRightOf="@id/bankLogo"
-    	android:layout_alignBottom="@id/bankLogo"
     	/>
     
 	<Button

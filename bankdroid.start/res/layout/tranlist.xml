@@ -6,23 +6,6 @@
   	style="@style/background"
   	>
 
-    <ProgressBar
-    	android:id="@+id/progressIndicator"
-    	
-    	android:indeterminate="true"
-    	android:indeterminateOnly="true"
-    	android:indeterminateBehavior="repeat"
-    	android:visibility="invisible"
-    	
-    	android:layout_width="30sp"
-    	android:layout_height="30sp"
-    	
-    	android:layout_margin="5sp"
-    	
-    	android:layout_alignParentTop="true"
-    	android:layout_alignParentRight="true"
-    	/>
-
  	<TextView
 		android:id="@+id/title"
 		android:text="@string/tranListTitle"
@@ -66,6 +49,24 @@
 	  	android:layout_above="@id/totals"
 	  	android:layout_below="@id/filterOptions"
 	  	/>
+
+
+    <ProgressBar
+    	android:id="@+id/progressIndicator"
+    	
+    	android:indeterminate="true"
+    	android:indeterminateOnly="true"
+    	android:indeterminateBehavior="repeat"
+    	android:visibility="invisible"
+    	
+    	android:layout_width="30sp"
+    	android:layout_height="30sp"
+    	
+    	android:layout_margin="5sp"
+    	
+    	android:layout_alignParentTop="true"
+    	android:layout_alignParentRight="true"
+    	/>
 		  	
 </RelativeLayout>
 
