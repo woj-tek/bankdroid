@@ -55,7 +55,7 @@ public class SessionManager implements ServiceListener, Codes
 		else
 		{
 			//show notification
-			final int icon = android.R.drawable.stat_notify_error;
+			final int icon = R.drawable.bankdroid_status_icon;
 			final long when = System.currentTimeMillis();
 
 			final Notification notification = new Notification(icon, null, when);
