@@ -33,8 +33,6 @@ import com.csaba.connector.service.LoginService;
  *  TODO use AccountManager to handle stored passowrds
  *  TODO logout to menu / header
  *  TODO take care of session timeout 
- *  TODO add about window
- *  TODO add home to menu
  *  TODO add hungarian translation
  *  TODO shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
  *  TODO analytics on the clicks. 
@@ -64,6 +62,7 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 		super.onCreate(savedInstanceState);
 
 		setSessionOriented(false);
+		setShowHomeMenu(false);
 
 		PluginManager.init();
 		try

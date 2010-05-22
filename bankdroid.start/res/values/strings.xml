@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Bankdroid START</string>
+    <string name="app_name">BankDroid START</string>
+	<string name="copyright">START, BankDroid, 2010 (c)</string>
 
     <string name="progressText">Please wait while communicating with server...</string>
     <string name="errNoConnector">There is no bank connector available (or dummy is switched off).</string>
@@ -22,6 +23,8 @@
 
 	<!-- main menu -->
     <string name="menuPref">Settings</string>
+    <string name="menuAbout">About</string>
+    <string name="menuHome">Home</string>
 
 	<!-- Preferences -->
     <string name="loginPrefs">Login Settings</string>
@@ -66,5 +69,14 @@
     <string name="dateRangeLabel">Date from/to:</string>
     <string name="search">Search</string>
     <string name="datePicker">Pick an account</string>
+
+	<!-- About -->
+	<string name="aboutId">BankDroid START</string>
+	<string name="aboutDesc">The START is product of the BankDroid open source project. Developed by voluntary programmers.</string>
+	<string name="aboutDesc2">If you experience any problem with the application, or you would like to see some new features, feel free to contact us.</string>
+	<string name="aboutUrl2">http://www.bankdroid.info</string>
+	<string name="donateURL">http://bit.ly/8LrNB9</string>
+	<string name="btnInfoSite">Info Site</string>
+	<string name="donateButton"> Donate</string>
 
 </resources>

@@ -4,6 +4,10 @@ public interface Codes
 {
 	final static String TAG = "Start";
 
+	public static final String TWITTER_URL = "http://twitter.com/bankdroid";
+	public static final String GMAIL_URL = "mailto:info@bankdroid.info";
+	public static final String URL_PROJECT_HOME = "http://bit.ly/4Ys9pQ";
+
 	final static int SERVICE_PROCESS = 1;
 	final static int SERVICE_FAILED = 2;
 
