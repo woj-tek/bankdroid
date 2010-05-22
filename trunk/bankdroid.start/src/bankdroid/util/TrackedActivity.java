@@ -23,6 +23,7 @@ public class TrackedActivity extends Activity
 		super.onCreate(savedInstanceState);
 
 		tracker = GoogleAnalyticsTracker.getInstance();
+		tracker.start(TRACKER_ID, this);
 
 		pageId = getClass().getName();
 	}
@@ -31,8 +32,6 @@ public class TrackedActivity extends Activity
 	protected void onResume()
 	{
 		super.onResume();
-
-		tracker.start(TRACKER_ID, this);
 
 		tracker.trackPageView("/" + pageId);
 	}
