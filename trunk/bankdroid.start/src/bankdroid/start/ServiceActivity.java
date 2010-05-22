@@ -20,6 +20,17 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 	public static final int MESSAGE_DIALOG = 123;
 	private String dialogMessage = null;
 	private boolean sessionOriented = true;
+	private boolean showHomeMenu = true;
+
+	public boolean isShowHomeMenu()
+	{
+		return showHomeMenu;
+	}
+
+	public void setShowHomeMenu( final boolean showHomeMenu )
+	{
+		this.showHomeMenu = showHomeMenu;
+	}
 
 	public ServiceActivity()
 	{
@@ -117,15 +128,25 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 	{
 		final MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.mainmenu, menu);
+
+		menu.findItem(R.id.menuHome).setEnabled(showHomeMenu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected( final MenuItem item )
 	{
-		if ( item.getItemId() == R.id.MenuPreferences )
+		if ( item.getItemId() == R.id.menuPreferences )
 		{
 			startActivity(new Intent(getBaseContext(), Preferences.class));
+		}
+		else if ( item.getItemId() == R.id.menuHome )
+		{
+			startActivity(new Intent(getBaseContext(), MainActivity.class));
+		}
+		else if ( item.getItemId() == R.id.menuAbout )
+		{
+			startActivity(new Intent(getBaseContext(), AboutActivity.class));
 		}
 		return true;
 	}

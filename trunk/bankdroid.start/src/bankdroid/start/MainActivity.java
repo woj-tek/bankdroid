@@ -24,6 +24,7 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.main);
+		setShowHomeMenu(false);
 
 		( (Button) findViewById(R.id.logoutButton) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.accountButton) ).setOnClickListener(this);
