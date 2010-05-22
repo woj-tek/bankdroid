@@ -28,19 +28,18 @@ import com.csaba.connector.service.LoginService;
 /**
  * @author Gabe
  *
- *	FIXME duplicated data load, when phone is switch of during data load
+ *	FIXME duplicated data load, when phone is switch of during data load, or something is going back to transaction list
+ *
  *  TODO use AccountManager to handle stored passowrds
- *  TODO progress bar instead of dialog for screens 
- *  TODO logout to menu / toolbar / header
- *  TODO add transaction details.
- *  TODO add account details
+ *  TODO logout to menu / header
  *  TODO take care of session timeout 
- *  TODO toolbars instead of menu
  *  TODO add about window
  *  TODO add home to menu
  *  TODO add hungarian translation
  *  TODO shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
  *  TODO analytics on the clicks. 
+ *  
+ *  XXX toolbars instead of menu
  *  XXX share account information link for account numbers, account details, transaction details, et.c..
  *	XXX make plugins for various login screens
  *	XXX enable different flow for login (to support SMS OTP)

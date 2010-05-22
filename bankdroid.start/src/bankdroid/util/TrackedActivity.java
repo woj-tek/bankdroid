@@ -48,9 +48,9 @@ public class TrackedActivity extends Activity
 	}
 
 	@Override
-	protected void onPause()
+	protected void onDestroy()
 	{
-		super.onPause();
+		super.onDestroy();
 
 		tracker.stop();
 	}

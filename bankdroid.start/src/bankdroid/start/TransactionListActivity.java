@@ -9,9 +9,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
@@ -19,6 +22,7 @@ import com.csaba.connector.BankServiceFactory;
 import com.csaba.connector.ServiceException;
 import com.csaba.connector.model.Account;
 import com.csaba.connector.model.Amount;
+import com.csaba.connector.model.HistoryItem;
 import com.csaba.connector.model.Session;
 import com.csaba.connector.service.AccountHistoryService;
 import com.csaba.connector.service.AccountService;
@@ -27,7 +31,7 @@ import com.csaba.util.Formatters;
 /**
  * @author Gabe
  */
-public class TransactionListActivity extends ServiceActivity
+public class TransactionListActivity extends ServiceActivity implements OnItemClickListener
 {
 	private TransactionAdapter adapter;
 	private TransactionFilter filter;
@@ -44,7 +48,9 @@ public class TransactionListActivity extends ServiceActivity
 		setContentView(R.layout.tranlist);
 
 		adapter = new TransactionAdapter();
-		( (ListView) findViewById(R.id.transactionList) ).setAdapter(adapter);
+		final ListView list = (ListView) findViewById(R.id.transactionList);
+		list.setAdapter(adapter);
+		list.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -156,5 +162,36 @@ public class TransactionListActivity extends ServiceActivity
 			lastItem = 0;
 			callHistoryService(accounts[lastItem], filter.getFrom(), filter.getTo());
 		}
+	}
+
+	@Override
+	public void onItemClick( final AdapterView<?> parent, final View view, final int position, final long id )
+	{
+		final TransactionAdapter adapter = (TransactionAdapter) parent.getAdapter();
+
+		final HistoryItem item = (HistoryItem) adapter.getItem(position);
+
+		final Intent intent = new Intent(getBaseContext(), PropertyViewActivity.class);
+
+		final String[] defaultLabels = new String[5];
+		final String[] defaultValues = new String[5];
+
+		defaultLabels[0] = getString(R.string.accountNumber);
+		defaultValues[0] = GUIUtil.getAccountName(item.getOwner());
+		defaultLabels[1] = getString(R.string.transactionDate);
+		defaultValues[1] = Formatters.getShortDateFormat().format(item.getDate());
+		defaultLabels[2] = getString(R.string.transactionAmount);
+		defaultValues[2] = item.getAmount().toString();
+		defaultLabels[3] = getString(R.string.transactionDescription);
+		defaultValues[3] = item.getDescription();
+		defaultLabels[4] = getString(R.string.transactionBalance);
+		defaultValues[4] = item.getBalance().toString();
+
+		intent.putExtra(EXTRA_PROPERTY_DEFAULT_LABELS, defaultLabels);
+		intent.putExtra(EXTRA_PROPERTY_DEFAULT_VALUES, defaultValues);
+
+		intent.putExtra(EXTRA_PROPERTY_OBJECT, item);
+		intent.putExtra(EXTRA_ACTIVITY_TITLE, getString(R.string.tranDetailTitle));
+		startActivity(intent);
 	}
 }

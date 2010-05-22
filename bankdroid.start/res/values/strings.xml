@@ -39,6 +39,14 @@
     <string name="quickHistory">Quick History</string>
     <string name="availableBalance">Available balance:</string>
     <string name="bookedBalance">Booked balance:</string>
+    <string name="accountName">Name:</string>
+    <string name="accountNumber">Account number:</string>
+    <string name="accountType">Account type:</string>
+    <string name="accountIBAN">IBAN:</string>
+
+	<!-- Property Details -->
+    <string name="tranDetailTitle">Transaction Details</string>
+    <string name="accountDetailTitle">Account Details</string>
 
 	<!-- TransactionList -->
     <string name="tranListTitle">Transaction List</string>
@@ -47,6 +55,10 @@
     <string name="variousCurrencies">[ various currencies ]</string>
     <string name="totals"><![CDATA[<b>Totals:</b> <font color="{3}">{0}</font> - <font color="{4}">{1}</font> = <font color="{5}">{2}</font>]]></string>
     <string name="warnNoTransaction">No transaction found.</string>
+    <string name="transactionDate">Date:</string>
+    <string name="transactionDescription">Description:</string>
+    <string name="transactionAmount">Amount:</string>
+    <string name="transactionBalance">Balance:</string>
 
 	<!-- SearchTransaction -->
     <string name="searchTranTitle">Search Transactions</string>

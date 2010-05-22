@@ -71,14 +71,11 @@
 	    
 	<Button
 		android:id="@+id/selectBank"
-		android:src="@drawable/icon"
 		android:text="CIB Bank"
-		android:background="@drawable/select_button"
+		android:drawableLeft="@drawable/icon"
 		android:gravity="left"
-		style="@style/labelText"
 
-	    android:padding="10sp"
-	    android:layout_margin="5sp"
+		style="@style/fieldButton"
 		
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -99,24 +96,25 @@
 	    
 	<EditText
 		android:id="@+id/loginId"
-	    android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"
-		android:background="@drawable/select_button"
-	    android:padding="10sp"
-	    android:layout_margin="5sp"
 		android:text="local"
 		android:singleLine="true"
+		android:maxLength="20"
+
+	    android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
 		
+		style="@style/field"
+
 		android:layout_below="@id/loginIdLabel"
 		android:layout_alignParentLeft="true"
 		/>
 		    
 	<TextView  
+	    android:id="@+id/passwordLabel"
+	    android:text="@string/password"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
 	    style="@style/labelText"
-	    android:text="@string/password"
-	    android:id="@+id/passwordLabel"
 	    
 	    android:layout_alignParentLeft="true"
 	    android:layout_below="@id/loginId"
@@ -124,15 +122,15 @@
 	    
 	<EditText
 		android:id="@+id/password"
-	    android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"
+		android:text="password"
 		android:inputType="textPassword"
 		android:singleLine="true"
 		android:maxLength="20"
-		android:text="password"
-		android:background="@drawable/select_button"
-	    android:padding="10sp"
-	    android:layout_margin="5sp"
+
+	    android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		
+		style="@style/field"
 		
 		android:layout_below="@id/passwordLabel"
 		android:layout_alignParentLeft="true"
@@ -141,6 +139,9 @@
 	<Button
 		android:id="@+id/loginButton"
 		android:text="@string/loginButton"
+
+		style="@style/actionButton"
+
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		
