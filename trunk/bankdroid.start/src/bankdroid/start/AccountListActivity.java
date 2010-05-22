@@ -9,14 +9,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.model.Account;
 import com.csaba.connector.service.AccountService;
 
-public class AccountListActivity extends ServiceActivity
+public class AccountListActivity extends ServiceActivity implements OnItemClickListener
 {
 
 	@Override
@@ -28,7 +30,9 @@ public class AccountListActivity extends ServiceActivity
 
 		setContentView(R.layout.accountlist);
 
-		registerForContextMenu(findViewById(R.id.accountList));
+		final ListView list = (ListView) findViewById(R.id.accountList);
+		registerForContextMenu(list);
+		list.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -76,7 +80,6 @@ public class AccountListActivity extends ServiceActivity
 		if ( item.getItemId() == R.id.quickHistory )
 		{
 			final long id = ( (AdapterContextMenuInfo) item.getMenuInfo() ).id;
-
 			final AccountAdapter adapter = (AccountAdapter) ( (ListView) findViewById(R.id.accountList) ).getAdapter();
 
 			final Account account = (Account) adapter.getItemById(id);
@@ -89,4 +92,35 @@ public class AccountListActivity extends ServiceActivity
 		return super.onContextItemSelected(item);
 	}
 
+	@Override
+	public void onItemClick( final AdapterView<?> parent, final View view, final int position, final long id )
+	{
+		final AccountAdapter adapter = (AccountAdapter) parent.getAdapter();
+
+		final Account account = (Account) adapter.getItem(position);
+
+		final Intent intent = new Intent(getBaseContext(), PropertyViewActivity.class);
+		intent.putExtra(EXTRA_PROPERTY_OBJECT, account);
+		intent.putExtra(EXTRA_ACTIVITY_TITLE, getString(R.string.accountDetailTitle));
+
+		final String[] defaultLabels = new String[6];
+		final String[] defaultValues = new String[6];
+
+		defaultLabels[0] = getString(R.string.accountName);
+		defaultValues[0] = account.getName();
+		defaultLabels[1] = getString(R.string.accountNumber);
+		defaultValues[1] = account.getNumber();
+		defaultLabels[2] = getString(R.string.availableBalance);
+		defaultValues[2] = account.getAvailableBalance().toString();
+		defaultLabels[3] = getString(R.string.bookedBalance);
+		defaultValues[3] = account.getBookedBalance().toString();
+		defaultLabels[4] = getString(R.string.accountType);
+		defaultValues[4] = account.getType();
+		defaultLabels[5] = getString(R.string.accountIBAN);
+		defaultValues[5] = account.getIBAN();
+
+		intent.putExtra(EXTRA_PROPERTY_DEFAULT_LABELS, defaultLabels);
+		intent.putExtra(EXTRA_PROPERTY_DEFAULT_VALUES, defaultValues);
+		startActivity(intent);
+	}
 }

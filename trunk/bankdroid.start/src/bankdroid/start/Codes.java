@@ -28,4 +28,8 @@ public interface Codes
 
 	//EXTRAS
 	final static String EXTRA_TRANSACTION_FILTER = "com.bankdroid.TransactionFilter";
+	final static String EXTRA_PROPERTY_OBJECT = "com.bankdroid.PropertyObject";
+	final static String EXTRA_PROPERTY_DEFAULT_LABELS = "com.bankdroid.PropertyDefaultLabels";
+	final static String EXTRA_PROPERTY_DEFAULT_VALUES = "com.bankdroid.PropertyDefaultValues";
+	final static String EXTRA_ACTIVITY_TITLE = "com.bankdroid.ActivityTitle";
 }
