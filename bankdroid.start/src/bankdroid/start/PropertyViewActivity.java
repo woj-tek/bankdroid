@@ -27,6 +27,9 @@ public class PropertyViewActivity extends TrackedActivity implements Codes
 	{
 		super.onResume();
 
+		if ( !SessionManager.getInstance().isLoggedIn() )
+			return;
+
 		final Intent intent = getIntent();
 		if ( intent != null )
 		{

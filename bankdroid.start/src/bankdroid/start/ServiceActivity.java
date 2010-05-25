@@ -107,7 +107,7 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 	{
 		super.onResume();
 
-		if ( sessionOriented && SessionManager.getInstance().getSession() == null )
+		if ( sessionOriented && !SessionManager.getInstance().isLoggedIn() )
 		{
 			startActivityForResult(new Intent(getBaseContext(), StartActivity.class), LOGIN);
 		}
