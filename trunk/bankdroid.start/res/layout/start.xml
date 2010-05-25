@@ -147,6 +147,17 @@
 		
 		android:layout_below="@id/password"
 		/>
+
+	<TextView
+		android:id="@+id/msgUseMenu"
+		android:text="@string/msgUseMenu"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		
+		style="@style/commentText"
+		
+		android:layout_below="@id/loginButton"
+		/>
 	    
 	    
 </RelativeLayout>
