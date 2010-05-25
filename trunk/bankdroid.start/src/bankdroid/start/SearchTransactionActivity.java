@@ -52,6 +52,9 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 	{
 		super.onResume();
 
+		if ( !SessionManager.getInstance().isLoggedIn() )
+			return;
+
 		filter = TransactionFilter.getDefaultFilter();
 		updateAccountSelect();
 

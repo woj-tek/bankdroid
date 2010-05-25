@@ -58,26 +58,37 @@ public class TransactionListActivity extends ServiceActivity implements OnItemCl
 	{
 		super.onResume();
 
+		if ( !SessionManager.getInstance().isLoggedIn() )
+			return;
+
 		//process intent
 		final Intent filterIntent = getIntent();
-		filter = (TransactionFilter) filterIntent.getSerializableExtra(EXTRA_TRANSACTION_FILTER);
+		if ( filterIntent != null )
+		{
+			setIntent(null); // clear intent to make sure that it is not called for new search
 
-		//reset data fields
-		final String template = getString(R.string.tranListSummary);
+			filter = (TransactionFilter) filterIntent.getSerializableExtra(EXTRA_TRANSACTION_FILTER);
 
-		final DateFormat shortFormat = Formatters.getShortDateFormat();
-		final String summary = MessageFormat.format(template, filter.getAccount() == null ? getString(R.string.all)
-				: GUIUtil.getAccountName(filter.getAccount()), shortFormat.format(filter.getFrom()), shortFormat
-				.format(filter.getTo()));
-		( (TextView) findViewById(R.id.filterOptions) ).setText(summary);
+			//reset data fields
+			final String template = getString(R.string.tranListSummary);
 
-		( (TextView) findViewById(R.id.totals) ).setText("");
+			final DateFormat shortFormat = Formatters.getShortDateFormat();
+			final String summary = MessageFormat.format(template, filter.getAccount() == null ? getString(R.string.all)
+					: GUIUtil.getAccountName(filter.getAccount()), shortFormat.format(filter.getFrom()), shortFormat
+					.format(filter.getTo()));
+			( (TextView) findViewById(R.id.filterOptions) ).setText(summary);
 
-		//start services	
-		if ( filter.getAccount() == null )
-			SessionManager.getInstance().getAccounts(this);
-		else
-			callHistoryService(filter.getAccount(), filter.getFrom(), filter.getTo());
+			( (TextView) findViewById(R.id.totals) ).setText("");
+
+			//reset list
+			adapter.setItems(new HistoryItem[0]);
+
+			//start services	
+			if ( filter.getAccount() == null )
+				SessionManager.getInstance().getAccounts(this);
+			else
+				callHistoryService(filter.getAccount(), filter.getFrom(), filter.getTo());
+		}
 	}
 
 	private void callHistoryService( final Account account, final Date from, final Date to )

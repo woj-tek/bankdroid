@@ -28,21 +28,20 @@ import com.csaba.connector.service.LoginService;
 /**
  * @author Gabe
  *
- *	FIXME duplicated data load, when phone is switch of during data load, or something is going back to transaction list
- *
- *  TODO use AccountManager to handle stored passowrds
  *  TODO take care of session timeout 
  *  TODO add hungarian translation
  *
+ *  XXX use AccountManager to handle stored passowrds
  *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
- *  XXX share account information link for account numbers, account details, transaction details, et.c..
+ *  XXX share account information link for account numbers, account details, transaction details, etc..
+ *  XXX toolbars instead of menu
+ *  XXX analytics on the clicks. 
+ *
  *	XXX make plugins for various login screens
  *	XXX enable different flow for login (to support SMS OTP)
  *  XXX add OTP plugin
  *  XXX add Citibank plugin
  *  XXX add K&H plugin
- *  XXX toolbars instead of menu
- *  XXX analytics on the clicks. 
  */
 public class StartActivity extends ServiceActivity implements OnClickListener
 {

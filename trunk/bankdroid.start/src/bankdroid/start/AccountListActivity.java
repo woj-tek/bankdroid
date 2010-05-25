@@ -40,7 +40,8 @@ public class AccountListActivity extends ServiceActivity implements OnItemClickL
 	{
 		super.onResume();
 
-		Log.d(TAG, "onResume()");
+		if ( !SessionManager.getInstance().isLoggedIn() )
+			return;
 
 		SessionManager.getInstance().getAccounts(this);
 	}
