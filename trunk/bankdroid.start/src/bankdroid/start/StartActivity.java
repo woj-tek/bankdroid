@@ -31,19 +31,18 @@ import com.csaba.connector.service.LoginService;
  *	FIXME duplicated data load, when phone is switch of during data load, or something is going back to transaction list
  *
  *  TODO use AccountManager to handle stored passowrds
- *  TODO logout to menu / header
  *  TODO take care of session timeout 
  *  TODO add hungarian translation
- *  TODO shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
- *  TODO analytics on the clicks. 
- *  
- *  XXX toolbars instead of menu
+ *
+ *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
  *  XXX share account information link for account numbers, account details, transaction details, et.c..
  *	XXX make plugins for various login screens
  *	XXX enable different flow for login (to support SMS OTP)
  *  XXX add OTP plugin
  *  XXX add Citibank plugin
  *  XXX add K&H plugin
+ *  XXX toolbars instead of menu
+ *  XXX analytics on the clicks. 
  */
 public class StartActivity extends ServiceActivity implements OnClickListener
 {
@@ -222,26 +221,32 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 	@Override
 	public void onServiceFinished( final BankService service )
 	{
-		SessionManager.getInstance().setSession(this, ( (LoginService) service ).getSession());
+		super.onServiceFinished(service);
 
-		//save last succesful login details into preferences
-		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-		final Editor editor = preferences.edit();
-		if ( preferences.getBoolean(PREF_SAVE_LAST_LOGIN, true) )
+		if ( service instanceof LoginService )
 		{
-			editor.putString(PREF_LAST_BANK, bankSelected.getId());
-			editor.putString(PREF_LAST_LOGINID, loginId);
-		}
+			SessionManager.getInstance().setSession(this, ( (LoginService) service ).getSession());
 
-		if ( preferences.getBoolean(PREF_SAVE_PASSWORD, false) )
-		{
-			editor.putString(PREF_LAST_PASSWORD, password);
-		}
-		editor.commit();
+			//save last succesful login details into preferences
+			final SharedPreferences preferences = PreferenceManager
+					.getDefaultSharedPreferences(getApplicationContext());
 
-		setResult(RESULT_OK);
-		finish();
+			final Editor editor = preferences.edit();
+			if ( preferences.getBoolean(PREF_SAVE_LAST_LOGIN, true) )
+			{
+				editor.putString(PREF_LAST_BANK, bankSelected.getId());
+				editor.putString(PREF_LAST_LOGINID, loginId);
+			}
+
+			if ( preferences.getBoolean(PREF_SAVE_PASSWORD, false) )
+			{
+				editor.putString(PREF_LAST_PASSWORD, password);
+			}
+			editor.commit();
+
+			setResult(RESULT_OK);
+			finish();
+		}
 	}
 
 	@Override

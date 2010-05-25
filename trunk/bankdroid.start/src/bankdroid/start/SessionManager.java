@@ -164,4 +164,9 @@ public class SessionManager implements ServiceListener, Codes
 	{
 		return activeService;
 	}
+
+	public boolean isLoggedIn()
+	{
+		return session != null;
+	}
 }

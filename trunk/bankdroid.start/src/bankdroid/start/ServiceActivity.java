@@ -13,6 +13,7 @@ import bankdroid.util.TrackedActivity;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.ServiceException;
+import com.csaba.connector.service.LogoutService;
 
 public abstract class ServiceActivity extends TrackedActivity implements Codes, ServiceListener
 {
@@ -75,6 +76,15 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 	}
 
 	@Override
+	public void onServiceFinished( final BankService service )
+	{
+		if ( service instanceof LogoutService )
+		{
+			finish();
+		}
+	}
+
+	@Override
 	protected Dialog onCreateDialog( final int id )
 	{
 		Dialog dialog = null;
@@ -130,6 +140,7 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 		inflater.inflate(R.menu.mainmenu, menu);
 
 		menu.findItem(R.id.menuHome).setEnabled(showHomeMenu);
+		menu.findItem(R.id.menuLogout).setEnabled(SessionManager.getInstance().isLoggedIn());
 		return true;
 	}
 
@@ -143,6 +154,10 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 		else if ( item.getItemId() == R.id.menuHome )
 		{
 			startActivity(new Intent(getBaseContext(), MainActivity.class));
+		}
+		else if ( item.getItemId() == R.id.menuLogout )
+		{
+			SessionManager.getInstance().logout(this);
 		}
 		else if ( item.getItemId() == R.id.menuAbout )
 		{

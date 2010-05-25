@@ -64,6 +64,7 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 	@Override
 	public void onServiceFinished( final BankService service )
 	{
+		super.onServiceFinished(service);
 		if ( service instanceof AccountService )
 		{
 			accounts = ( (AccountService) service ).getAccounts();
