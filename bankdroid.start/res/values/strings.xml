@@ -25,6 +25,7 @@
     <string name="menuPref">Settings</string>
     <string name="menuAbout">About</string>
     <string name="menuHome">Home</string>
+    <string name="menuLogout">Logout</string>
 
 	<!-- Preferences -->
     <string name="loginPrefs">Login Settings</string>

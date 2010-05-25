@@ -57,10 +57,15 @@ public class AccountListActivity extends ServiceActivity implements OnItemClickL
 	@Override
 	public void onServiceFinished( final BankService service )
 	{
-		final AccountService accountService = (AccountService) service;
+		super.onServiceFinished(service);
 
-		final AccountAdapter adapter = new AccountAdapter(accountService.getAccounts());
-		( (ListView) findViewById(R.id.accountList) ).setAdapter(adapter);
+		if ( service instanceof AccountService )
+		{
+			final AccountService accountService = (AccountService) service;
+
+			final AccountAdapter adapter = new AccountAdapter(accountService.getAccounts());
+			( (ListView) findViewById(R.id.accountList) ).setAdapter(adapter);
+		}
 	}
 
 	@Override

@@ -102,6 +102,7 @@ public class TransactionListActivity extends ServiceActivity implements OnItemCl
 	@Override
 	public void onServiceFinished( final BankService service )
 	{
+		super.onServiceFinished(service);
 		if ( service instanceof AccountHistoryService )
 		{
 			final AccountHistoryService history = (AccountHistoryService) service;

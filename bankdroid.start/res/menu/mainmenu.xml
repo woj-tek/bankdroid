@@ -6,6 +6,11 @@
 		android:titleCondensed="@string/menuHome" 
 		android:title="@string/menuHome"/>
 	<item 
+		android:id="@+id/menuLogout"  
+		android:icon="@android:drawable/ic_menu_directions" 
+		android:titleCondensed="@string/menuLogout" 
+		android:title="@string/menuLogout"/>
+	<item 
 		android:id="@+id/menuPreferences"  
 		android:icon="@android:drawable/ic_menu_preferences" 
 		android:titleCondensed="@string/menuPref" 
