@@ -28,7 +28,8 @@ import com.csaba.connector.service.LoginService;
 /**
  * @author Gabe
  *
- *  TODO take care of session timeout 
+ *  TODO EULA
+ *  TODO rename about to contact
  *  TODO add hungarian translation
  *
  *  XXX use AccountManager to handle stored passowrds

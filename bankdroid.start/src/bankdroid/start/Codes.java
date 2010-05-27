@@ -29,6 +29,8 @@ public interface Codes
 	final static int LOGIN = 0xbaba;
 	final static String DUMMY_BANK_ID = "DUMMY";
 	final static int NOTIFICATION_ACTIVE_SESSION = 122112;
+	final static int NOTIFICATION_SESSION_TIMEOUT = 122113;
+	final static int NOTIFICATION_SESSION_TIMEOUT_EXPIRED = 122114;
 
 	//EXTRAS
 	final static String EXTRA_TRANSACTION_FILTER = "com.bankdroid.TransactionFilter";
