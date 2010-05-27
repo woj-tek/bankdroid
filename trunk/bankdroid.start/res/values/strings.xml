@@ -6,6 +6,8 @@
     <string name="progressText">Please wait while communicating with server...</string>
     <string name="errNoConnector">There is no bank connector available (or dummy is switched off).</string>
     <string name="warnActiveSession">You have an active banking session.</string>
+    <string name="warnSessionTimeouted">Your session was closed due to inactivity timeout.</string>
+    <string name="warnSessionTimeout">Your session will be closed within {0} seconds.</string>
 
 	<!-- StartActivity -->
     <string name="title">BankDroid</string>
