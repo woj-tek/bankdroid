@@ -28,7 +28,6 @@ import com.csaba.connector.service.LoginService;
 /**
  * @author Gabe
  *
- *  TODO EULA
  *  TODO rename about to contact
  *  TODO add hungarian translation
  *
@@ -59,6 +58,8 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 	public void onCreate( final Bundle savedInstanceState )
 	{
 		super.onCreate(savedInstanceState);
+
+		Eula.show(this);
 
 		setSessionOriented(false);
 		setShowHomeMenu(false);
