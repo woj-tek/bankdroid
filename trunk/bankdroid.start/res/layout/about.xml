@@ -84,6 +84,15 @@
 				/>
 				
 			<ImageView
+				android:id="@+id/facebookIcon"
+				android:src="@drawable/facebook_icon"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_below="@id/version"
+				android:layout_toRightOf="@id/gmailIcon"
+				/>
+				
+			<ImageView
 				android:id="@+id/divider"
 				android:src="@android:drawable/divider_horizontal_bright"
 				android:layout_width="fill_parent"

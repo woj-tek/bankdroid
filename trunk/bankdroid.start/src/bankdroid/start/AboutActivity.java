@@ -41,6 +41,7 @@ public class AboutActivity extends TrackedActivity implements OnClickListener, C
 
 		findViewById(R.id.twitterIcon).setOnClickListener(this);
 		findViewById(R.id.gmailIcon).setOnClickListener(this);
+		findViewById(R.id.facebookIcon).setOnClickListener(this);
 
 		//Set links in description0 
 		final TextView desc0 = (TextView) findViewById(R.id.description);
@@ -104,6 +105,11 @@ public class AboutActivity extends TrackedActivity implements OnClickListener, C
 		else if ( v.getId() == R.id.gmailIcon )
 		{
 			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(GMAIL_URL));
+			startActivity(viewIntent);
+		}
+		else if ( v.getId() == R.id.facebookIcon )
+		{
+			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(FACEBOOK_URL));
 			startActivity(viewIntent);
 		}
 	}

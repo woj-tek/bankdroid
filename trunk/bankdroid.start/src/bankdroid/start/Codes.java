@@ -6,6 +6,7 @@ public interface Codes
 
 	public static final String TWITTER_URL = "http://twitter.com/bankdroid";
 	public static final String GMAIL_URL = "mailto:info@bankdroid.info";
+	public static final String FACEBOOK_URL = "http://www.facebook.com/pages/BankDroid/124814474207047?ref=ts";
 	public static final String URL_PROJECT_HOME = "http://bit.ly/4Ys9pQ";
 
 	final static int SERVICE_PROCESS = 1;
