@@ -41,8 +41,8 @@ public class PropertyAdapter extends BaseAdapter
 	{
 		if ( position >= defaultLength )
 		{
-			return new Property(names[position - defaultLength] + ":", object.getRemoteProperty(names[position
-					- defaultLength]));
+			return new Property(object.getLocalizedName(names[position - defaultLength]) + ":", object
+					.getRemoteProperty(names[position - defaultLength]));
 		}
 		return new Property(defaultLabels[position], defaultValues[position]);
 
