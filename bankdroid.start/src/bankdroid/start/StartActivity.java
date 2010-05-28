@@ -28,7 +28,6 @@ import com.csaba.connector.service.LoginService;
 /**
  * @author Gabe
  *
- *  TODO rename about to contact
  *  TODO add hungarian translation
  *
  *  XXX use AccountManager to handle stored passowrds
