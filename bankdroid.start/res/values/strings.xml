@@ -83,5 +83,11 @@
 	<string name="donateURL">http://bit.ly/8LrNB9</string>
 	<string name="btnInfoSite">Info Site</string>
 	<string name="donateButton"> Donate</string>
+	
+	<!-- EULA -->
+	<string name="eula_title">License</string>
+	<string name="eula_accept">Accept</string>
+	<string name="eula_refuse">Refuse</string>
+	
 
 </resources>
