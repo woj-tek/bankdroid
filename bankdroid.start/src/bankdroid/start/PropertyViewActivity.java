@@ -5,11 +5,10 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.ListView;
 import android.widget.TextView;
-import bankdroid.util.TrackedActivity;
 
 import com.csaba.connector.model.AbstractRemoteObject;
 
-public class PropertyViewActivity extends TrackedActivity implements Codes
+public class PropertyViewActivity extends ServiceActivity
 {
 
 	@Override

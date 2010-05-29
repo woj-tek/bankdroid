@@ -4,6 +4,8 @@
   	android:layout_width="fill_parent"
   	android:layout_height="wrap_content"
   	android:background="@drawable/itembackground"
+  	android:paddingLeft="2sp"
+  	android:paddingRight="5sp"
   	>
   	
 
@@ -27,6 +29,7 @@
   		android:gravity="right"
   		
   		android:layout_alignParentTop="true"
+  		android:layout_marginRight="15sp"
   		/>
 
   	<TextView
@@ -39,6 +42,35 @@
   		android:gravity="left"
   		
   		android:layout_below="@id/amount"
+  		android:paddingBottom="2sp"
+  		android:layout_marginRight="15sp"
+  		/>
+  		
+  	<TextView  
+		android:id="@+id/forwardIcon"
+		
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content" 
+	    android:text="&#x203A;"
+	    android:padding="2sp"
+	    android:textSize="23sp"
+	    android:textColor="#777777"
+	    android:lines="2"
+	    android:gravity="center_vertical"
+	    
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:layout_alignBottom="@id/description"
+	    />
+
+  		
+  	<ImageView
+  		android:id="@+id/divider"
+		android:src="@android:drawable/divider_horizontal_bright"
+		android:layout_width="fill_parent"
+		android:layout_height="1sp"
+		android:scaleType="fitXY"			
+		android:layout_below="@id/description"
   		/>
 
 </RelativeLayout>
