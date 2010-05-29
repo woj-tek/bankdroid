@@ -4,7 +4,9 @@
   	android:layout_width="fill_parent"
   	android:layout_height="wrap_content"
   	android:background="@drawable/itembackground"
-  	android:paddingRight="10sp">
+  	android:paddingLeft="2sp"
+  	android:paddingRight="5sp"
+  	>
   	
   	<TextView
   		android:id="@+id/accountName"
@@ -16,7 +18,6 @@
   		android:paddingTop="3sp"
   		android:paddingBottom="3sp"
   		android:paddingRight="3sp"
-  		android:paddingLeft="13sp"
 
   		android:layout_alignParentTop="true"
   		/>
@@ -27,7 +28,6 @@
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
   		android:textColor="#000000"
-   		android:paddingLeft="13sp"
     	android:gravity="left" 	
   		
   		android:layout_below="@id/accountName"
@@ -40,7 +40,7 @@
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
   		style="@style/amount"
-   		android:paddingRight="13sp"
+   		android:layout_marginRight="13sp"
   		
   		android:layout_below="@id/accountName"
   		android:layout_toRightOf="@id/availableBalanceLabel"
@@ -53,7 +53,6 @@
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
   		android:textColor="#000000"
-   		android:paddingLeft="13sp"
     	android:gravity="left" 	
   		
   		android:layout_below="@id/availableBalanceLabel"
@@ -66,11 +65,38 @@
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
   		style="@style/amount"
-   		android:paddingRight="13sp"
+   		android:layout_marginRight="13sp"
   		
   		android:layout_below="@id/availableBalance"
  		android:layout_toRightOf="@id/bookedBalanceLabel"
   		android:layout_alignParentRight="true"
+  		/>
+  		
+  		
+  	<TextView  
+		android:id="@+id/forwardIcon"
+		
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content" 
+	    android:text="&#x203A;"
+	    android:padding="2sp"
+	    android:textSize="23sp"
+	    android:textColor="#777777"
+	    android:lines="2"
+	    android:gravity="center_vertical"
+	    
+	    android:layout_alignParentRight="true"
+	    android:layout_alignParentTop="true"
+	    android:layout_alignBottom="@id/bookedBalance"
+	    />
+	    
+  	<ImageView
+  		android:id="@+id/divider"
+		android:src="@android:drawable/divider_horizontal_bright"
+		android:layout_width="fill_parent"
+		android:layout_height="1sp"
+		android:scaleType="fitXY"			
+		android:layout_below="@id/bookedBalance"
   		/>  		
 
 </RelativeLayout>

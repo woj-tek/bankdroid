@@ -16,21 +16,22 @@
     <TextView
     	android:id="@+id/customerName"
     	android:text="John Local"
-    	style="@style/pageTitle"
     	
-    	android:layout_alignBottom="@id/bankLogo"
+    	style="@style/pageTitle"
     	/>
     
     <ImageView
     	android:id="@+id/bankLogo"
     	android:src="@drawable/icon"
-    	android:padding="10sp"
+    	android:padding="1sp"
+    	android:scaleType="centerInside"
     	
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
     	
     	android:layout_alignParentLeft="true"
     	android:layout_alignParentTop="true"
+    	android:layout_alignBottom="@id/customerName"
     	/>
     
 	<Button
