@@ -212,6 +212,7 @@ public class SessionManager implements ServiceListener, Codes
 
 			final LogoutService logout = BankServiceFactory.getBankService(session.getBank(), LogoutService.class);
 			logout.execute(session);
+			Log.d(TAG, "Silent logout was succsfull: " + logout.getClass().getName());
 		}
 		catch ( final Exception e )
 		{
