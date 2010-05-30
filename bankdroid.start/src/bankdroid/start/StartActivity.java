@@ -28,10 +28,6 @@ import com.csaba.connector.service.LoginService;
 /**
  * @author Gabe
  *
- *  FIXME bank logo in Main layout
- *  
- *  TODO verify Hungarian labels for CIB accounts
- *  
  *  XXX use AccountManager to handle stored passowrds
  *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
  *  XXX share account information link for account numbers, account details, transaction details, etc..

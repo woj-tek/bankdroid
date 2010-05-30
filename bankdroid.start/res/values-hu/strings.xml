@@ -36,6 +36,8 @@
     <string name="saveLastLoginSummary">Utoljára használt felhasználó azonosító megjegyzése.</string>
     <string name="savePassword">Jelszó megjegyzése</string>
     <string name="savePasswordSummary">Jelszó megjegyzése. Biztonsági kockázatot jelenthet.</string>
+    <string name="sessionTimeout">Kapcsolat lejárat</string>
+    <string name="sessionTimeoutSummary">Automatikus kapcsolat lejárat inaktivitás esetén</string>
 
     <string name="developerPrefs">Fejlesztői beállítások</string>
     <string name="showDummyBank">Minta bank megjelenítése</string>
