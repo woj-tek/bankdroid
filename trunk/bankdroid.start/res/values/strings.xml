@@ -36,6 +36,8 @@
     <string name="saveLastLoginSummary">Save last login ID and bank.</string>
     <string name="savePassword">Save Password</string>
     <string name="savePasswordSummary">Save password. This can be insecure.</string>
+    <string name="sessionTimeout">Session timeout</string>
+    <string name="sessionTimeoutSummary">After this inactivity period the session will be closed.</string>
 
     <string name="developerPrefs">Developer Settings</string>
     <string name="showDummyBank">Show Dummy Bank</string>

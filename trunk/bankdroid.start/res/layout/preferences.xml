@@ -15,6 +15,15 @@
 			android:defaultValue="false" 
 			android:summary="@string/savePasswordSummary"
 			android:key="bankdroid.start.SavePassword" />
+		
+		<ListPreference
+			android:title="@string/sessionTimeout"
+			android:summary="@string/sessionTimeoutSummary"
+			android:key="bankdroid.start.SessionTimeout"
+			android:defaultValue="3"
+			android:entries="@array/sessionTimeoutLabels"
+			android:entryValues="@array/sessionTimeoutValues" 
+			/>
 	
 	</PreferenceCategory>
 

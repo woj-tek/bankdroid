@@ -9,7 +9,6 @@ import com.csaba.connector.model.AbstractRemoteObject;
 
 /**
  * @author Gabe
- * FIXME differentiate default props
  */
 public class PropertyAdapter extends BaseAdapter
 {

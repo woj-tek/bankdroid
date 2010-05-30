@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="sessionTimeoutValues">
+		<item>1</item>
+		<item>3</item>
+		<item>5</item>
+		<item>10</item>
+	</string-array>
+	<string-array name="sessionTimeoutLabels">
+		<item>1 perc</item>
+		<item>3 perc</item>
+		<item>5 perc</item>
+		<item>10 perc</item>
+	</string-array>
+</resources>

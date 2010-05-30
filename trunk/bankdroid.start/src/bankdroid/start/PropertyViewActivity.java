@@ -42,8 +42,6 @@ public class PropertyViewActivity extends ServiceActivity
 
 			final ListView list = (ListView) findViewById(R.id.propertyList);
 			list.setAdapter(new PropertyAdapter(object, defaultLabels, defaultValues));
-
-			//FIXME handle defaults
 		}
 	}
 }

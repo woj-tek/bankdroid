@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import bankdroid.start.ServiceRunner.ServiceListener;
 
@@ -40,7 +41,6 @@ public class SessionManager implements ServiceListener, Codes
 
 	///////METHODS
 
-	public final static long SESSION_TIMEOUT = 60 * 1000; //FIXME get it from preferences
 	/**
 	 * Warning period indicates when the customer will be notified before the session timeout starts.
 	 * During the warning period a notification will be updated in every second. 
@@ -61,6 +61,10 @@ public class SessionManager implements ServiceListener, Codes
 	public void setSession( final Context context, final Session session )
 	{
 		this.session = session;
+
+		final String st = PreferenceManager.getDefaultSharedPreferences(context).getString(PREF_SESSION_TIMEOUT,
+				DEFAULT_SESSION_TIMEOUT);
+		final long sessionTimeout = Long.parseLong(st) * 60000L;
 
 		final NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -115,12 +119,12 @@ public class SessionManager implements ServiceListener, Codes
 					{
 						final long now = System.currentTimeMillis();
 						final long diff = now - lastSessionPingTS;
-						if ( diff >= SESSION_TIMEOUT )
+						if ( diff >= sessionTimeout )
 						{
 							//logout here
 							silentLogout(context);
 						}
-						else if ( diff >= SESSION_TIMEOUT - WARNING_PERIOD )
+						else if ( diff >= sessionTimeout - WARNING_PERIOD )
 						{
 							final Notification notification = new Notification(android.R.drawable.stat_notify_error,
 									null, System.currentTimeMillis());
@@ -134,7 +138,7 @@ public class SessionManager implements ServiceListener, Codes
 
 							notification.setLatestEventInfo(context, context.getString(R.string.app_name),
 									MessageFormat.format(context.getString(R.string.warnSessionTimeout),
-											(int) ( ( SESSION_TIMEOUT - diff ) / 1000 )), contentIntent);
+											(int) ( ( sessionTimeout - diff ) / 1000 )), contentIntent);
 							notification.flags |= Notification.FLAG_ONGOING_EVENT;
 
 							//display notification
@@ -148,7 +152,7 @@ public class SessionManager implements ServiceListener, Codes
 						{
 							//continue waiting
 							timeoutHandler.sendMessageDelayed(timeoutHandler.obtainMessage(HANDLER_TIMEOUT), diff
-									- ( SESSION_TIMEOUT - WARNING_PERIOD ));
+									- ( sessionTimeout - WARNING_PERIOD ));
 
 							// clear warning notification if there is any.
 							nm.cancel(NOTIFICATION_SESSION_TIMEOUT);
@@ -156,7 +160,7 @@ public class SessionManager implements ServiceListener, Codes
 					}
 				}
 			};
-			timeoutHandler.sendMessageDelayed(timeoutHandler.obtainMessage(HANDLER_TIMEOUT), SESSION_TIMEOUT
+			timeoutHandler.sendMessageDelayed(timeoutHandler.obtainMessage(HANDLER_TIMEOUT), sessionTimeout
 					- WARNING_PERIOD);
 		}
 	}
