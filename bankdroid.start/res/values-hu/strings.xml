@@ -81,7 +81,7 @@
 	<string name="aboutId">BankDroid START</string>
 	<string name="aboutDesc">A START alkalmazás a BankDroid nyílforrású project keretében született önkéntes fejlesztők munkája által.</string>
 	<string name="aboutDesc2">Ha bármilyen problémát tapasztalsz, vagy csak valami új funkciót szeretnél látni az alkalmazásban, nyugodtan írj a fejlesztőknek a fenti csatornákon.</string>
-	<string name="aboutUrl2">http://www.bankdroid.info</string>
+	<string name="aboutUrl2">http://start.bankdroid.info</string>
 	<string name="donateURL">http://bit.ly/7rWCGK</string>
 	<string name="btnInfoSite">Weboldal</string>
 	<string name="donateButton"> Támogass!</string>
