@@ -81,7 +81,7 @@
 	<string name="aboutId">BankDroid START</string>
 	<string name="aboutDesc">The START is product of the BankDroid open source project. Developed by voluntary programmers.</string>
 	<string name="aboutDesc2">If you experience any problem with the application, or you would like to see some new features, feel free to contact us.</string>
-	<string name="aboutUrl2">http://www.bankdroid.info</string>
+	<string name="aboutUrl2">http://start.bankdroid.info</string>
 	<string name="donateURL">http://bit.ly/8LrNB9</string>
 	<string name="btnInfoSite">Info Site</string>
 	<string name="donateButton"> Donate</string>
