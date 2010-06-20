@@ -19,7 +19,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * FIXME background problem with rounded border on android 2.1
  * FIXME new preference option for security warnings
  * @author Gabe
  *
