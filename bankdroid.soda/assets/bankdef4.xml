@@ -18,5 +18,21 @@ CSOB: xkm-jzj-e3e kod transakce 23423423 z 234234234 na 123-1231231 csatka 1234,
 			<Expression transactionSign="true"><![CDATA[CSOB: ([0-9a-z]*-[0-9a-z]*-[0-9a-z]*) .*]]></Expression>
 		</Expressions>
 	</Bank>		
+
+	<Bank>
+		<!-- Sample: 999024 
+Z:  123456789 na:  123456789 castka-mena:  1234.1234 c. kod:1234567890 Vygenerovan:17-06-2010 18:40:20
+Vas autentizacni kod: 0123456789 Vygenerovan: 17-06-2010 09:16:45 Kontrola serveru:  12345678abcdef
+		 -->
+		<Name>Raiffeisenbank</Name>
+		<IconId>raiffeisen_logo</IconId>
+		<Phones>
+			<Phone>999024</Phone>
+		</Phones>
+		<Expressions>
+			<Expression transactionSign="true"><![CDATA[.*:[^:]* kod:([0-9]*) .*]]></Expression>
+			<Expression><![CDATA[.* autentizacni kod: ([0-9]*) .*]]></Expression>
+		</Expressions>
+	</Bank>		
 		
 </Banks>
