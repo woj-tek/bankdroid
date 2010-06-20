@@ -25,7 +25,7 @@
 			android:layout_marginLeft="15sp" 
 			android:layout_marginRight="15sp" 
 			android:layout_height="wrap_content"
-			android:background="@android:drawable/alert_light_frame">
+			android:background="@drawable/background2">
 			<ImageView 
 				android:id="@+id/logo" 
 				android:layout_width="wrap_content" 
@@ -127,6 +127,7 @@
 				android:id="@+id/url2" 
 				android:textSize="12sp"
 				android:gravity="right"
+				android:textColor="#777" 
 				
 				android:layout_width="fill_parent" 
 				android:layout_height="wrap_content"
