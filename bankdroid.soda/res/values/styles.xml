@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<style name="LabelText">
+	<style name="labelText">
 		<item name="android:textSize">20sp</item>
 		<item name="android:textColor">#FFFFFF</item>
 	</style>
-	<style name="CommentText">
+	<style name="commentText">
 		<item name="android:textSize">14sp</item>
 		<item name="android:textColor">#AAAAAA</item>
 	</style>

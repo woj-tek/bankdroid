@@ -4,7 +4,7 @@
   	android:orientation="vertical"
   	android:layout_width="fill_parent"
   	android:layout_height="fill_parent"
-  	android:background="#56748E"
+  	android:background="@color/sodaBlue"
    	>
    	<ImageView
    		android:src="@drawable/soda_launch"

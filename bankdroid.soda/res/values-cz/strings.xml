@@ -5,6 +5,8 @@
     <string name="editBank">Upravit banku</string>
     <string name="deleteBank">Odstranit banku</string>
     <string name="bankDeleted">Banka byla úspěšně odstraněna.</string>
+    <string name="showForeignBanks">Zobrazit zahraničních bank ...</string><!-- XXX language review-->
+    <string name="hideForeignBanks">Skrýt zahraničních bank ...</string><!-- XXX language review-->
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Telefonní číslo(a):</string>

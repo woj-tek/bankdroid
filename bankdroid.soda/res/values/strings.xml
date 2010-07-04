@@ -6,6 +6,8 @@
     <string name="editBank">Edit Bank</string>
     <string name="deleteBank">Delete Bank</string>
     <string name="bankDeleted">The bank is successfully deleted.</string>
+    <string name="showForeignBanks">Show foreign banks...</string><!-- FIXME translate -->
+    <string name="hideForeignBanks">Hide foreign banks...</string><!-- FIXME translate -->
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Phone number(s):</string>

@@ -7,7 +7,7 @@
 	<application android:icon="@drawable/soda_launch" android:label="@string/app_name">
 
 		<activity android:name="Main" android:label="@string/app_name"
-			android:launchMode="singleTop" android:screenOrientation="portrait">
+			android:launchMode="singleTop">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />

@@ -6,6 +6,8 @@
     <string name="editBank">Bank editieren</string>
     <string name="deleteBank">Bank löschen</string>
     <string name="bankDeleted">Die Bank ist erfolgreich gelöscht.</string>
+    <string name="showForeignBanks">Anzeigen ausländischer Banken...</string><!-- XXX language review-->
+    <string name="hideForeignBanks">Ausblenden ausländischer Banken...</string><!-- XXX language review-->
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Telefonnummer:</string>
