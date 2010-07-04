@@ -9,7 +9,7 @@
 	>
 	
 	<TextView 
-		style="@style/LabelText"
+		style="@style/labelText"
 	    android:id="@+id/smsSender"
 	    android:text="+36205111991"
 	    android:layout_width="fill_parent"
@@ -19,7 +19,7 @@
 	    android:singleLine="true"
 	/>
 	<TextView 
-		style="@style/CommentText"
+		style="@style/commentText"
 	    android:id="@+id/smstext"
 	    android:text="Az ön egyszeri jelszava..."
 	    android:layout_width="fill_parent"

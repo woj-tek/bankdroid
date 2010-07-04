@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
 	android:layout_width="fill_parent" android:layout_height="fill_parent">
 
 	<TextView 
-		android:text="@string/bankListTitle" 
-		android:id="@+id/TextView01" 
+		android:id="@+id/title" 
+		android:text="@string/bankListTitle"
+		style="@style/labelText" 
+
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
+		
+		android:layout_alignParentTop="true"
 		/>
 		
+	<FrameLayout
+		android:id="@+id/buttonRow"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:background="@android:drawable/bottom_bar"
+		android:layout_alignParentBottom="true"
+		>
+		<Button
+			android:id="@+id/showAllCountry"
+			android:text="@string/showForeignBanks" 
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			/>
+	</FrameLayout>
+
 	<ListView 
 		android:id="@+id/bankListView" 
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
+		
+		android:layout_below="@id/title"
+		android:layout_above="@id/buttonRow"
 		/>
 
-</LinearLayout>
+</RelativeLayout>

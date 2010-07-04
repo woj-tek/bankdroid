@@ -34,5 +34,19 @@ Vas autentizacni kod: 0123456789 Vygenerovan: 17-06-2010 09:16:45 Kontrola serve
 			<Expression><![CDATA[.* autentizacni kod: ([0-9]*) .*]]></Expression>
 		</Expressions>
 	</Bank>		
+
+	<Bank>
+		<!-- Sample: mBank 
+Operace c. 1 ze dne 11-1-2010 Zadani preddef. prijemce z uctu: ...12345678 na ucet: ...12345678/1234 heslo: 12345678 mBank.
+		 -->
+		<Name>mBank</Name>
+		<IconId>mbank_logo</IconId>
+		<Phones>
+			<Phone>mBank</Phone>
+		</Phones>
+		<Expressions>
+			<Expression transactionSign="true"><![CDATA[.* heslo: ([0-9]*) mBank.*]]></Expression>
+		</Expressions>
+	</Bank>		
 		
 </Banks>

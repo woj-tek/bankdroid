@@ -1,10 +1,12 @@
 package bankdroid.soda;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -12,7 +14,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -23,11 +27,12 @@ import android.widget.SimpleCursorAdapter.ViewBinder;
 
 /**
  * @author gyenes
- *
  */
-public class BankListActivity extends Activity implements Codes, OnItemClickListener
+public class BankListActivity extends Activity implements Codes, OnItemClickListener, OnClickListener
 {
 	SimpleCursorAdapter adapter;
+	private boolean filtered = true;
+	private String userCountry;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -36,9 +41,13 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 
 		setContentView(R.layout.banklist);
 
+		final TelephonyManager telephony = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+		userCountry = telephony.getSimCountryIso().toUpperCase();
+		Log.d(TAG, "User's country: " + userCountry);
+
 		final Cursor cursor = getContentResolver().query(Bank.CONTENT_URI,
-				new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_PHONENUMBERS, Bank.F_COUNTRY }, null, null,
-				Bank.DEFAULT_SORT_ORDER);
+				new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_PHONENUMBERS, Bank.F_COUNTRY }, Bank.F_COUNTRY + "=?",
+				new String[] { userCountry }, Bank.DEFAULT_SORT_ORDER);
 
 		startManagingCursor(cursor);
 
@@ -68,6 +77,8 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(this);
 		registerForContextMenu(list);
+
+		( (Button) findViewById(R.id.showAllCountry) ).setOnClickListener(this);
 	}
 
 	@Override
@@ -135,5 +146,34 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 		final MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.banklistmenu, menu);
 		return true;
+	}
+
+	@Override
+	public void onClick( final View view )
+	{
+		if ( view.getId() == R.id.showAllCountry )
+		{
+			final Button button = (Button) view;
+			if ( filtered )
+			{
+				filtered = false;
+				button.setText(R.string.hideForeignBanks);
+			}
+			else
+			{
+				filtered = true;
+				button.setText(R.string.showForeignBanks);
+			}
+			stopManagingCursor(adapter.getCursor());
+
+			final Cursor cursor = getContentResolver().query(Bank.CONTENT_URI,
+					new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_PHONENUMBERS, Bank.F_COUNTRY },
+					filtered ? Bank.F_COUNTRY + "=?" : null, filtered ? new String[] { userCountry } : null,
+					Bank.DEFAULT_SORT_ORDER);
+
+			startManagingCursor(cursor);
+
+			adapter.changeCursor(cursor);
+		}
 	}
 }

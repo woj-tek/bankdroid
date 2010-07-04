@@ -9,7 +9,7 @@
 	>
 	
 	<TextView 
-		style="@style/LabelText"
+		style="@style/labelText"
 	    android:id="@+id/bankName"
 	    android:text="Unicredit"
 	    android:layout_width="fill_parent"
@@ -19,7 +19,7 @@
 	    android:singleLine="true"
 	/>
 	<TextView 
-		style="@style/CommentText"
+		style="@style/commentText"
 	    android:id="@+id/phoneNumber"
 	    android:text="+36204051181"
 	    android:layout_width="fill_parent"
