@@ -49,4 +49,20 @@ Operace c. 1 ze dne 11-1-2010 Zadani preddef. prijemce z uctu: ...12345678 na uc
 		</Expressions>
 	</Bank>		
 		
+	<Bank>
+		<!-- Sample: 5200 
+UniCredit Bank\nPrihlaseni\nDatum 01.01.2010 01:01:01\nKod NL3GHJQZ
+UniCredit Bank\nStandardni tuzemska platba\nDetaily PARTNER NAME 123456-1234567890/1234\nCastka -1,00 CZK\nDatum 01.01.10 01:01:01\nKod B1ADKLK4
+		 -->
+		<Name>UniCredit Bank</Name>
+		<IconId>unicredit_logo</IconId>
+		<Phones>
+			<Phone>5200</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[UniCredit Bank.*Prihlaseni.*Kod ([a-zA-Z0-9]+)]]></Expression>
+			<Expression transactionSign="true"><![CDATA[UniCredit Bank.*Kod ([a-zA-Z0-9]+)]]></Expression>
+		</Expressions>
+	</Bank>		
+		
 </Banks>
