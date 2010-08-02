@@ -40,7 +40,7 @@ import bankdroid.soda.CountDown.CountDownListener;
  * <li>let the user to register new banks, store settings in DB</li>
  * <li>let the user to post the sample SMS to the sample@bankdroid.info</li>
  * <li>displays a count-down to indicate when the OTP will expire</li>
- * <li>XXX German translations</li>
+ * <li>German translations</li>
  * <li>displays transaction signing security warning</li>
  * </ul>
  * 

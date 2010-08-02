@@ -3,6 +3,21 @@
 
 <Banks package="bankdroid.soda" county="HU">
 	<Bank>
+		<!-- Sample: AXA BANK
+iBanq2 regisztràciòjàt a következö kòddal tudja jòvàhagyni: 278699 Üdv: AXA 
+iBanq2 bejelentkezését a következö kòddal tudja jòvàhagyni: 244662 Üdv:Axa
+		 -->
+		<Name>AXA Bank</Name>
+		<IconId>axa_logo</IconId>
+		<Phones>
+			<Phone>AXA BANK</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[iBanq2 [^:]*: ([0-9]+) .*]]></Expression>
+		</Expressions>
+	</Bank>
+
+	<Bank>
 		<!-- Sample:
 		OTPdirekt - Belfaldi forint atutalas xxx szamlan yyy HUF asszeggel zzz szamlara. Azonosata: 90120437 Javahagyas 23:55-ig.
 		 -->
@@ -67,6 +82,8 @@
 	<Bank>
 		<!-- Sample: 
 		Az an ERSTE NetBank belapasi kadja: 45087768
+		
+		FIXME verify Erste samples
 		 -->
 		<Name>ERSTE Bank</Name>
 		<IconId>erste_logo</IconId>

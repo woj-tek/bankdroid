@@ -190,31 +190,39 @@ public final class BankManager implements Codes
 				new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_VALIDITY, Bank.F_ICON, Bank.F_COUNTRY,
 						Bank.F_PHONENUMBERS, Bank.F_EXPRESSIONS }, selection, selectionArgs, Bank.DEFAULT_SORT_ORDER);
 
-		if ( cursor.getCount() > 1 )
-			throw new IllegalArgumentException("Too many result.");
-
-		Bank bank = null;
-		if ( cursor.moveToFirst() )
+		try
 		{
-			final int id = cursor.getInt(0);
-			final String name = cursor.getString(1);
+			if ( cursor.getCount() > 1 )
+				throw new IllegalArgumentException("Too many result.");
 
-			final int expiry = cursor.getInt(2);
-			final int icon = cursor.getInt(3);
-			final String country = cursor.getString(4);
-			final String phoneNumbers = cursor.getString(5);
-			final String expressions = cursor.getString(6);
-
-			final String[] exps = unescapeStrings(expressions);
-			final Expression[] exps2 = new Expression[exps.length];
-			for ( int i = 0; i < exps2.length; i++ )
+			Bank bank = null;
+			if ( cursor.moveToFirst() )
 			{
-				exps2[i] = new Expression(exps[i]);
-			}
+				final int id = cursor.getInt(0);
+				final String name = cursor.getString(1);
 
-			bank = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), exps2, icon, country);
+				final int expiry = cursor.getInt(2);
+				final int icon = cursor.getInt(3);
+				final String country = cursor.getString(4);
+				final String phoneNumbers = cursor.getString(5);
+				final String expressions = cursor.getString(6);
+
+				final String[] exps = unescapeStrings(expressions);
+				final Expression[] exps2 = new Expression[exps.length];
+				for ( int i = 0; i < exps2.length; i++ )
+				{
+					exps2[i] = new Expression(exps[i]);
+				}
+
+				bank = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), exps2, icon, country);
+			}
+			return bank;
 		}
-		return bank;
+		finally
+		{
+			if ( cursor != null && !cursor.isClosed() )
+				cursor.close();
+		}
 	}
 
 	public static Bank[] getAllBanks( final Context context )
@@ -224,31 +232,39 @@ public final class BankManager implements Codes
 				new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_VALIDITY, Bank.F_ICON, Bank.F_COUNTRY,
 						Bank.F_PHONENUMBERS, Bank.F_EXPRESSIONS }, null, null, Bank.DEFAULT_SORT_ORDER);
 
-		final List<Bank> banks = new ArrayList<Bank>();
-		while ( cursor.moveToNext() )
+		try
 		{
-			final int id = cursor.getInt(0);
-			final String name = cursor.getString(1);
-
-			Log.d(Codes.TAG, "Bank read: " + id + " - " + name);
-			final int expiry = cursor.getInt(2);
-			final int icon = cursor.getInt(3);
-			final String country = cursor.getString(4);
-			final String phoneNumbers = cursor.getString(5);
-			final String expressions = cursor.getString(6);
-			final String[] exps = unescapeStrings(expressions);
-			final Expression[] exps2 = new Expression[exps.length];
-			for ( int i = 0; i < exps2.length; i++ )
+			final List<Bank> banks = new ArrayList<Bank>();
+			while ( cursor.moveToNext() )
 			{
-				exps2[i] = new Expression(exps[i]);
+				final int id = cursor.getInt(0);
+				final String name = cursor.getString(1);
+
+				Log.d(Codes.TAG, "Bank read: " + id + " - " + name);
+				final int expiry = cursor.getInt(2);
+				final int icon = cursor.getInt(3);
+				final String country = cursor.getString(4);
+				final String phoneNumbers = cursor.getString(5);
+				final String expressions = cursor.getString(6);
+				final String[] exps = unescapeStrings(expressions);
+				final Expression[] exps2 = new Expression[exps.length];
+				for ( int i = 0; i < exps2.length; i++ )
+				{
+					exps2[i] = new Expression(exps[i]);
+				}
+
+				final Bank bank = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), exps2, icon, country);
+
+				banks.add(bank);
 			}
 
-			final Bank bank = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), exps2, icon, country);
-
-			banks.add(bank);
+			return banks.toArray(new Bank[banks.size()]);
 		}
-
-		return banks.toArray(new Bank[banks.size()]);
+		finally
+		{
+			if ( cursor != null && !cursor.isClosed() )
+				cursor.close();
+		}
 	}
 
 	/**
@@ -318,26 +334,34 @@ public final class BankManager implements Codes
 				new String[] { Bank.F__ID, Bank.F_LASTMESSAGE, Bank.F_TIMESTAMP }, Bank.F_TIMESTAMP + " IS NOT NULL",
 				null, Bank.F_TIMESTAMP + " DESC");
 
-		if ( cursor.getCount() > 0 )
+		try
 		{
-			cursor.moveToFirst();
-			final int id = cursor.getInt(0);
-			final String message = cursor.getString(1);
-			Date timestamp;
-			try
+			if ( cursor.getCount() > 0 )
 			{
-				timestamp = Formatters.getTimstampFormat().parse(cursor.getString(2));
+				cursor.moveToFirst();
+				final int id = cursor.getInt(0);
+				final String message = cursor.getString(1);
+				Date timestamp;
+				try
+				{
+					timestamp = Formatters.getTimstampFormat().parse(cursor.getString(2));
+				}
+				catch ( final ParseException e )
+				{
+					throw new IllegalStateException("Database contains invalid value for timestamp: "
+							+ cursor.getString(2), e);
+				}
+				result = new Message(findByUri(context, Uri.withAppendedPath(Bank.CONTENT_URI, String.valueOf(id))),
+						message, timestamp);
 			}
-			catch ( final ParseException e )
-			{
-				throw new IllegalStateException(
-						"Database contains invalid value for timestamp: " + cursor.getString(2), e);
-			}
-			result = new Message(findByUri(context, Uri.withAppendedPath(Bank.CONTENT_URI, String.valueOf(id))),
-					message, timestamp);
-		}
 
-		return result;
+			return result;
+		}
+		finally
+		{
+			if ( cursor != null && !cursor.isClosed() )
+				cursor.close();
+		}
 	}
 	private static Bank[] defaultBanks = null;
 

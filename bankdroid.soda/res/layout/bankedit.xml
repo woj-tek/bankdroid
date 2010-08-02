@@ -102,7 +102,6 @@
 			android:id="@+id/phoneNumber3"
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
-			android:inputType="phone"
 	
 			android:layout_marginLeft="5px"
 			android:layout_alignTop="@id/removePhoneNumber3"
@@ -126,7 +125,6 @@
 			android:id="@+id/phoneNumber2"
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
-			android:inputType="phone"
 	
 			android:layout_marginLeft="5px"
 			android:layout_alignTop="@id/removePhoneNumber2"
@@ -150,7 +148,6 @@
 			android:id="@+id/phoneNumber1"
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
-			android:inputType="phone"
 	
 			android:layout_marginLeft="5px"
 			android:layout_alignTop="@id/removePhoneNumber1"
