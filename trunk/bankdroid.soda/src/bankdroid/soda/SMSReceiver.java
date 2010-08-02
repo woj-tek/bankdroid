@@ -36,7 +36,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 
 				if ( source != null )
 				{
-					String message = sms.getMessageBody(); // FIXME remove eol characters
+					String message = sms.getMessageBody();
 					message = message.replace('\n', ' ');
 					message = message.replace('\r', ' ');
 					final String code = source.extractCode(message);
