@@ -16,7 +16,7 @@ Dlya perevoda na summu 0.00 CCY poluchatel PartnerName na schet ***1234 Vash odn
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.*Alfa-Click.* ([0-9a-zA-Z]+)[\. ]*Alfa-Bank.*]]></Expression>
-			<Expression transactionSign="true"><![CDATA[Dlya.* ([0-9a-zA-Z]+)[\. ]*Alfa-Bank.*]]></Expression>
+			<Expression transactionSign="true"><![CDATA[.* parol ([0-9a-zA-Z]+)[\. ]*Alfa-Bank.*]]></Expression>
 		</Expressions>
 	</Bank>		
 		
