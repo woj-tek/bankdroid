@@ -4,8 +4,10 @@
 <Banks package="bankdroid.soda" county="HU">
 	<Bank>
 		<!-- Sample: AXA BANK
-iBanq2 regisztràciòjàt a következö kòddal tudja jòvàhagyni: 278699 Üdv: AXA 
-iBanq2 bejelentkezését a következö kòddal tudja jòvàhagyni: 244662 Üdv:Axa
+iBanq2 regisztraciojat a kovetkezo koddal tudja jovahagyni: 278699 Udv: AXA 
+iBanq2 bejelentkezeset a kovetkezo koddal tudja jovahagyni: 244662 Udv:Axa
+A 12345 vegu kartyahoz rendelt limiteket: napi 150000Ft, ATM 100000Ft, POS 100000Ft a kovetkezo koddal tudja jovahagyni: 924109. Udv: AXA 
+A 12312313-132123131-1313123123 celszamlara inditott 100 Ft osszegu tranzakcioval kapcsolatos muveletet az alabbi koddal tudja jovahagyni: 033692. Udv: AXA 
 		 -->
 		<Name>AXA Bank</Name>
 		<IconId>axa_logo</IconId>
@@ -14,12 +16,13 @@ iBanq2 bejelentkezését a következö kòddal tudja jòvàhagyni: 244662 Üdv:A
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[iBanq2 [^:]*: ([0-9]+) .*]]></Expression>
+			<Expression transactionSign="true"><![CDATA[\A[^i].+.*: ([0-9]+)[^\d]+AXA.*]]></Expression>
 		</Expressions>
 	</Bank>
 
 	<Bank>
 		<!-- Sample:
-		OTPdirekt - Belfaldi forint atutalas xxx szamlan yyy HUF asszeggel zzz szamlara. Azonosata: 90120437 Javahagyas 23:55-ig.
+		OTPdirekt - Belfaldi forint atutalas 1111 szamlan yyy HUF asszeggel zzz szamlara. Azonosata: 90120437 Javahagyas 23:55-ig.
 		 -->
 		<Name>OTP Bank</Name>
 		<IconId>otp2_logo</IconId>
@@ -80,18 +83,20 @@ iBanq2 bejelentkezését a következö kòddal tudja jòvàhagyni: 244662 Üdv:A
 	</Bank>		
 		
 	<Bank>
-		<!-- Sample: 
-		Az an ERSTE NetBank belapasi kadja: 45087768
-		
-		FIXME verify Erste samples
+		<!-- Sample: +36707060177, 0036303444481 
+Az On ERSTE NetBank  belepesi kodja: 1212121212
+ERSTE NetBank forintatutalas. Kedvezmenyezett 11111111-22222222-3333333, osszeg 123123,11 HUF. Tranzakcios kod: 010-53353861
 		 -->
 		<Name>ERSTE Bank</Name>
 		<IconId>erste_logo</IconId>
 		<Phones>
 			<Phone>+36303444481</Phone>
+			<Phone>0036303444481</Phone>
+			<Phone>+36707060177</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[.* ERSTE NetBank [^:]*: ([0-9]*)]]></Expression>
+			<Expression><![CDATA[.* ERSTE NetBank [^:]*: ([0-9]+)]]></Expression>
+			<Expression transactionSign="true"><![CDATA[ERSTE NetBank [^:]*: [0-9]+-([0-9]+)]]></Expression>
 		</Expressions>
 	</Bank>		
 		

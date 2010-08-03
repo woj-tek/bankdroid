@@ -36,6 +36,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 
 				if ( source != null )
 				{
+					//XXX known bug: this method does not return the full SMS if it is longer than 156 character.
 					String message = sms.getMessageBody();
 					message = message.replace('\n', ' ');
 					message = message.replace('\r', ' ');
@@ -99,7 +100,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 					}
 					else
 					{
-						Log.d(TAG, "Not an OTP message.");
+						Log.d(TAG, "Not an OTP message: '" + message + "'");
 					}
 				}
 				else
