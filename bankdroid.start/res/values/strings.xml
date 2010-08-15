@@ -4,6 +4,7 @@
 	<string name="copyright">START, BankDroid, 2010 (c)</string>
 
     <string name="progressText">Please wait while communicating with server...</string>
+    <string name="errSystemError">System error.</string>
     <string name="errNoConnector">There is no bank connector available (or dummy is switched off).</string>
     <string name="warnActiveSession">You have an active banking session.</string>
     <string name="warnSessionTimeouted">Your session was closed due to inactivity timeout.</string>

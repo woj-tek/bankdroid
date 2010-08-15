@@ -3,9 +3,10 @@ package bankdroid.start;
 import com.csaba.connector.ServiceException;
 import com.csaba.connector.model.Account;
 import com.csaba.connector.model.Session;
+import com.csaba.connector.service.AbstractBankService;
 import com.csaba.connector.service.AccountService;
 
-public class FakeAccountService implements AccountService
+public class FakeAccountService extends AbstractBankService implements AccountService
 {
 
 	private final Account[] accounts;

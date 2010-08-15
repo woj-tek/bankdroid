@@ -11,8 +11,8 @@ public class GUIUtil
 	private static int positiveColor = -1;
 	private static int zeroColor = -1;
 
-	public final static String HTML_NEGATIVE_COLOR = "#BB0000";
-	public final static String HTML_POSITIVE_COLOR = "#00BB00";
+	public final static String HTML_NEGATIVE_COLOR = "#FF0000";
+	public final static String HTML_POSITIVE_COLOR = "#00FF00";
 	public final static String HTML_ZERO_COLOR = "#000000";
 
 	public static int getColor( final Context context, final double value )
