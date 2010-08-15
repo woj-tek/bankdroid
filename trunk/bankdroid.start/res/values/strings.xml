@@ -22,8 +22,9 @@
 	<!-- MainActivity -->
     <string name="accountButton">Accounts</string>
     <string name="quickHistoryButton">Quick History</string>
+    <string name="profileButton">Profile</string>
     <string name="logoutButton">Logout</string>
-    <string name="searchTransactionButton">Search Transactions</string>
+    <string name="searchTransactionButton">Transactions</string>
 
 	<!-- main menu -->
     <string name="menuPref">Settings</string>

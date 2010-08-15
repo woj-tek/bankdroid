@@ -104,7 +104,7 @@ public class ServiceRunner implements Runnable, Codes
 		{
 			Log.d(TAG, "Service request failed.", e);
 			if ( e instanceof ServiceException )
-				Log.d(TAG, ( (ServiceException) e ).getNativeMessage());
+				Log.d(TAG, "Exception: " + ( (ServiceException) e ).getNativeMessage());
 
 			message = Message.obtain(handler, SERVICE_FAILED);
 			message.getData().putSerializable(SERVICE_EXCEPTION, e);

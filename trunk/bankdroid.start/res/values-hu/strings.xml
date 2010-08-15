@@ -22,8 +22,9 @@
 	<!-- MainActivity -->
     <string name="accountButton">Számlák</string>
     <string name="quickHistoryButton">Gyors történet</string>
+    <string name="profileButton">Adataim</string>
     <string name="logoutButton">Kilépés</string>
-    <string name="searchTransactionButton">Tranzakció keresés</string>
+    <string name="searchTransactionButton">Tranzakciók</string>
 
 	<!-- main menu -->
     <string name="menuPref">Beállítások</string>
