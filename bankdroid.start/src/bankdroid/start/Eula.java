@@ -39,7 +39,7 @@ import android.content.SharedPreferences;
 public class Eula
 {
 	public static final String ASSET_EULA = "EULA";
-	public static final String PREFERENCE_EULA_ACCEPTED = "eula.accepted";
+	public static final String PREFERENCE_EULA_ACCEPTED = "eula.accepted.2";
 	public static final String PREFERENCES_EULA = "eula";
 
 	/**
