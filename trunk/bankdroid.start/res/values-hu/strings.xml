@@ -5,6 +5,7 @@
 
     <string name="progressText">Kérjem várjon, amíg a kiszolgáló válaszol...</string>
     <string name="errNoConnector">Nincs banki kiegészítő telepítve (és a Minta bank is ki van kapcsolva).</string>
+    <string name="errSystemError">Rendszer hiba.</string>
     <string name="warnActiveSession">Egy banki kapcsolatod aktív.</string>
     <string name="warnSessionTimeouted">A banki kapcsolatod automatikusan megszakadt.</string>
     <string name="warnSessionTimeout">A banki kapcsolatod {0} másodperc múlva megszakad.</string>

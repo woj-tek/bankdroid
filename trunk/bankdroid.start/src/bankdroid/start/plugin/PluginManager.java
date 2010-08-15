@@ -26,6 +26,7 @@ public class PluginManager implements Codes
 		final Set<ServicePluginConfiguration> plugins = new LinkedHashSet<ServicePluginConfiguration>();
 		plugins.add(new DummyPluginConfiguration());
 		plugins.add(new BHAPluginConfiguration());
+		//XXX plugins.add(new OTPPluginConfiguration());
 
 		BankServiceFactory.setProvider(new ClassEnumerationProvider(plugins));
 	}

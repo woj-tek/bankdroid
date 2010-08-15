@@ -13,6 +13,11 @@ import bankdroid.start.plugin.PluginManager;
 import com.csaba.connector.BankService;
 import com.csaba.connector.model.Session;
 
+/**
+ * @author Gabe
+ * FIXME use CSABA icons
+ *
+ */
 public class MainActivity extends ServiceActivity implements OnClickListener
 {
 

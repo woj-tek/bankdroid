@@ -94,6 +94,7 @@ public class ServiceRunner implements Runnable, Codes
 		Message message = null;
 		try
 		{
+			service.checkPermission(session);
 			service.execute(session);
 			Log.d(TAG, "Service processed succesfully: " + service.getClass().getName());
 
