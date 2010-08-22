@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	style="@style/background"
-	>
-
-
-<RelativeLayout
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/rootView"
@@ -58,8 +51,8 @@
     <!-- CONTENT -->
     
  	<TextView  
-	    android:id="@+id/bankSelectLabel"
-	    android:text="@string/bankSelect"
+	    android:id="@+id/userSelectLabel"
+	    android:text="@string/userSelect"
 	    style="@style/labelText"
 
 	    android:layout_width="fill_parent" 
@@ -68,42 +61,6 @@
 	    android:layout_below="@id/logo"
 	    android:layout_alignParentLeft="true"
 	    />
-	    
-	<Button
-		android:id="@+id/selectBank"
-		android:text="CIB Bank"
-		android:drawableLeft="@drawable/icon"
-		android:gravity="left"
-
-		style="@style/fieldButton"
-		
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		
-		android:layout_below="@id/bankSelectLabel"
-		/>
-    
-    <FrameLayout
-		android:id="@+id/authGUIHost"
-		
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		
-		android:layout_below="@id/selectBank"
-		>
-	</FrameLayout>
-		
-	<Button
-		android:id="@+id/loginButton"
-		android:text="@string/loginButton"
-
-		style="@style/actionButton"
-
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		
-		android:layout_below="@id/authGUIHost"
-		/>
 
 	<TextView
 		android:id="@+id/msgUseMenu"
@@ -113,10 +70,28 @@
 		
 		style="@style/commentText"
 		
-		android:layout_below="@id/loginButton"
+		android:layout_alignParentBottom="true"
 		/>
 	    
-	    
-</RelativeLayout>
+	<Button
+		android:id="@+id/newUser"
+		android:text="@string/newUser"
 
-</ScrollView>
+		style="@style/actionButton"
+
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		
+		android:layout_above="@id/msgUseMenu"
+		/>
+
+	<ListView
+		android:id="@+id/userList"
+		
+		style="@style/listBox"
+		
+		android:layout_below="@id/userSelectLabel"
+		android:layout_above="@id/newUser"
+		/>	    
+		
+</RelativeLayout>

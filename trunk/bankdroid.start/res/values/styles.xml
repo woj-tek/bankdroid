@@ -41,6 +41,16 @@
 		<item name="android:layout_alignParentRight">true</item>
 	</style>
 	
+	<style name="formLayout">
+		<item name="android:stretchColumns">1</item>
+		<item name="android:paddingLeft">20sp</item>
+		<item name="android:paddingRight">20sp</item>
+		<item name="android:paddingTop">5sp</item>
+		<item name="android:paddingBottom">15sp</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+	
 	<style name="labelText">
 		<item name="android:textSize">20sp</item>
 		<item name="android:textColor">#333</item>
@@ -78,16 +88,25 @@
 
 	<style name="field">
 		<item name="android:background">@drawable/field_background</item>
-		<item name="android:padding">10sp</item>
+		<item name="android:padding">8sp</item>
+		<item name="android:singleLine">true</item>
 		<item name="android:layout_margin">5sp</item>
 	</style>
 	
 	<style name="background">
 		<item name="android:background">#FFF</item>
 	</style>
+
+	<style name="listBox">
+		<item name="android:background">@drawable/listbackground</item>
+		<item name="android:padding">3sp</item>
+		<item name="android:layout_margin">3sp</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">fill_parent</item>
+	</style>
 	
 	<style name="listBackground">
-		<item name="android:background">#EEE</item>
+		<item name="android:background">@drawable/listbackground</item>
 	</style>
 
 	<style name="menuButton">

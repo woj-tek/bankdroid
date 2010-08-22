@@ -1,11 +1,14 @@
 package bankdroid.util;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+import bankdroid.start.Codes;
 import bankdroid.start.R;
 
 import com.csaba.connector.model.Account;
 
-public class GUIUtil
+public class GUIUtil implements Codes
 {
 	private static int negativeColor = -1;
 	private static int positiveColor = -1;
@@ -47,5 +50,14 @@ public class GUIUtil
 	{
 		final String name = account.getName();
 		return name == null || name.equals("") ? account.getNumber() : name;
+	}
+
+	public static void fatalError( final Context context, final Exception e )
+	{
+		final Toast toast = Toast.makeText(context, context.getString(R.string.errSystemError) + "\n" + e,
+				Toast.LENGTH_LONG);
+		toast.show();
+		Log.e(TAG, "Fatal error occured.", e);
+
 	}
 }

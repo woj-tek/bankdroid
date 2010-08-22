@@ -58,40 +58,71 @@
     <!-- CONTENT -->
     
  	<TextView  
-	    android:id="@+id/bankSelectLabel"
-	    android:text="@string/bankSelect"
-	    style="@style/labelText"
+	    android:id="@+id/bankSelected"
+	    android:text="CIB Bank Zrt."
+	    android:drawableLeft="@drawable/bankdroid_icon"
+	    android:drawablePadding="5sp"
+	    android:gravity="center_vertical"
+	    
+	    style="@style/fieldButton"
 
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
 	    
 	    android:layout_below="@id/logo"
-	    android:layout_alignParentLeft="true"
 	    />
 	    
-	<Button
-		android:id="@+id/selectBank"
-		android:text="CIB Bank"
-		android:drawableLeft="@drawable/icon"
-		android:gravity="left"
+	<TextView  
+	    android:id="@+id/loginIdLabel"
+	    android:text="@string/loginId"
+	    style="@style/labelText"
+	    
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:layout_below="@id/bankSelected"
+	    />
+	    
+	<EditText
+		android:id="@+id/loginId"
+		android:text="local"
+		android:singleLine="true"
+		android:maxLength="20"
 
-		style="@style/fieldButton"
-		
-		android:layout_width="fill_parent"
+		style="@style/field"
+
+	    android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		
-		android:layout_below="@id/bankSelectLabel"
+		android:layout_below="@id/loginIdLabel"
+		android:layout_alignParentLeft="true"
 		/>
-    
-    <FrameLayout
-		android:id="@+id/authGUIHost"
+		    
+	<TextView  
+	    android:id="@+id/passwordLabel"
+	    android:text="@string/password"
+	    style="@style/labelText"
+	    
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@id/loginId"
+	    />
+	    
+	<EditText
+		android:id="@+id/password"
+		android:text="password"
+		android:inputType="textPassword"
+		android:singleLine="true"
+		android:maxLength="20"
+
+		style="@style/field"
 		
-		android:layout_width="fill_parent"
+	    android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		
-		android:layout_below="@id/selectBank"
-		>
-	</FrameLayout>
+		android:layout_below="@id/passwordLabel"
+		android:layout_alignParentLeft="true"
+		/>
 		
 	<Button
 		android:id="@+id/loginButton"
@@ -102,21 +133,9 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		
-		android:layout_below="@id/authGUIHost"
+		android:layout_below="@id/password"
 		/>
 
-	<TextView
-		android:id="@+id/msgUseMenu"
-		android:text="@string/msgUseMenu"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		
-		style="@style/commentText"
-		
-		android:layout_below="@id/loginButton"
-		/>
-	    
-	    
 </RelativeLayout>
 
 </ScrollView>

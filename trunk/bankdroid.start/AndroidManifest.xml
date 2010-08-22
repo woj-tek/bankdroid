@@ -8,11 +8,18 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".StartActivity"/>
+<!--		<activity android:name=".StartActivity"/>-->
+		<activity android:name=".auth.AuthStartActivity"/>
+		<activity android:name=".auth.AuthBankSelectActivity"/>
+		<activity android:name=".auth.BHAAuthActivity"/>
+		<activity android:name=".auth.OTPAuthActivity"/>
+		<activity android:name=".auth.DummyAuthActivity"/>
+		
 		<activity android:name=".AccountListActivity" />
 		<activity android:name=".TransactionListActivity" />
 		<activity android:name=".PropertyViewActivity" />
 		<activity android:name=".SearchTransactionActivity" />
+
 		<activity android:name=".Preferences" />
 		<activity android:name=".AboutActivity" />
 	</application>

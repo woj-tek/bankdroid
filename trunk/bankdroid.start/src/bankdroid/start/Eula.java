@@ -61,7 +61,7 @@ public class Eula
 	 * @param activity The Activity to finish if the user rejects the EULA.
 	 * @return Whether the user has agreed already.
 	 */
-	static boolean show( final Activity activity )
+	public static boolean show( final Activity activity )
 	{
 		final SharedPreferences preferences = activity.getSharedPreferences(PREFERENCES_EULA, Activity.MODE_PRIVATE);
 		if ( !preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false) )
