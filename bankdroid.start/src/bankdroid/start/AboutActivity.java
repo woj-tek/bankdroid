@@ -21,7 +21,24 @@ import bankdroid.util.TrackedActivity;
 
 /**
  * @author Gabe
+ *  FIXME Share transaction functionality over e-mail
+ *  FIXME handle empty values in the built in fields.
+ *  FIXME BHA: details for term deposits are not correct.
+ *
+ *  XXX use AccountManager to handle stored passowrds
+ *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
+ *  XXX share account information link for account numbers, account details, transaction details, etc..
+ *  XXX toolbars instead of menu
+ *  XXX analytics on the clicks. 
+ *
+ *	XXX make plugins for various login screens
+ *	XXX enable different flow for login (to support SMS OTP)
+ *  XXX add OTP plugin
+ *  XXX add Citibank plugin
+ *  XXX add K&H plugin
+ *  XXX add AxaBank plugin
  */
+
 public class AboutActivity extends TrackedActivity implements OnClickListener, Codes
 {
 

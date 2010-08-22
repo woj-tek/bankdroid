@@ -1,5 +1,8 @@
 package bankdroid.start;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -8,18 +11,17 @@ import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.InputFilter;
-import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import bankdroid.start.authplugins.AuthGUIPlugin;
 import bankdroid.start.plugin.PluginManager;
+import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.BankServiceFactory;
@@ -28,24 +30,9 @@ import com.csaba.connector.bha.BHALoginService;
 import com.csaba.connector.bha.model.BHABank;
 import com.csaba.connector.model.Bank;
 import com.csaba.connector.model.Customer;
+import com.csaba.connector.otp.OTPLoginService;
 import com.csaba.connector.service.LoginService;
 
-/**
- * @author Gabe
- *
- *  XXX use AccountManager to handle stored passowrds
- *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
- *  XXX share account information link for account numbers, account details, transaction details, etc..
- *  XXX toolbars instead of menu
- *  XXX analytics on the clicks. 
- *
- *	XXX make plugins for various login screens
- *	XXX enable different flow for login (to support SMS OTP)
- *  XXX add OTP plugin
- *  XXX add Citibank plugin
- *  XXX add K&H plugin
- *  XXX add AxaBank plugin
- */
 public class StartActivity extends ServiceActivity implements OnClickListener
 {
 	private static final int BANK_SELECT_DIALOG = 999122;
@@ -55,6 +42,8 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 	protected Bank bankSelected;
 
 	private boolean showDummyBank = false;
+
+	private final Map<Bank, AuthGUIPlugin> guiPlugins = new HashMap<Bank, AuthGUIPlugin>();
 
 	/** Called when the activity is first created. */
 	@Override
@@ -88,35 +77,6 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 		( (Button) findViewById(R.id.loginButton) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.selectBank) ).setOnClickListener(this);
 
-		//TODO move it to CIB specific login page
-		findViewById(R.id.password).setOnFocusChangeListener(new View.OnFocusChangeListener()
-		{
-
-			@Override
-			public void onFocusChange( final View v, final boolean hasFocus )
-			{
-				if ( hasFocus )
-				{
-					final String loginId = ( (EditText) findViewById(R.id.loginId) ).getText().toString();
-					final int authType = BHALoginService.detectAuthType(loginId);
-					final EditText passwordField = (EditText) v;
-					if ( authType == BHALoginService.AUTH_TYPE_TOKEN )
-					{
-						passwordField.setFilters(new InputFilter[] { new InputFilter.LengthFilter(
-								BHALoginService.TOKEN_LENGTH) });
-						passwordField
-								.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-					}
-					else
-					{
-						passwordField.setFilters(new InputFilter[] { new InputFilter.LengthFilter(
-								BHALoginService.PASSWORD_MAX_LENGTH) });
-						passwordField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-					}
-				}
-
-			}
-		});
 	}
 
 	@Override
@@ -133,11 +93,11 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 				customer.setLoginId(loginId);
 				customer.setPassword(password);
 
-				/*				//FIXME OTP hack
-								customer.setRemoteProperty(OTPLoginService.RP_ACCOUNT1, "12345");
-								customer.setRemoteProperty(OTPLoginService.RP_ACCOUNT2, "12345123");
-								customer.setRemoteProperty(OTPLoginService.RP_ACCOUNT3, "12345123");
-				*/
+				//FIXME OTP hack
+				customer.setRemoteProperty(OTPLoginService.RP_ACCOUNT1, "0");
+				customer.setRemoteProperty(OTPLoginService.RP_ACCOUNT2, "0");
+				customer.setRemoteProperty(OTPLoginService.RP_ACCOUNT3, "");
+
 				final LoginService login = BankServiceFactory.getBankService(bankSelected, LoginService.class);
 				login.setCustomer(customer);
 
@@ -148,10 +108,7 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 			}
 			catch ( final ServiceException e )
 			{
-				final Toast toast = Toast.makeText(this, getString(R.string.errSystemError) + "\n" + e,
-						Toast.LENGTH_LONG);
-				toast.show();
-				Log.e(TAG, "Failed to create a service.", e);
+				GUIUtil.fatalError(this, e);
 			}
 		}
 		else if ( v.getId() == R.id.selectBank )
@@ -222,19 +179,6 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 		}
 		updateBankSelect();
 
-		//load login ID from preferences
-		loginId = preferences.getString(PREF_LAST_LOGINID, DEFAULT_LOGINID);
-		( (TextView) findViewById(R.id.loginId) ).setText(loginId);
-		password = preferences.getString(PREF_LAST_PASSWORD, DEFAULT_PASSWORD);
-		( (TextView) findViewById(R.id.password) ).setText(password);
-
-		//focus password, if login ID is saved, etc...
-		if ( loginId.equals(DEFAULT_LOGINID) )
-			findViewById(R.id.loginId).requestFocus();
-		else if ( password.equals(DEFAULT_PASSWORD) )
-			findViewById(R.id.password).requestFocus();
-		else
-			findViewById(R.id.loginButton).requestFocus();
 	}
 
 	private Bank getBankById( final String string )
@@ -254,6 +198,28 @@ public class StartActivity extends ServiceActivity implements OnClickListener
 		final Drawable icon = PluginManager.getIconDrawable(bankSelected.getLargeIcon());
 		bankSelect.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
 		bankSelect.setCompoundDrawablePadding(10);
+
+		//build gui here
+		final ViewGroup host = (ViewGroup) findViewById(R.id.authGUIHost);
+		host.removeAllViews();
+
+		AuthGUIPlugin plugin = guiPlugins.get(bankSelected);
+		if ( plugin == null )
+		{
+			try
+			{
+				plugin = PluginManager.createAuthGUIPlugin(bankSelected);
+			}
+			catch ( final Exception e )
+			{
+				GUIUtil.fatalError(this, e);
+				return;
+			}
+		}
+
+		final View view = plugin.createView(this);
+
+		host.addView(view);
 	}
 
 	private Bank getDefaultBank()

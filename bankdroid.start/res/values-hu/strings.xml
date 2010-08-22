@@ -14,7 +14,7 @@
     <string name="title">BankDroid</string>
     <string name="subtitle">START</string>
     <string name="bankSelect">Válassz bankot:</string>
-    <string name="loginId">Felhasználó azonosító:</string>
+    <string name="loginId">Név:</string>
     <string name="password">Jelszó:</string>
     <string name="loginButton">Belépés</string>
     <string name="msgUseMenu">További opciókért nyomd meg a menü gombot.</string>
@@ -92,6 +92,9 @@
 	<string name="eula_title">Licensz</string>
 	<string name="eula_accept">Elfogad</string>
 	<string name="eula_refuse">Elutasít</string>
+	
+	<!-- Dummy -->
+	<string name="userSelect">Válasz egy felhasználót:</string>
 	
 
 </resources>

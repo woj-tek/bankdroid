@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import bankdroid.start.ServiceRunner.ServiceListener;
+import bankdroid.start.auth.AuthStartActivity;
 import bankdroid.util.TrackedActivity;
 
 import com.csaba.connector.BankService;
@@ -109,7 +110,7 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 
 		if ( sessionOriented && !SessionManager.getInstance().isLoggedIn() )
 		{
-			startActivityForResult(new Intent(getBaseContext(), StartActivity.class), LOGIN);
+			startActivityForResult(new Intent(getBaseContext(), AuthStartActivity.class), LOGIN);
 		}
 	}
 

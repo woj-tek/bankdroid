@@ -11,29 +11,32 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import bankdroid.start.Codes;
+import bankdroid.start.auth.AuthStartActivity;
+import bankdroid.start.authplugins.AuthGUIPlugin;
 
 import com.csaba.connector.BankServiceFactory;
 import com.csaba.connector.ClassEnumerationProvider;
 import com.csaba.connector.ServicePluginConfiguration;
 import com.csaba.connector.bha.BHAPluginConfiguration;
 import com.csaba.connector.dummy.DummyPluginConfiguration;
+import com.csaba.connector.model.Bank;
+import com.csaba.connector.otp.OTPPluginConfiguration;
 
 public class PluginManager implements Codes
 {
-
+	private static final Set<ServicePluginConfiguration> plugins = new LinkedHashSet<ServicePluginConfiguration>();
 	static
 	{
-		final Set<ServicePluginConfiguration> plugins = new LinkedHashSet<ServicePluginConfiguration>();
 		plugins.add(new DummyPluginConfiguration());
 		plugins.add(new BHAPluginConfiguration());
-		//XXX plugins.add(new OTPPluginConfiguration());
+		plugins.add(new OTPPluginConfiguration());
 
 		BankServiceFactory.setProvider(new ClassEnumerationProvider(plugins));
 	}
 
 	public static void init()
 	{
-		// do nothing
+		// do nothing, but leave it here. As on this call the static initializer will run.
 	}
 
 	private static final Map<URL, Drawable> bankIcons = new HashMap<URL, Drawable>();
@@ -53,6 +56,45 @@ public class PluginManager implements Codes
 			}
 		}
 		return bankIcons.get(url);
+	}
+
+	public static AuthGUIPlugin createAuthGUIPlugin( final Bank bank ) throws IllegalAccessException,
+			InstantiationException, ClassNotFoundException
+	{
+		String prefix = null;
+		for ( final ServicePluginConfiguration plugin : plugins )
+		{
+			if ( plugin.getBank().equals(bank) )
+			{
+				prefix = plugin.getServicePrefix();
+				break;
+			}
+		}
+
+		if ( prefix == null )
+			throw new IllegalArgumentException("No plugin configuration for bank " + bank);
+
+		return (AuthGUIPlugin) Class.forName(
+				AuthGUIPlugin.class.getPackage().getName() + "." + prefix + AuthGUIPlugin.class.getSimpleName())
+				.newInstance();
+	}
+
+	public static Class<?> getAuthActivityClass( final Bank bank ) throws ClassNotFoundException
+	{
+		String prefix = null;
+		for ( final ServicePluginConfiguration plugin : plugins )
+		{
+			if ( plugin.getBank().equals(bank) )
+			{
+				prefix = plugin.getServicePrefix();
+				break;
+			}
+		}
+
+		if ( prefix == null )
+			throw new IllegalArgumentException("No plugin configuration for bank " + bank);
+
+		return Class.forName(AuthStartActivity.class.getPackage().getName() + "." + prefix + "AuthActivity");
 	}
 
 }

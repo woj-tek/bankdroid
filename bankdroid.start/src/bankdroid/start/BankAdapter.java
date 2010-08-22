@@ -6,7 +6,6 @@ import java.util.List;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import bankdroid.start.plugin.PluginManager;
 
@@ -60,12 +59,13 @@ public class BankAdapter extends BaseAdapter
 		View view = contentView;
 		if ( view == null )
 		{
-			view = View.inflate(parent.getContext(), R.layout.bankitem, null);
+			view = View.inflate(parent.getContext(), R.layout.onerow_icon, null);
 		}
 
-		( (ImageView) view.findViewById(R.id.bankLogo) ).setImageDrawable(PluginManager.getIconDrawable(banks.get(
-				position).getLargeIcon()));
-		( (TextView) view.findViewById(R.id.bankName) ).setText(banks.get(position).getName());
+		final TextView textView = (TextView) view;
+		textView.setCompoundDrawablesWithIntrinsicBounds(PluginManager.getIconDrawable(banks.get(position)
+				.getLargeIcon()), null, null, null);
+		textView.setText(banks.get(position).getName());
 		return view;
 	}
 
