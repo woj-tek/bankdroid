@@ -104,7 +104,6 @@
 			    
 			<EditText
 				android:id="@+id/loginId"
-				android:text="local"
 		
 				style="@style/field"
 				android:maxLength="20"
@@ -128,7 +127,6 @@
 			    
 			<EditText
 				android:id="@+id/password"
-				android:text="password"
 				
 				style="@style/field"
 				android:inputType="textPassword"
@@ -140,6 +138,18 @@
 		</TableRow>
 	</TableLayout>
 		
+	<CheckBox
+		android:id="@+id/rememberPassword"
+		android:text="@string/rememberPassword"
+		
+		style="@style/labelText"
+		
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    
+	    android:layout_below="@id/formLayout"
+		/>
+
 	<Button
 		android:id="@+id/loginButton"
 		android:text="@string/loginButton"
@@ -149,7 +159,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		
-		android:layout_below="@id/formLayout"
+		android:layout_below="@id/rememberPassword"
 		/>
 
 </RelativeLayout>

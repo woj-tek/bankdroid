@@ -10,12 +10,6 @@
 			android:summary="@string/saveLastLoginSummary" 
 			android:key="bankdroid.start.SaveLastLogin" />
 		
-		<CheckBoxPreference 
-			android:title="@string/savePassword" 
-			android:defaultValue="false" 
-			android:summary="@string/savePasswordSummary"
-			android:key="bankdroid.start.SavePassword" />
-		
 		<ListPreference
 			android:title="@string/sessionTimeout"
 			android:summary="@string/sessionTimeoutSummary"

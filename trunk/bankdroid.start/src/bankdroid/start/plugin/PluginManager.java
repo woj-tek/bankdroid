@@ -12,7 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 import bankdroid.start.Codes;
 import bankdroid.start.auth.AuthStartActivity;
-import bankdroid.start.authplugins.AuthGUIPlugin;
 
 import com.csaba.connector.BankServiceFactory;
 import com.csaba.connector.ClassEnumerationProvider;
@@ -56,27 +55,6 @@ public class PluginManager implements Codes
 			}
 		}
 		return bankIcons.get(url);
-	}
-
-	public static AuthGUIPlugin createAuthGUIPlugin( final Bank bank ) throws IllegalAccessException,
-			InstantiationException, ClassNotFoundException
-	{
-		String prefix = null;
-		for ( final ServicePluginConfiguration plugin : plugins )
-		{
-			if ( plugin.getBank().equals(bank) )
-			{
-				prefix = plugin.getServicePrefix();
-				break;
-			}
-		}
-
-		if ( prefix == null )
-			throw new IllegalArgumentException("No plugin configuration for bank " + bank);
-
-		return (AuthGUIPlugin) Class.forName(
-				AuthGUIPlugin.class.getPackage().getName() + "." + prefix + AuthGUIPlugin.class.getSimpleName())
-				.newInstance();
 	}
 
 	public static Class<?> getAuthActivityClass( final Bank bank ) throws ClassNotFoundException

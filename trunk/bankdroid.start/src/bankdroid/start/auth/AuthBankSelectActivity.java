@@ -2,12 +2,15 @@ package bankdroid.start.auth;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import bankdroid.start.BankAdapter;
@@ -19,7 +22,7 @@ import bankdroid.util.GUIUtil;
 import com.csaba.connector.BankServiceFactory;
 import com.csaba.connector.model.Bank;
 
-public class AuthBankSelectActivity extends ServiceActivity implements OnItemClickListener
+public class AuthBankSelectActivity extends ServiceActivity implements OnItemClickListener, OnClickListener
 {
 	private static final int REQUEST_NEXT = 101;
 
@@ -55,6 +58,8 @@ public class AuthBankSelectActivity extends ServiceActivity implements OnItemCli
 
 		bankList.setAdapter(new BankAdapter(banks));
 		bankList.setOnItemClickListener(this);
+
+		findViewById(R.id.rememberUser).setOnClickListener(this);
 	}
 
 	@Override
@@ -71,6 +76,10 @@ public class AuthBankSelectActivity extends ServiceActivity implements OnItemCli
 		showDummyBank = preferences.getBoolean(PREF_SHOW_DUMMY_BANK, false);
 		final BankAdapter adapter = (BankAdapter) ( (ListView) findViewById(R.id.bankList) ).getAdapter();
 		adapter.setDummyAvailable(showDummyBank);
+
+		final boolean rememberUsers = preferences.getBoolean(PREF_SAVE_LAST_LOGIN, false);
+		( (CheckBox) findViewById(R.id.rememberUser) ).setChecked(rememberUsers);
+
 	}
 
 	@Override
@@ -103,5 +112,20 @@ public class AuthBankSelectActivity extends ServiceActivity implements OnItemCli
 			setResult(RESULT_OK);
 			finish();
 		}
+	}
+
+	@Override
+	public void onClick( final View view )
+	{
+		if ( view.getId() == R.id.rememberUser )
+		{
+			final boolean rememberUser = ( (CheckBox) view ).isChecked();
+			final SharedPreferences preferences = PreferenceManager
+					.getDefaultSharedPreferences(getApplicationContext());
+			final Editor editor = preferences.edit();
+			editor.putBoolean(PREF_SAVE_LAST_LOGIN, rememberUser);
+			editor.commit();
+		}
+
 	}
 }

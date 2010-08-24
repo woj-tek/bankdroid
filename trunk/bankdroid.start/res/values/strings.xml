@@ -22,6 +22,8 @@
 	<!--FIXME  AuthPages -->
     <string name="newUser">New user...</string>
     <string name="bankSelected">Bank:</string>
+    <string name="rememberUser">Remember users</string>
+    <string name="rememberPassword">Remember password</string>
 
 	<!-- MainActivity -->
     <string name="accountButton">Accounts</string>
@@ -38,10 +40,8 @@
 
 	<!-- Preferences -->
     <string name="loginPrefs">Login Settings</string>
-    <string name="saveLastLogin">Save Last Login</string>
-    <string name="saveLastLoginSummary">Save last login ID and bank.</string>
-    <string name="savePassword">Save Password</string>
-    <string name="savePasswordSummary">Save password. This can be insecure.</string>
+    <string name="saveLastLogin">Remember users</string>
+    <string name="saveLastLoginSummary">Saves user IDs of users logging in.</string>
     <string name="sessionTimeout">Session timeout</string>
     <string name="sessionTimeoutSummary">After this inactivity period the session will be closed.</string>
 
