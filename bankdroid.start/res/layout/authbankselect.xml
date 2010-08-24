@@ -62,12 +62,26 @@
 	    android:layout_alignParentLeft="true"
 	    />
 
+		
+	<CheckBox
+		android:id="@+id/rememberUser"
+		android:text="@string/rememberUser"
+		
+		style="@style/labelText"
+		
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content" 
+	    
+	    android:layout_alignParentBottom="true"
+		/>
+
 	<ListView
 		android:id="@+id/bankList"
-		
+		 
 		style="@style/listBox"
 		
 		android:layout_below="@id/bankSelectLabel"
+		android:layout_above="@id/rememberUser"
 		/>	    
 		
 </RelativeLayout>

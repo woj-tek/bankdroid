@@ -15,17 +15,11 @@ public interface Codes
 	final static String SERVICE_EXCEPTION = "SERVICE_EXCEPTION";
 
 	//PREFERENCES
-	final static String PREF_LAST_BANK = "bankdroid.start.LastBank";
-	final static String PREF_LAST_LOGINID = "bankdroid.start.LastLoginId";
-	final static String PREF_LAST_PASSWORD = "bankdroid.start.LastPassword";
 	final static String PREF_SAVE_LAST_LOGIN = "bankdroid.start.SaveLastLogin";
-	final static String PREF_SAVE_PASSWORD = "bankdroid.start.SavePassword";
 	final static String PREF_SHOW_DUMMY_BANK = "bankdroid.start.ShowDummyBank";
 	final static String PREF_SESSION_TIMEOUT = "bankdroid.start.SessionTimeout";
 
 	//DEFAULTS
-	final static String DEFAULT_LOGINID = "";
-	final static String DEFAULT_PASSWORD = "";
 	final static String DEFAULT_SESSION_TIMEOUT = "3";
 
 	//OTHERS
