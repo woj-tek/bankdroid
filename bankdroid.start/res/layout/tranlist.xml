@@ -38,9 +38,8 @@
  	 	
 	<ListView
 		android:id="@+id/transactionList"
-	  	android:layout_width="fill_parent"
-	  	android:layout_height="wrap_content"
-		android:background="@android:drawable/editbox_dropdown_light_frame"
+		
+		style="@style/listBox"
 	  	
 	  	android:layout_above="@id/totals"
 	  	android:layout_below="@id/filterOptions"
