@@ -1,10 +1,14 @@
 package bankdroid.start.auth;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import bankdroid.start.R;
@@ -56,20 +60,49 @@ public class OTPAuthActivity extends ServiceActivity implements OnClickListener
 
 		setResult(RESULT_CANCELED);
 
-		//load login ID from preferences
+		loginId = "";
+		password = "";
 
-		//FIXME recover user IDs from encrypted stores
-		final String loginId = "";
+		//load login ID from preferences
+		final Intent intent = getIntent();
+		if ( intent != null )
+		{
+			final Customer customer = (Customer) intent.getSerializableExtra(EXTRA_CUSTOMER);
+			if ( customer != null )
+			{
+				//recover user IDs from encrypted stores
+				loginId = customer.getLoginId();
+				password = customer.getPassword();
+				try
+				{
+					accountNr1 = (String) customer.getRemoteProperty(OTPLoginService.RP_ACCOUNT1);
+					accountNr2 = (String) customer.getRemoteProperty(OTPLoginService.RP_ACCOUNT2);
+					accountNr3 = (String) customer.getRemoteProperty(OTPLoginService.RP_ACCOUNT3);
+				}
+				catch ( final Exception e )
+				{
+					GUIUtil.fatalError(this, e);
+					final String[] names = customer.getRemotePropertyNames();
+					for ( final String name : names )
+					{
+						Log.d(TAG, "Customer remote prop: " + name);
+					}
+				}
+			}
+		}
+
 		( (TextView) findViewById(R.id.loginId) ).setText(loginId);
-		final String password = "";
 		( (TextView) findViewById(R.id.password) ).setText(password);
+		( (TextView) findViewById(R.id.accountNumber1) ).setText(accountNr1);
+		( (TextView) findViewById(R.id.accountNumber2) ).setText(accountNr2);
+		( (TextView) findViewById(R.id.accountNumber3) ).setText(accountNr3);
 
 		//focus password, if login ID is saved, etc...
-		if ( loginId.length() < 1 )
+		if ( loginId == null || loginId.length() < 1 )
 		{
 			findViewById(R.id.loginId).requestFocus();
 		}
-		else if ( password.length() < 1 )
+		else if ( password == null || password.length() < 1 )
 		{
 			findViewById(R.id.password).requestFocus();
 		}
@@ -121,34 +154,30 @@ public class OTPAuthActivity extends ServiceActivity implements OnClickListener
 		{
 			SessionManager.getInstance().setSession(this, ( (LoginService) service ).getSession());
 
-			//save last succesful login details into preferences
-			/*FIXME store identifiers in the ecryption store
-			final SharedPreferences preferences = PreferenceManager
-					.getDefaultSharedPreferences(getApplicationContext());
+			//save last succesful login details into SecureRegistry
+			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 			if ( preferences.getBoolean(PREF_SAVE_LAST_LOGIN, true) )
 			{
-				final Editor editor = preferences.edit();
-				editor.putString(PREF_LAST_BANK, bankSelected.getId());
-				editor.putString(PREF_LAST_LOGINID, loginId);
-				if ( preferences.getBoolean(PREF_SAVE_PASSWORD, false) )
+				try
 				{
-					if ( BHALoginService.detectAuthType(loginId) != BHALoginService.AUTH_TYPE_TOKEN )
-					{
-						editor.putString(PREF_LAST_PASSWORD, password);
-					}
-					else
-					{
-						editor.remove(PREF_LAST_PASSWORD);
-					}
+					final SecureRegistry registry = SecureRegistry.getInstance(this);
+
+					AuthUtil.storeCustomer(registry, SessionManager.getInstance().getSession().getCustomer(),
+							new String[] { OTPLoginService.RP_ACCOUNT1, OTPLoginService.RP_ACCOUNT2,
+									OTPLoginService.RP_ACCOUNT3 }, ( (CheckBox) findViewById(R.id.rememberPassword) )
+									.isChecked());
+
+					registry.commit(this);
 				}
-				editor.commit();
+				catch ( final Exception e )
+				{
+					GUIUtil.fatalError(this, e);
+				}
 			}
-			*/
 
 			setResult(RESULT_OK);
 			finish();
 		}
 	}
-
 }

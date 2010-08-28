@@ -21,9 +21,10 @@ import bankdroid.util.TrackedActivity;
 
 /**
  * @author Gabe
- *  FIXME Share transaction functionality over e-mail
  *  FIXME handle empty values in the built in fields.
  *  FIXME BHA: details for term deposits are not correct.
+ *  FIXME PIN based security store
+ *  FIXME PIN based panic functionality
  *
  *  XXX use AccountManager to handle stored passowrds
  *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
@@ -31,9 +32,6 @@ import bankdroid.util.TrackedActivity;
  *  XXX toolbars instead of menu
  *  XXX analytics on the clicks. 
  *
- *	XXX make plugins for various login screens
- *	XXX enable different flow for login (to support SMS OTP)
- *  XXX add OTP plugin
  *  XXX add Citibank plugin
  *  XXX add K&H plugin
  *  XXX add AxaBank plugin

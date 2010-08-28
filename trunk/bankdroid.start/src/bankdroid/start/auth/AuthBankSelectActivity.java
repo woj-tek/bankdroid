@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-import bankdroid.start.BankAdapter;
 import bankdroid.start.R;
 import bankdroid.start.ServiceActivity;
 import bankdroid.start.plugin.PluginManager;

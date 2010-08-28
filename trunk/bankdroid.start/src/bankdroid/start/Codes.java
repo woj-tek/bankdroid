@@ -19,6 +19,12 @@ public interface Codes
 	final static String PREF_SHOW_DUMMY_BANK = "bankdroid.start.ShowDummyBank";
 	final static String PREF_SESSION_TIMEOUT = "bankdroid.start.SessionTimeout";
 
+	final static String PREF_ENCRYPTED_STORE = "bankdroid.start.EncryptedStore";
+
+	//REGISTRY KEYS
+	final static String REG_CUSTOMER_PREFIX = "/customer/";
+	final static String REG_CUSTOMERID_SEQ = "/customeridseq";
+
 	//DEFAULTS
 	final static String DEFAULT_SESSION_TIMEOUT = "3";
 
@@ -35,4 +41,5 @@ public interface Codes
 	final static String EXTRA_PROPERTY_DEFAULT_LABELS = "com.bankdroid.PropertyDefaultLabels";
 	final static String EXTRA_PROPERTY_DEFAULT_VALUES = "com.bankdroid.PropertyDefaultValues";
 	final static String EXTRA_ACTIVITY_TITLE = "com.bankdroid.ActivityTitle";
+	final static String EXTRA_CUSTOMER = "com.bankdroid.Customer";
 }
