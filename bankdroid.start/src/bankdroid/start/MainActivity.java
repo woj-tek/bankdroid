@@ -15,7 +15,6 @@ import com.csaba.connector.model.Session;
 
 /**
  * @author Gabe
- * FIXME use CSABA icons - get legal icons.
  *
  */
 public class MainActivity extends ServiceActivity implements OnClickListener

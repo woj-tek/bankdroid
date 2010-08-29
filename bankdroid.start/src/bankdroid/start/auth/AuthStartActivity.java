@@ -3,11 +3,16 @@ package bankdroid.start.auth;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import bankdroid.start.Eula;
 import bankdroid.start.R;
@@ -17,6 +22,9 @@ import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.model.Customer;
 
+/**
+ * @author Gabe
+ */
 public class AuthStartActivity extends ServiceActivity implements OnClickListener, OnItemClickListener
 {
 	private final static int REQUEST_NEWUSER = 1001;
@@ -39,7 +47,10 @@ public class AuthStartActivity extends ServiceActivity implements OnClickListene
 
 		setContentView(R.layout.authstart);
 
-		( (ListView) findViewById(R.id.userList) ).setOnItemClickListener(this);
+		final ListView list = (ListView) findViewById(R.id.userList);
+		list.setOnItemClickListener(this);
+		registerForContextMenu(list);
+
 		findViewById(R.id.newUser).setOnClickListener(this);
 	}
 
@@ -79,7 +90,6 @@ public class AuthStartActivity extends ServiceActivity implements OnClickListene
 
 	private void createNewUser()
 	{
-		//FIXME handle this correctly
 		startActivityForResult(new Intent(this, AuthBankSelectActivity.class), REQUEST_NEWUSER);
 	}
 
@@ -123,5 +133,43 @@ public class AuthStartActivity extends ServiceActivity implements OnClickListene
 			}
 		}
 
+	}
+
+	@Override
+	public void onCreateContextMenu( final ContextMenu menu, final View v, final ContextMenuInfo menuInfo )
+	{
+		if ( v.getId() == R.id.userList )
+		{
+			final MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.userlistcontextmenu, menu);
+		}
+		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
+	@Override
+	public boolean onContextItemSelected( final MenuItem item )
+	{
+		if ( item.getItemId() == R.id.deleteUser )
+		{
+			final long id = ( (AdapterContextMenuInfo) item.getMenuInfo() ).id;
+			final CustomerAdapter adapter = (CustomerAdapter) ( (ListView) findViewById(R.id.userList) ).getAdapter();
+
+			final Customer customer = adapter.getCustomer((int) id);
+
+			// delete user here
+			try
+			{
+				final SecureRegistry registry = SecureRegistry.getInstance(this);
+				AuthUtil.removeCustomer(registry, (Integer) customer.getRemoteProperty(RP_REGISTRY_ID));
+				registry.commit(this);
+				adapter.removeCustomer((int) id);
+
+			}
+			catch ( final Exception e )
+			{
+				GUIUtil.fatalError(this, e);
+			}
+		}
+		return super.onContextItemSelected(item);
 	}
 }

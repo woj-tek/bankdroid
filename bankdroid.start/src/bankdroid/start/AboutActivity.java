@@ -21,15 +21,16 @@ import bankdroid.util.TrackedActivity;
 
 /**
  * @author Gabe
- *  FIXME handle empty values in the built in fields.
- *  FIXME BHA: details for term deposits are not correct.
- *  FIXME PIN based security store
- *  FIXME PIN based panic functionality
+ *  TODO handle empty values in the built in fields.
+ *  TODO BHA: details for term deposits are not correct.
+ *  TODO PIN based security store
+ *  TODO PIN based panic functionality
  *
  *  XXX use AccountManager to handle stored passowrds
  *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
- *  XXX share account information link for account numbers, account details, transaction details, etc..
- *  XXX toolbars instead of menu
+ *  TODO share account information link for account numbers, account details, transaction details, etc..
+ *  TODO toolbars instead of menu
+ *  TODO use CSABA icons - get legal icons.
  *  XXX analytics on the clicks. 
  *
  *  XXX add Citibank plugin

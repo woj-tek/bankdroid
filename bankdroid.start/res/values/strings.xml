@@ -24,6 +24,7 @@
     <string name="bankSelected">Bank:</string>
     <string name="rememberUser">Remember users</string>
     <string name="rememberPassword">Remember password</string>
+    <string name="deleteUser">Delete User</string>
 
 	<!-- MainActivity -->
     <string name="accountButton">Accounts</string>
