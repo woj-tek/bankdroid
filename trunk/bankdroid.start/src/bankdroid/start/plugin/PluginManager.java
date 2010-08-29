@@ -6,12 +6,15 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import bankdroid.start.Codes;
 import bankdroid.start.auth.AuthStartActivity;
+import bankdroid.util.AndroidFormatter;
+import bankdroid.util.AndroidHandler;
 
 import com.csaba.connector.BankServiceFactory;
 import com.csaba.connector.ClassEnumerationProvider;
@@ -20,6 +23,7 @@ import com.csaba.connector.bha.BHAPluginConfiguration;
 import com.csaba.connector.dummy.DummyPluginConfiguration;
 import com.csaba.connector.model.Bank;
 import com.csaba.connector.otp.OTPPluginConfiguration;
+import com.csaba.util.LoggerHelper;
 
 public class PluginManager implements Codes
 {
@@ -33,9 +37,21 @@ public class PluginManager implements Codes
 		BankServiceFactory.setProvider(new ClassEnumerationProvider(plugins));
 	}
 
+	private static boolean initted = false;
+
 	public static void init()
 	{
-		// do nothing, but leave it here. As on this call the static initializer will run.
+		if ( !initted )
+		{
+			// initialize Java util logging
+			final Level level = Level.FINE;
+			LoggerHelper.initLogger(level);
+			final AndroidHandler handler = new AndroidHandler(TAG);
+			handler.setLevel(level);
+			handler.setFormatter(new AndroidFormatter(false));
+			LoggerHelper.setLogHandler(handler);
+			initted = true;
+		}
 	}
 
 	private static final Map<URL, Drawable> bankIcons = new HashMap<URL, Drawable>();
