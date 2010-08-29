@@ -22,6 +22,7 @@ import com.csaba.connector.BankServiceFactory;
 import com.csaba.connector.ServiceException;
 import com.csaba.connector.model.Bank;
 import com.csaba.connector.model.Customer;
+import com.csaba.connector.model.Session;
 import com.csaba.connector.otp.OTPLoginService;
 import com.csaba.connector.otp.model.OTPBank;
 import com.csaba.connector.service.LoginService;
@@ -30,6 +31,7 @@ public class OTPAuthActivity extends ServiceActivity implements OnClickListener
 {
 	private final Bank bankSelected = OTPBank.getInstance();
 
+	private int registryId;
 	private String loginId;
 	private String password;
 	private String accountNr1;
@@ -62,6 +64,7 @@ public class OTPAuthActivity extends ServiceActivity implements OnClickListener
 
 		loginId = "";
 		password = "";
+		registryId = -1;
 
 		//load login ID from preferences
 		final Intent intent = getIntent();
@@ -70,6 +73,7 @@ public class OTPAuthActivity extends ServiceActivity implements OnClickListener
 			final Customer customer = (Customer) intent.getSerializableExtra(EXTRA_CUSTOMER);
 			if ( customer != null )
 			{
+				registryId = (Integer) customer.getRemoteProperty(RP_REGISTRY_ID);
 				//recover user IDs from encrypted stores
 				loginId = customer.getLoginId();
 				password = customer.getPassword();
@@ -78,6 +82,9 @@ public class OTPAuthActivity extends ServiceActivity implements OnClickListener
 					accountNr1 = (String) customer.getRemoteProperty(OTPLoginService.RP_ACCOUNT1);
 					accountNr2 = (String) customer.getRemoteProperty(OTPLoginService.RP_ACCOUNT2);
 					accountNr3 = (String) customer.getRemoteProperty(OTPLoginService.RP_ACCOUNT3);
+
+					if ( accountNr1.startsWith(OTPLoginService.ACCOUNT_PREFIX) )
+						accountNr1 = accountNr1.substring(OTPLoginService.ACCOUNT_PREFIX.length());
 				}
 				catch ( final Exception e )
 				{
@@ -121,7 +128,7 @@ public class OTPAuthActivity extends ServiceActivity implements OnClickListener
 				accountNr2 = ( (EditText) findViewById(R.id.accountNumber2) ).getText().toString();
 				accountNr3 = ( (EditText) findViewById(R.id.accountNumber3) ).getText().toString();
 
-				//FIXME verify field length here
+				//XXX verify field length here
 
 				final Customer customer = new Customer();
 				customer.setLoginId(loginId);
@@ -152,7 +159,8 @@ public class OTPAuthActivity extends ServiceActivity implements OnClickListener
 
 		if ( service instanceof LoginService )
 		{
-			SessionManager.getInstance().setSession(this, ( (LoginService) service ).getSession());
+			final Session session = ( (LoginService) service ).getSession();
+			SessionManager.getInstance().setSession(this, session);
 
 			//save last succesful login details into SecureRegistry
 			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -163,10 +171,9 @@ public class OTPAuthActivity extends ServiceActivity implements OnClickListener
 				{
 					final SecureRegistry registry = SecureRegistry.getInstance(this);
 
-					AuthUtil.storeCustomer(registry, SessionManager.getInstance().getSession().getCustomer(),
-							new String[] { OTPLoginService.RP_ACCOUNT1, OTPLoginService.RP_ACCOUNT2,
-									OTPLoginService.RP_ACCOUNT3 }, ( (CheckBox) findViewById(R.id.rememberPassword) )
-									.isChecked());
+					AuthUtil.storeCustomer(registry, registryId, session.getCustomer(), new String[] {
+							OTPLoginService.RP_ACCOUNT1, OTPLoginService.RP_ACCOUNT2, OTPLoginService.RP_ACCOUNT3 },
+							( (CheckBox) findViewById(R.id.rememberPassword) ).isChecked());
 
 					registry.commit(this);
 				}

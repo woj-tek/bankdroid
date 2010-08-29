@@ -1,6 +1,9 @@
 package bankdroid.start.auth;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
@@ -24,12 +27,14 @@ import com.csaba.connector.bha.BHALoginService;
 import com.csaba.connector.bha.model.BHABank;
 import com.csaba.connector.model.Bank;
 import com.csaba.connector.model.Customer;
+import com.csaba.connector.model.Session;
 import com.csaba.connector.service.LoginService;
 
 public class BHAAuthActivity extends ServiceActivity implements OnClickListener, OnFocusChangeListener
 {
 	private final Bank bankSelected = BHABank.getInstance();
 
+	private int registryId;
 	private String loginId;
 	private String password;
 
@@ -61,22 +66,35 @@ public class BHAAuthActivity extends ServiceActivity implements OnClickListener,
 
 		//load login ID from preferences
 
-		//FIXME recover user IDs from encrypted stores
-		final String loginId = "";
+		loginId = "";
+		password = "";
+		registryId = -1;
+
+		//load login ID from preferences
+		final Intent intent = getIntent();
+		if ( intent != null )
+		{
+			final Customer customer = (Customer) intent.getSerializableExtra(EXTRA_CUSTOMER);
+			if ( customer != null )
+			{
+				registryId = (Integer) customer.getRemoteProperty(RP_REGISTRY_ID);
+				//recover user IDs from encrypted stores
+				loginId = customer.getLoginId();
+				password = customer.getPassword();
+			}
+		}
+
 		( (TextView) findViewById(R.id.loginId) ).setText(loginId);
-		final String password = "";
 		( (TextView) findViewById(R.id.password) ).setText(password);
 
 		//focus password, if login ID is saved, etc...
-		if ( loginId.length() < 1 )
+		if ( loginId == null || loginId.length() < 1 )
 		{
 			findViewById(R.id.loginId).requestFocus();
-			setAuthType(BHALoginService.AUTH_TYPE_UNKNOWN);
 		}
-		else if ( password.length() < 1 )
+		else if ( password == null || password.length() < 1 )
 		{
 			findViewById(R.id.password).requestFocus();
-			setAuthType(BHALoginService.detectAuthType(loginId));
 		}
 	}
 
@@ -90,7 +108,7 @@ public class BHAAuthActivity extends ServiceActivity implements OnClickListener,
 				loginId = ( (EditText) findViewById(R.id.loginId) ).getText().toString();
 				password = ( (EditText) findViewById(R.id.password) ).getText().toString();
 
-				//FIXME verify field length here
+				//XXX verify field length here
 
 				final Customer customer = new Customer();
 				customer.setLoginId(loginId);
@@ -148,32 +166,28 @@ public class BHAAuthActivity extends ServiceActivity implements OnClickListener,
 
 		if ( service instanceof LoginService )
 		{
-			SessionManager.getInstance().setSession(this, ( (LoginService) service ).getSession());
+			final Session session = ( (LoginService) service ).getSession();
+			SessionManager.getInstance().setSession(this, session);
 
 			//save last succesful login details into preferences
-			/*FIXME store identifiers in the ecryption store
-			final SharedPreferences preferences = PreferenceManager
-					.getDefaultSharedPreferences(getApplicationContext());
+			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 			if ( preferences.getBoolean(PREF_SAVE_LAST_LOGIN, true) )
 			{
-				final Editor editor = preferences.edit();
-				editor.putString(PREF_LAST_BANK, bankSelected.getId());
-				editor.putString(PREF_LAST_LOGINID, loginId);
-				if ( preferences.getBoolean(PREF_SAVE_PASSWORD, false) )
+				try
 				{
-					if ( BHALoginService.detectAuthType(loginId) != BHALoginService.AUTH_TYPE_TOKEN )
-					{
-						editor.putString(PREF_LAST_PASSWORD, password);
-					}
-					else
-					{
-						editor.remove(PREF_LAST_PASSWORD);
-					}
+					final SecureRegistry registry = SecureRegistry.getInstance(this);
+
+					AuthUtil.storeCustomer(registry, registryId, session.getCustomer(), null,
+							( (CheckBox) findViewById(R.id.rememberPassword) ).isChecked());
+
+					registry.commit(this);
 				}
-				editor.commit();
+				catch ( final Exception e )
+				{
+					GUIUtil.fatalError(this, e);
+				}
 			}
-			*/
 
 			setResult(RESULT_OK);
 			finish();

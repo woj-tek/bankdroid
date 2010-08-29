@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import bankdroid.start.R;
-import bankdroid.start.R.layout;
 import bankdroid.start.plugin.PluginManager;
 
 import com.csaba.connector.model.Bank;

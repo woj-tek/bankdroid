@@ -25,6 +25,9 @@ public interface Codes
 	final static String REG_CUSTOMER_PREFIX = "/customer/";
 	final static String REG_CUSTOMERID_SEQ = "/customeridseq";
 
+	//REMOTE PROPERTIES FOR REMOTE OBJECTS
+	final static String RP_REGISTRY_ID = "bankdroid.start.registryId";
+
 	//DEFAULTS
 	final static String DEFAULT_SESSION_TIMEOUT = "3";
 

@@ -37,6 +37,19 @@ public class CustomerAdapter extends BaseAdapter
 		return customers[position];
 	}
 
+	public void removeCustomer( final int position )
+	{
+		final Customer[] customers = new Customer[this.customers.length - 1];
+		for ( int i = 0; i < customers.length; i++ )
+		{
+			if ( i < position )
+				customers[i] = this.customers[i];
+			else
+				customers[i] = this.customers[i + 1];
+		}
+		notifyDataSetChanged();
+	}
+
 	@Override
 	public long getItemId( final int position )
 	{

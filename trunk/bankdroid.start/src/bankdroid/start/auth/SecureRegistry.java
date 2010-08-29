@@ -14,6 +14,9 @@ import bankdroid.start.Codes;
 
 import com.csaba.util.encryption.EncryptedStore;
 
+/**
+ * @author Gabe
+ */
 public class SecureRegistry implements Codes
 {
 	private final EncryptedStore store;
@@ -58,6 +61,11 @@ public class SecureRegistry implements Codes
 	public String getString( final String key )
 	{
 		return (String) store.getValue(key);
+	}
+
+	public void remove( final String key )
+	{
+		store.removeValue(key);
 	}
 
 	public void commit( final Context context ) throws IOException, GeneralSecurityException

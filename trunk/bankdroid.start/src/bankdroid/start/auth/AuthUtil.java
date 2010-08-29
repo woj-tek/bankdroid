@@ -32,13 +32,21 @@ public class AuthUtil implements Codes
 		bank.setCompoundDrawables(PluginManager.getIconDrawable(selected.getLargeIcon()), null, null, null);
 	}
 
-	static void storeCustomer( final SecureRegistry registry, final Customer customer, final String[] propertyList,
-			final boolean storePassword )
+	static void storeCustomer( final SecureRegistry registry, final int index, final Customer customer,
+			final String[] propertyList, final boolean storePassword )
 	{
-		//generate new ID for customer
-		Integer idSeq = (Integer) registry.getValue(REG_CUSTOMERID_SEQ);
-		idSeq = idSeq == null ? 1 : idSeq + 1;
-		registry.putValue(REG_CUSTOMERID_SEQ, idSeq);
+		Integer idSeq = index;
+		if ( index < 1 )
+		{
+			//generate new ID for customer
+			idSeq = (Integer) registry.getValue(REG_CUSTOMERID_SEQ);
+			idSeq = idSeq == null ? 1 : idSeq + 1;
+			registry.putValue(REG_CUSTOMERID_SEQ, idSeq);
+		}
+		else
+		{
+			removeCustomer(registry, index);
+		}
 
 		//store basic data of customer
 
@@ -58,10 +66,29 @@ public class AuthUtil implements Codes
 						.getRemoteProperty(property));
 			}
 		}
+
+		cache = null;
 	}
+
+	static void removeCustomer( final SecureRegistry registry, final int index )
+	{
+		//remove original values
+		final String[] keys = registry.getKeysStartWith(REG_CUSTOMER_PREFIX + String.valueOf(index) + "/");
+		for ( final String key : keys )
+		{
+			registry.remove(key);
+		}
+
+		cache = null;
+	}
+
+	private static Customer[] cache;
 
 	static Customer[] restoreCustomers( final SecureRegistry registry )
 	{
+		if ( cache != null )
+			return cache;
+
 		final Integer idSeq = (Integer) registry.getValue(REG_CUSTOMERID_SEQ);
 		if ( idSeq == null || idSeq < 1 )
 		{
@@ -131,6 +158,7 @@ public class AuthUtil implements Codes
 						Log.w(TAG, "Invalid customer property: " + key);
 					}
 				}
+				cust.setRemoteProperty(RP_REGISTRY_ID, i);
 				result.add(cust);
 			}
 
