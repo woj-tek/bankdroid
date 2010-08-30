@@ -25,8 +25,7 @@
 	
 		<RelativeLayout
 			android:layout_width="fill_parent"
-			android:layout_marginLeft="15sp" 
-			android:layout_marginRight="15sp" 
+			android:layout_margin="15sp" 
 			android:layout_height="wrap_content"
 			android:background="@android:drawable/editbox_dropdown_light_frame">
 			
@@ -67,8 +66,8 @@
 				/>
 				
 			<ImageView
-				android:id="@+id/twitterIcon"
-				android:src="@drawable/twitter_icon"
+				android:id="@+id/gmailIcon"
+				android:src="@drawable/gmail_icon"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_below="@id/version"
@@ -76,12 +75,12 @@
 				/>
 				
 			<ImageView
-				android:id="@+id/gmailIcon"
-				android:src="@drawable/gmail_icon"
+				android:id="@+id/twitterIcon"
+				android:src="@drawable/twitter_icon"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_below="@id/version"
-				android:layout_toRightOf="@id/twitterIcon"
+				android:layout_toRightOf="@id/gmailIcon"
 				/>
 				
 			<ImageView
@@ -90,7 +89,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_below="@id/version"
-				android:layout_toRightOf="@id/gmailIcon"
+				android:layout_toRightOf="@id/twitterIcon"
 				/>
 				
 			<ImageView
@@ -103,13 +102,16 @@
 				/>
 				
 			<TextView 
-				android:text="@string/aboutDesc" 
+				android:text="@string/thankYou" 
 				android:id="@+id/description" 
-				android:textSize="12sp"
+				android:textSize="16sp"
 				android:layout_width="fill_parent" 
 				android:layout_height="wrap_content"
 				android:textColor="#000000" 
-				android:padding="5sp"
+				android:paddingTop="15sp"
+				android:paddingBottom="5sp"
+				android:paddingRight="5sp"
+				android:paddingLeft="5sp"
 				
 				android:layout_below="@id/divider"
 				/>
@@ -138,7 +140,7 @@
 			<TextView 
 				android:text="@string/aboutUrl2" 
 				android:id="@+id/url2" 
-				android:textSize="12sp"
+				android:textSize="13sp"
 				android:gravity="right"
 				
 				android:layout_width="fill_parent" 
@@ -150,36 +152,18 @@
 				
 		</RelativeLayout>
 			
-		<LinearLayout
-			android:orientation="horizontal"
-			android:paddingLeft="22sp"
-			android:paddingRight="22sp"
+		<Button
+			android:id="@+id/closeButton"
+			android:text="@string/closeButton"
+	
+			style="@style/actionButton"
+
+			android:layout_gravity="center_horizontal"	
+			android:layout_marginBottom="10sp"	
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			>
-			<Button 
-				android:id="@+id/productInfoButton" 
-				android:text="@string/btnInfoSite" 
-				android:drawableLeft="@drawable/info_icon"
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal"
-				android:lines="1"
-				/>
-	
-			<Button 
-				android:id="@+id/donateButton" 
-				android:text="@string/donateButton" 
-				android:drawableLeft="@drawable/donate2"
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-				android:layout_gravity="center_horizontal"
-				android:lines="1"
-				/>
-			
-		</LinearLayout>
-	
+			/>
+
 		<com.admob.android.ads.AdView  
 			android:id="@+id/ad"
 			android:layout_width="fill_parent"

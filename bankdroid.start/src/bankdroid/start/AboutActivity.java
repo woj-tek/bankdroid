@@ -19,18 +19,24 @@ import android.widget.Button;
 import android.widget.TextView;
 import bankdroid.util.TrackedActivity;
 
+import com.admob.android.ads.AdManager;
+
 /**
  * @author Gabe
- *  TODO handle empty values in the built in fields.
+ *  FIXME display EULA correctly if no user is set yet. 
+ *  FIXME handle empty values in the built in fields.
+ *	FIXME set remember password on appropriate screen
+ *
  *  TODO BHA: details for term deposits are not correct.
+ *  TODO OTP: localized error messages, customer profile
  *  TODO PIN based security store
  *  TODO PIN based panic functionality
- *
- *  XXX use AccountManager to handle stored passowrds
- *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
  *  TODO share account information link for account numbers, account details, transaction details, etc..
- *  TODO toolbars instead of menu
+ *  TODO toolbars instead of / besides menu
  *  TODO use CSABA icons - get legal icons.
+ *  TODO make profile view to see customer details
+ *
+ *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
  *  XXX analytics on the clicks. 
  *
  *  XXX add Citibank plugin
@@ -48,16 +54,39 @@ public class AboutActivity extends TrackedActivity implements OnClickListener, C
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.about);
+		setContentView(getContentLayoutId());
 
-		final Button productInfo = (Button) findViewById(R.id.productInfoButton);
-		productInfo.setOnClickListener(this);
-		final Button donate = (Button) findViewById(R.id.donateButton);
-		donate.setOnClickListener(this);
+		initEventHandlers();
 
 		findViewById(R.id.twitterIcon).setOnClickListener(this);
 		findViewById(R.id.gmailIcon).setOnClickListener(this);
 		findViewById(R.id.facebookIcon).setOnClickListener(this);
+		findViewById(R.id.url2).setOnClickListener(this);
+
+		//set version number
+		try
+		{
+			final PackageManager manager = getPackageManager();
+			final PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
+			final String versionName = info.versionName;
+			( (TextView) findViewById(R.id.version) ).setText(versionName);
+		}
+		catch ( final NameNotFoundException e )
+		{
+			Log.e(TAG, "Error getting package name.", e);
+		}
+
+		AdManager.setTestDevices(//
+				new String[] { AdManager.TEST_EMULATOR, // Android emulator
+				});
+	}
+
+	protected void initEventHandlers()
+	{
+		final Button productInfo = (Button) findViewById(R.id.productInfoButton);
+		productInfo.setOnClickListener(this);
+		final Button donate = (Button) findViewById(R.id.donateButton);
+		donate.setOnClickListener(this);
 
 		//Set links in description0 
 		final TextView desc0 = (TextView) findViewById(R.id.description);
@@ -86,18 +115,11 @@ public class AboutActivity extends TrackedActivity implements OnClickListener, C
 				desc0.setMovementMethod(LinkMovementMethod.getInstance());
 			}
 		}
-		//set version number
-		try
-		{
-			final PackageManager manager = getPackageManager();
-			final PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
-			final String versionName = info.versionName;
-			( (TextView) findViewById(R.id.version) ).setText(versionName);
-		}
-		catch ( final NameNotFoundException e )
-		{
-			Log.e(TAG, "Error getting package name.", e);
-		}
+	}
+
+	protected int getContentLayoutId()
+	{
+		return R.layout.about;
 	}
 
 	@Override
@@ -126,6 +148,11 @@ public class AboutActivity extends TrackedActivity implements OnClickListener, C
 		else if ( v.getId() == R.id.facebookIcon )
 		{
 			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(FACEBOOK_URL));
+			startActivity(viewIntent);
+		}
+		else if ( v.getId() == R.id.url2 )
+		{
+			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(( (TextView) v ).getText().toString()));
 			startActivity(viewIntent);
 		}
 	}

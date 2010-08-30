@@ -1,60 +1,70 @@
 package bankdroid.start;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.csaba.connector.model.AbstractRemoteObject;
+import com.csaba.util.Formatters;
 
 /**
  * @author Gabe
  */
 public class PropertyAdapter extends BaseAdapter
 {
-	private final AbstractRemoteObject object;
-	private final String[] names;
-	private final String[] defaultLabels;
-	private final String[] defaultValues;
-	private final int defaultLength;
+	private final List<Property> properties = new ArrayList<Property>();
 
 	public PropertyAdapter( final AbstractRemoteObject object, final String[] defaultLabels,
 			final String[] defaultValues )
 	{
-		this.object = object;
-		this.defaultLabels = defaultLabels;
-		this.defaultValues = defaultValues;
+		for ( int i = 0; i < defaultValues.length; i++ )
+		{
+			if ( defaultValues[i] != null )
+			{
+				properties.add(new Property(defaultLabels[i], defaultValues[i]));
+			}
+		}
 
-		this.names = object.getRemotePropertyNames();
-		this.defaultLength = defaultLabels.length;
+		final String[] names = object.getRemotePropertyNames();
+		for ( final String name : names )
+		{
+			final String label = object.getLocalizedName(name) + ":";
+			final Object value = object.getRemoteProperty(name);
+			String valueString;
+			if ( value instanceof Date )
+			{
+				valueString = Formatters.getShortDateFormat().format(value);
+			}
+			else
+			{
+				valueString = value.toString();
+			}
+			properties.add(new Property(label, valueString));
+		}
 	}
 
 	@Override
 	public int getCount()
 	{
-		return names.length + defaultLabels.length;
+		return properties.size();
 	}
 
 	@Override
 	public Object getItem( final int position )
 	{
-		if ( position >= defaultLength )
-		{
-			return new Property(object.getLocalizedName(names[position - defaultLength]) + ":", object
-					.getRemoteProperty(names[position - defaultLength]));
-		}
-		return new Property(defaultLabels[position], defaultValues[position]);
+		return properties.get(position);
 
 	}
 
 	@Override
 	public long getItemId( final int position )
 	{
-		if ( position >= defaultLength )
-		{
-			return names[position - defaultLength].hashCode();
-		}
-		return defaultLabels[position].hashCode();
+		return position;
 
 	}
 
@@ -69,7 +79,7 @@ public class PropertyAdapter extends BaseAdapter
 
 		final Property prop = (Property) getItem(position);
 		( (TextView) view.findViewById(R.id.propertyName) ).setText(prop.getName());
-		( (TextView) view.findViewById(R.id.propertyValue) ).setText(prop.getValue().toString());
+		( (TextView) view.findViewById(R.id.propertyValue) ).setText(prop.getValue());
 
 		return view;
 	}
@@ -77,19 +87,19 @@ public class PropertyAdapter extends BaseAdapter
 	class Property
 	{
 		String name;
-		Object value;
+		String value;
 
 		public String getName()
 		{
 			return name;
 		}
 
-		public Object getValue()
+		public String getValue()
 		{
 			return value;
 		}
 
-		public Property( final String name, final Object value )
+		public Property( final String name, final String value )
 		{
 			super();
 			this.name = name;

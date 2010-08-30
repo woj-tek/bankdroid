@@ -33,6 +33,10 @@
     <string name="logoutButton">Logout</string>
     <string name="searchTransactionButton">Transactions</string>
 
+	<!-- Logout -->
+    <string name="thankYou">Thank you for using BankDroid START!</string>
+    <string name="closeButton">Close</string>
+
 	<!-- main menu -->
     <string name="menuPref">Settings</string>
     <string name="menuAbout">Contact</string>

@@ -33,6 +33,7 @@ public interface Codes
 
 	//OTHERS
 	final static int LOGIN = 0xbaba;
+	final static int LOGOUT = 0xcaba;
 	final static String DUMMY_BANK_ID = "DUMMY";
 	final static int NOTIFICATION_ACTIVE_SESSION = 122112;
 	final static int NOTIFICATION_SESSION_TIMEOUT = 122113;
