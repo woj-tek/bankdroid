@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import bankdroid.start.plugin.PluginManager;
 
-import com.csaba.connector.BankService;
 import com.csaba.connector.model.Session;
 
 /**
@@ -73,9 +72,4 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 				.getLargeIcon()));
 	}
 
-	@Override
-	public void onServiceFinished( final BankService service )
-	{
-		finish();
-	}
 }

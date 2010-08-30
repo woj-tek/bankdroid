@@ -1,5 +1,7 @@
 package bankdroid.start.auth;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -60,6 +62,12 @@ public class AuthStartActivity extends ServiceActivity implements OnClickListene
 		super.onResume();
 
 		Log.d(TAG, "AuthStart resume");
+
+		//clear notifications here
+		final NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+		nm.cancel(NOTIFICATION_ACTIVE_SESSION);
+		nm.cancel(NOTIFICATION_SESSION_TIMEOUT);
+		nm.cancel(NOTIFICATION_SESSION_TIMEOUT_EXPIRED);
 
 		boolean hasUsers = false;
 		try

@@ -18,7 +18,6 @@ import com.csaba.connector.service.LogoutService;
 
 public abstract class ServiceActivity extends TrackedActivity implements Codes, ServiceListener
 {
-
 	public static final int MESSAGE_DIALOG = 123;
 	private String dialogMessage = null;
 	private boolean sessionOriented = true;
@@ -81,7 +80,7 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 	{
 		if ( service instanceof LogoutService )
 		{
-			finish();
+			startActivityForResult(new Intent(this, LogoutActivity.class), LOGOUT);
 		}
 	}
 
@@ -182,6 +181,10 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 	{
 		super.onActivityResult(requestCode, resultCode, data);
 		if ( requestCode == LOGIN && resultCode == RESULT_CANCELED )
+		{
+			finish();
+		}
+		else if ( requestCode == LOGOUT )
 		{
 			finish();
 		}
