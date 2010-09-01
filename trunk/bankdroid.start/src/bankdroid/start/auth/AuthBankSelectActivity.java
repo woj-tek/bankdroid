@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import bankdroid.start.Eula;
 import bankdroid.start.R;
 import bankdroid.start.ServiceActivity;
 import bankdroid.start.plugin.PluginManager;
@@ -32,6 +33,10 @@ public class AuthBankSelectActivity extends ServiceActivity implements OnItemCli
 	protected void onCreate( final Bundle savedInstanceState )
 	{
 		super.onCreate(savedInstanceState);
+
+		setResult(RESULT_CANCELED);
+
+		Eula.show(this);
 
 		try
 		{

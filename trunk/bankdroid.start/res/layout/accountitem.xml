@@ -86,13 +86,4 @@
 	    android:layout_alignBottom="@id/bookedBalance"
 	    />
 	    
-  	<ImageView
-  		android:id="@+id/divider"
-		android:src="@android:drawable/divider_horizontal_bright"
-		android:layout_width="fill_parent"
-		android:layout_height="1sp"
-		android:scaleType="fitXY"			
-		android:layout_below="@id/bookedBalance"
-  		/>  		
-
 </RelativeLayout>
