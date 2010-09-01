@@ -38,6 +38,8 @@ public class AuthStartActivity extends ServiceActivity implements OnClickListene
 	{
 		super.onCreate(savedInstanceState);
 
+		setResult(RESULT_CANCELED);
+
 		Eula.show(this);
 
 		setSessionOriented(false);

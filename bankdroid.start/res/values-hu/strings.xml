@@ -14,7 +14,7 @@
     <string name="title">BankDroid</string>
     <string name="subtitle">START</string>
     <string name="bankSelect">Válassz bankot:</string>
-    <string name="loginId">Név:</string>
+    <string name="loginId">Azonosító:</string>
     <string name="password">Jelszó:</string>
     <string name="loginButton">Belépés</string>
     <string name="msgUseMenu">További opciókért nyomd meg a menü gombot.</string>
