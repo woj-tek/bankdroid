@@ -11,6 +11,7 @@ import android.widget.TextView;
 import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.model.Account;
+import com.csaba.connector.model.Amount;
 
 class AccountAdapter extends BaseAdapter
 {
@@ -63,12 +64,28 @@ class AccountAdapter extends BaseAdapter
 		( (TextView) contentView.findViewById(R.id.accountName) ).setText(GUIUtil.getAccountName(acc));
 
 		final TextView availableBalance = (TextView) contentView.findViewById(R.id.availableBalance);
-		availableBalance.setText(acc.getAvailableBalance().toString());
-		availableBalance.setTextColor(GUIUtil.getColor(context, acc.getAvailableBalance().getAmount()));
+		final Amount availableBalanceValue = acc.getAvailableBalance();
+		if ( availableBalanceValue != null )
+		{
+			availableBalance.setText(availableBalanceValue.toString());
+			availableBalance.setTextColor(GUIUtil.getColor(context, availableBalanceValue.getAmount()));
+		}
+		else
+		{
+			availableBalance.setText("");
+		}
 
 		final TextView bookedBalance = (TextView) contentView.findViewById(R.id.bookedBalance);
-		bookedBalance.setText(acc.getBookedBalance().toString());
-		bookedBalance.setTextColor(GUIUtil.getColor(context, acc.getBookedBalance().getAmount()));
+		final Amount bookedBalanceValue = acc.getBookedBalance();
+		if ( bookedBalanceValue != null )
+		{
+			bookedBalance.setText(bookedBalanceValue.toString());
+			bookedBalance.setTextColor(GUIUtil.getColor(context, bookedBalanceValue.getAmount()));
+		}
+		else
+		{
+			bookedBalance.setText("");
+		}
 
 		return contentView;
 	}

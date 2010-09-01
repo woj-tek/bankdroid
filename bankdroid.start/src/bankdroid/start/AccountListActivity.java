@@ -106,27 +106,9 @@ public class AccountListActivity extends ServiceActivity implements OnItemClickL
 		final Account account = (Account) adapter.getItem(position);
 
 		final Intent intent = new Intent(getBaseContext(), PropertyViewActivity.class);
-		intent.putExtra(EXTRA_PROPERTY_OBJECT, account);
+		intent.putExtra(EXTRA_PROPERTIES, PropertyHelper.getProperties(this, account));
 		intent.putExtra(EXTRA_ACTIVITY_TITLE, getString(R.string.accountDetailTitle));
 
-		final String[] defaultLabels = new String[6];
-		final String[] defaultValues = new String[6];
-
-		defaultLabels[0] = getString(R.string.accountName);
-		defaultValues[0] = account.getName();
-		defaultLabels[1] = getString(R.string.accountNumber);
-		defaultValues[1] = account.getNumber();
-		defaultLabels[2] = getString(R.string.availableBalance);
-		defaultValues[2] = account.getAvailableBalance().toString();
-		defaultLabels[3] = getString(R.string.bookedBalance);
-		defaultValues[3] = account.getBookedBalance().toString();
-		defaultLabels[4] = getString(R.string.accountType);
-		defaultValues[4] = account.getType();
-		defaultLabels[5] = getString(R.string.accountIBAN);
-		defaultValues[5] = account.getIBAN();
-
-		intent.putExtra(EXTRA_PROPERTY_DEFAULT_LABELS, defaultLabels);
-		intent.putExtra(EXTRA_PROPERTY_DEFAULT_VALUES, defaultValues);
 		startActivity(intent);
 	}
 }

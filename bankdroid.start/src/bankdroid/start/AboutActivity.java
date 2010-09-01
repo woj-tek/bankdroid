@@ -24,7 +24,6 @@ import com.admob.android.ads.AdManager;
 /**
  * @author Gabe
  *  FIXME display EULA correctly if no user is set yet. 
- *  FIXME handle empty values in the built in fields.
  *	FIXME set remember password on appropriate screen
  *  FIXME remove devider from list items.
  *  FIXME OTP login ID is numeric

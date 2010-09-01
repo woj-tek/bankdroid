@@ -1,64 +1,33 @@
 package bankdroid.start;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
-import com.csaba.connector.model.AbstractRemoteObject;
-import com.csaba.util.Formatters;
 
 /**
  * @author Gabe
  */
 public class PropertyAdapter extends BaseAdapter
 {
-	private final List<Property> properties = new ArrayList<Property>();
+	private final Property[] properties;
 
-	public PropertyAdapter( final AbstractRemoteObject object, final String[] defaultLabels,
-			final String[] defaultValues )
+	public PropertyAdapter( final Property[] properties )
 	{
-		for ( int i = 0; i < defaultValues.length; i++ )
-		{
-			if ( defaultValues[i] != null )
-			{
-				properties.add(new Property(defaultLabels[i], defaultValues[i]));
-			}
-		}
+		this.properties = properties;
 
-		final String[] names = object.getRemotePropertyNames();
-		for ( final String name : names )
-		{
-			final String label = object.getLocalizedName(name) + ":";
-			final Object value = object.getRemoteProperty(name);
-			String valueString;
-			if ( value instanceof Date )
-			{
-				valueString = Formatters.getShortDateFormat().format(value);
-			}
-			else
-			{
-				valueString = value.toString();
-			}
-			properties.add(new Property(label, valueString));
-		}
 	}
 
 	@Override
 	public int getCount()
 	{
-		return properties.size();
+		return properties.length;
 	}
 
 	@Override
 	public Object getItem( final int position )
 	{
-		return properties.get(position);
-
+		return properties[position];
 	}
 
 	@Override
@@ -79,33 +48,9 @@ public class PropertyAdapter extends BaseAdapter
 
 		final Property prop = (Property) getItem(position);
 		( (TextView) view.findViewById(R.id.propertyName) ).setText(prop.getName());
-		( (TextView) view.findViewById(R.id.propertyValue) ).setText(prop.getValue());
+		( (TextView) view.findViewById(R.id.propertyValue) ).setText(prop.getValueString());
 
 		return view;
-	}
-
-	class Property
-	{
-		String name;
-		String value;
-
-		public String getName()
-		{
-			return name;
-		}
-
-		public String getValue()
-		{
-			return value;
-		}
-
-		public Property( final String name, final String value )
-		{
-			super();
-			this.name = name;
-			this.value = value;
-		}
-
 	}
 
 }
