@@ -185,24 +185,7 @@ public class TransactionListActivity extends ServiceActivity implements OnItemCl
 
 		final Intent intent = new Intent(getBaseContext(), PropertyViewActivity.class);
 
-		final String[] defaultLabels = new String[5];
-		final String[] defaultValues = new String[5];
-
-		defaultLabels[0] = getString(R.string.accountNumber);
-		defaultValues[0] = GUIUtil.getAccountName(item.getOwner());
-		defaultLabels[1] = getString(R.string.transactionDate);
-		defaultValues[1] = Formatters.getShortDateFormat().format(item.getDate());
-		defaultLabels[2] = getString(R.string.transactionAmount);
-		defaultValues[2] = item.getAmount().toString();
-		defaultLabels[3] = getString(R.string.transactionDescription);
-		defaultValues[3] = item.getDescription();
-		defaultLabels[4] = getString(R.string.transactionBalance);
-		defaultValues[4] = item.getBalance().toString();
-
-		intent.putExtra(EXTRA_PROPERTY_DEFAULT_LABELS, defaultLabels);
-		intent.putExtra(EXTRA_PROPERTY_DEFAULT_VALUES, defaultValues);
-
-		intent.putExtra(EXTRA_PROPERTY_OBJECT, item);
+		intent.putExtra(EXTRA_PROPERTIES, PropertyHelper.getProperties(this, item));
 		intent.putExtra(EXTRA_ACTIVITY_TITLE, getString(R.string.tranDetailTitle));
 		startActivity(intent);
 	}

@@ -6,8 +6,6 @@ import android.view.Window;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.csaba.connector.model.AbstractRemoteObject;
-
 public class PropertyViewActivity extends ServiceActivity
 {
 
@@ -35,13 +33,11 @@ public class PropertyViewActivity extends ServiceActivity
 			final String title = intent.getStringExtra(EXTRA_ACTIVITY_TITLE);
 			( (TextView) findViewById(R.id.title) ).setText(title);
 
-			final AbstractRemoteObject object = (AbstractRemoteObject) intent
-					.getSerializableExtra(EXTRA_PROPERTY_OBJECT);
-			final String[] defaultLabels = intent.getStringArrayExtra(EXTRA_PROPERTY_DEFAULT_LABELS);
-			final String[] defaultValues = intent.getStringArrayExtra(EXTRA_PROPERTY_DEFAULT_VALUES);
+			final Property[] properties = PropertyHelper.convertArray((Object[]) intent
+					.getSerializableExtra(EXTRA_PROPERTIES));
 
 			final ListView list = (ListView) findViewById(R.id.propertyList);
-			list.setAdapter(new PropertyAdapter(object, defaultLabels, defaultValues));
+			list.setAdapter(new PropertyAdapter(properties));
 		}
 	}
 }

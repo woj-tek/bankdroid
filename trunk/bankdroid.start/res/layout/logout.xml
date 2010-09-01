@@ -168,9 +168,9 @@
 			android:id="@+id/ad"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			app:backgroundColor="@color/secondaryDark"
-			app:primaryTextColor="@color/textLight"
-			app:secondaryTextColor="@color/text"
+			app:backgroundColor="#917622"
+			app:primaryTextColor="#FFFFFF"
+			app:secondaryTextColor="#44596C"
 			app:keywords="bank cib otp számla pénz account money"
 			/>
 	</LinearLayout>
