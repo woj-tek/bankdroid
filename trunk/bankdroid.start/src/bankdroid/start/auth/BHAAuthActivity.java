@@ -96,6 +96,11 @@ public class BHAAuthActivity extends ServiceActivity implements OnClickListener,
 		{
 			findViewById(R.id.password).requestFocus();
 		}
+		else
+		{ //password was saved
+			( (CheckBox) findViewById(R.id.rememberPassword) ).setChecked(true);
+			findViewById(R.id.loginButton).requestFocus();
+		}
 	}
 
 	@Override
