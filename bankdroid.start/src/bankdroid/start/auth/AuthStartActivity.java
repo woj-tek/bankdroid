@@ -19,6 +19,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import bankdroid.start.Eula;
 import bankdroid.start.R;
 import bankdroid.start.ServiceActivity;
+import bankdroid.start.Eula.OnEulaAgreedTo;
 import bankdroid.start.plugin.PluginManager;
 import bankdroid.util.GUIUtil;
 
@@ -27,11 +28,12 @@ import com.csaba.connector.model.Customer;
 /**
  * @author Gabe
  */
-public class AuthStartActivity extends ServiceActivity implements OnClickListener, OnItemClickListener
+public class AuthStartActivity extends ServiceActivity implements OnClickListener, OnItemClickListener, OnEulaAgreedTo
 {
 	private final static int REQUEST_NEWUSER = 1001;
 
 	private boolean onFirstDisplay = true;
+	private boolean hasUsers = false;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -39,8 +41,6 @@ public class AuthStartActivity extends ServiceActivity implements OnClickListene
 		super.onCreate(savedInstanceState);
 
 		setResult(RESULT_CANCELED);
-
-		Eula.show(this);
 
 		setSessionOriented(false);
 		setShowHomeMenu(false);
@@ -71,7 +71,7 @@ public class AuthStartActivity extends ServiceActivity implements OnClickListene
 		nm.cancel(NOTIFICATION_SESSION_TIMEOUT);
 		nm.cancel(NOTIFICATION_SESSION_TIMEOUT_EXPIRED);
 
-		boolean hasUsers = false;
+		hasUsers = false;
 		try
 		{
 			final SecureRegistry registry = SecureRegistry.getInstance(this);
@@ -91,10 +91,9 @@ public class AuthStartActivity extends ServiceActivity implements OnClickListene
 			GUIUtil.fatalError(this, e);
 		}
 
-		if ( onFirstDisplay && !hasUsers )
-		{
-			onFirstDisplay = false;
-			createNewUser();
+		if ( Eula.show(this) )
+		{ //eula was already accepted
+			onEulaAgreedTo();
 		}
 	}
 
@@ -181,5 +180,15 @@ public class AuthStartActivity extends ServiceActivity implements OnClickListene
 			}
 		}
 		return super.onContextItemSelected(item);
+	}
+
+	@Override
+	public void onEulaAgreedTo()
+	{
+		if ( onFirstDisplay && !hasUsers )
+		{
+			onFirstDisplay = false;
+			createNewUser();
+		}
 	}
 }

@@ -23,19 +23,20 @@ import com.admob.android.ads.AdManager;
 
 /**
  * @author Gabe
- *  FIXME display EULA correctly if no user is set yet. 
- *	FIXME set remember password on appropriate screen
+ * 
+ *  TODO share account information link for account numbers, account details, transaction details, etc..
+ *  TODO make profile view to see customer details
  *
  *  TODO BHA: details for term deposits are not correct.
  *  TODO OTP: localized error messages, customer profile
+ *
  *  TODO PIN based security store
  *  TODO PIN based panic functionality
- *  TODO share account information link for account numbers, account details, transaction details, etc..
+ *
  *  TODO toolbars instead of / besides menu
  *  TODO use CSABA icons - get legal icons.
  *  TODO backgroud for bank icons
  *  TODO apply professional color scheme
- *  TODO make profile view to see customer details
  *
  *	XXX set language option in preferences
  *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
