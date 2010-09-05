@@ -1,5 +1,7 @@
 package bankdroid.start;
 
+import java.text.MessageFormat;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.model.Account;
@@ -83,17 +86,21 @@ public class AccountListActivity extends ServiceActivity implements OnItemClickL
 	@Override
 	public boolean onContextItemSelected( final MenuItem item )
 	{
+		final long id = ( (AdapterContextMenuInfo) item.getMenuInfo() ).id;
+		final AccountAdapter adapter = (AccountAdapter) ( (ListView) findViewById(R.id.accountList) ).getAdapter();
+		final Account account = (Account) adapter.getItemById(id);
+
 		if ( item.getItemId() == R.id.quickHistory )
 		{
-			final long id = ( (AdapterContextMenuInfo) item.getMenuInfo() ).id;
-			final AccountAdapter adapter = (AccountAdapter) ( (ListView) findViewById(R.id.accountList) ).getAdapter();
-
-			final Account account = (Account) adapter.getItemById(id);
-			final Intent tranList = new Intent(getApplicationContext(), TransactionListActivity.class);
-			final TransactionFilter filter = TransactionFilter.getDefaultFilter();
-			filter.setAccount(account);
-			tranList.putExtra(EXTRA_TRANSACTION_FILTER, filter);
-			startActivity(tranList);
+			quickHistory(account);
+		}
+		if ( item.getItemId() == R.id.shareDetails )
+		{
+			shareDetails(account);
+		}
+		if ( item.getItemId() == R.id.viewDetails )
+		{
+			viewDetails(account);
 		}
 		return super.onContextItemSelected(item);
 	}
@@ -104,6 +111,45 @@ public class AccountListActivity extends ServiceActivity implements OnItemClickL
 		final AccountAdapter adapter = (AccountAdapter) parent.getAdapter();
 
 		final Account account = (Account) adapter.getItem(position);
+
+		viewDetails(account);
+	}
+
+	private void shareDetails( final Account account )
+	{
+		trackClickEvent(ACTION_SEND, "shareAccountDetails");
+
+		final Intent send = new Intent(Intent.ACTION_SEND);
+		send.putExtra(Intent.EXTRA_SUBJECT, MessageFormat.format(getString(R.string.shareAccountSubject), GUIUtil
+				.getAccountName(account)));
+
+		final Property[] properties = PropertyHelper.getProperties(this, account);
+		final StringBuilder body = new StringBuilder(getString(R.string.shareAccountBodyTop));
+		for ( final Property property : properties )
+		{
+			body.append("\n").append(property.getName()).append(" ").append(property.getValueString());
+		}
+		body.append("\n\n").append(getString(R.string.shareAccountBodyBottom));
+		send.putExtra(Intent.EXTRA_TEXT, body.toString());
+
+		send.setType("text/plain");
+		startActivity(Intent.createChooser(send, getString(R.string.shareChooseApplication)));
+	}
+
+	private void quickHistory( final Account account )
+	{
+		trackClickEvent(ACTION_CLICK, "quickHistory");
+
+		final Intent tranList = new Intent(getApplicationContext(), TransactionListActivity.class);
+		final TransactionFilter filter = TransactionFilter.getDefaultFilter();
+		filter.setAccount(account);
+		tranList.putExtra(EXTRA_TRANSACTION_FILTER, filter);
+		startActivity(tranList);
+	}
+
+	private void viewDetails( final Account account )
+	{
+		trackClickEvent(ACTION_CLICK, "viewAccountDetails");
 
 		final Intent intent = new Intent(getBaseContext(), PropertyViewActivity.class);
 		intent.putExtra(EXTRA_PROPERTIES, PropertyHelper.getProperties(this, account));

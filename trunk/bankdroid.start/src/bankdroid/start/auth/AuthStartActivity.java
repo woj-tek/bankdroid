@@ -129,19 +129,26 @@ public class AuthStartActivity extends ServiceActivity implements OnClickListene
 		{
 			final Customer cust = ( (CustomerAdapter) view.getAdapter() ).getCustomer(position);
 
-			try
-			{
-				final Class<?> authActivityClass = PluginManager.getAuthActivityClass(cust.getBank());
-				final Intent intent = new Intent(this, authActivityClass);
-				intent.putExtra(EXTRA_CUSTOMER, cust);
-				startActivityForResult(intent, REQUEST_NEWUSER);
-			}
-			catch ( final ClassNotFoundException e )
-			{
-				GUIUtil.fatalError(this, e);
-			}
+			openCustomer(cust);
 		}
 
+	}
+
+	private void openCustomer( final Customer customer )
+	{
+		try
+		{
+			trackClickEvent(ACTION_CLICK, "openStoredCustomer");
+
+			final Class<?> authActivityClass = PluginManager.getAuthActivityClass(customer.getBank());
+			final Intent intent = new Intent(this, authActivityClass);
+			intent.putExtra(EXTRA_CUSTOMER, customer);
+			startActivityForResult(intent, REQUEST_NEWUSER);
+		}
+		catch ( final ClassNotFoundException e )
+		{
+			GUIUtil.fatalError(this, e);
+		}
 	}
 
 	@Override

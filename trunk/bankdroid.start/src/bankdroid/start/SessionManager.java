@@ -251,11 +251,6 @@ public class SessionManager implements ServiceListener, Codes
 	{
 		try
 		{
-
-			//dispatch analytics stats here
-			if ( caller != null )
-				caller.dispatch();
-
 			final Session session = getSession();
 
 			final LogoutService logout = BankServiceFactory.getBankService(session.getBank(), LogoutService.class);

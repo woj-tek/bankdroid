@@ -9,11 +9,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import bankdroid.util.GUIUtil;
 
@@ -49,6 +54,7 @@ public class TransactionListActivity extends ServiceActivity implements OnItemCl
 
 		adapter = new TransactionAdapter();
 		final ListView list = (ListView) findViewById(R.id.transactionList);
+		registerForContextMenu(list);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(this);
 	}
@@ -177,11 +183,68 @@ public class TransactionListActivity extends ServiceActivity implements OnItemCl
 	}
 
 	@Override
+	public void onCreateContextMenu( final ContextMenu menu, final View v, final ContextMenuInfo menuInfo )
+	{
+		if ( v.getId() == R.id.transactionList )
+		{
+			final MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.tranlistcontextmenu, menu);
+		}
+		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
+	@Override
+	public boolean onContextItemSelected( final MenuItem item )
+	{
+		final int position = ( (AdapterContextMenuInfo) item.getMenuInfo() ).position;
+		final TransactionAdapter adapter = (TransactionAdapter) ( (ListView) findViewById(R.id.transactionList) )
+				.getAdapter();
+		final HistoryItem transaction = (HistoryItem) adapter.getItem(position);
+
+		if ( item.getItemId() == R.id.shareDetails )
+		{
+			shareDetails(transaction);
+		}
+		if ( item.getItemId() == R.id.viewDetails )
+		{
+			viewDetails(transaction);
+		}
+		return super.onContextItemSelected(item);
+	}
+
+	@Override
 	public void onItemClick( final AdapterView<?> parent, final View view, final int position, final long id )
 	{
 		final TransactionAdapter adapter = (TransactionAdapter) parent.getAdapter();
 
 		final HistoryItem item = (HistoryItem) adapter.getItem(position);
+
+		viewDetails(item);
+	}
+
+	private void shareDetails( final HistoryItem item )
+	{
+		trackClickEvent(ACTION_SEND, "shareTransactionDetails");
+
+		final Intent send = new Intent(Intent.ACTION_SEND);
+		send.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shareTransactionSubject));
+
+		final Property[] properties = PropertyHelper.getProperties(this, item);
+		final StringBuilder body = new StringBuilder(getString(R.string.shareTransactionBodyTop));
+		for ( final Property property : properties )
+		{
+			body.append("\n").append(property.getName()).append(" ").append(property.getValueString());
+		}
+		body.append("\n\n").append(getString(R.string.shareTransactionBodyBottom));
+		send.putExtra(Intent.EXTRA_TEXT, body.toString());
+
+		send.setType("text/plain");
+		startActivity(Intent.createChooser(send, getString(R.string.shareChooseApplication)));
+	}
+
+	private void viewDetails( final HistoryItem item )
+	{
+		trackClickEvent(ACTION_CLICK, "viewTransactionDetails");
 
 		final Intent intent = new Intent(getBaseContext(), PropertyViewActivity.class);
 
