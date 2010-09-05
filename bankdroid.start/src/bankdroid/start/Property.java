@@ -37,7 +37,7 @@ public class Property implements Serializable
 		this.valueString = convertObjectProperty(value);
 	}
 
-	private String convertObjectProperty( final Object value )
+	public static String convertObjectProperty( final Object value )
 	{
 		if ( value == null )
 		{

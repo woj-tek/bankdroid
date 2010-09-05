@@ -1,5 +1,6 @@
 package bankdroid.start;
 
+import android.content.Intent;
 import android.view.View;
 
 public class LogoutActivity extends AboutActivity
@@ -8,6 +9,7 @@ public class LogoutActivity extends AboutActivity
 	protected void initEventHandlers()
 	{
 		findViewById(R.id.closeButton).setOnClickListener(this);
+		findViewById(R.id.loginButton).setOnClickListener(this);
 	}
 
 	@Override
@@ -23,9 +25,20 @@ public class LogoutActivity extends AboutActivity
 		{
 			finish();
 		}
+		else if ( v.getId() == R.id.loginButton )
+		{
+			startActivity(new Intent(this, MainActivity.class));//FIXME some parameter is need to start new instance of main activity
+		}
 		else
 		{
 			super.onClick(v);
 		}
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		dispatch();
 	}
 }

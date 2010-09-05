@@ -24,7 +24,6 @@ import com.admob.android.ads.AdManager;
 /**
  * @author Gabe
  * 
- *  TODO share account information link for account numbers, account details, transaction details, etc..
  *  TODO make profile view to see customer details
  *
  *  TODO BHA: details for term deposits are not correct.
@@ -40,7 +39,6 @@ import com.admob.android.ads.AdManager;
  *
  *	XXX set language option in preferences
  *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
- *  XXX analytics on the clicks. 
  *
  *  XXX add Citibank plugin
  *  XXX add K&H plugin

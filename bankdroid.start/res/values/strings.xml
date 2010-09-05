@@ -58,12 +58,18 @@
     <string name="accountListTitle">Account List</string>
     <string name="msgUseContextMenu">Long press item for more options.</string>
     <string name="quickHistory">Quick History</string>
+    <string name="shareDetails">Share Details</string>
+    <string name="viewDetails">View Details</string>
     <string name="availableBalance">Available balance:</string>
     <string name="bookedBalance">Booked balance:</string>
     <string name="accountName">Name:</string>
     <string name="accountNumber">Account number:</string>
     <string name="accountType">Account type:</string>
     <string name="accountIBAN">IBAN:</string>
+    <string name="shareChooseApplication">Choose application:</string>
+    <string name="shareAccountSubject">Shared Account - {0}</string>
+    <string name="shareAccountBodyTop"><![CDATA[Details of account:]]></string>
+    <string name="shareAccountBodyBottom"><![CDATA[-- share from BankDroid START (http://start.bankdroid.info)]]></string>
 
 	<!-- Property Details -->
     <string name="tranDetailTitle">Transaction Details</string>
@@ -80,6 +86,9 @@
     <string name="transactionDescription">Description:</string>
     <string name="transactionAmount">Amount:</string>
     <string name="transactionBalance">Balance:</string>
+    <string name="shareTransactionSubject">Shared Transaction</string>
+    <string name="shareTransactionBodyTop"><![CDATA[Details of transaction:]]></string>
+    <string name="shareTransactionBodyBottom"><![CDATA[-- share from BankDroid START (http://start.bankdroid.info)]]></string>
 
 	<!-- SearchTransaction -->
     <string name="searchTranTitle">Search Transactions</string>
