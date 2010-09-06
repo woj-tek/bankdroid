@@ -24,8 +24,6 @@ import com.admob.android.ads.AdManager;
 /**
  * @author Gabe
  * 
- *  TODO make profile view to see customer details
- *
  *  TODO BHA: details for term deposits are not correct.
  *  TODO OTP: localized error messages, customer profile
  *

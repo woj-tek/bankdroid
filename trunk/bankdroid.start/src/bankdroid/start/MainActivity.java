@@ -32,6 +32,7 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 		( (Button) findViewById(R.id.logoutButton) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.accountButton) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.quickHistoryButton) ).setOnClickListener(this);
+		( (Button) findViewById(R.id.customerProfileButton) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.searchTransactionButton) ).setOnClickListener(this);
 	}
 
@@ -55,6 +56,16 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 			final Intent tranList = new Intent(getApplicationContext(), TransactionListActivity.class);
 			tranList.putExtra(EXTRA_TRANSACTION_FILTER, TransactionFilter.getDefaultFilter());
 			startActivity(tranList);
+		}
+		else if ( v.getId() == R.id.customerProfileButton )
+		{
+			//open customer profile view
+			final Intent intent = new Intent(getBaseContext(), PropertyViewActivity.class);
+
+			intent.putExtra(EXTRA_PROPERTIES, PropertyHelper.getProperties(this, SessionManager.getInstance()
+					.getSession().getCustomer()));
+			intent.putExtra(EXTRA_ACTIVITY_TITLE, getString(R.string.customerDetailTitle));
+			startActivity(intent);
 		}
 	}
 

@@ -30,6 +30,7 @@
     <string name="accountButton">Accounts</string>
     <string name="quickHistoryButton">Quick History</string>
     <string name="profileButton">Profile</string>
+    <string name="customerProfileButton">Customer Profile</string>
     <string name="logoutButton">Logout</string>
     <string name="searchTransactionButton">Transactions</string>
 
@@ -74,6 +75,9 @@
 	<!-- Property Details -->
     <string name="tranDetailTitle">Transaction Details</string>
     <string name="accountDetailTitle">Account Details</string>
+    <string name="customerDetailTitle">Customer Details</string>
+    <string name="customerId">Customer ID:</string>
+    <string name="customerName">Customer name:</string>
 
 	<!-- TransactionList -->
     <string name="tranListTitle">Transaction List</string>
