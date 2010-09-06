@@ -8,6 +8,7 @@ import android.content.Context;
 
 import com.csaba.connector.model.AbstractRemoteObject;
 import com.csaba.connector.model.Account;
+import com.csaba.connector.model.Customer;
 import com.csaba.connector.model.HistoryItem;
 
 public class PropertyHelper
@@ -44,6 +45,18 @@ public class PropertyHelper
 		result.add(new Property(context.getString(R.string.transactionBalance), item.getBalance()));
 
 		finalizeResult(item, result);
+		return result.toArray(new Property[result.size()]);
+	}
+
+	public static Property[] getProperties( final Context context, final Customer customer )
+	{
+		final List<Property> result = new ArrayList<Property>();
+
+		result.add(new Property(context.getString(R.string.customerId), customer.getId()));
+		result.add(new Property(context.getString(R.string.loginId), customer.getLoginId()));
+		result.add(new Property(context.getString(R.string.customerName), customer.getName()));
+
+		finalizeResult(customer, result);
 		return result.toArray(new Property[result.size()]);
 	}
 

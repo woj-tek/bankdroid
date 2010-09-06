@@ -71,6 +71,18 @@
 		/>
     
 	<Button
+		android:id="@+id/customerProfileButton"
+		android:text="@string/customerProfileButton"
+
+		style="@style/actionButton"
+		
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		
+		android:layout_below="@id/searchTransactionButton"
+		/>
+    
+	<Button
 		android:id="@+id/logoutButton"
 		android:text="@string/logoutButton"
 
@@ -79,7 +91,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		
-		android:layout_below="@id/searchTransactionButton"
+		android:layout_below="@id/customerProfileButton"
 		/>
 	    
 	    
