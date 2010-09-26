@@ -15,6 +15,12 @@
 			android:defaultValue="true" 
 			android:summary="@string/keepSMSSummary"
 			android:key="bankdroid.soda.KeepSMS" />
+		
+		<CheckBoxPreference 
+			android:title="@string/keepScreenOn" 
+			android:defaultValue="false" 
+			android:summary="@string/keepScreenOnSummary"
+			android:key="bankdroid.soda.KeepScreenOn" />
 	
 	</PreferenceCategory>
 

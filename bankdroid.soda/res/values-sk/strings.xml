@@ -46,6 +46,8 @@
 	<string name="emailSMSText">Text správy: </string>
 	
 	<!-- Preferences -->
+	<string name="keepScreenOn">Majte na obrazovke</string><!-- FIXME I18N -->
+	<string name="keepScreenOnSummary">Majte na obrazovke, zatiaľ čo kód je zobrazený.</string><!-- FIXME I18N -->
 	<string name="keepSMS">Majte SMS</string>
 	<string name="keepSMSSummary">Ak je zvolené, pôvodný SMS vedené v správach.</string>
 	<string name="notification">Oznámenie iba</string>
