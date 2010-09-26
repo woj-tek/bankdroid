@@ -47,6 +47,8 @@
 	<string name="emailSMSText">Message text: </string>
 	
 	<!-- Preferences -->
+	<string name="keepScreenOn">Keep Screen On</string>
+	<string name="keepScreenOnSummary">Keep screen on while code is displayed.</string>
 	<string name="keepSMS">Keep SMS</string>
 	<string name="keepSMSSummary">If selected, the original SMS is kept in messages.</string>
 	<string name="notification">Notification only</string>

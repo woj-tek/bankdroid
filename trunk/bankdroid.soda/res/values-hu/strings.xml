@@ -46,6 +46,8 @@
 	<string name="emailSMSText">Üzenet szövege: </string>
 	
 	<!-- Preferences -->
+	<string name="keepScreenOn">Kijelző ébrentartása</string>
+	<string name="keepScreenOnSummary">Ébren tartja a kijelzőt, amíg a jelszót mutatja.</string>
 	<string name="keepSMS">SMS megőrzése</string>
 	<string name="keepSMSSummary">Az eredeti üzenet megőrzése az üzenetek között.</string>
 	<string name="notification">Csak értesítés</string>

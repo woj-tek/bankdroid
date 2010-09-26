@@ -96,9 +96,9 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 		}
 		isActive = true;
 
+		final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		if ( smsMessage != null )
 		{
-			final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 			final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, true);
 
 			if ( !keepSMS )
@@ -124,6 +124,8 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 			}
 		}
 
+		final boolean keepScreenOn = settings.getBoolean(PREF_KEEP_SCREEN_ON, false);
+		findViewById(R.id.codeButton).setKeepScreenOn(keepScreenOn);
 	}
 
 	private boolean processIntent()

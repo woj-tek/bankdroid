@@ -47,6 +47,8 @@
 	<string name="emailSMSText">Nachricht: </string>
 	
 	<!-- Preferences -->
+	<string name="keepScreenOn">Halten Sie am Bildschirm</string><!-- FIXME I18N -->
+	<string name="keepScreenOnSummary">Halten Bildschirm auf, während Code wird angezeigt.</string><!-- FIXME I18N -->
 	<string name="keepSMS">SMS aufhalten</string>
 	<string name="keepSMSSummary">Wenn ausgewählt ist, wird die originale SMS in aufbewahrt.</string>
 	<string name="notification">Nur Anmeldungen</string>
