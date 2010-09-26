@@ -6,6 +6,7 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.app.NotificationManager;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -110,10 +111,13 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 						super.handleMessage(msg);
 						if ( msg.what == MSG_DELETE_SMS )
 						{
+							final ContentResolver cr = getContentResolver();
 							final Uri uri = Uri.parse("content://sms");
-							getContentResolver().delete(uri, "body=?", new String[] { (String) msg.obj });
+
+							cr.delete(uri, "body=?", new String[] { (String) msg.obj });
 						}
 					}
+
 				};
 
 				handler.sendMessageDelayed(handler.obtainMessage(MSG_DELETE_SMS, smsMessage), 2500);

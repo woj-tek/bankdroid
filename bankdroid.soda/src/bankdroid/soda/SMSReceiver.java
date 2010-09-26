@@ -110,4 +110,5 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 			}
 		}
 	}
+
 }

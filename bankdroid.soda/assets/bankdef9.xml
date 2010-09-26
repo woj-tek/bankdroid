@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Banks package="bankdroid.soda" county="UA">
+
+	<Bank>
+		<!-- Sample: 10060
+Vhod v Privat24: 00433223 www.privat24.ua - Modem naprokat za 0 grn. v mesyats. Zakagi na privat24.ua i plati za Internet 60 ili 80 grn.
+	-->
+		<Name>PrivatBank</Name>
+		<IconId>privatbank_logo</IconId>
+		<Phones>
+			<Phone>10060</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[[^:]+ Privat24: ([0-9]+) .*]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+</Banks>
