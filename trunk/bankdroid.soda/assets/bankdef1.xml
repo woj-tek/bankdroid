@@ -89,7 +89,8 @@ A 12312313-132123131-1313123123 celszamlara inditott 100 Ft osszegu tranzakciova
 			<Phone>+36303444504</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[[^:]* SpectraNet [^:]*: ([0-9A-Z]*)", "SpectraNet [^:]*: ([0-9 -]*)]]></Expression>
+			<Expression><![CDATA[[^:]* SpectraNet [^:]*: ([0-9A-Z]*)]]></Expression>
+			<Expression><![CDATA[SpectraNet [^:]*: ([0-9 -]*)]]></Expression>
 		</Expressions>
 	</Bank>		
 		
@@ -107,7 +108,7 @@ ERSTE NetBank forintatutalas. Kedvezmenyezett 11111111-22222222-3333333, osszeg 
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.* ERSTE NetBank [^:]*: ([0-9]+)]]></Expression>
-			<Expression transactionSign="true"><![CDATA[ERSTE NetBank [^:]*: [0-9]+-([0-9]+)]]></Expression>
+			<Expression transactionSign="true"><![CDATA[ERSTE NetBank [^:]*: *[0-9]+-([0-9]+)]]></Expression>
 		</Expressions>
 	</Bank>		
 		
@@ -179,7 +180,7 @@ ERSTE NetBank forintatutalas. Kedvezmenyezett 11111111-22222222-3333333, osszeg 
 			<Phone>5833</Phone>
 		</Phones>
 		<Expressions>
-			<Expression transactionSign="true"><![CDATA[MKB .* jelsz.: *([0-9a-zA-Z]+)]]></Expression>
+			<Expression transactionSign="true"><![CDATA[MKB .* jelsz.*: *([0-9a-zA-Z]+)]]></Expression>
 		</Expressions>
 	</Bank>		
 </Banks>
