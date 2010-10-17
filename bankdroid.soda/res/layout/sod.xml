@@ -3,13 +3,13 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" 
 	android:layout_height="fill_parent"
-	android:background="#56748E">
+	android:background="@drawable/background">
 	
 	<LinearLayout 
 		android:orientation="vertical"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:background="#56748E">
+		>
 		
 		<TextView 
 			android:text="@string/copyright" 
@@ -78,6 +78,7 @@
 			android:text="@string/clickToClose" 
 			android:id="@+id/TextView01" 
 			android:layout_gravity="center_horizontal"
+			android:textColor="#DDD"
 			android:textSize="10sp"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"/>
@@ -88,6 +89,7 @@
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
 			android:paddingTop="5sp"
+			android:textColor="#DDD"
 			android:layout_gravity="center_horizontal"
 			/>
 			
@@ -96,6 +98,7 @@
 			android:id="@+id/countDown" 
 			android:layout_gravity="center_horizontal"
 			android:visibility="invisible"
+			android:textColor="#DDD"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"/>
 	
