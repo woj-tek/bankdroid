@@ -65,5 +65,20 @@ Operacja nr 2 z dn. 01-01-2001 Zmiana odbiorcy zdef. z rach: ...1234567 na rach:
 			<Expression transactionSign="true"><![CDATA[.* haslo: ([0-9]+) MultiBank.*]]></Expression>
 		</Expressions>
 	</Bank>		
+
+
+	<Bank>
+		<!-- Sample: Kod Orange
+Oto tymczasowe haslo do wpisania w Orange On-line: adye99h1
+		 -->
+		<Name>Orange</Name>
+		<IconId>orange_logo</IconId>
+		<Phones>
+			<Phone>Kod Orange</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.* Orange[^:]+: ([a-z0-9]+).*]]></Expression>
+		</Expressions>
+	</Bank>		
 		
 </Banks>
