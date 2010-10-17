@@ -6,6 +6,7 @@
 	<Bank>
 		<!-- Sample: Alfa-Bank
 Vash parol dlya vhoda v Alfa-Click - 14wqm9kd. Alfa-Bank
+Vash parol dlya vhoda v Alfa-Click - 2vyipc57. Nikomu ne soobshayte parol, v tom chisle sotrudnikam banka.
 Dlya oplaty mobilnoi svyazi na summu 123132 CCY za nomer +123132123 Vash odnorazoviy parol 26zyub3c . Alfa-Bank
 Dlya perevoda na summu 0.00 CCY poluchatel PartnerName na schet ***1234 Vash odnorazoviy parol jwwen5ia . Alfa-Bank.
 	-->
@@ -15,8 +16,22 @@ Dlya perevoda na summu 0.00 CCY poluchatel PartnerName na schet ***1234 Vash odn
 			<Phone>Alfa-Bank</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[.*Alfa-Click.* ([0-9a-zA-Z]+)[\. ]*Alfa-Bank.*]]></Expression>
+			<Expression><![CDATA[.*Alfa-Click - ([0-9a-zA-Z]+)[\. ]*.*]]></Expression>
 			<Expression transactionSign="true"><![CDATA[.* parol ([0-9a-zA-Z]+)[\. ]*Alfa-Bank.*]]></Expression>
+		</Expressions>
+	</Bank>		
+
+	<Bank>
+		<!-- Sample: Platezh.RU
+SMS-code: NU8DG594
+	-->
+		<Name>Platezh.RU</Name>
+		<IconId>platezh_logo</IconId>
+		<Phones>
+			<Phone>Platezh.RU</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[SMS-code: ([0-9a-zA-Z]+)]]></Expression>
 		</Expressions>
 	</Bank>		
 		

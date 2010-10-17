@@ -15,6 +15,34 @@
 			<Expression><![CDATA[[^:]*: ([A-Z0-9a-z]*)]]></Expression>
 		</Expressions>
 	</Bank>		
+
+	<Bank>
+		<!-- VUB Banka 323
+Transakcia: ZU=1801369056 NU=4200071899/8360 SM=10,00 EUR KS= VS=9 KOD=9594-2984
+		 -->
+		<Name>VUB banka</Name>
+		<IconId>intesa_logo</IconId>
+		<Phones>
+			<Phone>323</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.* KOD=([0-9-]+)]]></Expression>
+		</Expressions>
+	</Bank>		
+
+	<Bank>
+		<!-- Sample: mBank 
+Operacia c. 3 z dna 01-01-2010 Zmena prijemcu z uctu ...00012345 na ucet ...1234567/1234 sms kod: 37975982 mBank.
+		 -->
+		<Name>mBank</Name>
+		<IconId>mbank_logo</IconId>
+		<Phones>
+			<Phone>2265</Phone>
+		</Phones>
+		<Expressions>
+			<Expression transactionSign="true"><![CDATA[.* kod: ([0-9]*) mBank.*]]></Expression>
+		</Expressions>
+	</Bank>		
 		
 </Banks>
 
