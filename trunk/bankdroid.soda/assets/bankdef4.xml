@@ -69,14 +69,15 @@ UniCredit Bank\nStandardni tuzemska platba\nDetaily PARTNER NAME 123456-12345678
 	<Bank>
 		<!-- Sample: GEMB 
 Cas: 20:59:05 Platebni prikaz: 123,00 CZK, z 12345678/1234, na 123456-123456789/1234, splatnost 11.11.11 - Mobilni klic: 12345678
+Vas mobilni klic je: 12341234
 		 -->
 		<Name>GE Money Bank</Name>
 		<IconId>ge_logo</IconId>
 		<Phones>
 			<Phone>GEMB</Phone>
-			<Phone>4123</Phone>
 		</Phones>
 		<Expressions>
+			<Expression><![CDATA[Vas .* klic [^:]+: ([0-9]+)]]></Expression>
 			<Expression transactionSign="true"><![CDATA[.* Mobilni klic: ([0-9]+)]]></Expression>
 		</Expressions>
 	</Bank>				
