@@ -9,6 +9,9 @@ Vash parol dlya vhoda v Alfa-Click - 14wqm9kd. Alfa-Bank
 Vash parol dlya vhoda v Alfa-Click - 2vyipc57. Nikomu ne soobshayte parol, v tom chisle sotrudnikam banka.
 Dlya oplaty mobilnoi svyazi na summu 123132 CCY za nomer +123132123 Vash odnorazoviy parol 26zyub3c . Alfa-Bank
 Dlya perevoda na summu 0.00 CCY poluchatel PartnerName na schet ***1234 Vash odnorazoviy parol jwwen5ia . Alfa-Bank.
+Podtverdite oplatu mobilnoi svyazi na summu 123 RUR za nomer +12345678. Parol: 1234abcd . Alfa-Bank
+Podtverdite perevod na summu 123.00 RUR poluchatel UserName na schet ***1234. Parol: abcd1234 . Alfa-Bank.
+Podtverdite perevod na koshelek User.Name 123413241234 na summu 123.00 RUR. Parol 33vmn3p9 . Alfa-Bank
 	-->
 		<Name>Alfa Bank</Name>
 		<IconId>alfabank_logo</IconId>
@@ -17,7 +20,7 @@ Dlya perevoda na summu 0.00 CCY poluchatel PartnerName na schet ***1234 Vash odn
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.*Alfa-Click - ([0-9a-zA-Z]+)[\. ]*.*]]></Expression>
-			<Expression transactionSign="true"><![CDATA[.* parol ([0-9a-zA-Z]+)[\. ]*Alfa-Bank.*]]></Expression>
+			<Expression transactionSign="true"><![CDATA[.* [pP]arol[: ]+([0-9a-zA-Z]+)[\. ]*Alfa-Bank.*]]></Expression>
 		</Expressions>
 	</Bank>		
 
