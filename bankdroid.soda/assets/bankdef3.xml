@@ -18,7 +18,7 @@
 
 	<Bank>
 		<!-- VUB Banka 323
-Transakcia: ZU=1801369056 NU=4200071899/8360 SM=10,00 EUR KS= VS=9 KOD=9594-2984
+Transakcia: ZU=123456 NU=12345678/1234 SM=123,00 EUR KS= VS=1 KOD=9594-2984
 		 -->
 		<Name>VUB banka</Name>
 		<IconId>intesa_logo</IconId>

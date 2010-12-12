@@ -80,5 +80,18 @@ Oto tymczasowe haslo do wpisania w Orange On-line: adye99h1
 			<Expression><![CDATA[.* Orange[^:]+: ([a-z0-9]+).*]]></Expression>
 		</Expressions>
 	</Bank>		
-		
+
+	<Bank>
+		<!-- Sample: OPEN
+Operacja z dnia: 2010-12-03 12:49 Zmiana limitow karty: 1234 XXXX XXXX 1234  Haslo: abcd12
+		 -->
+		<Name>Open Finance</Name>
+		<IconId>openfinance_logo</IconId>
+		<Phones>
+			<Phone>OPEN</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.* Haslo: ([a-z0-9]+).*]]></Expression>
+		</Expressions>
+	</Bank>			
 </Banks>
