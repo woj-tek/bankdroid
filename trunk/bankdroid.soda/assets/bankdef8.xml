@@ -34,5 +34,20 @@ SMS-code: NU8DG594
 			<Expression><![CDATA[SMS-code: ([0-9a-zA-Z]+)]]></Expression>
 		</Expressions>
 	</Bank>		
-		
+
+
+
+	<Bank>
+		<!-- Sample: SvyaznoyBnk
+Пароль 99395270 до 11.22 11:22мск, 100.00р.док.N5 Utel #123#
+	-->
+		<Name>Svyaznoy Bank</Name>
+		<IconId>svyaznoy_logo</IconId>
+		<Phones>
+			<Phone>SvyaznoyBnk</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[[^ ]+ ([0-9]+)] .*]]></Expression>
+		</Expressions>
+	</Bank>			
 </Banks>
