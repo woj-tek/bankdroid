@@ -25,6 +25,8 @@ import android.widget.TextView;
  * FIXME video
  * FIXME descriptions on main screen
  * FIXME about to the menu
+ * FIXME shake to close the soda view
+ * 
  * @author Gabe
  *
  */
