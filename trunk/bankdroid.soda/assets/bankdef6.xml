@@ -109,4 +109,18 @@ Jednorazowe haslo dla numeru 123xxxxxx to 12341234
 			<Expression><![CDATA[.* haslo .* to ([0-9]+)]]></Expression>
 		</Expressions>
 	</Bank>		
+
+	<!-- FIXME duplicated phone number Bank>
+		<!- Sample: +6670
+Jednorazowe haslo dostepu 1234
+		 ->
+		<Name>Play Mobile</Name>
+		<IconId>play_logo</IconId>
+		<Phones>
+			<Phone>+6670</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.* haslo .* ([0-9]+)]]></Expression>
+		</Expressions>
+	</Bank-->		
 </Banks>

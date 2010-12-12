@@ -183,4 +183,19 @@ ERSTE NetBank forintatutalas. Kedvezmenyezett 11111111-22222222-3333333, osszeg 
 			<Expression transactionSign="true"><![CDATA[MKB .* jelsz.*: *([0-9a-zA-Z]+)]]></Expression>
 		</Expressions>
 	</Bank>		
+		
+	<Bank>
+		<!-- Sample: +36709000666
+2010.08.18. 05:12:15 GOR-575 köteg összesen 3058754 Ft értékben. Aláíró jelszó: WQde75
+		 -->
+		<Name>Takarékszövetkezet</Name>
+		<IconId>takarek_logo</IconId>
+		<Phones>
+			<Phone>+36709000666</Phone>
+		</Phones>
+		<Expressions>
+			<Expression transactionSign="true"><![CDATA[.* jelsz.*: *([0-9a-zA-Z]+)]]></Expression>
+		</Expressions>
+	</Bank>		
+	
 </Banks>
