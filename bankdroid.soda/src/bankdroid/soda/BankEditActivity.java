@@ -17,7 +17,33 @@ import android.widget.RelativeLayout.LayoutParams;
 
 /**
  * @author gyenes
- *
+ * FIXME verify Regular Expression patter
+ * java.lang.RuntimeException: Unable to start receiver bankdroid.soda.SMSReceiver: java.util.regex.PatternSyntaxException: Syntax error U_REGEX_RULE_SYNTAX near index 1:
+* parol ([0-9a-zA-Z]+)[\. ]*Alfa-Bank*
+^
+at android.app.ActivityThread.handleReceiver(ActivityThread.java:2957)
+at android.app.ActivityThread.access$3200(ActivityThread.java:135)
+at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2198)
+at android.os.Handler.dispatchMessage(Handler.java:99)
+at android.os.Looper.loop(Looper.java:144)
+at android.app.ActivityThread.main(ActivityThread.java:4937)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:521)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:868)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:626)
+at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.util.regex.PatternSyntaxException: Syntax error U_REGEX_RULE_SYNTAX near index 1:
+* parol ([0-9a-zA-Z]+)[\. ]*Alfa-Bank*
+^
+at com.ibm.icu4jni.regex.NativeRegEx.open(Native Method)
+at java.util.regex.Pattern.compileImpl(Pattern.java:383)
+at java.util.regex.Pattern.<init>(Pattern.java:341)
+at java.util.regex.Pattern.compile(Pattern.java:358)
+at bankdroid.soda.Bank.initPattern(Bank.java:144)
+at bankdroid.soda.Bank.extractCode(Bank.java:152)
+at bankdroid.soda.SMSReceiver.onReceive(SMSReceiver.java:43)
+at android.app.ActivityThread.handleReceiver(ActivityThread.java:2941)
+... 10 more
  */
 public class BankEditActivity extends Activity implements OnClickListener, Codes
 {

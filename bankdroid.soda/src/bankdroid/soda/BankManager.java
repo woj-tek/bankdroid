@@ -25,6 +25,25 @@ import android.util.Log;
  * XXX extensible default phone number list
  * @author gyenes
  *
+ * FIXME allow duplicated phone numbers
+ * java.lang.RuntimeException: Unable to start receiver bankdroid.soda.SMSReceiver: java.lang.IllegalArgumentException: Too many result.
+at android.app.ActivityThread.handleReceiver(ActivityThread.java:2821)
+at android.app.ActivityThread.access$3200(ActivityThread.java:125)
+at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2083)
+at android.os.Handler.dispatchMessage(Handler.java:99)
+at android.os.Looper.loop(Looper.java:123)
+at android.app.ActivityThread.main(ActivityThread.java:4627)
+at java.lang.reflect.Method.invokeNative(Native Method)
+at java.lang.reflect.Method.invoke(Method.java:521)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:868)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:626)
+at dalvik.system.NativeStart.main(Native Method)
+Caused by: java.lang.IllegalArgumentException: Too many result.
+at bankdroid.soda.BankManager.findBank(BankManager.java:196)
+at bankdroid.soda.BankManager.findByPhoneNumber(BankManager.java:177)
+at bankdroid.soda.SMSReceiver.onReceive(SMSReceiver.java:35)
+at android.app.ActivityThread.handleReceiver(ActivityThread.java:2810)
+... 10 more
  */
 public final class BankManager implements Codes
 {
