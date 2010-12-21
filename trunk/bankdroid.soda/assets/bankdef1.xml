@@ -49,7 +49,10 @@ A 12312313-132123131-1313123123 celszamlara inditott 100 Ft osszegu tranzakciova
 	
 	<Bank>
 		<!-- Sample:
+		**K&H e-bank** Szàmlaszàm: 12341234-12341234-12341234 Összeg: 1234 HUF A tranzakciòhoz tartozò MàSODLAGOS sms jelszò: MKqgec
+		**K&H e-bank** Szamlaszam: 12341234-12341234-12341234 Osszeg: 1234 HUF A tranzakciohoz tartozo MaSODLAGOS sms jelszo: MKqgec
 		**K&H e-bank** Az Ön egy bejelentkezés időtartalmára vonatkozó sms jelszava: hNmKmp A jelszó maximum 30 percen belül érvényes.
+		**K&H e-bank** Az On egy bejelentkezes idotartalmara vonatkozo sms jelszava: hNmKmp A jelszo maximum 30 percen belul ervenyes.
 		-->
 		<Name><![CDATA[K&H Bank]]></Name>
 		<IconId>kh_logo</IconId>
@@ -60,7 +63,8 @@ A 12312313-132123131-1313123123 celszamlara inditott 100 Ft osszegu tranzakciova
 			<Phone>+36709000542</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[.*K.H e-bank[^:]*: ([a-zA-Z0-9]{6}).*]]></Expression>
+			<Expression><![CDATA[.*K.H e-bank[^:]*: ([a-zA-Z0-9]+) [^:]*]]></Expression>
+			<Expression transactionSign="true"><![CDATA[.*K.H e-bank.*: ([a-zA-Z0-9]+)[^:]*]]></Expression>
 		</Expressions>
 	</Bank>		
 		

@@ -19,8 +19,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * FIXME market problems
- *
  * FIXME facebook campaign
  * FIXME video
  * FIXME descriptions on main screen
