@@ -52,5 +52,22 @@ SMS-code: NU8DG594
 		<Expressions>
 			<Expression><![CDATA[[^ ]+ ([0-9]+)] .*]]></Expression>
 		</Expressions>
+	</Bank>	
+	
+	
+	<Bank>
+		<!-- Sample: 900
+VISAxx xx; SBERBANK ONL@IN; parol:42205
+	-->
+		<Name>Sberbank</Name>
+		<IconId>sberbank_logo</IconId>
+		<Phones>
+			<Phone>900</Phone>
+			<Phone>+79262000900</Phone>
+			<Phone>+79165723900</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.*parol:([0-9]+).*]]></Expression>
+		</Expressions>
 	</Bank>			
 </Banks>

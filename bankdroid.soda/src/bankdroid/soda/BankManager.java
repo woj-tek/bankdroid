@@ -193,15 +193,61 @@ public final class BankManager implements Codes
 
 	public static Bank findByPhoneNumber( final Context context, final String phoneNumber )
 	{
-		return findBank(context, Bank.CONTENT_URI, Bank.F_PHONENUMBERS + " like '%" + phoneNumber + "%'", null);
+		final Bank[] banks = findBank(context, Bank.CONTENT_URI, Bank.F_PHONENUMBERS + " like '%" + phoneNumber + "%'",
+				null);
+
+		if ( banks.length > 1 )
+		{
+			//match phone number manually.
+			int index = -1;
+			for ( int i = 0; i < banks.length; i++ )
+			{
+				final String[] numbers = banks[i].getPhoneNumbers();
+				boolean match = false;
+				for ( final String number : numbers )
+				{
+					if ( phoneNumber.equals(number) )
+					{
+						match = true;
+						break;
+					}
+				}
+				if ( match )
+				{
+					if ( index < 0 )
+					{
+						index = i;
+					}
+					else
+					{
+						throw new IllegalArgumentException("Too many result.");
+					}
+				}
+			}
+			return banks[index];
+		}
+		else if ( banks.length == 1 )
+		{
+			return banks[0];
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	public static Bank findByUri( final Context context, final Uri uri )
 	{
-		return findBank(context, uri, null, null);
+		final Bank[] banks = findBank(context, uri, null, null);
+		if ( banks.length > 1 )
+			throw new IllegalArgumentException("Too many result.");
+		else if ( banks.length == 1 )
+			return banks[0];
+		else
+			return null;
 	}
 
-	private static Bank findBank( final Context context, final Uri uri, final String selection,
+	private static Bank[] findBank( final Context context, final Uri uri, final String selection,
 			final String[] selectionArgs )
 	{
 		final Cursor cursor = context.getContentResolver().query(
@@ -211,31 +257,35 @@ public final class BankManager implements Codes
 
 		try
 		{
-			if ( cursor.getCount() > 1 )
-				throw new IllegalArgumentException("Too many result.");
-
-			Bank bank = null;
+			final Bank[] banks = new Bank[cursor.getCount()];
 			if ( cursor.moveToFirst() )
 			{
-				final int id = cursor.getInt(0);
-				final String name = cursor.getString(1);
+				int j = 0;
 
-				final int expiry = cursor.getInt(2);
-				final int icon = cursor.getInt(3);
-				final String country = cursor.getString(4);
-				final String phoneNumbers = cursor.getString(5);
-				final String expressions = cursor.getString(6);
-
-				final String[] exps = unescapeStrings(expressions);
-				final Expression[] exps2 = new Expression[exps.length];
-				for ( int i = 0; i < exps2.length; i++ )
+				do
 				{
-					exps2[i] = new Expression(exps[i]);
-				}
+					final int id = cursor.getInt(0);
+					final String name = cursor.getString(1);
 
-				bank = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), exps2, icon, country);
+					final int expiry = cursor.getInt(2);
+					final int icon = cursor.getInt(3);
+					final String country = cursor.getString(4);
+					final String phoneNumbers = cursor.getString(5);
+					final String expressions = cursor.getString(6);
+
+					final String[] exps = unescapeStrings(expressions);
+					final Expression[] exps2 = new Expression[exps.length];
+					for ( int i = 0; i < exps2.length; i++ )
+					{
+						exps2[i] = new Expression(exps[i]);
+					}
+
+					banks[j] = new Bank(id, name, expiry, unescapeStrings(phoneNumbers), exps2, icon, country);
+					j++;
+				}
+				while ( cursor.moveToNext() );
 			}
-			return bank;
+			return banks;
 		}
 		finally
 		{
