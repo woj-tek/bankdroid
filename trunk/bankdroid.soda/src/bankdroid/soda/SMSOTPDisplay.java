@@ -230,7 +230,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 		if ( source != null && smsMessage != null )
 		{
 			findViewById(R.id.securityWarning).setVisibility(
-					source.isTransactionSign(smsMessage) ? View.VISIBLE : View.INVISIBLE);
+					source.isTransactionSign(smsMessage) ? View.VISIBLE : View.GONE);
 		}
 
 		if ( source != null && source.getExpiry() > 0 )
@@ -251,7 +251,7 @@ public class SMSOTPDisplay extends Activity implements View.OnClickListener, Cod
 		}
 		else
 		{
-			countDownView.setVisibility(View.INVISIBLE);
+			countDownView.setVisibility(View.GONE);
 		}
 	}
 
