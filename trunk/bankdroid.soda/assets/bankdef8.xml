@@ -43,14 +43,17 @@ SMS-code: NU8DG594
 	<Bank>
 		<!-- Sample: SvyaznoyBnk
 Пароль 99395270 до 11.22 11:22мск, 100.00р.док.N5 Utel #123#
+Пароль 57951374 до 16.12 12:56мск, 9061.00р.док.N6 ИП Лысов Константин
+parol 57951374 do 11.22 11:22msk, 1234.00p.dok.n6 IP Lisob Konstatin
 	-->
 		<Name>Svyaznoy Bank</Name>
 		<IconId>svyaznoy_logo</IconId>
 		<Phones>
 			<Phone>SvyaznoyBnk</Phone>
+			<Phone>2233</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[[^ ]+ ([0-9]+)] .*]]></Expression>
+			<Expression><![CDATA[[^ ]+ ([0-9]+) .*]]></Expression>
 		</Expressions>
 	</Bank>	
 	
