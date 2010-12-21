@@ -50,7 +50,6 @@ parol 57951374 do 11.22 11:22msk, 1234.00p.dok.n6 IP Lisob Konstatin
 		<IconId>svyaznoy_logo</IconId>
 		<Phones>
 			<Phone>SvyaznoyBnk</Phone>
-			<Phone>2233</Phone>
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[[^ ]+ ([0-9]+) .*]]></Expression>
