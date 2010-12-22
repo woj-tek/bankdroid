@@ -48,4 +48,9 @@ public class MenuActivity extends Activity
 		startActivity(aboutIntent);
 	}
 
+	public void onMenu( final View v )
+	{
+		openOptionsMenu();
+	}
+
 }
