@@ -25,6 +25,8 @@ import android.widget.TextView;
  * FIXME about to the menu
  * FIXME shake to close the soda view
  * 
+ * TODO deleting a message is not working always due to the EOL character replacement
+ * 
  * @author Gabe
  *
  */
