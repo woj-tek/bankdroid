@@ -74,9 +74,11 @@
 	<string name="btnViewLast">View Last Code</string>
 	<string name="btnManageBanks">Manage Banks</string>
 	<string name="btnSubmitSample">Submit Sample</string>
-	<string name="btnPrefs">Preferences</string>
 	<string name="btnInfoSite">Online Help</string>
-	<string name="btnAbout">About</string>
+	<string name="descViewLast">Recall the last SMS code.</string> <!-- I18N -->
+	<string name="descManageBanks">Maintain banks yourself...</string> <!-- I18N -->
+	<string name="descSubmitSample">Your bank is not yet supported?</string> <!-- I18N -->
+	<string name="descInfoSite">Don\'t understand what is this app?</string> <!-- I18N -->
 	<string name="noMessageYet">You have received no SMS code yet.</string>
 
 	<!-- About -->
