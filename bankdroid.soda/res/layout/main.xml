@@ -37,7 +37,7 @@
 					style="@style/buttonTitle"
 					/>
 				<TextView
-					android:text="Recall the last SMS code."
+					android:text="@string/descViewLast"
 					style="@style/buttonComment"
 					/>
 			</LinearLayout>
@@ -61,7 +61,7 @@
 					style="@style/buttonTitle"
 					/>
 				<TextView
-					android:text="Don't undestand what is this app?"
+					android:text="@string/descInfoSite"
 					style="@style/buttonComment"
 					/>
 			</LinearLayout>
@@ -78,7 +78,7 @@
 					style="@style/buttonTitle"
 					/>
 				<TextView
-					android:text="Your bank is not yet supported?"
+					android:text="@string/descSubmitSample"
 					style="@style/buttonComment"
 					/>
 			</LinearLayout>
@@ -95,7 +95,7 @@
 					style="@style/buttonTitle"
 					/>
 				<TextView
-					android:text="Maintain banks yourself..."
+					android:text="@string/descManageBanks"
 					style="@style/buttonComment"
 					/>
 			</LinearLayout>
