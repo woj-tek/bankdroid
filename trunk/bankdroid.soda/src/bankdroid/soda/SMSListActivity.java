@@ -1,6 +1,5 @@
 package bankdroid.soda;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -19,7 +18,7 @@ import android.widget.AdapterView.OnItemClickListener;
  * @author gyenes
  *
  */
-public class SMSListActivity extends Activity implements Codes, OnItemClickListener, OnClickListener
+public class SMSListActivity extends MenuActivity implements Codes, OnItemClickListener, OnClickListener
 {
 	private static final String SUBMISSION_ADDRESS = "sample@bankdroid.info";
 
