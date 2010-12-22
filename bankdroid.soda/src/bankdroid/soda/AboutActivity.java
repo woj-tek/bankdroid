@@ -19,9 +19,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
+ * FIXME descriptions on main screen
+ * FIXME design review
  * FIXME facebook campaign
  * FIXME video
- * FIXME descriptions on main screen
  * FIXME about to the menu
  * FIXME shake to close the soda view
  * 

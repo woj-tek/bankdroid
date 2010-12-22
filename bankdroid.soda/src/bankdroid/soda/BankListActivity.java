@@ -1,6 +1,5 @@
 package bankdroid.soda;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -28,7 +27,7 @@ import android.widget.SimpleCursorAdapter.ViewBinder;
 /**
  * @author gyenes
  */
-public class BankListActivity extends Activity implements Codes, OnItemClickListener, OnClickListener
+public class BankListActivity extends MenuActivity implements Codes, OnItemClickListener, OnClickListener
 {
 	SimpleCursorAdapter adapter;
 	private boolean filtered = true;
@@ -108,7 +107,9 @@ public class BankListActivity extends Activity implements Codes, OnItemClickList
 			intent.setData(Bank.CONTENT_URI);
 			intent.setClass(getBaseContext(), BankEditActivity.class);
 			startActivity(intent);
+			return true;
 		}
+
 		return super.onOptionsItemSelected(item);
 	}
 

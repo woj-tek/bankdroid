@@ -2,11 +2,6 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item 
-		android:title="@string/addBank" 
-		android:id="@+id/addBank" 
-		android:icon="@android:drawable/ic_menu_add"
-		/>
-	<item 
 		android:id="@+id/menuPreferences"  
 		android:title="@string/menuPref"
 		android:icon="@android:drawable/ic_menu_preferences" 

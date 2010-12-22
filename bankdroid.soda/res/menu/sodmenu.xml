@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item 
-		android:title="@string/addBank" 
-		android:id="@+id/addBank" 
-		android:icon="@android:drawable/ic_menu_add"
+		android:id="@+id/menuBanks" 
+		android:title="@string/menuBanks" 
+		android:icon="@android:drawable/ic_menu_gallery" 
+		/>
+	<item 
+		android:id="@+id/menuClear" 
+		android:title="@string/menuClear" 
+		android:icon="@android:drawable/ic_menu_close_clear_cancel"
 		/>
 	<item 
 		android:id="@+id/menuPreferences"  
