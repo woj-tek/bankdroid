@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Banks package="bankdroid.soda" county="AT">
+
+	<Bank>
+		<!-- Sample: PSK
+Inlandsüberweisung an Kto.-Nr. **12345678, TAN: 22951		 
+	-->
+		<Name>PSK Bank</Name>
+		<IconId>psk_logo</IconId>
+		<Phones>
+			<Phone>PSK</Phone>
+		</Phones>
+		<Expressions>
+			<Expression transactionSign="true"><![CDATA[.*TAN: ([0-9]*)]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+</Banks>

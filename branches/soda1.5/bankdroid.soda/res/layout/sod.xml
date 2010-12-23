@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent"
+	android:background="@drawable/background">
+	
+	<LinearLayout 
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		>
+		
+		<TextView 
+			android:text="@string/copyright" 
+			android:id="@+id/copyright" 
+			android:layout_gravity="right"
+			android:textSize="10sp"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			/>
+	
+		<FrameLayout
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal"
+			>
+			<LinearLayout
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:layout_gravity="bottom"
+				android:background="@android:drawable/alert_light_frame"
+				android:orientation="horizontal"
+				>
+				<ImageView 
+					android:id="@+id/bankLogo" 
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content"
+					android:src="@drawable/budapestbank_logo"
+					android:padding="10sp"
+					/>
+				<TextView 
+					android:text="Az an ideiglenes kadja: 51930398 Ez a kad belapashez 13:47:58-ig hasznalhatja, de arizze meg a tranzakciahoz! Kapcsolat azonosata: 133758 Budapest Bank" 
+					android:id="@+id/messageBody" 
+					android:layout_gravity="center_horizontal"
+					android:textSize="12sp"
+					android:layout_width="wrap_content" 
+					android:layout_height="wrap_content"
+					android:textColor="#000000" 
+					android:background="@android:drawable/editbox_background"
+					/>
+			</LinearLayout>
+		</FrameLayout>
+			
+		<TextView 
+			android:text="@string/securityWarning" 
+			android:id="@+id/securityWarning" 
+			android:gravity="center_horizontal"
+			android:background="#FFA000"
+			android:textColor="#FFFFFF"
+			android:textStyle="bold"
+			android:padding="2sp"
+			android:layout_marginBottom="5sp"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"/>
+		
+		<Button 
+			android:text="76037367" 
+			android:id="@+id/codeButton" 
+			android:layout_gravity="center_horizontal"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:textColor="#EF6A28" 
+			android:textSize="32sp" 
+			/>
+	
+		<TextView 
+			android:text="@string/clickToClose" 
+			android:id="@+id/TextView01" 
+			android:layout_gravity="center_horizontal"
+			android:textColor="#DDD"
+			android:textSize="10sp"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"/>
+		
+		<TextView 
+			android:text="Received at: 2009.12.20 12:34:11" 
+			android:id="@+id/receivedAt" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"
+			android:paddingTop="5sp"
+			android:textColor="#DDD"
+			android:layout_gravity="center_horizontal"
+			/>
+			
+		<TextView 
+			android:text="Remaining time: 00:12:22" 
+			android:id="@+id/countDown" 
+			android:layout_gravity="center_horizontal"
+			android:visibility="invisible"
+			android:textColor="#DDD"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"/>
+	
+	</LinearLayout>
+
+</ScrollView>

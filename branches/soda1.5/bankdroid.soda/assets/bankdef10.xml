@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<Banks package="bankdroid.soda" county="TR">
+
+	<Bank>
+		<!-- Sample: AKILLISMS
+TNDK referans kodlu Yapi Kredi Internet Bankaciligi'na giris isleminiz icin Akilli SMS sifreniz: 67632 Sifre talep tarihi: 03.12.2010-12:27:43
+	-->
+		<Name>Yapi Kredi</Name>
+		<IconId>yapikredi_logo</IconId>
+		<Phones>
+			<Phone>AKILLISMS</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.*Yapi Kredi [^:]+: ([0-9]+) .*]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+</Banks>

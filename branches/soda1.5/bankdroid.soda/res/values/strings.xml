@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- Bank List Activity -->
+	<string name="bankListTitle">List of Banks:</string>
+    <string name="addBank">Add Bank</string>
+    <string name="editBank">Edit Bank</string>
+    <string name="deleteBank">Delete Bank</string>
+    <string name="bankDeleted">The bank is successfully deleted.</string>
+    <string name="showForeignBanks">Show foreign banks...</string>
+    <string name="hideForeignBanks">Hide foreign banks...</string>
+	
+	<!-- Bank Edit Activity -->
+	<string name="phoneNumber">Phone number(s):</string>
+	<string name="messagePatterns">Message pattern(s):</string>
+	<string name="expiry">Expiry in seconds:</string>
+	<string name="btnDone">Done</string>
+	<string name="btnCancel">Cancel</string>
+	<string name="tooMuchPhoneNumber">Maximum 3 phone numbers are allowed.</string>
+	<string name="minPhoneNumber">Minimum 1 phone number is required.</string>
+	<string name="tooMuchPattern">Maximum 3 patterns are allowed.</string>
+	<string name="minPattern">Minimum 1 pattern is required.</string>
+	<string name="specifyBankName">Please specify the bank name.</string>
+	<string name="noEmptyPhoneNumber">Empty phone numbers are not allowed.</string>
+	<string name="noEmptyExpression">Empty expressions are not allowed.</string>
+	<string name="invalidExpression">Invalid regular expression. Please check it again!</string><!-- I18N -->
+	
+
+	<!-- SMS OTP Display Activity -->
+	<string name="copyright">SODA, BankDroid, 2009 (c)</string>
+	<string name="clickToClose">Tap on the code to copy and close.</string>
+	<string name="menuClear">Clear</string>
+	<string name="menuBanks">Banks</string>
+	<string name="menuPref">Preferences</string>
+	<string name="app_name">SMS OTP Display</string>
+	<string name="received.prefix">Received at: </string>
+	<string name="countdown.prefix">Remaining time: </string>
+	<string name="nocode">-- no code --</string>
+	<string name="securityWarning">Verify transaction details in the message before signing the transaction.</string>
+	
+	<!-- SMS pick activity -->
+	<string name="smsListTitle">Please select an SMS sample:</string>
+	<string name="selectEmail">Please select an E-mail account:</string>
+	<string name="noSMSInInbox">There is no SMS in your inbox.</string>
+	<string name="btnHelp">Help</string>
+	<string name="emailSubject">SMS OTP Sample</string>
+	<string name="emailPrefix">Thank you for submitting sample codes! Please leave the bank phone number unchanged, and the code unchanged. You may replace personal data in the message.</string>
+	<string name="emailOriginator">Bank phone number: </string>
+	<string name="emailSMSText">Message text: </string>
+	
+	<!-- Preferences -->
+	<string name="keepScreenOn">Keep Screen On</string>
+	<string name="keepScreenOnSummary">Keep screen on while code is displayed.</string>
+	<string name="keepSMS">Keep SMS</string>
+	<string name="keepSMSSummary">If selected, the original SMS is kept in messages.</string>
+	<string name="notification">Notification only</string>
+	<string name="notificationSummary">If selected, the code is not popping up.</string>
+	<string name="resetDb">Reset Bank DB</string>
+	<string name="resetDbSummary">Clean up DB content (custom banks will be deleted!)</string>
+	<string name="developerPrefs">Developer Preferences</string>
+	<string name="genericPrefs">Generic Preferences</string>
+	<string name="msgDbReset">The Bank DB was reset succesfully.</string>
+	<string name="msgAreYouSure">Are you sure?</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	
+	<!-- Notification -->
+	<string name="notificationTicker">Password received form {0}</string>
+	<string name="notificationTitle">SODA</string>
+	<string name="notificationText">Password received form {0}. Click here to view it.</string>
+	
+	<!-- Main -->
+	<string name="mainTitle">BankDroid SODA</string>
+	<string name="btnViewLast">View Last Code</string>
+	<string name="btnManageBanks">Manage Banks</string>
+	<string name="btnSubmitSample">Submit Sample</string>
+	<string name="btnPrefs">Preferences</string>
+	<string name="btnInfoSite">Info Site</string>
+	<string name="btnAbout">About</string>
+	<string name="noMessageYet">You have received no SMS code yet.</string>
+
+	<!-- About -->
+	<string name="aboutId">BankDroid SODA</string>
+	<string name="aboutDesc">The SODA is product of the BankDroid open source project. Developed by voluntary programmers.</string>
+	<string name="aboutDesc2">If you experience any problem with the application, or you would like to see some new features, feel free to contact us.</string>
+	<string name="aboutUrl2">http://www.bankdroid.info</string>
+	<string name="submitSampleURL">http://www.bankdroid.info/soda/user-reference#TOC-Submit-SMS-Sample</string>
+	<string name="donateURL">http://bit.ly/8LrNB9</string>
+	<string name="donateButton"> Donate</string>
+	
+	<!-- EULA -->
+	<string name="eula_title">License</string>
+	<string name="eula_accept">Accept</string>
+	<string name="eula_refuse">Refuse</string>
+
+</resources>

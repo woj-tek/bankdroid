@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:orientation="vertical"
+  	android:layout_width="fill_parent"
+  	android:layout_height="fill_parent"
+  	android:background="@drawable/background"
+   	>
+   	<ImageView
+   		android:src="@drawable/soda_launch"
+   		android:id="@+id/sodaIcon"
+   		
+   		android:layout_width="wrap_content"
+   		android:layout_height="wrap_content"
+   		
+   		android:layout_alignParentLeft="true"
+   		android:layout_alignParentTop="true"
+   		android:layout_marginLeft="20sp"
+   		/>
+	<TextView 
+		android:text="@string/mainTitle" 
+		android:id="@+id/titleView" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:textColor="#FFFFFF"
+		android:textSize="20sp"
+		
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@id/sodaIcon"
+		android:layout_alignBottom="@id/sodaIcon"
+		android:layout_marginRight="20sp"
+		/>
+	<ScrollView
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_below="@id/titleView"
+		android:layout_alignParentBottom="true"
+		>
+		<LinearLayout
+			android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="20sp"
+			android:paddingRight="20sp"
+			>
+			<Button 
+				android:text="@string/btnViewLast" 
+				android:id="@+id/viewLast" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				/>
+				
+			<Button 
+				android:text="@string/btnManageBanks" 
+				android:id="@+id/manageBanks" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				/>
+				
+			<Button 
+				android:text="@string/btnSubmitSample" 
+				android:id="@+id/submitSample" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				/>
+		
+			<Button 
+				android:text="@string/btnPrefs" 
+				android:id="@+id/preferences" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				/>
+		
+			<Button 
+				android:text="@string/btnInfoSite" 
+				android:id="@+id/help" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				/>
+		
+			<Button 
+				android:text="@string/btnAbout" 
+				android:id="@+id/about" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				/>
+		</LinearLayout>
+	</ScrollView>
+
+
+</RelativeLayout>

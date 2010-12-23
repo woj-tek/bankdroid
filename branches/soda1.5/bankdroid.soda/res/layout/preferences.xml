@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory
+		android:title="@string/genericPrefs">
+			
+		<CheckBoxPreference 
+			android:title="@string/notification" 
+			android:defaultValue="false"
+			android:summary="@string/notificationSummary" 
+			android:key="bankdroid.soda.Notification" />
+		
+		<CheckBoxPreference 
+			android:title="@string/keepSMS" 
+			android:defaultValue="true" 
+			android:summary="@string/keepSMSSummary"
+			android:key="bankdroid.soda.KeepSMS" />
+		
+		<CheckBoxPreference 
+			android:title="@string/keepScreenOn" 
+			android:defaultValue="false" 
+			android:summary="@string/keepScreenOnSummary"
+			android:key="bankdroid.soda.KeepScreenOn" />
+	
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:title="@string/developerPrefs">
+			
+		<CheckBoxPreference 
+			android:title="@string/resetDb" 
+			android:defaultValue="false"
+			android:summary="@string/resetDbSummary" 
+			android:key="bankdroid.soda.ResetDb" />
+		
+	</PreferenceCategory>
+
+
+	
+</PreferenceScreen>
