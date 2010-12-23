@@ -22,7 +22,6 @@ import android.net.Uri;
 import android.util.Log;
 
 /**
- * XXX extensible default phone number list
  * @author gyenes
  */
 public final class BankManager implements Codes
@@ -431,7 +430,7 @@ public final class BankManager implements Codes
 				InputStream open = null;
 				try
 				{
-					open = context.getAssets().open(fileName); //XXX try to load it dynamically
+					open = context.getAssets().open(fileName);
 				}
 				catch ( final IOException e )
 				{

@@ -22,7 +22,7 @@
 	<string name="specifyBankName">Please specify the bank name.</string>
 	<string name="noEmptyPhoneNumber">Empty phone numbers are not allowed.</string>
 	<string name="noEmptyExpression">Empty expressions are not allowed.</string>
-	<string name="invalidExpression">Invalid regular expression. Please check it again!</string><!-- I18N -->
+	<string name="invalidExpression">Invalid regular expression. Please check it again!</string>
 	
 
 	<!-- SMS OTP Display Activity -->

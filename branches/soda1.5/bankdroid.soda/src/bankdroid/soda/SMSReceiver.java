@@ -37,7 +37,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 
 				if ( source != null && source.length > 0 )
 				{
-					//XXX known bug: this method does not return the full SMS if it is longer than 156 character.
+					//known bug: this method does not return the full SMS if it is longer than 156 character.
 					String message = sms.getMessageBody();
 					message = message.replace('\n', ' ');
 					message = message.replace('\r', ' ');
@@ -48,7 +48,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 						final String code = bank.extractCode(message);
 
 						if ( code != null )
-						{//FIXME test
+						{
 							found = true;
 							processCode(context, bank, message, code);
 							break;
