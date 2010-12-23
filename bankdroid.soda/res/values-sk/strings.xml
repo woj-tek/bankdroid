@@ -5,8 +5,8 @@
     <string name="editBank">Upraviť banky</string>
     <string name="deleteBank">Odstrániť banky</string>
     <string name="bankDeleted">Banka je úspešne odstránená.</string>
-    <string name="showForeignBanks">Zobraziť zahraničných bánk...</string><!-- XXX language review-->
-    <string name="hideForeignBanks">Skryť zahraničných bánk...</string><!-- XXX language review-->
+    <string name="showForeignBanks">Zobraziť zahraničných bánk...</string>
+    <string name="hideForeignBanks">Skryť zahraničných bánk...</string>
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Telefónne číslo (čísla):</string>
@@ -21,7 +21,7 @@
 	<string name="specifyBankName">Uveďte meno banky.</string>
 	<string name="noEmptyPhoneNumber">Prázdne telefónne čísla nie sú povolené.</string>
 	<string name="noEmptyExpression">Prázdne výrazy nie sú povolené.</string>
-	
+	<string name="invalidExpression">Neplatný regulárny výraz. Prosím skontrolujte to znova!</string>
 
 	<!-- SMS OTP Display Activity -->
 	<string name="copyright">Soda, BankDroid, 2009 (c)</string>
@@ -46,8 +46,8 @@
 	<string name="emailSMSText">Text správy: </string>
 	
 	<!-- Preferences -->
-	<string name="keepScreenOn">Majte na obrazovke</string><!-- FIXME I18N -->
-	<string name="keepScreenOnSummary">Majte na obrazovke, zatiaľ čo kód je zobrazený.</string><!-- FIXME I18N -->
+	<string name="keepScreenOn">Majte na obrazovke</string>
+	<string name="keepScreenOnSummary">Majte na obrazovke, zatiaľ čo kód je zobrazený.</string>
 	<string name="keepSMS">Majte SMS</string>
 	<string name="keepSMSSummary">Ak je zvolené, pôvodný SMS vedené v správach.</string>
 	<string name="notification">Oznámenie iba</string>

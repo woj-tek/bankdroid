@@ -21,6 +21,7 @@
 	<string name="specifyBankName">Kérlek, ad meg a bank nevét.</string>
 	<string name="noEmptyPhoneNumber">Az üres telefonszámokat törölni kell.</string>
 	<string name="noEmptyExpression">Az üres szűrőket törölni kell.</string>
+	<string name="invalidExpression">Érvénytelen reguláris kifejezés. Kérjük, ellenőrizze még egyszer!</string>
 	
 
 	<!-- SMS OTP Display Activity -->

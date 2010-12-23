@@ -5,8 +5,8 @@
     <string name="editBank">Upravit banku</string>
     <string name="deleteBank">Odstranit banku</string>
     <string name="bankDeleted">Banka byla úspěšně odstraněna.</string>
-    <string name="showForeignBanks">Zobrazit zahraničních bank ...</string><!-- XXX language review-->
-    <string name="hideForeignBanks">Skrýt zahraničních bank ...</string><!-- XXX language review-->
+    <string name="showForeignBanks">Zobrazit zahraničních bank ...</string>
+    <string name="hideForeignBanks">Skrýt zahraničních bank ...</string>
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Telefonní číslo(a):</string>
@@ -21,6 +21,7 @@
 	<string name="specifyBankName">Uveďte jméno banky.</string>
 	<string name="noEmptyPhoneNumber">Prázdná telefonní čísla nejsou povolena.</string>
 	<string name="noEmptyExpression">Prázdné výrazy nejsou povoleny.</string>
+	<string name="invalidExpression">Neplatný regulární výraz. Prosím zkontrolujte to znovu!</string>
 	
 
 	<!-- SMS OTP Display Activity -->
@@ -47,8 +48,8 @@
 	<string name="emailSMSText">Text zprávy: </string>
 	
 	<!-- Preferences -->
-	<string name="keepScreenOn">Mějte obrazovce</string><!-- FIXME I18N -->
-	<string name="keepScreenOnSummary">Mějte na obrazovce, zatímco kód je zobrazen.</string><!-- FIXME I18N -->
+	<string name="keepScreenOn">Mějte obrazovce</string>
+	<string name="keepScreenOnSummary">Mějte na obrazovce, zatímco kód je zobrazen.</string>
 	<string name="keepSMS">Ponechání SMS</string>
 	<string name="keepSMSSummary">Pokud je zvoleno, text původní SMS bude ve zprávách zachován.</string>
 	<string name="notification">Pouze oznámení</string>

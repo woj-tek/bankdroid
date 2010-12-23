@@ -19,16 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * FIXME facebook campaign
- * FIXME video
- * FIXME descriptions on main screen
- * FIXME about to the menu
- * FIXME shake to close the soda view
- * 
- * TODO deleting a message is not working always due to the EOL character replacement
- * 
  * @author Gabe
- *
  */
 public class AboutActivity extends Activity implements OnClickListener, Codes
 {

@@ -6,8 +6,8 @@
     <string name="editBank">Bank editieren</string>
     <string name="deleteBank">Bank löschen</string>
     <string name="bankDeleted">Die Bank ist erfolgreich gelöscht.</string>
-    <string name="showForeignBanks">Anzeigen ausländischer Banken...</string><!-- XXX language review-->
-    <string name="hideForeignBanks">Ausblenden ausländischer Banken...</string><!-- XXX language review-->
+    <string name="showForeignBanks">Anzeigen ausländischer Banken...</string>
+    <string name="hideForeignBanks">Ausblenden ausländischer Banken...</string>
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Telefonnummer:</string>
@@ -22,6 +22,7 @@
 	<string name="specifyBankName">Bitte gebben Sie der Bankname.</string>
 	<string name="noEmptyPhoneNumber">Leerende Telefonnummer ist nicht erlaubt.</string>
 	<string name="noEmptyExpression">Leerende Äusserungen sind nicht erlaubt.</string>
+	<string name="invalidExpression">Ungültiger regulärer Ausdruck. Bitte prüfen Sie es noch einmal!</string>
 	
 
 	<!-- SMS OTP Display Activity -->
@@ -47,8 +48,8 @@
 	<string name="emailSMSText">Nachricht: </string>
 	
 	<!-- Preferences -->
-	<string name="keepScreenOn">Halten Sie am Bildschirm</string><!-- FIXME I18N -->
-	<string name="keepScreenOnSummary">Halten Bildschirm auf, während Code wird angezeigt.</string><!-- FIXME I18N -->
+	<string name="keepScreenOn">Halten Sie am Bildschirm</string>
+	<string name="keepScreenOnSummary">Halten Bildschirm auf, während Code wird angezeigt.</string>
 	<string name="keepSMS">SMS aufhalten</string>
 	<string name="keepSMSSummary">Wenn ausgewählt ist, wird die originale SMS in aufbewahrt.</string>
 	<string name="notification">Nur Anmeldungen</string>
