@@ -2,6 +2,7 @@ package bankdroid.soda;
 
 import java.util.regex.Pattern;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,7 +20,7 @@ import android.widget.RelativeLayout.LayoutParams;
 /**
  * @author gyenes
  */
-public class BankEditActivity extends MenuActivity implements OnClickListener, Codes
+public class BankEditActivity extends Activity implements OnClickListener, Codes
 {
 
 	private final static int[][] PATTERN_FIELDS = new int[][] {//

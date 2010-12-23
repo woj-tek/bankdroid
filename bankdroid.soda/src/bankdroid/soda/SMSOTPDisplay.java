@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -47,7 +48,7 @@ import bankdroid.soda.CountDown.CountDownListener;
  * @author user
  *
  */
-public class SMSOTPDisplay extends MenuActivity implements View.OnClickListener, Codes, CountDownListener
+public class SMSOTPDisplay extends Activity implements View.OnClickListener, Codes, CountDownListener
 {
 	protected static final int MSG_DELETE_SMS = 0;
 	private CharSequence displayedCode;
@@ -314,25 +315,32 @@ public class SMSOTPDisplay extends MenuActivity implements View.OnClickListener,
 	public boolean onCreateOptionsMenu( final Menu menu )
 	{
 		final MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.sodmenu, menu);
+		inflater.inflate(R.menu.mainmenu, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected( final MenuItem item )
 	{
-		if ( item.getItemId() == R.id.menuBanks )
+		if ( item.getItemId() == R.id.MenuPreferences )
 		{
-			startActivity(new Intent(this, BankListActivity.class));
-			return true;
+			Log.d(TAG, "Preferences menu selected.");
+			final Intent settingsActivity = new Intent(getBaseContext(), Preferences.class);
+			startActivity(settingsActivity);
 		}
-		if ( item.getItemId() == R.id.menuClear )
+		else if ( item.getItemId() == R.id.MenuBanks )
+		{
+			Log.d(TAG, "Bank List menu selected.");
+			final Intent bankListIntent = new Intent();
+			bankListIntent.setClass(getBaseContext(), BankListActivity.class);
+			startActivity(bankListIntent);
+		}
+		else if ( item.getItemId() == R.id.MenuClear )
 		{
 			Log.d(TAG, "Clear menu selected.");
 			setValues(null, null, null, null);
-			return true;
 		}
-		return super.onOptionsItemSelected(item);
+		return false;
 	}
 
 	@Override

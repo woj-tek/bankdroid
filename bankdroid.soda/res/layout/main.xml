@@ -1,24 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
   	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:orientation="vertical"
   	android:layout_width="fill_parent"
   	android:layout_height="fill_parent"
-  	android:background="@drawable/background3"
+  	android:background="@drawable/background"
    	>
-   	
-	<include
-		android:id="@+id/titleView"
-		layout="@layout/titlebar"
-		/>
+   	<ImageView
+   		android:src="@drawable/soda_launch"
+   		android:id="@+id/sodaIcon"
+   		
+   		android:layout_width="wrap_content"
+   		android:layout_height="wrap_content"
+   		
+   		android:layout_alignParentLeft="true"
+   		android:layout_alignParentTop="true"
+   		android:layout_marginLeft="20sp"
+   		/>
+	<TextView 
+		android:text="@string/mainTitle" 
+		android:id="@+id/titleView" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:textColor="#FFFFFF"
+		android:textSize="20sp"
 		
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:layout_toRightOf="@id/sodaIcon"
+		android:layout_alignBottom="@id/sodaIcon"
+		android:layout_marginRight="20sp"
+		/>
 	<ScrollView
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		android:layout_below="@id/titleView"
 		android:layout_alignParentBottom="true"
-		android:layout_marginTop="10sp"
 		>
-		
 		<LinearLayout
 			android:orientation="vertical"
 			android:layout_width="fill_parent"
@@ -26,81 +45,47 @@
 			android:paddingLeft="20sp"
 			android:paddingRight="20sp"
 			>
-			
-			<LinearLayout
-				android:onClick="onViewLastCode"
-				style="@style/button"
-				>
-				<TextView
-					android:text="@string/btnViewLast"
-					android:drawableLeft="@drawable/icon_viewlast"
-					style="@style/buttonTitle"
-					/>
-				<TextView
-					android:text="@string/descViewLast"
-					style="@style/buttonComment"
-					/>
-			</LinearLayout>
-			
-			<View
-				android:background="#A6642E"
-				android:layout_width="fill_parent"
-				android:layout_height="1dp"
-				android:layout_marginBottom="6sp"
+			<Button 
+				android:text="@string/btnViewLast" 
+				android:id="@+id/viewLast" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
 				/>
-			
-			
-			<LinearLayout
-				android:onClick="onSubmitSample"
-				style="@style/button"
-				>
-				<TextView
-					android:text="@string/btnSubmitSample"
-					android:drawableLeft="@drawable/icon_submitsample"
-
-					style="@style/buttonTitle"
-					/>
-				<TextView
-					android:text="@string/descSubmitSample"
-					style="@style/buttonComment"
-					/>
-			</LinearLayout>
-			
-			
-			<LinearLayout
-				android:onClick="onManageBank"
-				style="@style/button"
-				>
-				<TextView
-					android:text="@string/btnManageBanks"
-					android:drawableLeft="@drawable/icon_managebank"
-
-					style="@style/buttonTitle"
-					/>
-				<TextView
-					android:text="@string/descManageBanks"
-					style="@style/buttonComment"
-					/>
-			</LinearLayout>
-			
-
-			<LinearLayout
-				android:onClick="onHelp"
-				style="@style/button"
-				>
-				<TextView
-					android:text="@string/btnInfoSite"
-					android:drawableLeft="@drawable/icon_infosite"
-
-					style="@style/buttonTitle"
-					/>
-				<TextView
-					android:text="@string/descInfoSite"
-					style="@style/buttonComment"
-					/>
-			</LinearLayout>
-			
-			
+				
+			<Button 
+				android:text="@string/btnManageBanks" 
+				android:id="@+id/manageBanks" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				/>
+				
+			<Button 
+				android:text="@string/btnSubmitSample" 
+				android:id="@+id/submitSample" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				/>
+		
+			<Button 
+				android:text="@string/btnPrefs" 
+				android:id="@+id/preferences" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				/>
+		
+			<Button 
+				android:text="@string/btnInfoSite" 
+				android:id="@+id/help" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				/>
+		
+			<Button 
+				android:text="@string/btnAbout" 
+				android:id="@+id/about" 
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				/>
 		</LinearLayout>
 	</ScrollView>
 
