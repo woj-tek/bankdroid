@@ -11,6 +11,7 @@ TNDK referans kodlu Yapi Kredi Internet Bankaciligi'na giris isleminiz icin Akil
 		<IconId>yapikredi_logo</IconId>
 		<Phones>
 			<Phone>AKILLISMS</Phone>
+			<Phone>4410</Phone>
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.*Yapi Kredi [^:]+: ([0-9]+) .*]]></Expression>
