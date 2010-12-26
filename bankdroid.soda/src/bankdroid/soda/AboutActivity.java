@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
+ * FIXME upgrade to android 1.6
  * FIXME shake to close the soda view
  * FIXME design review
  * FIXME facebook campaign
