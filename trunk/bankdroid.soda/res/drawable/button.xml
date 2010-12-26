@@ -1,21 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:state_focused="true">
-		<shape
-			android:shape="rectangle">
-		    <corners
-		        android:radius="3sp"
-		        />
-			<solid
-				android:color="#0FFF"
-				/>
-		    <stroke
-		        android:width="1px"
-		        android:color="#A6642E"/>
-
-		</shape>
-	</item>	
 	<item android:state_pressed="true">
 		<shape
 			android:shape="rectangle">
@@ -35,6 +20,21 @@
 				/>
 		</shape>
 	</item>
+	<item android:state_focused="true">
+		<shape
+			android:shape="rectangle">
+		    <corners
+		        android:radius="3sp"
+		        />
+			<solid
+				android:color="#0FFF"
+				/>
+		    <stroke
+		        android:width="1px"
+		        android:color="#A6642E"/>
+
+		</shape>
+	</item>	
 	<item>
 		<shape
 			android:shape="rectangle">
