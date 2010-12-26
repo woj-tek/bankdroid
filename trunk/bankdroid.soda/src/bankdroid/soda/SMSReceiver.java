@@ -12,14 +12,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.telephony.gsm.SmsMessage;
+import android.telephony.SmsMessage;
 import android.util.Log;
 
 public class SMSReceiver extends BroadcastReceiver implements Codes
 {
 	private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
 
-	@SuppressWarnings( "deprecation" )
 	@Override
 	public void onReceive( final Context context, final Intent intent )
 	{
@@ -48,7 +47,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 						final String code = bank.extractCode(message);
 
 						if ( code != null )
-						{//FIXME test
+						{
 							found = true;
 							processCode(context, bank, message, code);
 							break;
