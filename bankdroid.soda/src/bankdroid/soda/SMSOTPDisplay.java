@@ -3,11 +3,16 @@ package bankdroid.soda;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import android.app.NotificationManager;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,7 +23,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import bankdroid.soda.CountDown.CountDownListener;
@@ -47,9 +51,11 @@ import bankdroid.soda.CountDown.CountDownListener;
  * @author user
  *
  */
-public class SMSOTPDisplay extends MenuActivity implements View.OnClickListener, Codes, CountDownListener
+public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListener, SensorEventListener
 {
-	protected static final int MSG_DELETE_SMS = 0;
+	private static final int FORCE_THRESHOLD = 900;
+	private static final int MSG_DELETE_SMS = 0;
+
 	private CharSequence displayedCode;
 	private Bank bank;
 	private Date receivedAt;
@@ -57,6 +63,11 @@ public class SMSOTPDisplay extends MenuActivity implements View.OnClickListener,
 	private CountDown countDown;
 
 	boolean isActive = false;
+
+	private SensorManager sensorManager;
+	private Sensor sensor;
+	private long lastUpdate = -1;
+	private float lastX, lastY, lastZ;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -67,13 +78,25 @@ public class SMSOTPDisplay extends MenuActivity implements View.OnClickListener,
 		Eula.show(this);
 
 		setContentView(R.layout.sod);
-		( (Button) findViewById(R.id.codeButton) ).setOnClickListener(this);
+
+		this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+		final List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
+		if ( sensors.size() > 0 )
+		{
+			sensor = sensors.get(0);
+		}
+
 	}
 
 	@Override
 	protected void onResume()
 	{
 		super.onResume();
+
+		if ( sensor != null )
+		{
+			sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_GAME);
+		}
 
 		//clear notification if there is any
 		final NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -217,7 +240,7 @@ public class SMSOTPDisplay extends MenuActivity implements View.OnClickListener,
 		( (ImageView) findViewById(R.id.bankLogo) )
 				.setImageDrawable(source == null || source.getIconId() <= 0 ? getResources().getDrawable(
 						R.drawable.bankdroid_logo) : getResources().getDrawable(source.getIconId()));
-		( (Button) findViewById(R.id.codeButton) ).setText(code == null ? getResources().getText(R.string.nocode)
+		( (TextView) findViewById(R.id.codeButton) ).setText(code == null ? getResources().getText(R.string.nocode)
 				: code);
 		( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
 				.toString()
@@ -296,18 +319,14 @@ public class SMSOTPDisplay extends MenuActivity implements View.OnClickListener,
 			processIntent();
 	}
 
-	@Override
-	public void onClick( final View v )
+	public void onCopyAndClose( final View v )
 	{
-		if ( v.getId() == R.id.codeButton )
+		if ( displayedCode != null )
 		{
-			if ( displayedCode != null )
-			{
-				( (ClipboardManager) getSystemService(CLIPBOARD_SERVICE) ).setText(displayedCode);
-			}
-
-			finish();
+			( (ClipboardManager) getSystemService(CLIPBOARD_SERVICE) ).setText(displayedCode);
 		}
+
+		finish();
 	}
 
 	@Override
@@ -339,6 +358,7 @@ public class SMSOTPDisplay extends MenuActivity implements View.OnClickListener,
 	public void stop()
 	{
 		// do nothing
+		sensorManager.unregisterListener(this);
 
 	}
 
@@ -349,4 +369,43 @@ public class SMSOTPDisplay extends MenuActivity implements View.OnClickListener,
 		countDown.setText(getResources().getText(R.string.countdown_prefix).toString() + " "
 				+ convertTime(remainingSec));
 	}
+
+	@Override
+	public void onAccuracyChanged( final Sensor s, final int valu )
+	{
+		//do nothing
+	}
+
+	@Override
+	public void onSensorChanged( final SensorEvent event )
+	{
+
+		if ( event.sensor.getType() != Sensor.TYPE_ACCELEROMETER || event.values.length < 3 )
+			return;
+
+		final long currentTime = System.currentTimeMillis();
+
+		if ( ( currentTime - lastUpdate ) > 100 )
+		{
+			final long diffTime = ( currentTime - lastUpdate );
+			lastUpdate = currentTime;
+
+			final float x = event.values[SensorManager.DATA_X];
+			final float y = event.values[SensorManager.DATA_Y];
+			final float z = event.values[SensorManager.DATA_Z];
+
+			final float currentForce = Math.abs(x + y + z - lastX - lastY - lastZ) / diffTime * 10000;
+
+			if ( currentForce > FORCE_THRESHOLD )
+			{
+				//device has been shaken 
+				onCopyAndClose(null);
+			}
+
+			lastX = x;
+			lastY = y;
+			lastZ = z;
+		}
+	}
+
 }

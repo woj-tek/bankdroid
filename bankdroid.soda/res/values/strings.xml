@@ -27,7 +27,7 @@
 
 	<!-- SMS OTP Display Activity -->
 	<string name="copyright">SMS Key, BankDroid, 2009 (c)</string> <!-- I18N -->
-	<string name="clickToClose">Tap on the code to copy and close.</string>
+	<string name="clickToClose">Tap or shake to copy and close.</string> <!-- I18N -->
 	<string name="menuClear">Clear</string>
 	<string name="menuBanks">Banks</string>
 	<string name="menuPref">Preferences</string>

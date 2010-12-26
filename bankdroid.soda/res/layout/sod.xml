@@ -3,105 +3,125 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" 
 	android:layout_height="fill_parent"
-	android:background="@drawable/background">
+	android:background="@drawable/background3">
 	
-	<LinearLayout 
-		android:orientation="vertical"
+	<RelativeLayout 
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		>
 		
-		<TextView 
-			android:text="@string/copyright" 
-			android:id="@+id/copyright" 
-			android:layout_gravity="right"
-			android:textSize="10sp"
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"
+	   	
+		<include
+			android:id="@+id/titleView"
+			layout="@layout/titlebar"
 			/>
-	
-		<FrameLayout
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"
-			android:layout_gravity="center_horizontal"
-			>
-			<LinearLayout
-				android:layout_width="wrap_content" 
-				android:layout_height="wrap_content"
-				android:layout_gravity="bottom"
-				android:background="@android:drawable/alert_light_frame"
-				android:orientation="horizontal"
-				>
-				<ImageView 
-					android:id="@+id/bankLogo" 
-					android:layout_width="wrap_content" 
-					android:layout_height="wrap_content"
-					android:src="@drawable/budapestbank_logo"
-					android:padding="10sp"
-					/>
-				<TextView 
-					android:text="Az an ideiglenes kadja: 51930398 Ez a kad belapashez 13:47:58-ig hasznalhatja, de arizze meg a tranzakciahoz! Kapcsolat azonosata: 133758 Budapest Bank" 
-					android:id="@+id/messageBody" 
-					android:layout_gravity="center_horizontal"
-					android:textSize="12sp"
-					android:layout_width="wrap_content" 
-					android:layout_height="wrap_content"
-					android:textColor="#000000" 
-					android:background="@android:drawable/editbox_background"
-					/>
-			</LinearLayout>
-		</FrameLayout>
 			
 		<TextView 
-			android:text="@string/securityWarning" 
 			android:id="@+id/securityWarning" 
-			android:gravity="center_horizontal"
+
+			android:text="@string/securityWarning" 
+			android:gravity="left"
 			android:background="#FFA000"
 			android:textColor="#FFFFFF"
 			android:textStyle="bold"
-			android:padding="2sp"
-			android:layout_marginBottom="5sp"
+			android:padding="5sp"
+			android:drawableLeft="@android:drawable/stat_notify_error"
+			android:drawablePadding="6sp"
+			android:visibility="visible"
+
+			android:layout_marginTop="3sp"
 			android:layout_width="fill_parent" 
-			android:layout_height="wrap_content"/>
-		
-		<Button 
-			android:text="76037367" 
-			android:id="@+id/codeButton" 
-			android:layout_gravity="center_horizontal"
-			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
-			android:textColor="#EF6A28" 
-			android:textSize="32sp" 
+			android:layout_below="@id/titleView"
 			/>
-	
-		<TextView 
-			android:text="@string/clickToClose" 
-			android:id="@+id/TextView01" 
-			android:layout_gravity="center_horizontal"
-			android:textColor="#DDD"
-			android:textSize="10sp"
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"/>
-		
-		<TextView 
-			android:text="Received at: 2009.12.20 12:34:11" 
-			android:id="@+id/receivedAt" 
+
+		<LinearLayout
+			android:id="@+id/messagePanel"
+			android:background="@drawable/panel_background"
+			android:orientation="horizontal"
+			android:padding="12sp"
+			
+			android:layout_marginTop="8sp"
 			android:layout_width="wrap_content" 
 			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:layout_below="@id/securityWarning"
+			>
+			<ImageView 
+				android:id="@+id/bankLogo" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:src="@drawable/budapestbank_logo"
+				android:layout_gravity="center_vertical"
+				android:padding="5sp"
+				/>
+			<View
+				android:background="#A6642E"
+				android:layout_width="1dp"
+				android:layout_height="fill_parent"
+				android:layout_marginLeft="5sp"
+				android:layout_marginRight="5sp"
+				/>
+			<TextView 
+				android:text="The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the lazy dog. The quick brown fox ju..." 
+				android:id="@+id/messageBody" 
+				android:layout_gravity="center_horizontal"
+				android:textSize="14sp"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textColor="#A6642E" 
+				/>
+		</LinearLayout>
+		
+		<LinearLayout
+			android:id="@+id/codePanel" 
+			android:onClick="onCopyAndClose"
+			style="@style/button"
+			android:layout_below="@id/messagePanel"
+			android:layout_marginLeft="20sp"
+			android:layout_marginRight="20sp"
+			>
+			<TextView
+				android:id="@+id/codeButton" 
+				android:text="M8m8m8M8"
+				android:textSize="42sp" 
+				android:gravity="center"
+
+				style="@style/buttonTitle"
+				/>
+			<TextView
+				android:text="@string/clickToClose"
+				android:gravity="center_horizontal"
+				style="@style/buttonComment"
+				android:layout_marginLeft="0sp"
+				/>
+		</LinearLayout>
+	
+		
+		<TextView 
+			android:id="@+id/receivedAt" 
+			android:text="Received at: 2009.12.20 12:34:11" 
+			android:textColor="#BF9C7F"
 			android:paddingTop="5sp"
-			android:textColor="#DDD"
-			android:layout_gravity="center_horizontal"
+
+			android:gravity="center_horizontal"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:layout_below="@id/codePanel"
 			/>
 			
 		<TextView 
-			android:text="Remaining time: 00:12:22" 
 			android:id="@+id/countDown" 
-			android:layout_gravity="center_horizontal"
-			android:visibility="invisible"
-			android:textColor="#DDD"
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"/>
+
+			android:text="Remaining time: 00:12:22" 
+			android:textColor="#BF9C7F"
+
+			android:gravity="center_horizontal"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:layout_below="@id/receivedAt"
+			/>
 	
-	</LinearLayout>
+	</RelativeLayout>
 
 </ScrollView>
