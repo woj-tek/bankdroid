@@ -88,7 +88,8 @@
 	<string name="aboutUrl2">http://www.bankdroid.info</string>
 	<string name="submitSampleURL">http://www.bankdroid.info/soda/user-reference#TOC-Submit-SMS-Sample</string>
 	<string name="donateURL">http://bit.ly/8LrNB9</string>
-	<string name="donateButton"> Donate</string>
+	<string name="donateButton">Donate</string>
+	<string name="donateButtonDesc">Help me on direct cost via PayPal</string> <!-- I18N -->
 	
 	<!-- EULA -->
 	<string name="eula_title">License</string>
