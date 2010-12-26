@@ -14,11 +14,11 @@ import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 
 /**
+ * FIXME web site to the menu
+ * FIXME replace logo and launcher icon
  * FIXME design review
  * FIXME facebook campaign
  * 
@@ -28,7 +28,7 @@ import android.widget.TextView;
  * @author Gabe
  *
  */
-public class AboutActivity extends Activity implements OnClickListener, Codes
+public class AboutActivity extends Activity implements Codes
 {
 
 	private static final String BANKDROID_TEXT = "BankDroid";
@@ -38,19 +38,6 @@ public class AboutActivity extends Activity implements OnClickListener, Codes
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.about);
-
-		final Button productInfo = (Button) findViewById(R.id.productInfoButton);
-		productInfo.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.info_icon), null,
-				null, null);
-		productInfo.setOnClickListener(this);
-		final Button donate = (Button) findViewById(R.id.donateButton);
-		donate
-				.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.donate2), null, null,
-						null);
-		donate.setOnClickListener(this);
-
-		findViewById(R.id.twitterIcon).setOnClickListener(this);
-		findViewById(R.id.gmailIcon).setOnClickListener(this);
 
 		//Set links in description0 
 		final TextView desc0 = (TextView) findViewById(R.id.description);
@@ -93,29 +80,34 @@ public class AboutActivity extends Activity implements OnClickListener, Codes
 		}
 	}
 
-	@Override
-	public void onClick( final View v )
+	public void onMail( final View v )
 	{
-		if ( v.getId() == R.id.productInfoButton )
-		{
-			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.aboutUrl2)));
-			startActivity(viewIntent);
-		}
-		else if ( v.getId() == R.id.donateButton )
-		{
-			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.donateURL)));
-			startActivity(viewIntent);
-		}
-		else if ( v.getId() == R.id.twitterIcon )
-		{
-			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TWITTER_URL));
-			startActivity(viewIntent);
-		}
-		else if ( v.getId() == R.id.gmailIcon )
-		{
-			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(GMAIL_URL));
-			startActivity(viewIntent);
-		}
+		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(GMAIL_URL));
+		startActivity(viewIntent);
+	}
+
+	public void onTwitter( final View v )
+	{
+		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(TWITTER_URL));
+		startActivity(viewIntent);
+	}
+
+	public void onFacebook( final View v )
+	{
+		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(FACEBOOK_URL));
+		startActivity(viewIntent);
+	}
+
+	public void onProductInfo( final View v )
+	{
+		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.aboutUrl2)));
+		startActivity(viewIntent);
+	}
+
+	public void onDonate( final View v )
+	{
+		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.donateURL)));
+		startActivity(viewIntent);
 	}
 
 	static class ClickSpan extends ClickableSpan
