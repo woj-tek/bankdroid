@@ -6,9 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
@@ -18,7 +16,7 @@ import android.widget.AdapterView.OnItemClickListener;
  * @author gyenes
  *
  */
-public class SMSListActivity extends MenuActivity implements Codes, OnItemClickListener, OnClickListener
+public class SMSListActivity extends MenuActivity implements OnItemClickListener
 {
 	private static final String SUBMISSION_ADDRESS = "sample@bankdroid.info";
 
@@ -53,8 +51,6 @@ public class SMSListActivity extends MenuActivity implements Codes, OnItemClickL
 		final ListView list = (ListView) findViewById(R.id.smsListView);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(this);
-
-		( (Button) findViewById(R.id.help) ).setOnClickListener(this);
 	}
 
 	@Override
@@ -144,16 +140,6 @@ public class SMSListActivity extends MenuActivity implements Codes, OnItemClickL
 		Log.d(TAG, "URI: " + uri);
 		view.setData(Uri.parse(uri.toString()));
 		startActivity(view);
-	}
-
-	@Override
-	public void onClick( final View arg0 )
-	{
-		if ( arg0.getId() == R.id.help )
-		{
-			final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.submitSampleURL)));
-			startActivity(viewIntent);
-		}
 	}
 
 }

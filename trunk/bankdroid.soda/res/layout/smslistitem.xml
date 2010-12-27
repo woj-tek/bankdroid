@@ -2,31 +2,37 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
 	android:id="@+id/itemWrapper" 
+
 	android:orientation="vertical"
+	android:background="@drawable/button"
+
 	android:layout_width="fill_parent" 
 	android:layout_height="wrap_content"
-	android:background="@drawable/itembackground"
 	>
 	
 	<TextView 
-		style="@style/labelText"
 	    android:id="@+id/smsSender"
+	    
 	    android:text="+36205111991"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
 	    android:gravity="center_vertical"
 	    android:paddingLeft="5dip"
 	    android:singleLine="true"
+	    
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+		style="@style/labelText"
 	/>
 	<TextView 
-		style="@style/commentText"
 	    android:id="@+id/smstext"
+	    
 	    android:text="Az ön egyszeri jelszava..."
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
 	    android:gravity="center_vertical"
 	    android:paddingLeft="5dip"
-	    android:singleLine="true"
+	    
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    
+		style="@style/commentText"
 	/>
 
 </LinearLayout>

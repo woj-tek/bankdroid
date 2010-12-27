@@ -43,7 +43,7 @@
 			</LinearLayout>
 			
 			<View
-				android:background="#A6642E"
+				android:background="@color/darkBrown"
 				android:layout_width="fill_parent"
 				android:layout_height="1dp"
 				android:layout_marginBottom="6sp"

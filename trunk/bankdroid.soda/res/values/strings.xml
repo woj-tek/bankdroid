@@ -6,8 +6,7 @@
     <string name="editBank">Edit Bank</string>
     <string name="deleteBank">Delete Bank</string>
     <string name="bankDeleted">The bank is successfully deleted.</string>
-    <string name="showForeignBanks">Show foreign banks...</string>
-    <string name="hideForeignBanks">Hide foreign banks...</string>
+    <string name="showForeignBanks">Show foreign banks</string>
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Phone number(s):</string>
@@ -40,7 +39,7 @@
 	<string name="securityWarning">Verify transaction details in the message before signing the transaction.</string>
 	
 	<!-- SMS pick activity -->
-	<string name="smsListTitle">Please select an SMS sample:</string>
+	<string name="smsListTitle">Please select an SMS containing one-time password that is already used or expired:</string>
 	<string name="selectEmail">Please select an E-mail account:</string>
 	<string name="noSMSInInbox">There is no SMS in your inbox.</string>
 	<string name="btnHelp">Help</string>

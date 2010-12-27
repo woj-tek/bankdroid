@@ -10,7 +10,7 @@
 		
 		    <stroke
 		        android:width="1px"
-		        android:color="#A6642E"/>
+		        android:color="@color/darkBrown"/>
 		
 			<gradient
 				android:type="linear" 
@@ -31,7 +31,22 @@
 				/>
 		    <stroke
 		        android:width="1px"
-		        android:color="#A6642E"/>
+		        android:color="@color/darkBrown"/>
+
+		</shape>
+	</item>	
+	<item android:state_selected="true">
+		<shape
+			android:shape="rectangle">
+		    <corners
+		        android:radius="3sp"
+		        />
+			<solid
+				android:color="#0FFF"
+				/>
+		    <stroke
+		        android:width="1px"
+		        android:color="@color/darkBrown"/>
 
 		</shape>
 	</item>	

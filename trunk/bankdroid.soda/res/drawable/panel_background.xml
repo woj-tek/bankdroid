@@ -45,7 +45,7 @@
 				android:color="#FFF" 
 				/>
 			<stroke 
-				android:color="#A6642E" 
+				android:color="@color/darkBrown" 
 				android:width="1px"
 				/>
 		</shape>
