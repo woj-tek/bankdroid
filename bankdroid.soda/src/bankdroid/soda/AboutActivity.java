@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 /**
  * FIXME replace logo and launcher icon
- * FIXME design review: submit sample, manage banks
  * FIXME facebook campaign
+ * FIXME fix translations
  * 
  * TODO video
  * TODO deleting a message is not working always due to the EOL character replacement

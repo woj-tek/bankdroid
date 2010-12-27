@@ -5,8 +5,7 @@
     <string name="editBank">Szerkesztés</string>
     <string name="deleteBank">Törlés</string>
     <string name="bankDeleted">A bankot sikeresen töröltem.</string>
-    <string name="showForeignBanks">Külföldi bankok listázása...</string>
-    <string name="hideForeignBanks">Külföldi bankok elrejtése...</string>
+    <string name="showForeignBanks">Külföldi bankok listázása</string>
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Telefonszám(ok):</string>

@@ -154,17 +154,7 @@ public class BankListActivity extends MenuActivity implements Codes, OnItemClick
 	{
 		if ( view.getId() == R.id.showAllCountry )
 		{
-			final Button button = (Button) view;
-			if ( filtered )
-			{
-				filtered = false;
-				button.setText(R.string.hideForeignBanks);
-			}
-			else
-			{
-				filtered = true;
-				button.setText(R.string.showForeignBanks);
-			}
+			filtered = !filtered;
 			stopManagingCursor(adapter.getCursor());
 
 			final Cursor cursor = getContentResolver().query(Bank.CONTENT_URI,
