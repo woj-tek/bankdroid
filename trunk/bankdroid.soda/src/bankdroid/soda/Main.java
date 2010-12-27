@@ -1,7 +1,6 @@
 package bankdroid.soda;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -22,12 +21,6 @@ public class Main extends MenuActivity implements Codes
 	{
 		final Intent submitIntent = new Intent(getBaseContext(), SMSListActivity.class);
 		startActivity(submitIntent);
-	}
-
-	public void onHelp( final View v )
-	{
-		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.aboutUrl2)));
-		startActivity(viewIntent);
 	}
 
 	public void onViewLastCode( final View v )

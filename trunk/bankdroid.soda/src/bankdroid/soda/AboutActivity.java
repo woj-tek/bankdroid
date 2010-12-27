@@ -1,6 +1,5 @@
 package bankdroid.soda;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -17,9 +16,8 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * FIXME web site to the menu
  * FIXME replace logo and launcher icon
- * FIXME design review
+ * FIXME design review: submit sample, manage banks
  * FIXME facebook campaign
  * 
  * TODO video
@@ -28,7 +26,7 @@ import android.widget.TextView;
  * @author Gabe
  *
  */
-public class AboutActivity extends Activity implements Codes
+public class AboutActivity extends MenuActivity
 {
 
 	private static final String BANKDROID_TEXT = "BankDroid";
@@ -95,12 +93,6 @@ public class AboutActivity extends Activity implements Codes
 	public void onFacebook( final View v )
 	{
 		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(FACEBOOK_URL));
-		startActivity(viewIntent);
-	}
-
-	public void onProductInfo( final View v )
-	{
-		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.aboutUrl2)));
 		startActivity(viewIntent);
 	}
 

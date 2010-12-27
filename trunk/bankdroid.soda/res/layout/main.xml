@@ -85,7 +85,7 @@
 			
 
 			<LinearLayout
-				android:onClick="onHelp"
+				android:onClick="onProductInfo"
 				style="@style/button"
 				>
 				<TextView
