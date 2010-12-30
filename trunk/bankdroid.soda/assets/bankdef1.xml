@@ -65,7 +65,7 @@ A 12312313-132123131-1313123123 celszamlara inditott 100 Ft osszegu tranzakciova
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.*K.H e-bank[^:]*: ([a-zA-Z0-9]+) [^:]*]]></Expression>
-			<Expression transactionSign="true"><![CDATA[.*K.H e-bank.*: ([a-zA-Z0-9]+)[^:]*]]></Expression>
+			<Expression transactionSign="true"><![CDATA[.*K.H e-bank.*:.*: ([a-zA-Z0-9]+)[^:]*]]></Expression>
 		</Expressions>
 	</Bank>		
 		
