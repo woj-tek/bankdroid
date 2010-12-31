@@ -25,6 +25,7 @@ Operacja nr 1 z dn. 01-01-2001 Zmiana odbiorcy zdef. z rach: ...012345 na rach: 
 		<IconId>mbank_logo</IconId>
 		<Phones>
 			<Phone>3388</Phone>
+			<Phone>Operacja</Phone>
 		</Phones>
 		<Expressions>
 			<Expression transactionSign="true"><![CDATA[.* haslo: ([0-9]+) mBank.*]]></Expression>
