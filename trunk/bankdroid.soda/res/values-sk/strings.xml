@@ -5,7 +5,7 @@
     <string name="editBank">Upraviť banky</string>
     <string name="deleteBank">Odstrániť banky</string>
     <string name="bankDeleted">Banka je úspešne odstránená.</string>
-    <string name="showForeignBanks">Zobraziť zahraničných bánk</string><!-- XXX language review-->
+    <string name="showForeignBanks">Zobraziť zahraničných bánk</string>
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Telefónne číslo (čísla):</string>
@@ -20,15 +20,18 @@
 	<string name="specifyBankName">Uveďte meno banky.</string>
 	<string name="noEmptyPhoneNumber">Prázdne telefónne čísla nie sú povolené.</string>
 	<string name="noEmptyExpression">Prázdne výrazy nie sú povolené.</string>
+	<string name="invalidExpression">Neplatný regulárny výraz. Skontrolujte to znova!</string>
 	
 
 	<!-- SMS OTP Display Activity -->
-	<string name="copyright">Soda, BankDroid, 2009 (c)</string>
-	<string name="clickToClose">Kliknutím na kód skopírovať a zavrieť.</string>
+	<string name="copyright">SMS Key, BankDroid, 2009 (c)</string>
+	<string name="clickToClose">Kliknutím alebo chvenie kopírovanie a zatvorte.</string>
 	<string name="menuClear">Jasný</string>
 	<string name="menuBanks">Banky</string>
 	<string name="menuPref">Predvoľby</string>
-	<string name="app_name">SMS OTP Display</string>
+	<string name="menuUserGuide">Online pomocníka</string>
+	<string name="menuAbout">O aplikácii</string>
+	<string name="app_name">SMS Key</string>
 	<string name="received.prefix">Podaným: </string>
 	<string name="countdown.prefix">Zostávajúci čas: </string>
 	<string name="nocode">- Bez kódu -</string>
@@ -45,8 +48,8 @@
 	<string name="emailSMSText">Text správy: </string>
 	
 	<!-- Preferences -->
-	<string name="keepScreenOn">Majte na obrazovke</string><!-- FIXME I18N -->
-	<string name="keepScreenOnSummary">Majte na obrazovke, zatiaľ čo kód je zobrazený.</string><!-- FIXME I18N -->
+	<string name="keepScreenOn">Majte na obrazovke</string>
+	<string name="keepScreenOnSummary">Majte na obrazovke, zatiaľ čo kód je zobrazený.</string>
 	<string name="keepSMS">Majte SMS</string>
 	<string name="keepSMSSummary">Ak je zvolené, pôvodný SMS vedené v správach.</string>
 	<string name="notification">Oznámenie iba</string>
@@ -62,27 +65,30 @@
 	
 	<!-- Notification -->
 	<string name="notificationTicker">Heslo dostal formulár (0)</string>
-	<string name="notificationTitle">Soda</string>
+	<string name="notificationTitle">SMS Key</string>
 	<string name="notificationText">Heslo dostal formulár (0). Kliknite tu pre zobrazenie.</string>
 	
 	<!-- Main -->
-	<string name="mainTitle">BankDroid soda</string>
+	<string name="mainTitle">SMS Key</string>
 	<string name="btnViewLast">Zobraziť posledný kód</string>
 	<string name="btnManageBanks">Správa bánk</string>
 	<string name="btnSubmitSample">Predložte prípadne vzor</string>
-	<string name="btnPrefs">Predvoľby</string>
 	<string name="btnInfoSite">Info stránky</string>
-	<string name="btnAbout">O</string>
+	<string name="descViewLast">Zobraziť najnovší SMS kód.</string>
+	<string name="descManageBanks">Udržiavať banky sami ...</string>
+	<string name="descSubmitSample">Vaša banka zatiaľ nie je podporované?</string>
+	<string name="descInfoSite">Nechápu, čo je to app?</string>
 	<string name="noMessageYet">Dostali ste žiadny kód SMS doteraz.</string>
 
 	<!-- About -->
-	<string name="aboutId">BankDroid soda</string>
-	<string name="aboutDesc">Soda je produktom BankDroid open source projekt. Vyvinuté dobrovoľných programátorov.</string>
+	<string name="aboutId">SMS Key</string>
+	<string name="aboutDesc">SMS Key je produktom BankDroid open source projekt. Vyvinuté dobrovoľných programátorov.</string>
 	<string name="aboutDesc2">Ak budete mať akýkoľvek problém s aplikáciou, alebo by ste chceli vidieť nejaké nové funkcie, neváhajte nás kontaktovať.</string>
-	<string name="aboutUrl2">http://www.bankdroid.info</string>
+	<string name="aboutUrl2">www.bankdroid.info</string>
 	<string name="submitSampleURL">http://www.bankdroid.info/soda/user-reference#TOC-Submit-SMS-Sample</string>
 	<string name="donateURL">http://bit.ly/8LrNB9</string>
-	<string name="donateButton"> Darovať</string>
+	<string name="donateButton">Darovať</string>
+	<string name="donateButtonDesc">Pomôž mi na priame náklady cez PayPal</string>
 	
 	<!-- EULA -->
 	<string name="eula_title">Licencia</string>

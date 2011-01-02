@@ -20,15 +20,18 @@
 	<string name="specifyBankName">Kérlek, ad meg a bank nevét.</string>
 	<string name="noEmptyPhoneNumber">Az üres telefonszámokat törölni kell.</string>
 	<string name="noEmptyExpression">Az üres szűrőket törölni kell.</string>
+	<string name="invalidExpression">Érvénytelen kifejezés. Ellenőrizd újra.</string>
 	
 
 	<!-- SMS OTP Display Activity -->
-	<string name="copyright">SODA, BankDroid, 2009 (c)</string>
-	<string name="clickToClose">Tappints a kódra a másoláshoz és bezáráshoz.</string>
+	<string name="copyright">SMS Key, BankDroid, 2009 (c)</string>
+	<string name="clickToClose">Tappints a kódra, vagy rázd meg a készüléket a másoláshoz és bezáráshoz.</string>
 	<string name="menuClear">Kód törlése</string>
 	<string name="menuBanks">Bankok</string>
 	<string name="menuPref">Beállítások</string>
-	<string name="app_name">SMS Jelszavak</string>
+	<string name="menuUserGuide">Leírás</string>
+	<string name="menuAbout">Névjegy</string>
+	<string name="app_name">SMS Key</string>
 	<string name="received.prefix">Érkezett: </string>
 	<string name="countdown.prefix">Hátralévő idő: </string>
 	<string name="nocode">-- nincs jelszó --</string>
@@ -62,27 +65,30 @@
 	
 	<!-- Notification -->
 	<string name="notificationTicker">Jelszó érkezett a {0} bankból.</string>
-	<string name="notificationTitle">SODA</string>
+	<string name="notificationTitle">SMS Key</string>
 	<string name="notificationText">Jelszó érkezett {0} a bankból. Tappolj ide.</string>
 	
 	<!-- Main -->
-	<string name="mainTitle">BankDroid SODA</string>
+	<string name="mainTitle">SMS Key</string>
 	<string name="btnViewLast">Utolsó jelszó</string>
 	<string name="btnManageBanks">Bankok kezelése</string>
 	<string name="btnSubmitSample">Minta beküldése</string>
-	<string name="btnPrefs">Beállítások</string>
-	<string name="btnInfoSite">Infó oldalak</string>
-	<string name="btnAbout">Névjegy</string>
+	<string name="btnInfoSite">Infó oldalak (angol)</string>
+	<string name="descViewLast">Utolsó kód megjelenítése</string>
+	<string name="descManageBanks">Beállíthatsz saját bankokat magadnak</string>
+	<string name="descSubmitSample">A te bankodat még nem támogatja a program?</string>
+	<string name="descInfoSite">Nem érted mire jó ez a program?</string>
 	<string name="noMessageYet">Még egyetlen kódot sem fogadott az alkalmazás.</string>
 
 	<!-- About -->
-	<string name="aboutId">BankDroid SODA</string>
-	<string name="aboutDesc">A SODA a BankDroid nyíltforráskódú project terméke, önkéntes programozók munkája.</string>
+	<string name="aboutId">SMS Key</string>
+	<string name="aboutDesc">Az SMS Key a BankDroid nyíltforráskódú project terméke, önkéntes programozók munkája.</string>
 	<string name="aboutDesc2">Amennyiben hibát észlelsz, vagy új ötleted van az alkalmazással kapcsolatban, örömmel vesszük a visszajelzéseket.</string>
-	<string name="aboutUrl2">http://hu.bankdroid.info</string>
+	<string name="aboutUrl2">www.bankdroid.info</string>
 	<string name="submitSampleURL">http://www.bankdroid.info/soda/user-reference#TOC-Submit-SMS-Sample</string>
 	<string name="donateURL">http://bit.ly/8ECNpl</string>
-	<string name="donateButton"> Támogatás</string>
+	<string name="donateButton">Támogatás</string>
+	<string name="donateButtonDesc">Segítsd pénzzel az alkalmazás fentartását</string>
 	
 	<!-- EULA -->
 	<string name="eula_title">License</string>

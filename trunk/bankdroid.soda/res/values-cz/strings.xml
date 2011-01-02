@@ -5,7 +5,7 @@
     <string name="editBank">Upravit banku</string>
     <string name="deleteBank">Odstranit banku</string>
     <string name="bankDeleted">Banka byla úspěšně odstraněna.</string>
-    <string name="showForeignBanks">Zobrazit zahraničních bank</string><!-- XXX language review-->
+    <string name="showForeignBanks">Zobrazit zahraničních bank</string>
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Telefonní číslo(a):</string>
@@ -20,15 +20,18 @@
 	<string name="specifyBankName">Uveďte jméno banky.</string>
 	<string name="noEmptyPhoneNumber">Prázdná telefonní čísla nejsou povolena.</string>
 	<string name="noEmptyExpression">Prázdné výrazy nejsou povoleny.</string>
+	<string name="invalidExpression">Neplatný regulární výraz. Zkontrolujte to znovu!</string>
 	
 
 	<!-- SMS OTP Display Activity -->
-	<string name="copyright">Soda, BankDroid, 2009 (c)</string>
-	<string name="clickToClose">Klepnutím na kód zkopírujete a zavřete.</string>
+	<string name="copyright">SMS Key, BankDroid, 2009 (c)</string>
+	<string name="clickToClose">Klepnutím nebo chvění kopírování a zavřete.</string> 
 	<string name="menuClear">Vymazat</string>
 	<string name="menuBanks">Banky</string>
 	<string name="menuPref">Předvolby</string>
-	<string name="app_name">SMS OTP Display</string>
+	<string name="menuUserGuide">Informace</string>
+	<string name="menuAbout">O aplikaci</string>
+	<string name="app_name">SMS Key</string>
 	<string name="received.prefix">Došlo : </string>
 	<string name="countdown.prefix">Zbývající čas: </string>
 	<string name="nocode">- Bez kódu -</string>
@@ -46,8 +49,8 @@
 	<string name="emailSMSText">Text zprávy: </string>
 	
 	<!-- Preferences -->
-	<string name="keepScreenOn">Mějte obrazovce</string><!-- FIXME I18N -->
-	<string name="keepScreenOnSummary">Mějte na obrazovce, zatímco kód je zobrazen.</string><!-- FIXME I18N -->
+	<string name="keepScreenOn">Mějte obrazovce</string>
+	<string name="keepScreenOnSummary">Mějte na obrazovce, zatímco kód je zobrazen.</string>
 	<string name="keepSMS">Ponechání SMS</string>
 	<string name="keepSMSSummary">Pokud je zvoleno, text původní SMS bude ve zprávách zachován.</string>
 	<string name="notification">Pouze oznámení</string>
@@ -63,27 +66,30 @@
 	
 	<!-- Notification -->
 	<string name="notificationTicker">Heslo získáno z  {0}</string>
-	<string name="notificationTitle">Soda</string>
+	<string name="notificationTitle">SMS Key</string>
 	<string name="notificationText">Heslo získáno z {0}. Klikněte zde pro zobrazení.</string>
 	
 	<!-- Main -->
-	<string name="mainTitle">BankDroid soda</string>
+	<string name="mainTitle">SMS Key</string>
 	<string name="btnViewLast">Zobrazit poslední kód</string>
 	<string name="btnManageBanks">Správa bank</string>
 	<string name="btnSubmitSample">Odeslat vzorek</string>
-	<string name="btnPrefs">Předvolby</string>
 	<string name="btnInfoSite">Informace</string>
-	<string name="btnAbout">O aplikaci</string>
+	<string name="descViewLast">Připomeňme si poslední SMS kód</string>
+	<string name="descManageBanks">Udržovat banky sami ...</string>
+	<string name="descSubmitSample">Vaše banka zatím není podporováno</string>
+	<string name="descInfoSite">Nechápou, co je to app?</string>
 	<string name="noMessageYet">Dosud jste neobdrželi žádný SMS kód.</string>
 
 	<!-- About -->
-	<string name="aboutId">BankDroid soda</string>
-	<string name="aboutDesc">Soda je produktem open source projektu BankDroid. Vyvinuto programátory dobrovolníky.</string>
+	<string name="aboutId">SMS key</string>
+	<string name="aboutDesc">SMS Key je produktem open source projektu BankDroid. Vyvinuto programátory dobrovolníky.</string>
 	<string name="aboutDesc2">Pokud budete mít jakýkoliv problém s aplikací, nebo zájem o nové funkce, neváhejte nás kontaktovat.</string>
-	<string name="aboutUrl2">http://www.bankdroid.info</string>
+	<string name="aboutUrl2">www.bankdroid.info</string>
 	<string name="submitSampleURL">http://www.bankdroid.info/soda/user-reference#TOC-Submit-SMS-Sample</string>
 	<string name="donateURL">http://bit.ly/8LrNB9</string>
-	<string name="donateButton"> Podpořit vývoj darem</string>
+	<string name="donateButton">Podpořit vývoj darem</string>
+	<string name="donateButtonDesc">Pomoz mi na přímé náklady přes PayPal</string>
 	
 	<!-- EULA -->
 	<string name="eula_title">Licence</string>

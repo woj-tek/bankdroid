@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
+<?xml version="1.0" encoding="utf-8" standalone="no"?><resources>
 	<!-- Bank List Activity -->
 	<string name="bankListTitle">Banklist:</string>
     <string name="addBank">Bank hinzufügen</string>
     <string name="editBank">Bank editieren</string>
     <string name="deleteBank">Bank löschen</string>
     <string name="bankDeleted">Die Bank ist erfolgreich gelöscht.</string>
-    <string name="showForeignBanks">Anzeigen ausländischer Banken</string><!-- XXX language review-->
+    <string name="showForeignBanks">Anzeigen ausländischer Banken</string>
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Telefonnummer:</string>
@@ -21,15 +20,18 @@
 	<string name="specifyBankName">Bitte gebben Sie der Bankname.</string>
 	<string name="noEmptyPhoneNumber">Leerende Telefonnummer ist nicht erlaubt.</string>
 	<string name="noEmptyExpression">Leerende Äusserungen sind nicht erlaubt.</string>
+	<string name="invalidExpression">Ungültiger regulärer Ausdruck. Bitte überprüfen Sie es erneut!</string>
 	
 
 	<!-- SMS OTP Display Activity -->
-	<string name="copyright">SODA, BankDroid, 2009 (c)</string>
-	<string name="clickToClose">Tippen Sie auf den Code zu kopieren und zu schließen.</string>
+	<string name="copyright">SMS Key, BankDroid, 2009 (c)</string>
+	<string name="clickToClose">Tippen oder schütteln zu kopieren und zu schließen</string>
 	<string name="menuClear">Löschen</string>
 	<string name="menuBanks">Banken</string>
 	<string name="menuPref">Präferenzen</string>
-	<string name="app_name">SMS OTP Bildshirm</string>
+	<string name="menuUserGuide">Online-Hilfe</string>
+	<string name="menuAbout">Über die Anwendung</string>
+	<string name="app_name">SMS Key</string>
 	<string name="received.prefix">Annehmen am: </string>
 	<string name="countdown.prefix">Übriger zeit: </string>
 	<string name="nocode">-- kein Kode --</string>
@@ -46,8 +48,8 @@
 	<string name="emailSMSText">Nachricht: </string>
 	
 	<!-- Preferences -->
-	<string name="keepScreenOn">Halten Sie am Bildschirm</string><!-- FIXME I18N -->
-	<string name="keepScreenOnSummary">Halten Bildschirm auf, während Code wird angezeigt.</string><!-- FIXME I18N -->
+	<string name="keepScreenOn">Halten Sie am Bildschirm</string>
+	<string name="keepScreenOnSummary">Halten Bildschirm auf, während Code wird angezeigt.</string>
 	<string name="keepSMS">SMS aufhalten</string>
 	<string name="keepSMSSummary">Wenn ausgewählt ist, wird die originale SMS in aufbewahrt.</string>
 	<string name="notification">Nur Anmeldungen</string>
@@ -63,27 +65,30 @@
 	
 	<!-- Notification -->
 	<string name="notificationTicker">Annehmende Kennwort von {0}</string>
-	<string name="notificationTitle">SODA</string>
+	<string name="notificationTitle">SMS Key</string>
 	<string name="notificationText">Annehmende Kennwort von {0}. Zur anzeigen, Klicken Sie hier.</string>
 	
 	<!-- Main -->
-	<string name="mainTitle">BankDroid SODA</string>
+	<string name="mainTitle">SMS Key</string>
 	<string name="btnViewLast">Letzte Muster anzeigen</string>
 	<string name="btnManageBanks">Bank pflegen</string>
 	<string name="btnSubmitSample">Muster einreichen</string>
-	<string name="btnPrefs">Einstellungen</string>
 	<string name="btnInfoSite">Info Stelle</string>
-	<string name="btnAbout">Über</string>
+	<string name="descViewLast">Zeige der letzten SMS-Code</string>
+	<string name="descManageBanks">Pflegen Banken selbst ...</string>
+	<string name="descSubmitSample">Ihre Bank wird noch nicht unterstützt?</string>
+	<string name="descInfoSite">Nicht verstehen, was diese Anwendung?</string>
 	<string name="noMessageYet">Du hast noch kein SMS bekommen.</string>
 
 	<!-- About -->
-	<string name="aboutId">BankDroid SODA</string>
-	<string name="aboutDesc">Die SODA ist ein Produkt von BankDroid open source Projekt. Entwickelt von freiwilligen Entwicklern.</string>
+	<string name="aboutId">SMS Key</string>
+	<string name="aboutDesc">Die SMS Key ist ein Produkt von BankDroid open source Projekt. Entwickelt von freiwilligen Entwicklern.</string>
 	<string name="aboutDesc2">Wenn du mit der Anwendung Problemen hast, oder du etwas neues brauchst, wendest du uns gerne.</string>
-	<string name="aboutUrl2">http://www.bankdroid.info</string>
+	<string name="aboutUrl2">www.bankdroid.info</string>
 	<string name="submitSampleURL">http://www.bankdroid.info/soda/user-reference#TOC-Submit-SMS-Sample</string>
 	<string name="donateURL">http://bit.ly/8LrNB9</string>
-	<string name="donateButton"> Spenden</string>
+	<string name="donateButton">Spenden</string>
+	<string name="donateButtonDesc">Helfen Sie mir auf direkte Kosten durch PayPal</string>
 	
 	<!-- EULA -->
 	<string name="eula_title">Lizenz</string>

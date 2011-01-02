@@ -16,9 +16,7 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * FIXME fix translations
- * FIXME new preference: use only local banks
- * 
+ * TODO new preference: use only local banks
  * TODO deleting a message is not working always due to the EOL character replacement
  * TODO facebook campaign
  * TODO video
