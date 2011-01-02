@@ -16,12 +16,12 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * FIXME replace logo and launcher icon
- * FIXME facebook campaign
+ * FIXME bank list problem on rotated mode
  * FIXME fix translations
  * 
- * TODO video
  * TODO deleting a message is not working always due to the EOL character replacement
+ * TODO facebook campaign
+ * TODO video
  * 
  * @author Gabe
  *
@@ -70,7 +70,7 @@ public class AboutActivity extends MenuActivity
 			final PackageManager manager = getPackageManager();
 			final PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
 			final String versionName = info.versionName;
-			( (TextView) findViewById(R.id.version) ).setText(versionName);
+			( (TextView) findViewById(R.id.versionId) ).setText(versionName);
 		}
 		catch ( final NameNotFoundException e )
 		{

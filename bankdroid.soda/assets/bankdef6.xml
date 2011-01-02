@@ -119,5 +119,20 @@ Jednorazowe haslo dostepu 1234
 		<Expressions>
 			<Expression><![CDATA[.* haslo .* ([0-9]+)]]></Expression>
 		</Expressions>
+	</Bank>	
+		
+	<Bank>
+		<!-- Sample: GETINONLINE
+Operacja z dnia: 2010-12-31 13:00 Wniosek o lokate: wre97c
+		 -->
+		<Name>Getin Online Bank</Name>
+		<IconId>getin_logo</IconId>
+		<Phones>
+			<Phone>6123</Phone>
+			<Phone>GETINONLINE</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.*: ([a-zA-Z0-9]+)]]></Expression>
+		</Expressions>
 	</Bank>		
 </Banks>

@@ -44,7 +44,7 @@ public class MenuActivity extends Activity implements Codes
 
 	public void onProductInfo( final View v )
 	{
-		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.aboutUrl2)));
+		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_HOME_PAGE));
 		startActivity(viewIntent);
 	}
 
