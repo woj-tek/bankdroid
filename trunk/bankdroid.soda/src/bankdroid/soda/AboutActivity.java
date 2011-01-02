@@ -18,6 +18,7 @@ import android.widget.TextView;
 /**
  * FIXME bank list problem on rotated mode
  * FIXME fix translations
+ * FIXME new preference: use only local banks
  * 
  * TODO deleting a message is not working always due to the EOL character replacement
  * TODO facebook campaign
