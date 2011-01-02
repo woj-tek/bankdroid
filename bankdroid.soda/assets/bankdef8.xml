@@ -19,7 +19,6 @@ Podtverdite perevod na koshelek User.Name 123413241234 na summu 123.00 RUR. Paro
 		<IconId>alfabank_logo</IconId>
 		<Phones>
 			<Phone>Alfa-Bank</Phone>
-			<Phone>1234</Phone>
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.*Alfa-Click - ([0-9a-zA-Z]+)[\. ]*.*]]></Expression>
