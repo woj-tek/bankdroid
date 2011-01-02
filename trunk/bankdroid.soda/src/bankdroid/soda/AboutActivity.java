@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * FIXME bank list problem on rotated mode
  * FIXME fix translations
  * FIXME new preference: use only local banks
  * 
