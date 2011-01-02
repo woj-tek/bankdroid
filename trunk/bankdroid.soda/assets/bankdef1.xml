@@ -42,6 +42,7 @@ A 12312313-132123131-1313123123 celszamlara inditott 100 Ft osszegu tranzakciova
 		<Phones>
 			<Phone>+36309400700</Phone>
 			<Phone>+36209400700</Phone>
+			<Phone>06709400700</Phone>
 		</Phones>
 		<Expressions>
 			<Expression transactionSign="true"><![CDATA[OTPdirekt - [^:]*: ([0-9]*)]]></Expression>
