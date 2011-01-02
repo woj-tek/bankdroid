@@ -16,6 +16,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -78,6 +79,14 @@ public class BankListActivity extends MenuActivity implements Codes, OnItemClick
 		registerForContextMenu(list);
 
 		( (Button) findViewById(R.id.showAllCountry) ).setOnClickListener(this);
+	}
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+
+		setCursor();
 	}
 
 	@Override
@@ -154,17 +163,28 @@ public class BankListActivity extends MenuActivity implements Codes, OnItemClick
 	{
 		if ( view.getId() == R.id.showAllCountry )
 		{
-			filtered = !filtered;
-			stopManagingCursor(adapter.getCursor());
-
-			final Cursor cursor = getContentResolver().query(Bank.CONTENT_URI,
-					new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_PHONENUMBERS, Bank.F_COUNTRY },
-					filtered ? Bank.F_COUNTRY + "=?" : null, filtered ? new String[] { userCountry } : null,
-					Bank.DEFAULT_SORT_ORDER);
-
-			startManagingCursor(cursor);
-
-			adapter.changeCursor(cursor);
+			setCursor();
 		}
+	}
+
+	private void setCursor()
+	{
+		filtered = !( (CheckBox) findViewById(R.id.showAllCountry) ).isChecked();
+
+		final Cursor old = adapter.getCursor();
+		if ( old != null )
+		{
+			stopManagingCursor(adapter.getCursor());
+			old.close();
+		}
+
+		final Cursor cursor = getContentResolver().query(Bank.CONTENT_URI,
+				new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_PHONENUMBERS, Bank.F_COUNTRY },
+				filtered ? Bank.F_COUNTRY + "=?" : null, filtered ? new String[] { userCountry } : null,
+				Bank.DEFAULT_SORT_ORDER);
+
+		startManagingCursor(cursor);
+
+		adapter.changeCursor(cursor);
 	}
 }
