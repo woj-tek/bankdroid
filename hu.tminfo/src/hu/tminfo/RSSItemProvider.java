@@ -1,10 +1,6 @@
 package hu.tminfo;
 
-
 import java.util.HashMap;
-
-import bankdroid.rss.RSSItem;
-import bankdroid.rss.RSSObject;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -19,6 +15,8 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import bankdroid.rss.RSSItem;
+import bankdroid.rss.RSSObject;
 
 public class RSSItemProvider extends ContentProvider implements Codes
 {
@@ -29,8 +27,8 @@ public class RSSItemProvider extends ContentProvider implements Codes
 	private static class DatabaseHelper extends SQLiteOpenHelper
 	{
 
-		private static final String DATABASE_NAME = "aprss.db";
-		private static final int DATABASE_VERSION = 4;//2010-11-07
+		private static final String DATABASE_NAME = "bdrss.db";
+		private static final int DATABASE_VERSION = 1;//2011-01-08
 
 		DatabaseHelper( final Context context )
 		{
