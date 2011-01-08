@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="freqValues">
+		<item>0</item>
+		<item>5</item>
+		<item>15</item>
+		<item>60</item>
+		<item>240</item>
+		<item>1440</item>
+	</string-array>
+	<string-array name="freqTitles">
+		<item>Kézi frissítés</item>
+		<item>5 percenként</item>
+		<item>15 percenként</item>
+		<item>Óránként</item>
+		<item>4 óránként</item>
+		<item>Naponta</item>
+	</string-array>
+	<string-array name="expValues">
+		<item>7</item>
+		<item>30</item>
+		<item>91</item>
+		<item>10000</item>
+	</string-array>
+	<string-array name="expTitles">
+		<item>Egy hétig</item>
+		<item>Egy hónapig</item>
+		<item>3 hónapig</item>
+		<item>Örökre</item>
+	</string-array>
+	<string-array name="feedValues">
+		<item>http://tminfo.hu/feed/</item>
+		<item>http://tminfo.hu/comments/feed/</item>
+		<item>http://www.tm.org/blog/feed/</item>
+	</string-array>
+	<string-array name="feedLabels">
+		<item>portál</item>
+		<item>hozzászólások</item>
+		<item>tm.org</item>
+	</string-array>
+	<string-array name="feedTitles">
+		<item>Meditáció Portál</item>
+		<item>Hozzászólások</item>
+		<item>TM.org</item>
+	</string-array>
+	<string-array name="feedSummary">
+		<item>A tminfo.hu oldal hírei</item>
+		<item>Hozzászólások ömlesztve</item>
+		<item>Angol hírek a tm.org-ról</item>
+	</string-array>
+</resources>

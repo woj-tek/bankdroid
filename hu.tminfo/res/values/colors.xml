@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="baseTheme">#C93300</color>
+	
+	<!-- header colors -->
+	<color name="headerStart">#C93300</color>
+	<color name="headerEnd">#DC5A00</color>
+	
+	<!-- list item -->
+	<color name="itemStart">#EEE</color>
+	<color name="itemEnd">#FFF</color>
+	<color name="itemSelectedStart">#E48767</color>
+	<color name="itemSelectedEnd">#E46539</color>
+	
+	<!-- toolbar button-->
+	<color name="tbButtonStroke">#777</color>
+	<color name="tbButtonStart">#CCCC</color>
+	<color name="tbButtonEnd">#CFFF</color>	
+</resources>
