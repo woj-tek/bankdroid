@@ -1,5 +1,7 @@
 package hu.tminfo;
 
+import java.lang.reflect.Method;
+
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -26,6 +28,7 @@ public class ItemViewActivity extends ToolbarActivity implements Codes, OnClickL
 
 	private Uri uriToDisplay = null;
 	private String url = null;
+	private WebView webView;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -47,10 +50,26 @@ public class ItemViewActivity extends ToolbarActivity implements Codes, OnClickL
 		findViewById(R.id.toolbarPreferences).setOnClickListener(this);
 		findViewById(R.id.toolbarAbout).setOnClickListener(this);
 
-		final WebView web = (WebView) findViewById(R.id.webView);
-		web.getSettings().setBuiltInZoomControls(true);
-		web.getSettings().setPluginsEnabled(true);
-		web.getSettings().setJavaScriptEnabled(true);
+		webView = (WebView) findViewById(R.id.webView);
+		webView.getSettings().setBuiltInZoomControls(true);
+		webView.getSettings().setPluginsEnabled(true);
+		webView.getSettings().setJavaScriptEnabled(true);
+	}
+
+	private void callHiddenWebViewMethod( final String name )
+	{
+		if ( webView != null )
+		{
+			try
+			{
+				final Method method = WebView.class.getMethod(name);
+				method.invoke(webView);
+			}
+			catch ( final Exception e )
+			{
+				Log.e(TAG, "No such method: " + name, e);
+			}
+		}
 	}
 
 	@Override
@@ -84,6 +103,8 @@ public class ItemViewActivity extends ToolbarActivity implements Codes, OnClickL
 	{
 		super.onResume();
 
+		callHiddenWebViewMethod("onResume");
+
 		if ( uriToDisplay == null )
 		{
 			final Intent intent = getIntent();
@@ -114,8 +135,7 @@ public class ItemViewActivity extends ToolbarActivity implements Codes, OnClickL
 
 			//FIXME it may not work for non-local feeds.
 			final String baseUrl = getString(R.string.url);
-			( (WebView) findViewById(R.id.webView) ).loadDataWithBaseURL(baseUrl, description, "text/html", "utf-8",
-					baseUrl);
+			webView.loadDataWithBaseURL(baseUrl, description, "text/html", "utf-8", baseUrl);
 			( (TextView) findViewById(R.id.titleText) ).setText(cursor
 					.getString(cursor.getColumnIndex(RSSItem.F_TITLE)));
 			( (TextView) findViewById(R.id.author) ).setText(ItemListActivity.getAuthorText(cursor.getString(cursor
@@ -147,6 +167,13 @@ public class ItemViewActivity extends ToolbarActivity implements Codes, OnClickL
 		}
 
 		cursor.close();
+	}
+
+	@Override
+	protected void onPause()
+	{
+		super.onPause();
+		callHiddenWebViewMethod("onPause");
 	}
 
 	@Override
