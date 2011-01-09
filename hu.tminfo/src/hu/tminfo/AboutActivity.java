@@ -19,13 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * FIXME fix comment feed ID
  * TODO review share function
- * XXX add empty space at the end of the list
- * 
  * TODO do not show new message, if one existing message is updated only
  * TODO if the channel preferences are changed (channel is removed) during offline mode, the db changes won't take effect.
  * 
+ * XXX add empty space at the end of the list
  * XXX paging function to be included on item view for easy paging left and right to next items.
  * 
  * 

@@ -32,7 +32,7 @@ public interface Codes
 	public static final String PREF_LAST_SUCCESFUL_SYCNH = "bankdroid.rss.LastSuccesfulSynch";
 
 	public static final boolean DEFAULT_USE_TOOLBAR = true;
-	public static final String DEFAULT_FREQUENCY = "60";
+	public static final String DEFAULT_FREQUENCY = "240";
 	public static final String DEFAULT_EXPIRY = "30";
 	public static final boolean DEFAULT_NOTIFICATION = true;
 	public static final boolean DEFAULT_DEBUG = false;
