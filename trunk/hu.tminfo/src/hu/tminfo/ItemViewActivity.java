@@ -49,6 +49,8 @@ public class ItemViewActivity extends ToolbarActivity implements Codes, OnClickL
 
 		final WebView web = (WebView) findViewById(R.id.webView);
 		web.getSettings().setBuiltInZoomControls(true);
+		web.getSettings().setPluginsEnabled(true);
+		web.getSettings().setJavaScriptEnabled(true);
 	}
 
 	@Override
