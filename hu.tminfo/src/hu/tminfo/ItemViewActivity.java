@@ -52,7 +52,7 @@ public class ItemViewActivity extends ToolbarActivity implements Codes, OnClickL
 
 		webView = (WebView) findViewById(R.id.webView);
 		webView.getSettings().setBuiltInZoomControls(true);
-		webView.getSettings().setPluginsEnabled(true);
+		//webView.getSettings().setPluginsEnabled(true);
 		webView.getSettings().setJavaScriptEnabled(true);
 	}
 
@@ -140,8 +140,8 @@ public class ItemViewActivity extends ToolbarActivity implements Codes, OnClickL
 					.getString(cursor.getColumnIndex(RSSItem.F_TITLE)));
 			( (TextView) findViewById(R.id.author) ).setText(ItemListActivity.getAuthorText(cursor.getString(cursor
 					.getColumnIndex(RSSItem.F_AUTHOR)), cursor.getString(cursor.getColumnIndex(RSSItem.F_PUBDATE))));
-			( (TextView) findViewById(R.id.channelTags) ).setText(cursor.getString(cursor
-					.getColumnIndex(RSSItem.F_CHANNELS)));
+			( (TextView) findViewById(R.id.channelTags) ).setText(RSSItem.convertChannelString(cursor.getString(cursor
+					.getColumnIndex(RSSItem.F_CHANNELS))));
 
 			url = cursor.getString(cursor.getColumnIndex(RSSObject.F_LINK));
 

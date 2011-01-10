@@ -28,7 +28,7 @@ public class RSSItemProvider extends ContentProvider implements Codes
 	{
 
 		private static final String DATABASE_NAME = "bdrss.db";
-		private static final int DATABASE_VERSION = 1;//2011-01-08
+		private static final int DATABASE_VERSION = 2;//2011-01-10
 
 		DatabaseHelper( final Context context )
 		{
@@ -135,7 +135,8 @@ public class RSSItemProvider extends ContentProvider implements Codes
 	private void deleteChannel( final SQLiteDatabase db, final String tag )
 	{
 		//2 step deletion: delete items available only on the selection channel; remove tag for multi channel items
-		final int count1 = db.delete(T_RSSITEM, RSSItem.F_CHANNELS + "=' " + tag + " '", null);
+		final int count1 = db.delete(T_RSSITEM, RSSItem.F_CHANNELS + "='" + RSSItem.CHANNEL_SEPARATOR + tag
+				+ RSSItem.CHANNEL_SEPARATOR + "'", null);
 
 		//select remaining items
 		final SQLiteQueryBuilder qb = new SQLiteQueryBuilder();

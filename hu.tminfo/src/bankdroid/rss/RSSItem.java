@@ -12,6 +12,7 @@ import android.net.Uri;
  */
 public class RSSItem extends RSSObject
 {
+	public static final char CHANNEL_SEPARATOR = '|';
 	private static final String BREAK = "&lt;!--";
 	private static final String BREAK_REPLACE = "<!--";
 
@@ -134,16 +135,16 @@ public class RSSItem extends RSSObject
 		final StringBuilder chString = new StringBuilder();
 		for ( final String channel : channels )
 		{
-			chString.append(" ");
+			chString.append(CHANNEL_SEPARATOR);
 			chString.append(channel);
 		}
-		chString.append(" ");
+		chString.append(CHANNEL_SEPARATOR);
 		return chString.toString();
 	}
 
 	public void setChannelsAsString( final String chString )
 	{
-		final StringTokenizer tokens = new StringTokenizer(chString, " ");
+		final StringTokenizer tokens = new StringTokenizer(chString, "" + CHANNEL_SEPARATOR);
 
 		channels.clear();
 		while ( tokens.hasMoreTokens() )
@@ -161,7 +162,7 @@ public class RSSItem extends RSSObject
 		{
 			final String channel = news.nextToken();
 			if ( result.indexOf(channel) < 0 )
-				result.append(channel).append(' ');
+				result.append(channel).append(CHANNEL_SEPARATOR);
 		}
 		return result.toString();
 	}
@@ -186,7 +187,7 @@ public class RSSItem extends RSSObject
 		if ( index >= 0 )
 		{
 			final StringBuilder listBuilder = new StringBuilder(list);
-			listBuilder.delete(index, index + tag.length() + 1); //removing the tag and an extra space
+			listBuilder.delete(index, index + tag.length() + 1); //removing the tag and an extra SEPARATOR
 			if ( listBuilder.length() < 3 )
 			{
 				//empty list remains
@@ -203,4 +204,28 @@ public class RSSItem extends RSSObject
 		}
 	}
 
+	/**
+	 * convert channel string to a user friendly string.
+	 * @param channelString
+	 * @return
+	 */
+	public static String convertChannelString( final String channelString )
+	{
+		final StringBuilder builder = new StringBuilder(channelString);
+		if ( builder.charAt(0) == CHANNEL_SEPARATOR )
+		{
+			builder.delete(0, 1);
+		}
+		if ( builder.charAt(builder.length() - 1) == CHANNEL_SEPARATOR )
+		{
+			builder.delete(builder.length() - 1, builder.length());
+		}
+
+		int i = 0;
+		while ( ( i = builder.indexOf("" + CHANNEL_SEPARATOR) ) >= 0 )
+		{
+			builder.replace(i, i + 1, ", ");
+		}
+		return builder.toString();
+	}
 }

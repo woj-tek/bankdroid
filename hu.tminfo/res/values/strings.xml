@@ -13,12 +13,12 @@
     <string name="menuReadAll">Mindent elolvas</string>
     
     <!--  about -->
-     <string name="aboutDesc1">MeditációPortál alkalmazás egy nyíltforráskódú program, amely Bankdroid csapat támogatásával készült a magyar android közösségi portál számára.</string>
-     <string name="aboutDesc2">Amennyiben bármilyen hibát észlelsz, kérlek jelentsd be, akár e-mailben, vagy a project oldalon - lásd alant linkeket.</string>
+     <string name="aboutDesc1">A MeditációPortál okostelefon-alkalmazás a Transzcendentális Meditációval és Maharishi Védikus Tudományával kapcsolatos cikkeket, híreket szolgáltat magyar és angol nyelven.</string>
+     <string name="aboutDesc2">Az alkalmazást – a tminfo.hu megbízásából – a Bankdroid csapat fejlesztette. Amennyiben bármilyen hibát találsz az alkalmazásban, kérjük e-mailben jelezd.</string>
      <string name="aboutDesc3">Az alkalmazás névtelen használati statisztikákat gyűjt a Google Analytics segítségével.</string>
      <string name="aboutUrl1">http://tminfo.hu</string>
      <string name="aboutUrl2">http://bankdroid.googlecode.com</string>
-     <string name="aboutBugReportUrl">mailto:androidportal-dev@googlegroups.com</string>
+     <string name="aboutBugReportUrl">mailto:android@tminfo.hu</string>
      <string name="aboutIssueListUrl">http://code.google.com/p/bankdroid/issues/list</string>
      <string name="moreBankdroid">További Bankdroid programok</string>
      

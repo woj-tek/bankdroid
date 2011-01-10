@@ -9,12 +9,12 @@
 		<item>1440</item>
 	</string-array>
 	<string-array name="freqTitles">
-		<item>Kézi frissítés</item>
-		<item>5 percenként</item>
-		<item>15 percenként</item>
-		<item>Óránként</item>
-		<item>4 óránként</item>
-		<item>Naponta</item>
+		<item>Manual refresh</item>
+		<item>5 minutes</item>
+		<item>15 minutes</item>
+		<item>Every hour</item>
+		<item>4 hours</item>
+		<item>Daily</item>
 	</string-array>
 	<string-array name="expValues">
 		<item>7</item>
@@ -23,10 +23,10 @@
 		<item>10000</item>
 	</string-array>
 	<string-array name="expTitles">
-		<item>Egy hétig</item>
-		<item>Egy hónapig</item>
-		<item>3 hónapig</item>
-		<item>Örökre</item>
+		<item>One week</item>
+		<item>One month</item>
+		<item>3 months</item>
+		<item>Forever</item>
 	</string-array>
 	<string-array name="feedValues">
 		<item>http://tminfo.hu/feed/</item>
@@ -37,23 +37,23 @@
 	</string-array>
 	<string-array name="feedLabels">
 		<item>tminfo.hu</item>
-		<item>tminfo.hu hozzászólások</item>
+		<item>tminfo.hu comments</item>
 		<item>TM.org</item>
 		<item>T-M.org.uk</item>
 		<item>VastuTV</item>
 	</string-array>
 	<string-array name="feedTitles">
 		<item>Meditáció Portál</item>
-		<item>Hozzászólások</item>
+		<item>Tminfo.hu Comments</item>
 		<item>TM.org</item>
 		<item>T-M.org.uk</item>
 		<item>VastuTV</item>
 	</string-array>
 	<string-array name="feedSummary">
-		<item>A tminfo.hu oldal hírei</item>
-		<item>Hozzászólások ömlesztve</item>
-		<item>Hírek a tm.org-ról (angol)</item>
-		<item>A brit TM-központ hírei (angol)</item>
-		<item>A Maharishi Vastu TV cikkei (angol)</item>
+		<item>News from tminfo.hu (Hungarian)</item>
+		<item>Comments from tminfo.hu (Hungarian)</item>
+		<item>News from tm.org</item>
+		<item>British TM-center</item>
+		<item>Articles from Maharishi Vastu TV</item>
 	</string-array>
 </resources>

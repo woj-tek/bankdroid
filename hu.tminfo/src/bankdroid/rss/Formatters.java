@@ -33,7 +33,7 @@ public class Formatters
 		@Override
 		protected DateFormat initialValue()
 		{
-			return DateFormat.getDateInstance(DateFormat.SHORT);
+			return new SimpleDateFormat("yyyy.MM.dd");
 		}
 	};
 

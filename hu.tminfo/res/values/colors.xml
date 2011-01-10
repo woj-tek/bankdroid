@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<color name="baseTheme">#C93300</color>
+	<color name="baseTheme">#B22F02</color>
 	
 	<!-- header colors -->
-	<color name="headerStart">#C93300</color>
-	<color name="headerEnd">#DC5A00</color>
+	<color name="headerStart">#B22F02</color>
+	<color name="headerEnd">#B22F02</color>
 	
 	<!-- list item -->
 	<color name="itemStart">#EEE</color>
