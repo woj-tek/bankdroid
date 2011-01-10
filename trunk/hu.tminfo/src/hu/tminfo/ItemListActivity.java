@@ -93,6 +93,7 @@ public class ItemListActivity extends ToolbarActivity implements OnItemClickList
 		final int authorIndex = cursor.getColumnIndex(RSSItem.F_AUTHOR);
 		final int pubDateIndex = cursor.getColumnIndex(RSSItem.F_PUBDATE);
 		final int statusIndex = cursor.getColumnIndex(RSSItem.F_STATUS);
+		final int channelIndex = cursor.getColumnIndex(RSSItem.F_CHANNELS);
 		adapter = new SimpleCursorAdapter(this, R.layout.rsslistitem, cursor, columns, names);
 		adapter.setViewBinder(new ViewBinder()
 		{
@@ -117,6 +118,11 @@ public class ItemListActivity extends ToolbarActivity implements OnItemClickList
 					{
 						view.setBackgroundDrawable(null);
 					}
+					return true;
+				}
+				else if ( columnIndex == channelIndex )
+				{
+					( (TextView) view ).setText(RSSItem.convertChannelString(cursor.getString(channelIndex)));
 					return true;
 				}
 				return false;

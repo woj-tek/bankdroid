@@ -19,6 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
+ * TODO update end ID extractor not to use any seperator
+ * TODO different unread indicator for different feed elements
+ * TODO support for twitter feeds
+ * TODO text IDs
+ * 
  * TODO review share function
  * TODO do not show new message, if one existing message is updated only
  * TODO if the channel preferences are changed (channel is removed) during offline mode, the db changes won't take effect.
@@ -31,9 +36,8 @@ import android.widget.Toast;
  */
 public class AboutActivity extends TrackedActivity implements Codes, OnClickListener
 {
-	private final static String BANKDROID_TEXT = "Bankdroid";
-	private final static String EMAIL_TEXT = "e-mailben";
-	private final static String PORTAL_TEXT = "project oldalon";
+	private final static String BANKDROID_TEXT = "tminfo.hu";
+	private final static String EMAIL_TEXT = "e-mail";
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -52,22 +56,27 @@ public class AboutActivity extends TrackedActivity implements Codes, OnClickList
 		final TextView desc0 = (TextView) findViewById(R.id.description0);
 		final String text0 = desc0.getText().toString();
 		final SpannableString f0 = new SpannableString(text0);
+		desc0.setText(f0);
 
-		final int x0 = text0.indexOf(BANKDROID_TEXT);
+		//Set links in description 
+		final TextView desc = (TextView) findViewById(R.id.description);
+		final String text = desc.getText().toString();
+		final SpannableString f = new SpannableString(text);
+
+		final int x0 = text.indexOf(BANKDROID_TEXT);
 		final int y0 = x0 + BANKDROID_TEXT.length();
 
-		f0.setSpan(new ClickSpan(new SpanClickListener()
+		f.setSpan(new ClickSpan(new SpanClickListener()
 		{
 			@Override
 			public void onSpanClicked( final View source, final int spanId )
 			{
-				trackClickEvent(ACTION_BROWSE, "bankdroid.googlecode.com");
+				final String url = getString(R.string.url);
+				trackClickEvent(ACTION_BROWSE, url);
 
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://bit.ly/4Ys9pQ")));
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
 			}
 		}, 1), x0, y0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-		desc0.setText(f0);
 
 		final MovementMethod m0 = desc0.getMovementMethod();
 		if ( ( m0 == null ) || !( m0 instanceof LinkMovementMethod ) )
@@ -78,13 +87,8 @@ public class AboutActivity extends TrackedActivity implements Codes, OnClickList
 			}
 		}
 
-		//Set links in description 
-		final TextView desc = (TextView) findViewById(R.id.description);
-		final String text = desc.getText().toString();
-		final SpannableString f = new SpannableString(text);
-
-		int x = text.indexOf(EMAIL_TEXT);
-		int y = x + EMAIL_TEXT.length();
+		final int x = text.indexOf(EMAIL_TEXT);
+		final int y = x + EMAIL_TEXT.length();
 
 		final String bugReportUrl = getString(R.string.aboutBugReportUrl);
 
@@ -98,20 +102,6 @@ public class AboutActivity extends TrackedActivity implements Codes, OnClickList
 				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(bugReportUrl)));
 			}
 		}, 1), x, y, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-		x = text.indexOf(PORTAL_TEXT);
-		y = x + PORTAL_TEXT.length();
-
-		final String issueListUrl = getString(R.string.aboutIssueListUrl);
-		f.setSpan(new ClickSpan(new SpanClickListener()
-		{
-			@Override
-			public void onSpanClicked( final View source, final int spanId )
-			{
-				trackClickEvent(ACTION_BROWSE, issueListUrl);
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(issueListUrl)));
-			}
-		}, 2), x, y, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 		desc.setText(f);
 

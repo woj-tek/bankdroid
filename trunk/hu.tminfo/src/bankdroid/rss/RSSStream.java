@@ -53,7 +53,6 @@ public class RSSStream implements Codes
 
 	static
 	{
-		extractors.put("hozzászólások", new TMCommentIDExtractor());
 		extractors.put(DEFAULT_EXTRACTOR, new EndIDExtractor());
 	}
 
