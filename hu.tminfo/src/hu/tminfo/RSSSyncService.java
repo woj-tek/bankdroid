@@ -32,7 +32,7 @@ public class RSSSyncService extends Service implements Runnable, Codes
 	 * Minor time period that is waited when synch has to be started immediately (for example after long period of network 
 	 * unavailability. Value is defined in millisecs.
 	 */
-	private static final long IMMEDIATE_DELAY = 5000;
+	private static final long IMMEDIATE_DELAY = 7000;
 
 	/**
 	 * After this timeout the synchronization is interrupted.
