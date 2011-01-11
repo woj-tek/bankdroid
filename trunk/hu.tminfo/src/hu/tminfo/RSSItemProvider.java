@@ -146,7 +146,8 @@ public class RSSItemProvider extends ContentProvider implements Codes
 
 		// Get the database and run the query
 		final Cursor c = qb.query(db, new String[] { RSSItem.F__ID, RSSItem.F_CHANNELS }, RSSItem.F_CHANNELS
-				+ " like '% " + tag + " %'", null, null, null, null);
+				+ " like '%" + RSSItem.CHANNEL_SEPARATOR + tag + RSSItem.CHANNEL_SEPARATOR + "%'", null, null, null,
+				null);
 		final int count2 = c.getCount();
 
 		//iterate through and remove channel tags one-by-one

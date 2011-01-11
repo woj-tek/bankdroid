@@ -210,11 +210,13 @@ public class RSSStream implements Codes
 				final String urlString = context.getResources().getStringArray(R.array.feedValues)[i];
 
 				//read database list to get the max ID
-				final Cursor maxIdCursor = context.getContentResolver().query(
-						RSSItem.CONTENT_URI,
-						new String[] { RSSItem.F__ID },
-						"_id = (select max(_id) from " + RSSItemProvider.T_RSSITEM + " where " + RSSItem.F_CHANNELS
-								+ " like '% " + tags[i] + " %' )", null, null);
+				final Cursor maxIdCursor = context.getContentResolver()
+						.query(
+								RSSItem.CONTENT_URI,
+								new String[] { RSSItem.F__ID },
+								"_id = (select max(_id) from " + RSSItemProvider.T_RSSITEM + " where "
+										+ RSSItem.F_CHANNELS + " like '%" + RSSItem.CHANNEL_SEPARATOR + tags[i]
+										+ RSSItem.CHANNEL_SEPARATOR + "%' )", null, null);
 
 				int maxId = -1;
 				if ( maxIdCursor.moveToFirst() )
@@ -307,8 +309,9 @@ public class RSSStream implements Codes
 				.query(
 						RSSItem.CONTENT_URI,
 						new String[] { RSSItem.F__ID, RSSItem.F_AUTHOR, RSSItem.F_PUBDATE, RSSItem.F_SUMMARY,
-								RSSItem.F_TITLE }, "_id = (select max(_id) from " + RSSItemProvider.T_RSSITEM + " )",
-						null, null);
+								RSSItem.F_TITLE },
+						RSSItem.F_PUBDATE + " = (select max(" + RSSItem.F_PUBDATE + ") from "
+								+ RSSItemProvider.T_RSSITEM + " )", null, null);
 
 		RSSItem item = null;
 		if ( lastCursor.moveToFirst() )

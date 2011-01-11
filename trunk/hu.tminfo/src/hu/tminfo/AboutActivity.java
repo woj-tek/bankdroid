@@ -19,8 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * TODO update end ID extractor not to use any seperator
  * TODO different unread indicator for different feed elements
+ * TODO English translation see rev 242
  * TODO support for twitter feeds
  * TODO text IDs
  * 
