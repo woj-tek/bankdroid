@@ -13,9 +13,13 @@
     <string name="menuReadAll">Mindent elolvas</string>
     
     <!--  about -->
-     <string name="aboutDesc1">A MeditációPortál okostelefon-alkalmazás a Transzcendentális Meditációval és Maharishi Védikus Tudományával kapcsolatos cikkeket, híreket szolgáltat magyar és angol nyelven.</string>
-     <string name="aboutDesc2">Az alkalmazást – a tminfo.hu megbízásából – a Bankdroid csapat fejlesztette. Amennyiben bármilyen hibát találsz az alkalmazásban, kérjük e-mailben jelezd.</string>
-     <string name="aboutDesc3">Az alkalmazás névtelen használati statisztikákat gyűjt a Google Analytics segítségével.</string>
+     <string name="aboutDesc">A MeditációPortál okostelefon-alkalmazás a Transzcendentális Meditációval és Maharishi Védikus Tudományával kapcsolatos cikkeket, híreket szolgáltat magyar és angol nyelven.&lt;br/>&lt;br/>
+     Az alkalmazást – a &lt;a href="http://tminfo.hu">tminfo.hu&lt;/a> megbízásából – a Bankdroid csapat fejlesztette. Amennyiben bármilyen hibát találsz az alkalmazásban, kérjük &lt;a href="mailto:android@tminfo.hu">e-mailben&lt;/a> jelezd.&lt;br/>&lt;br/>
+     Az alkalmazás névtelen használati statisztikákat gyűjt a Google Analytics segítségével.</string>
+     <string name="aboutDescEN">The smartphone-application \'MeditációPortál\' provides articles and news items on Transcendental Meditation and Maharishi\'s Vedic Science in Hungarian and in English.&lt;br/>&lt;br/>
+     The application was developed by the Bankdroid team for &lt;a href="http://tminfo.hu">tminfo.hu&lt;/a>. If you find any problems regarding the application, please notify us in &lt;a href="mailto:android@tminfo.hu">e-mail&lt;/a>.&lt;br/>&lt;br/>
+     The application collects anonymous user statistics by the help of Google Analytics.</string>
+ 
      <string name="aboutUrl1">http://tminfo.hu</string>
      <string name="aboutUrl2">http://bankdroid.googlecode.com</string>
      <string name="aboutBugReportUrl">mailto:android@tminfo.hu</string>
@@ -32,7 +36,7 @@
     <!-- synch service -->
     <string name="notificationTitle">MeditációPortál</string>
     <string name="notificationBody">Frissítem az MeditációPortál híreit...</string>
-    <string name="notificationBody2">Új cikk érkezett az MeditációPortálról.</string>
+    <string name="notificationBody2">Új cikk jelent meg a MeditációPortál alkalmazásban</string>
     
     <!-- preferences -->
     <string name="prefFeedGroup">Csatornák beállításai</string>

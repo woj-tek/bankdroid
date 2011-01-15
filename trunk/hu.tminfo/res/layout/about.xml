@@ -73,8 +73,8 @@
 			/>
 			
 		<TextView 
-			android:text="@string/aboutDesc1" 
-			android:id="@+id/description0" 
+			android:text="@string/aboutDesc" 
+			android:id="@+id/description" 
 			android:textSize="13sp"
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
@@ -84,28 +84,25 @@
 			android:layout_below="@id/divider"
 			/>
 			
-		<TextView 
-			android:text="@string/aboutDesc2" 
-			android:id="@+id/description" 
-			android:textSize="13sp"
-			android:layout_width="fill_parent" 
-			android:layout_height="wrap_content"
-			android:textColor="#000000" 
-			android:padding="5sp"
-			
-			android:layout_below="@id/description0"
+		<ImageView
+			android:id="@+id/divider3"
+			android:src="@android:drawable/divider_horizontal_bright"
+			android:layout_width="fill_parent"
+			android:layout_height="2sp"
+			android:scaleType="fitXY"			
+			android:layout_below="@id/description"
 			/>
 			
 		<TextView 
-			android:text="@string/aboutDesc3" 
-			android:id="@+id/description2" 
+			android:text="@string/aboutDescEN" 
+			android:id="@+id/descriptionEN" 
 			android:textSize="13sp"
 			android:layout_width="fill_parent" 
 			android:layout_height="wrap_content"
 			android:textColor="#000000" 
 			android:padding="5sp"
 			
-			android:layout_below="@id/description"
+			android:layout_below="@id/divider3"
 			/>
 			
 		<ImageView
@@ -114,7 +111,7 @@
 			android:layout_width="fill_parent"
 			android:layout_height="2sp"
 			android:scaleType="fitXY"			
-			android:layout_below="@id/description2"
+			android:layout_below="@id/descriptionEN"
 			/>
 			
 		<TextView 
