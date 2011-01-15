@@ -80,6 +80,8 @@ A 12312313-132123131-1313123123 celszamlara inditott 100 Ft osszegu tranzakciova
 		<Expiry>3600</Expiry>
 		<Phones>
 			<Phone>+36707060660</Phone>
+			<Phone>+36209000848</Phone>
+			<Phone>+36303444540</Phone>
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.* Raiffeisen DirektNet .* jelszava: ([0-9]*) .*]]></Expression>
