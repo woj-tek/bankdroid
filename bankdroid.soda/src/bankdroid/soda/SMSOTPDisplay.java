@@ -14,6 +14,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -23,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import bankdroid.soda.CountDown.CountDownListener;
@@ -42,7 +44,6 @@ import bankdroid.soda.CountDown.CountDownListener;
  * <li>display a different activity on start up, from where various actions can be started.</li>
  * <li>displays list of banks and their settings</li>
  * <li>let the user to register new banks, store settings in DB</li>
- * <li>let the user to post the sample SMS to the sample@bankdroid.info</li>
  * <li>displays a count-down to indicate when the OTP will expire</li>
  * <li>German translations</li>
  * <li>displays transaction signing security warning</li>
@@ -68,6 +69,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 	private Sensor sensor;
 	private long lastUpdate = -1;
 	private float lastX, lastY, lastZ;
+	private SharedPreferences settings;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -78,6 +80,14 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 		Eula.show(this);
 
 		setContentView(R.layout.sod);
+
+		settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		final boolean unlockScreen = settings.getBoolean(PREF_UNLOCK_SCREEN, true);
+		if ( unlockScreen && Build.VERSION.SDK_INT >= 5 )
+		{
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+		}
 
 		this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		final List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
@@ -118,7 +128,6 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 		}
 		isActive = true;
 
-		final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		if ( smsMessage != null )
 		{
 			final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, true);

@@ -21,6 +21,12 @@
 			android:defaultValue="false" 
 			android:summary="@string/keepScreenOnSummary"
 			android:key="bankdroid.soda.KeepScreenOn" />
+		
+		<CheckBoxPreference 
+			android:title="@string/unlockScreen" 
+			android:defaultValue="true" 
+			android:summary="@string/unlockScreenSummary"
+			android:key="bankdroid.soda.UnlockScreen" />
 	
 	</PreferenceCategory>
 

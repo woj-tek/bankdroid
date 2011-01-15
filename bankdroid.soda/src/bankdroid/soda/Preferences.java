@@ -3,12 +3,16 @@ package bankdroid.soda;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.widget.Toast;
 
@@ -27,6 +31,19 @@ public class Preferences extends PreferenceActivity implements Codes, OnPreferen
 
 		final Preference resetDb = findPreference(PREF_RESET_DB);
 		resetDb.setOnPreferenceChangeListener(this);
+
+		if ( Build.VERSION.SDK_INT < 5 )
+		{
+			final Preference unlockScreen = findPreference(PREF_UNLOCK_SCREEN);
+			unlockScreen.setEnabled(false);
+			unlockScreen.setSelectable(false);
+			unlockScreen.setDefaultValue(Boolean.FALSE);
+			final SharedPreferences preferences = PreferenceManager
+					.getDefaultSharedPreferences(getApplicationContext());
+			final Editor editor = preferences.edit();
+			editor.putBoolean(PREF_UNLOCK_SCREEN, false);
+			editor.commit();
+		}
 	}
 
 	@Override

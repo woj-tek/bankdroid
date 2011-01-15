@@ -48,6 +48,8 @@
 	<string name="emailSMSText">Text správy: </string>
 	
 	<!-- Preferences -->
+	<string name="unlockScreen">Odomknutie obrazovky</string>
+	<string name="unlockScreenSummary">Prebuď sa a odomknúť obrazovku, keď príde kód. (Len pre Android 2.0 +)</string>
 	<string name="keepScreenOn">Majte na obrazovke</string>
 	<string name="keepScreenOnSummary">Majte na obrazovke, zatiaľ čo kód je zobrazený.</string>
 	<string name="keepSMS">Majte SMS</string>
