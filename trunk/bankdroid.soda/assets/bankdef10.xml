@@ -27,7 +27,6 @@ Tek Kullanimlik Sifreniz: 626385 Bu sifreyi kullanarak isleminize devam edebilir
 		<IconId>bankasya_logo</IconId>
 		<Phones>
 			<Phone>.BANKASYA.</Phone>
-			<Phone>1234</Phone>
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.*Sifreniz: ([0-9]+) .*]]></Expression>
