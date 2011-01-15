@@ -12,7 +12,6 @@ Your One-Time PIN is 296400. It will expire in 2 minutes.
 		<Expiry>120</Expiry>
 		<Phones>
 			<Phone>Citi</Phone>
-			<Phone>1234</Phone>
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.* PIN is ([0-9]+).*]]></Expression>
