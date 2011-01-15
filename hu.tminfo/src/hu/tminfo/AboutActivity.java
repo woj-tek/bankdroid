@@ -6,11 +6,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
+import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.text.method.MovementMethod;
-import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -36,9 +33,6 @@ import android.widget.Toast;
  */
 public class AboutActivity extends TrackedActivity implements Codes, OnClickListener
 {
-	private final static String BANKDROID_TEXT = "tminfo.hu";
-	private final static String EMAIL_TEXT = "e-mail";
-
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
 	{
@@ -52,67 +46,13 @@ public class AboutActivity extends TrackedActivity implements Codes, OnClickList
 		findViewById(R.id.url1).setOnClickListener(this);
 		findViewById(R.id.url2).setOnClickListener(this);
 
-		//Set links in description0 
-		final TextView desc0 = (TextView) findViewById(R.id.description0);
-		final String text0 = desc0.getText().toString();
-		final SpannableString f0 = new SpannableString(text0);
-		desc0.setText(f0);
-
-		//Set links in description 
+		//format HTML content
 		final TextView desc = (TextView) findViewById(R.id.description);
-		final String text = desc.getText().toString();
-		final SpannableString f = new SpannableString(text);
-
-		final int x0 = text.indexOf(BANKDROID_TEXT);
-		final int y0 = x0 + BANKDROID_TEXT.length();
-
-		f.setSpan(new ClickSpan(new SpanClickListener()
-		{
-			@Override
-			public void onSpanClicked( final View source, final int spanId )
-			{
-				final String url = getString(R.string.url);
-				trackClickEvent(ACTION_BROWSE, url);
-
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-			}
-		}, 1), x0, y0, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-		final MovementMethod m0 = desc0.getMovementMethod();
-		if ( ( m0 == null ) || !( m0 instanceof LinkMovementMethod ) )
-		{
-			if ( desc0.getLinksClickable() )
-			{
-				desc0.setMovementMethod(LinkMovementMethod.getInstance());
-			}
-		}
-
-		final int x = text.indexOf(EMAIL_TEXT);
-		final int y = x + EMAIL_TEXT.length();
-
-		final String bugReportUrl = getString(R.string.aboutBugReportUrl);
-
-		f.setSpan(new ClickSpan(new SpanClickListener()
-		{
-			@Override
-			public void onSpanClicked( final View source, final int spanId )
-			{
-				trackClickEvent(ACTION_SEND, bugReportUrl);
-
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(bugReportUrl)));
-			}
-		}, 1), x, y, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-		desc.setText(f);
-
-		final MovementMethod m = desc.getMovementMethod();
-		if ( ( m == null ) || !( m instanceof LinkMovementMethod ) )
-		{
-			if ( desc.getLinksClickable() )
-			{
-				desc.setMovementMethod(LinkMovementMethod.getInstance());
-			}
-		}
+		desc.setText(Html.fromHtml(desc.getText().toString()));
+		desc.setMovementMethod(LinkMovementMethod.getInstance());
+		final TextView descEN = (TextView) findViewById(R.id.descriptionEN);
+		descEN.setText(Html.fromHtml(descEN.getText().toString()));
+		descEN.setMovementMethod(LinkMovementMethod.getInstance());
 
 		//set version number
 		try
@@ -155,26 +95,4 @@ public class AboutActivity extends TrackedActivity implements Codes, OnClickList
 		}
 	}
 
-	static class ClickSpan extends ClickableSpan
-	{
-		SpanClickListener listener;
-		int spanId;
-
-		public ClickSpan( final SpanClickListener listener, final int spanId )
-		{
-			this.listener = listener;
-			this.spanId = spanId;
-		}
-
-		@Override
-		public void onClick( final View widget )
-		{
-			listener.onSpanClicked(widget, spanId);
-		}
-	}
-
-	static interface SpanClickListener
-	{
-		void onSpanClicked( View source, int spanId );
-	}
 }

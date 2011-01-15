@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="hu.tminfo" android:versionCode="5" android:versionName="v1.0b">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="auto" package="hu.tminfo" android:versionCode="8" android:versionName="1.0.2">
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4"/>
 	<uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
@@ -59,15 +59,6 @@
             </intent-filter>
  		</receiver>
 		
-		<!-- The application's publisher ID assigned by AdMob -->
-		<meta-data android:value="a14c7d2d7160d16" android:name="ADMOB_PUBLISHER_ID" />
-		
-		<!-- Track Market installs -->            
-		<receiver android:name="com.admob.android.ads.analytics.InstallReceiver" android:exported="true">
-		        <intent-filter>
-		                <action android:name="com.android.vending.INSTALL_REFERRER" />
-		        </intent-filter>
-		</receiver>
 </application>
 
 
