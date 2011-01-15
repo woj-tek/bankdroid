@@ -20,4 +20,18 @@ Vhod v Privat24: 65411504 www.privat24.ua - UDOBNO: popolnit' telefon - otprav' 
 		</Expressions>
 	</Bank>		
 		
+	<Bank>
+		<!-- Sample: 0931777755
+Password: 8leuaru9 Contact-Center: 0800505800
+	-->
+		<Name>UkrSibBank</Name>
+		<IconId>ukrsibbank_logo</IconId>
+		<Phones>
+			<Phone>0931777755</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[Password: ([0-9a-zA-Z]+) .*]]></Expression>
+		</Expressions>
+	</Bank>		
+		
 </Banks>
