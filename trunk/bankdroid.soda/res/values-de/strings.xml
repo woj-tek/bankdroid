@@ -48,6 +48,8 @@
 	<string name="emailSMSText">Nachricht: </string>
 	
 	<!-- Preferences -->
+	<string name="unlockScreen">Entsperren Bildschirm</string>
+	<string name="unlockScreenSummary">Wake up und Entsperren Bildschirm, wenn der Code eintrifft. (nur für Android 2.0 +)</string>
 	<string name="keepScreenOn">Halten Sie am Bildschirm</string>
 	<string name="keepScreenOnSummary">Halten Bildschirm auf, während Code wird angezeigt.</string>
 	<string name="keepSMS">SMS aufhalten</string>

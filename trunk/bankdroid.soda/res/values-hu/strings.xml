@@ -48,6 +48,8 @@
 	<string name="emailSMSText">Üzenet szövege: </string>
 	
 	<!-- Preferences -->
+	<string name="unlockScreen">Képernyő feloldása</string>
+	<string name="unlockScreenSummary">Telefon felkeltése és feloldása, amikor kód érkezik (csak Android 2.0 vagy a fölött)</string>
 	<string name="keepScreenOn">Kijelző ébrentartása</string>
 	<string name="keepScreenOnSummary">Ébren tartja a kijelzőt, amíg a jelszót mutatja.</string>
 	<string name="keepSMS">SMS megőrzése</string>

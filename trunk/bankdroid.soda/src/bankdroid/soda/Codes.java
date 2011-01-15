@@ -24,6 +24,7 @@ public interface Codes
 	public static final String PREF_KEEP_SMS = "bankdroid.soda.KeepSMS";
 	public static final String PREF_KEEP_SCREEN_ON = "bankdroid.soda.KeepScreenOn";
 	public static final String PREF_RESET_DB = "bankdroid.soda.ResetDb";
+	public static final String PREF_UNLOCK_SCREEN = "bankdroid.soda.UnlockScreen";
 
 	public static final String TAG = "SODA";
 
