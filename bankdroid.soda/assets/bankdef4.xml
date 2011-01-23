@@ -16,6 +16,7 @@ CSOB: wk6-48v-s9b kod transakcie 123456677 na prihlasenie do aplikacie Internet 
 			<Phone>999020</Phone>
 			<Phone>+421940661750</Phone>
 		</Phones>
+		<Expiry>600</Expiry>
 		<Expressions>
 			<Expression transactionSign="true"><![CDATA[CSOB: ([0-9a-z]*-[0-9a-z]*-[0-9a-z]*) .*]]></Expression>
 		</Expressions>
