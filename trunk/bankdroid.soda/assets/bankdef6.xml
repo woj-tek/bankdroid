@@ -151,4 +151,23 @@ BlueCash.pl: kod weryfikacyjny: 48d799
 			<Expression><![CDATA[BlueCash.*: ([a-zA-Z0-9]+)]]></Expression>
 		</Expressions>
 	</Bank>		
+		
+	<Bank>
+		<!-- Sample: +48790569575
+Aktywacja operacji
+Kod: 123123
+Operacja: Dodanie odbiorcy
+Nr rachunku:X1234 
+Data/Czas: 12/12/2012 12:12
+Citi Handlowy
+		 -->
+		<Name>Citibank</Name>
+		<IconId>citibank_logo</IconId>
+		<Phones>
+			<Phone>226922484</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.*Kod: ([0-9]+).*]]></Expression>
+		</Expressions>
+	</Bank>		
 </Banks>
