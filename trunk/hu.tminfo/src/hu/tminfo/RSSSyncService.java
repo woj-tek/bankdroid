@@ -323,7 +323,8 @@ public class RSSSyncService extends Service implements Runnable, Codes
 		debugNotification(NOTIFICATION_SERVICE_LIFECYCLE, "Service onDestroy() called.");
 		if ( running )
 		{
-			synchThread.interrupt();
+			if ( synchThread != null )
+				synchThread.interrupt();
 			RSSStream.abortSynch(this);
 		}
 	}
