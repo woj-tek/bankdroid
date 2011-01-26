@@ -46,6 +46,8 @@ public class RSSItem extends RSSObject
 	public int status = STATUS_UNREAD;
 	public Set<String> channels = new HashSet<String>();
 
+	private static final ContentFilter youtubeFilter = new YoutubeFilter();
+
 	@Override
 	public String toString()
 	{
@@ -79,6 +81,9 @@ public class RSSItem extends RSSObject
 		{
 			descBuilder.delete(tweetIndex, descBuilder.indexOf("</div>", tweetIndex) + 6);
 		}
+
+		//fix youtube links
+		youtubeFilter.filter(descBuilder);
 
 		description = descBuilder.toString();
 
