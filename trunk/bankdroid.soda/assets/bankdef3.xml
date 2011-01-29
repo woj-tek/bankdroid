@@ -33,11 +33,13 @@ Transakcia: ZU=123456 NU=12345678/1234 SM=123,00 EUR KS= VS=1 KOD=9594-2984
 	<Bank>
 		<!-- Sample: mBank 
 Operacia c. 3 z dna 01-01-2010 Zmena prijemcu z uctu ...00012345 na ucet ...1234567/1234 sms kod: 37975982 mBank.
+Operacia c. 2 z dna 01-01-2010 Definovanie prijemcu z uctu ...0123123 na ucet ...001231321/1212 sms kod: 60364442 mBank.
 		 -->
 		<Name>mBank</Name>
 		<IconId>mbank_logo</IconId>
 		<Phones>
 			<Phone>2265</Phone>
+			<Phone>2287</Phone>
 		</Phones>
 		<Expressions>
 			<Expression transactionSign="true"><![CDATA[.* kod: ([0-9]*) mBank.*]]></Expression>
