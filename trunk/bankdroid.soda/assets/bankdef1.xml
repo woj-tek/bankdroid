@@ -218,7 +218,6 @@ Kedves Ugyfelunk! Az E-szamla rendszerbe a kovetkezo koddal tudsz belepni: 61213
 		<IconId>vodafone_logo</IconId>
 		<Phones>
 			<Phone>Vodafone</Phone>
-			<Phone>1234</Phone>
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[[^:]*: ([0-9]+).*]]></Expression>
