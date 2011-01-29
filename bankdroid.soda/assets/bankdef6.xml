@@ -170,4 +170,19 @@ Citi Handlowy
 			<Expression><![CDATA[.*Kod: ([0-9]+).*]]></Expression>
 		</Expressions>
 	</Bank>		
+	
+		
+	<Bank>
+		<!-- Sample: IDEA BANK
+Zmiana hasla dostepu internetowego z dnia 2011-01-28 21:49 Haslo potwierdzajace zmiane: 6xe57k
+		 -->
+		<Name>Idea Bank</Name>
+		<IconId>ideabank_logo</IconId>
+		<Phones>
+			<Phone>IDEA BANK</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.* Haslo [^:]*: ([0-9a-zA-Z]+)]]></Expression>
+		</Expressions>
+	</Bank>		
 </Banks>
