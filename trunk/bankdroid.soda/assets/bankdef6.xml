@@ -148,7 +148,7 @@ BlueCash.pl: kod weryfikacyjny: 48d799
 			<Phone>+48790569575</Phone>
 		</Phones>
 		<Expressions>
-			<Expression><![CDATA[BlueCash.*: ([a-zA-Z0-9]+)]]></Expression>
+			<Expression><![CDATA[BlueCash.* kod .*: ([a-zA-Z0-9]+)]]></Expression>
 		</Expressions>
 	</Bank>		
 		
@@ -183,6 +183,21 @@ Zmiana hasla dostepu internetowego z dnia 2011-01-28 21:49 Haslo potwierdzajace 
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.* Haslo [^:]*: ([0-9a-zA-Z]+)]]></Expression>
+		</Expressions>
+	</Bank>		
+		
+	<Bank>
+		<!-- Sample: TAXCARE
+Operacja z dnia: 2011-01-11 11:11 Przelew z rach:na rach: 123456...123123123123123 na kwote: 12.34  Haslo: rcx5gd
+		 -->
+		<Name>Tax Care S.A.</Name>
+		<IconId>taxcare_logo</IconId>
+		<Phones>
+			<Phone>TAXCARE</Phone>
+			<Phone>1234</Phone>
+		</Phones>
+		<Expressions>
+			<Expression><![CDATA[.* Haslo: ([0-9a-zA-Z]+)]]></Expression>
 		</Expressions>
 	</Bank>		
 </Banks>

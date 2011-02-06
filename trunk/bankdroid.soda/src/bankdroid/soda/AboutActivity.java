@@ -16,8 +16,14 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
+ * FIXME AppID based on timestamp
+ * FIXME code seperation
+ * 
  * TODO new preference: use only local banks
  * TODO deleting a message is not working always due to the EOL character replacement
+ * TODO campaign management
+ * TODO in-built bug reporting functionality
+ * TODO bug report campaign
  * TODO facebook campaign
  * TODO video
  * 
