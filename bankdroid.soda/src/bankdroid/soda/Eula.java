@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import bankdroid.util.AppId;
 
 /**
  * Displays an EULA ("End User License Agreement") that the user has to accept before
@@ -63,6 +64,8 @@ class Eula
 	 */
 	static boolean show( final Activity activity )
 	{
+		AppId.getAppId(activity); // init app Id
+
 		final SharedPreferences preferences = activity.getSharedPreferences(PREFERENCES_EULA, Activity.MODE_PRIVATE);
 		if ( !preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false) )
 		{

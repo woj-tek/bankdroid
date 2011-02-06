@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * FIXME AppID based on timestamp
  * FIXME code seperation
  * 
  * TODO new preference: use only local banks
