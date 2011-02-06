@@ -99,6 +99,7 @@ A 12312313-132123131-1313123123 celszamlara inditott 100 Ft osszegu tranzakciova
 		<IconId>unicredit_logo</IconId>
 		<Phones>
 			<Phone>+36303444504</Phone>
+			<Phone>36303444504</Phone>
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[[^:]* SpectraNet [^:]*: ([0-9A-Z]*)]]></Expression>

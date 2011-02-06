@@ -194,7 +194,6 @@ Operacja z dnia: 2011-01-11 11:11 Przelew z rach:na rach: 123456...1231231231231
 		<IconId>taxcare_logo</IconId>
 		<Phones>
 			<Phone>TAXCARE</Phone>
-			<Phone>1234</Phone>
 		</Phones>
 		<Expressions>
 			<Expression><![CDATA[.* Haslo: ([0-9a-zA-Z]+)]]></Expression>
