@@ -6,17 +6,14 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.NotificationManager;
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.ClipboardManager;
 import android.util.Log;
@@ -56,7 +53,6 @@ import bankdroid.soda.bank.Bank;
 public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListener, SensorEventListener
 {
 	private static final int FORCE_THRESHOLD = 900;
-	private static final int MSG_DELETE_SMS = 0;
 
 	private CharSequence displayedCode;
 	private Bank bank;
@@ -128,33 +124,6 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			}
 		}
 		isActive = true;
-
-		if ( smsMessage != null )
-		{
-			final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, true);
-
-			if ( !keepSMS )
-			{
-				final Handler handler = new Handler()
-				{
-					@Override
-					public void handleMessage( final android.os.Message msg )
-					{
-						super.handleMessage(msg);
-						if ( msg.what == MSG_DELETE_SMS )
-						{
-							final ContentResolver cr = getContentResolver();
-							final Uri uri = Uri.parse("content://sms");
-
-							cr.delete(uri, "body=?", new String[] { (String) msg.obj });
-						}
-					}
-
-				};
-
-				handler.sendMessageDelayed(handler.obtainMessage(MSG_DELETE_SMS, smsMessage), 2500);
-			}
-		}
 
 		final boolean keepScreenOn = settings.getBoolean(PREF_KEEP_SCREEN_ON, false);
 		findViewById(R.id.codeButton).setKeepScreenOn(keepScreenOn);
