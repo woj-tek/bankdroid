@@ -51,7 +51,7 @@
 				android:id="@+id/bankLogo" 
 				android:layout_width="wrap_content" 
 				android:layout_height="wrap_content"
-				android:src="@drawable/budapestbank_logo"
+				android:src="@drawable/bankdroid_logo"
 				android:layout_gravity="center_vertical"
 				android:padding="5sp"
 				/>
