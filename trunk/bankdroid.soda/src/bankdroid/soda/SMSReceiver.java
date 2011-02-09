@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import bankdroid.soda.bank.Bank;
 
 public class SMSReceiver extends BroadcastReceiver implements Codes
 {

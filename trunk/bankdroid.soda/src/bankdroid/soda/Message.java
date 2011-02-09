@@ -2,6 +2,8 @@ package bankdroid.soda;
 
 import java.util.Date;
 
+import bankdroid.soda.bank.Bank;
+
 public class Message
 {
 	Bank bank;

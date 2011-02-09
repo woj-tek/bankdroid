@@ -1,25 +1,27 @@
 package bankdroid.soda;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.SAXException;
+import java.util.Map;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import bankdroid.soda.bank.Bank;
+import bankdroid.soda.bank.BankDescriptor;
+import bankdroid.soda.bank.Expression;
 
 /**
  * XXX extensible default phone number list
@@ -173,7 +175,7 @@ public final class BankManager implements Codes
 
 	public static Bank[] findByPhoneNumber( final Context context, final String phoneNumber )
 	{
-		Bank[] banks = findBank(context, Bank.CONTENT_URI, Bank.F_PHONENUMBERS + " like '%" + phoneNumber + "%'", null);
+		Bank[] banks = findBank(context, CONTENT_URI, Bank.F_PHONENUMBERS + " like '%" + phoneNumber + "%'", null);
 
 		//match phone number manually: drop out items that has no matching phone number.
 		int count = 0;
@@ -246,7 +248,7 @@ public final class BankManager implements Codes
 					final String name = cursor.getString(1);
 
 					final int expiry = cursor.getInt(2);
-					final int icon = cursor.getInt(3);
+					final String icon = cursor.getString(3);
 					final String country = cursor.getString(4);
 					final String phoneNumbers = cursor.getString(5);
 					final String expressions = cursor.getString(6);
@@ -275,7 +277,7 @@ public final class BankManager implements Codes
 	public static Bank[] getAllBanks( final Context context )
 	{
 		final Cursor cursor = context.getContentResolver().query(
-				Bank.CONTENT_URI,
+				CONTENT_URI,
 				new String[] { Bank.F__ID, Bank.F_NAME, Bank.F_VALIDITY, Bank.F_ICON, Bank.F_COUNTRY,
 						Bank.F_PHONENUMBERS, Bank.F_EXPRESSIONS }, null, null, Bank.DEFAULT_SORT_ORDER);
 
@@ -289,7 +291,7 @@ public final class BankManager implements Codes
 
 				Log.d(Codes.TAG, "Bank read: " + id + " - " + name);
 				final int expiry = cursor.getInt(2);
-				final int icon = cursor.getInt(3);
+				final String icon = cursor.getString(3);
 				final String country = cursor.getString(4);
 				final String phoneNumbers = cursor.getString(5);
 				final String expressions = cursor.getString(6);
@@ -327,7 +329,7 @@ public final class BankManager implements Codes
 		values.put(Bank.F_NAME, b.getName());
 		values.put(Bank.F_VALIDITY, b.getExpiry());
 		values.put(Bank.F_COUNTRY, b.getCountryCode());
-		values.put(Bank.F_ICON, b.getIconId());
+		values.put(Bank.F_ICON, b.getIconName());
 		final Expression[] exps2 = b.getExtractExpressions();
 		final String[] exps = new String[exps2.length];
 		for ( int i = 0; i < exps.length; i++ )
@@ -340,14 +342,14 @@ public final class BankManager implements Codes
 		if ( b.getId() == Bank.UNASSIGNED_ID )
 		{
 			//created as a new bank
-			final Uri uri = context.getContentResolver().insert(Bank.CONTENT_URI, values);
+			final Uri uri = context.getContentResolver().insert(CONTENT_URI, values);
 			b.setId(Integer.parseInt(uri.getPathSegments().get(1)));
 			Log.d(TAG, "Bank " + b.getName() + " is inserted with id " + b.getId());
 		}
 		else
 		{
 			//update the bank
-			final Uri thisUri = Bank.CONTENT_URI.buildUpon().appendEncodedPath(String.valueOf(b.getId())).build();
+			final Uri thisUri = CONTENT_URI.buildUpon().appendEncodedPath(String.valueOf(b.getId())).build();
 			context.getContentResolver().update(thisUri, values, null, null);
 			Log.d(TAG, "Bank " + b.getName() + " is updated.");
 		}
@@ -364,7 +366,7 @@ public final class BankManager implements Codes
 		values.put(Bank.F_TIMESTAMP, Formatters.getTimstampFormat().format(msg.timestamp));
 
 		//update the bank
-		final Uri thisUri = Bank.CONTENT_URI.buildUpon().appendEncodedPath(String.valueOf(msg.bank.getId())).build();
+		final Uri thisUri = CONTENT_URI.buildUpon().appendEncodedPath(String.valueOf(msg.bank.getId())).build();
 		context.getContentResolver().update(thisUri, values, null, null);
 		Log.d(TAG, "Bank " + msg.bank.getName() + " is updated with last message.");
 	}
@@ -377,7 +379,7 @@ public final class BankManager implements Codes
 	public static Message getLastMessage( final Context context )
 	{
 		Message result = null;
-		final Cursor cursor = context.getContentResolver().query(Bank.CONTENT_URI,
+		final Cursor cursor = context.getContentResolver().query(CONTENT_URI,
 				new String[] { Bank.F__ID, Bank.F_LASTMESSAGE, Bank.F_TIMESTAMP }, Bank.F_TIMESTAMP + " IS NOT NULL",
 				null, Bank.F_TIMESTAMP + " DESC");
 
@@ -398,7 +400,7 @@ public final class BankManager implements Codes
 					throw new IllegalStateException("Database contains invalid value for timestamp: "
 							+ cursor.getString(2), e);
 				}
-				result = new Message(findByUri(context, Uri.withAppendedPath(Bank.CONTENT_URI, String.valueOf(id))),
+				result = new Message(findByUri(context, Uri.withAppendedPath(CONTENT_URI, String.valueOf(id))),
 						message, timestamp);
 			}
 
@@ -410,67 +412,47 @@ public final class BankManager implements Codes
 				cursor.close();
 		}
 	}
-	private static Bank[] defaultBanks = null;
 
-	public static Bank[] getDefaultBanks( final Context context ) throws ParserConfigurationException, SAXException,
-			IOException
+	private final static Map<String, Drawable> images = new HashMap<String, Drawable>();
+
+	public static Drawable getBankIcon( final Bank bank, final Resources res )
 	{
-		if ( defaultBanks == null )
+		final String name = bank.getIconName();
+		if ( name == null )
 		{
-			SAXParser parser = null;
-			BankDefinitionHandler handler = null;
-
-			final List<Bank> result = new ArrayList<Bank>();
-
-			int index = 0;
-			while ( true )
-			{
-				index++;
-
-				final String fileName = "bankdef" + index + ".xml";
-				InputStream open = null;
-				try
-				{
-					open = context.getAssets().open(fileName); //XXX try to load it dynamically
-				}
-				catch ( final IOException e )
-				{
-					Log.d(TAG, "There is no more bank definition XML. Last item: " + ( index - 1 ), e);
-					break;
-				}
-
-				if ( parser == null )
-				{//lazy initialization
-					final SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-					//parserFactory.setValidating(true); - no validation is available on android
-					parser = parserFactory.newSAXParser();
-					handler = new BankDefinitionHandler();
-				}
-				handler.reset();
-				parser.parse(open, handler);
-
-				final Bank[] parsed = handler.getBanks();
-
-				Log.d(TAG, fileName + " file contained " + parsed.length + " banks.");
-
-				for ( final Bank bank : parsed )
-				{
-					result.add(bank);
-				}
-			}
-
-			Collections.sort(result, new Comparator<Bank>()
-			{
-
-				@Override
-				public int compare( final Bank object1, final Bank object2 )
-				{
-					return object1.getName().compareTo(object2.getName());
-				}
-			});
-
-			defaultBanks = result.toArray(new Bank[result.size()]);
+			return res.getDrawable(R.drawable.bankdroid_logo);
 		}
-		return defaultBanks;
+
+		if ( images.containsKey(name) )
+		{
+			Log.d(TAG, "Icon loaded from cache: " + name);
+			return images.get(name);
+		}
+
+		BitmapDrawable image;
+
+		final DisplayMetrics metrics = res.getDisplayMetrics();
+
+		final Options options = new BitmapFactory.Options();
+		options.inDensity = DisplayMetrics.DENSITY_MEDIUM;
+		options.inTargetDensity = metrics.densityDpi;
+		options.inScaled = false;
+
+		final InputStream is = BankDescriptor.loadLogo(bank);
+		if ( is == null )
+		{
+			return res.getDrawable(R.drawable.bankdroid_logo);
+		}
+
+		Log.d(TAG, "Loading image from path: " + name);
+
+		image = new BitmapDrawable(BitmapFactory.decodeStream(is, null, options));
+
+		Log.d(TAG, "Metrics: " + metrics);
+		image.setTargetDensity(metrics);
+		images.put(name, image);
+
+		Log.d(TAG, "Icon loaded from file: " + name);
+		return image;
 	}
 }

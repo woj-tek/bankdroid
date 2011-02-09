@@ -28,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import bankdroid.soda.CountDown.CountDownListener;
+import bankdroid.soda.bank.Bank;
 
 /**
  * This view as able to display SMS one time passwords processed by {@link SMSReceiver}. Besides displayed the codes
@@ -246,9 +247,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			timestampText = Formatters.getTimstampFormat().format(receivedAt);
 		}
 
-		( (ImageView) findViewById(R.id.bankLogo) )
-				.setImageDrawable(source == null || source.getIconId() <= 0 ? getResources().getDrawable(
-						R.drawable.bankdroid_logo) : getResources().getDrawable(source.getIconId()));
+		( (ImageView) findViewById(R.id.bankLogo) ).setImageDrawable(BankManager.getBankIcon(bank, getResources()));
 		( (TextView) findViewById(R.id.codeButton) ).setText(code == null ? getResources().getText(R.string.nocode)
 				: code);
 		( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
