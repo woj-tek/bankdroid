@@ -1,5 +1,7 @@
 package bankdroid.soda;
 
+import android.net.Uri;
+
 public interface Codes
 {
 	public static final String DEFAULT_COUNTRY = "HU";
@@ -38,5 +40,20 @@ public interface Codes
 	//activity results
 	public static final int REQUEST_EMAIL_SEND = 1001;
 	public static final int REQUEST_SELECT_SMS = 1002;
+
+	/**
+	 * The MIME type of {@link #CONTENT_URI} providing a directory of banks.
+	 */
+	public static final String CONTENT_TYPE = "vnd.android.cursor.dir/bankdroid.soda.bank";
+
+	/**
+	 * The MIME type of a {@link #CONTENT_URI} sub-directory of a single bank.
+	 */
+	public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/bankdroid.soda.bank";
+
+	/**
+	 * The content:// style URL for this table.
+	 */
+	public static final Uri CONTENT_URI = Uri.parse("content://bankdroid.soda.Bank/banks");
 
 }

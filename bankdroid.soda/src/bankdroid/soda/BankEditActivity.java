@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
+import bankdroid.soda.bank.Bank;
+import bankdroid.soda.bank.Expression;
 
 /**
  * @author gyenes
@@ -82,7 +84,7 @@ public class BankEditActivity extends MenuActivity implements OnClickListener, C
 		if ( bank != null )
 		{
 			Log.d(TAG, "Initializing the layout for bank: " + bank);
-			( (ImageView) findViewById(R.id.bankLogo) ).setImageResource(bank.getIconId());
+			( (ImageView) findViewById(R.id.bankLogo) ).setImageDrawable(BankManager.getBankIcon(bank, getResources()));
 			( (EditText) findViewById(R.id.bankName) ).setText(bank.getName());
 			( (EditText) findViewById(R.id.expiry) ).setText(String.valueOf(bank.getExpiry()));
 

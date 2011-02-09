@@ -15,6 +15,9 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import bankdroid.soda.bank.Bank;
+import bankdroid.soda.bank.BankDescriptor;
+import bankdroid.soda.bank.Expression;
 
 public class BankProvider extends ContentProvider implements Codes
 {
@@ -33,14 +36,11 @@ public class BankProvider extends ContentProvider implements Codes
 	{
 
 		private static final String DATABASE_NAME = "bank.db";
-		private static final int DATABASE_VERSION = 36;//2011-01-29
-
-		private final Context context;
+		private static final int DATABASE_VERSION = 37;//2011-02-09
 
 		DatabaseHelper( final Context context )
 		{
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
-			this.context = context;
 		}
 
 		@Override
@@ -50,7 +50,7 @@ public class BankProvider extends ContentProvider implements Codes
 					Bank.F__ID + " INTEGER PRIMARY KEY," + // 
 					Bank.F_NAME + " TEXT," + //
 					Bank.F_VALIDITY + " INTEGER," + //
-					Bank.F_ICON + " INTEGER," + //
+					Bank.F_ICON + " TEXT," + //
 					Bank.F_COUNTRY + " TEXT," + //
 					Bank.F_PHONENUMBERS + " TEXT," + //
 					Bank.F_EXPRESSIONS + " TEXT," + //
@@ -66,7 +66,7 @@ public class BankProvider extends ContentProvider implements Codes
 			//load constants here
 			try
 			{
-				final Bank[] banks = BankManager.getDefaultBanks(context);
+				final Bank[] banks = BankDescriptor.getDefaultBanks();
 				final ContentValues values = new ContentValues(9);
 				for ( int i = 0; i < banks.length; i++ )
 				{
@@ -74,7 +74,7 @@ public class BankProvider extends ContentProvider implements Codes
 					values.clear();
 					values.put(Bank.F_NAME, bank.getName());
 					values.put(Bank.F_VALIDITY, bank.getExpiry());
-					values.put(Bank.F_ICON, bank.getIconId());
+					values.put(Bank.F_ICON, bank.getIconName());
 					values.put(Bank.F_COUNTRY, bank.getCountryCode());
 					values.put(Bank.F_PHONENUMBERS, BankManager.escapeStrings(bank.getPhoneNumbers()));
 					final Expression[] exps2 = bank.getExtractExpressions();
@@ -110,7 +110,41 @@ public class BankProvider extends ContentProvider implements Codes
 		public void onUpgrade( final SQLiteDatabase db, final int oldVersion, final int newVersion )
 		{
 			if ( oldVersion <= 10 )
+			{
 				fullCleanUp(db);
+			}
+			else if ( oldVersion < 37 )
+			{
+				//change type of the icon coloumn by moving custom banks to temp table
+				db.execSQL("CREATE TABLE " + T_BANK + "_temp (" + //
+						Bank.F__ID + " INTEGER PRIMARY KEY," + // 
+						Bank.F_NAME + " TEXT," + //
+						Bank.F_VALIDITY + " INTEGER," + //
+						Bank.F_ICON + " TEXT," + //
+						Bank.F_COUNTRY + " TEXT," + //
+						Bank.F_PHONENUMBERS + " TEXT," + //
+						Bank.F_EXPRESSIONS + " TEXT," + //
+						Bank.F_LASTMESSAGE + " TEXT," + //
+						Bank.F_TIMESTAMP + " TEXT" + //
+						");");
+				db.execSQL("INSERT INTO " + T_BANK + "_temp SELECT * FROM " + T_BANK + //
+						" WHERE " + Bank.F_COUNTRY + "='" + Bank.CUSTOM_COUNTRY + "';");
+				db.execSQL("DROP TABLE IF EXISTS " + T_BANK);
+				db.execSQL("CREATE TABLE " + T_BANK + " (" + //
+						Bank.F__ID + " INTEGER PRIMARY KEY," + // 
+						Bank.F_NAME + " TEXT," + //
+						Bank.F_VALIDITY + " INTEGER," + //
+						Bank.F_ICON + " TEXT," + //
+						Bank.F_COUNTRY + " TEXT," + //
+						Bank.F_PHONENUMBERS + " TEXT," + //
+						Bank.F_EXPRESSIONS + " TEXT," + //
+						Bank.F_LASTMESSAGE + " TEXT," + //
+						Bank.F_TIMESTAMP + " TEXT" + //
+						");");
+				db.execSQL("INSERT INTO " + T_BANK + " SELECT * FROM " + T_BANK + "_temp;");
+				db.execSQL("DROP TABLE IF EXISTS " + T_BANK + "_temp");
+				insertDefaultBanks(db);
+			}
 			else
 			// if there is not other special reason it means that only the bank list is updated. 
 			{
@@ -180,10 +214,10 @@ public class BankProvider extends ContentProvider implements Codes
 		switch ( uriMatcher.match(uri) )
 		{
 		case BANKS:
-			return Bank.CONTENT_TYPE;
+			return CONTENT_TYPE;
 
 		case BANK_ID:
-			return Bank.CONTENT_ITEM_TYPE;
+			return CONTENT_ITEM_TYPE;
 
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
@@ -212,7 +246,7 @@ public class BankProvider extends ContentProvider implements Codes
 
 		if ( rowId > 0 )
 		{
-			final Uri noteUri = ContentUris.withAppendedId(Bank.CONTENT_URI, rowId);
+			final Uri noteUri = ContentUris.withAppendedId(CONTENT_URI, rowId);
 			getContext().getContentResolver().notifyChange(noteUri, null);
 			return noteUri;
 		}

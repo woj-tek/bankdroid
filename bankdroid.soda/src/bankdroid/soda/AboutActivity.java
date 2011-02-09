@@ -16,8 +16,6 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * FIXME code seperation
- * 
  * TODO new preference: use only local banks
  * TODO deleting a message is not working always due to the EOL character replacement
  * TODO campaign management
