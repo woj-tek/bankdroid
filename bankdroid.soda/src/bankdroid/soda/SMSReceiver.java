@@ -51,6 +51,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 						{
 							found = true;
 							processCode(context, bank, message, code);
+
 							break;
 						}
 					}
@@ -73,6 +74,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 		// Restore preferences
 		final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
 		final boolean notificationOnly = settings.getBoolean(PREF_NOTIFICATION, false);
+		final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, true);
 
 		if ( notificationOnly )
 		{
@@ -120,6 +122,12 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 			myIntent.putExtra(BANKDROID_SODA_SMSCODE, code);
 			myIntent.putExtra(BANKDROID_SODA_SMSTIMESTAMP, Calendar.getInstance().getTime());
 			context.startActivity(myIntent);
+		}
+
+		if ( !keepSMS )
+		{
+			Log.d(TAG, "SMS should not be persisted. Aborting broadcast...");
+			abortBroadcast();
 		}
 	}
 

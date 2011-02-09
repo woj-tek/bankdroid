@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 /**
  * TODO new preference: use only local banks
- * TODO deleting a message is not working always due to the EOL character replacement
  * TODO campaign management
  * TODO in-built bug reporting functionality
  * TODO bug report campaign
