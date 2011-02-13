@@ -81,7 +81,8 @@
 	<string name="descManageBanks">Udržovat banky sami ...</string>
 	<string name="descSubmitSample">Vaše banka zatím není podporováno</string>
 	<string name="descInfoSite">Nechápou, co je to app?</string>
-	<string name="noMessageYet">Dosud jste neobdrželi žádný SMS kód.</string>
+	<string name="noMessageYet">Dosud jste neobdrželi žádný SMS kód. (Poznámka: SMS Key analyzuje pouze nově přijaté zprávy. Stávající zprávy nejsou zpracovány.)</string>
+	<string name="ok">Ok</string>
 
 	<!-- About -->
 	<string name="aboutId">SMS key</string>

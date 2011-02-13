@@ -80,7 +80,8 @@
 	<string name="descManageBanks">Beállíthatsz saját bankokat magadnak</string>
 	<string name="descSubmitSample">A te bankodat még nem támogatja a program?</string>
 	<string name="descInfoSite">Nem érted mire jó ez a program?</string>
-	<string name="noMessageYet">Még egyetlen kódot sem fogadott az alkalmazás.</string>
+	<string name="noMessageYet">Még egyetlen kódot sem fogadott az alkalmazás. (Megjegyzés: Az SMS Key csak az újonnan beérkező üzeneteket dolgozza fel. A korábbi üzeneteket nem értelmezi.)</string>
+	<string name="ok">Ok</string>
 
 	<!-- About -->
 	<string name="aboutId">SMS Key</string>

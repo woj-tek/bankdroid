@@ -80,7 +80,8 @@
 	<string name="descManageBanks">Pflegen Banken selbst ...</string>
 	<string name="descSubmitSample">Ihre Bank wird noch nicht unterstützt?</string>
 	<string name="descInfoSite">Nicht verstehen, was diese Anwendung?</string>
-	<string name="noMessageYet">Du hast noch kein SMS bekommen.</string>
+	<string name="noMessageYet">Du hast noch kein SMS bekommen. (Hinweis: SMS Key analysiert nur neu eingetroffene Nachrichten. Vorhandene Nachrichten nicht verarbeitet werden.)</string>
+	<string name="ok">Ok</string>
 
 	<!-- About -->
 	<string name="aboutId">SMS Key</string>
