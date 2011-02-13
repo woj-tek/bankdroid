@@ -81,7 +81,8 @@
 	<string name="descManageBanks">Maintain banks yourself...</string>
 	<string name="descSubmitSample">Your bank is not yet supported?</string>
 	<string name="descInfoSite">Don\'t understand what is this app?</string>
-	<string name="noMessageYet">You have received no SMS code yet.</string>
+	<string name="noMessageYet">You have not received SMS code yet. (Note: SMS Key processes only newly received messages. Existing messages are not handled.)</string>
+	<string name="ok">Ok</string>
 
 	<!-- About -->
 	<string name="aboutId">SMS Key</string>

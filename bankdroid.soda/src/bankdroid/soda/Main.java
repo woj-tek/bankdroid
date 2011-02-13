@@ -1,12 +1,16 @@
 package bankdroid.soda;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 public class Main extends MenuActivity implements Codes
 {
+	private final static int DIALOG_NOCODE = 567;
+
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
 	{
@@ -28,8 +32,7 @@ public class Main extends MenuActivity implements Codes
 		final Message message = BankManager.getLastMessage(getApplicationContext());
 		if ( message == null )
 		{
-			final Toast toast = Toast.makeText(getApplicationContext(), R.string.noMessageYet, Toast.LENGTH_SHORT);
-			toast.show();
+			showDialog(DIALOG_NOCODE);
 		}
 		else
 		{
@@ -50,4 +53,28 @@ public class Main extends MenuActivity implements Codes
 		startActivity(bankListIntent);
 	}
 
+	@Override
+	protected Dialog onCreateDialog( final int id )
+	{
+		final Dialog dialog;
+		switch ( id )
+		{
+		case DIALOG_NOCODE:
+			// do the work to define the pause Dialog
+			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(R.string.noMessageYet).setCancelable(false).setNeutralButton(R.string.ok,
+					new DialogInterface.OnClickListener()
+					{
+						public void onClick( final DialogInterface dialog, final int id )
+						{
+							dialog.cancel();
+						}
+					});
+			dialog = builder.create();
+			break;
+		default:
+			dialog = null;
+		}
+		return dialog;
+	}
 }
