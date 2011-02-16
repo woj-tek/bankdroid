@@ -417,7 +417,7 @@ public final class BankManager implements Codes
 
 	public static Drawable getBankIcon( final Bank bank, final Resources res )
 	{
-		final String name = bank.getIconName();
+		final String name = bank != null ? bank.getIconName() : null;
 		if ( name == null )
 		{
 			return res.getDrawable(R.drawable.bankdroid_logo);

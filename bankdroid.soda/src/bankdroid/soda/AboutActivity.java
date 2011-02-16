@@ -16,12 +16,21 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
+ * FIXME code is not refreshed if the SOD activity is being displayed, when message arrives. (onNewIntent issue)
+ * 
+ * FIXME automatic copy to clipboard
+ * FIXME support more than 3 phone numbers (KHB in HU)
+ * 
  * TODO new preference: use only local banks
  * TODO campaign management
  * TODO in-built bug reporting functionality
  * TODO bug report campaign
  * TODO facebook campaign
  * TODO video
+ * 
+ * XXX play voice when SMS is not stored but message is received
+ * XXX forward password to e-mail server, when code received - security risk
+ * 
  * 
  * @author Gabe
  *
