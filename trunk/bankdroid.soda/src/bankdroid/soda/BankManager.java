@@ -24,7 +24,6 @@ import bankdroid.soda.bank.BankDescriptor;
 import bankdroid.soda.bank.Expression;
 
 /**
- * XXX extensible default phone number list
  * @author gyenes
  */
 public final class BankManager implements Codes
