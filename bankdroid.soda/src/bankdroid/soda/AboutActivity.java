@@ -17,9 +17,7 @@ import android.widget.TextView;
 
 /**
  * FIXME code is not refreshed if the SOD activity is being displayed, when message arrives. (onNewIntent issue)
- * 
  * FIXME automatic copy to clipboard
- * FIXME support more than 3 phone numbers (KHB in HU)
  * 
  * TODO new preference: use only local banks
  * TODO campaign management
