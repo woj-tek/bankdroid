@@ -33,7 +33,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 
 				final SmsMessage sms = SmsMessage.createFromPdu((byte[]) pdus[0]);
 
-				final Bank[] source = BankManager.findByPhoneNumber(context, sms.getOriginatingAddress());
+				final Bank[] source = BankManager.findByPhoneNumber(context, sms.getOriginatingAddress().trim());
 
 				if ( source != null && source.length > 0 )
 				{
