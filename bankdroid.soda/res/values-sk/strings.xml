@@ -56,6 +56,8 @@
 	<string name="keepSMSSummary">Ak je zvolené, pôvodný SMS vedené v správach.</string>
 	<string name="notification">Oznámenie iba</string>
 	<string name="notificationSummary">Ak je zvolené, kód nie je oknách.</string>
+	<string name="autoCopy">Skopírujte kód automaticky</string>
+	<string name="autoCopySummary">Automaticky kód sa skopíruje do schránky</string>
 	<string name="resetDb">Reset banka DB</string>
 	<string name="resetDbSummary">Vyčistenie DB obsah (vlastné banky budú zmazané!)</string>
 	<string name="developerPrefs">Vývojár Predvoľby</string>

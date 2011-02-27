@@ -56,6 +56,8 @@
 	<string name="keepSMSSummary">Wenn ausgewählt ist, wird die originale SMS in aufbewahrt.</string>
 	<string name="notification">Nur Anmeldungen</string>
 	<string name="notificationSummary">Wenn ausgewählt is, wird der Muster nicht auftaucht.</string>
+	<string name="autoCopy">Kopieren Code automatisch</string>
+	<string name="autoCopySummary">Automatisch wird der Code in die Zwischenablage kopiert.</string>
 	<string name="resetDb">Bank DB Reset</string>
 	<string name="resetDbSummary">DB daten löschen (Benutzerdefinierten Banken werden löschen!)</string>
 	<string name="developerPrefs">Entwickler Einstellungen</string>

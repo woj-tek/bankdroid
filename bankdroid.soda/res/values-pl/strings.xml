@@ -57,6 +57,8 @@
 	<string name="keepSMSSummary">Oryginalne SMSy będą zatrzymana w skrzynce.</string>
 	<string name="notification">Tylko powiadomienie</string>
 	<string name="notificationSummary">Kod nie będzie wyświetlał się na ekranie.</string>
+	<string name="autoCopy">Kopiowanie do schowka</string>
+	<string name="autoCopySummary">Kod jest od razu po otrzymaniu kopiowany do schowka.</string>
 	<string name="resetDb">Resetuj beze Banków</string>
 	<string name="resetDbSummary">Czyści bazę danych (własne banki zostaną usunięte!)</string>
 	<string name="developerPrefs">Ustawienia programisty</string>
@@ -65,10 +67,6 @@
 	<string name="msgAreYouSure">Czy jesteś pewien?</string>
 	<string name="yes">Tak</string>
 	<string name="no">Nie</string>
-
-	<!-- Auto Copy Function -->
-	<string name="autoCopy">Kopiowanie do schowka</string>
-	<string name="autoCopySummary">Kod jest od razu po otrzymaniu kopiowany do schowka.</string>
 	
 	<!-- Notification -->
 	<string name="notificationTicker">Otrzymana hasło od {0}</string>

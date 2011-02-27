@@ -57,6 +57,8 @@
 	<string name="keepSMSSummary">If selected, the original SMS is kept in messages.</string>
 	<string name="notification">Notification only</string>
 	<string name="notificationSummary">If selected, the code is not popping up.</string>
+	<string name="autoCopy">Copy code automatically</string>
+	<string name="autoCopySummary">Automatically the code is copied to the clipboard</string>
 	<string name="resetDb">Reset Bank DB</string>
 	<string name="resetDbSummary">Clean up DB content (custom banks will be deleted!)</string>
 	<string name="developerPrefs">Developer Preferences</string>

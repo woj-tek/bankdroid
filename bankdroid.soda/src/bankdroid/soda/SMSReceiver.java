@@ -13,6 +13,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
+import android.text.ClipboardManager;
 import android.util.Log;
 import bankdroid.soda.bank.Bank;
 
@@ -73,8 +74,14 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 	{
 		// Restore preferences
 		final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-		final boolean notificationOnly = settings.getBoolean(PREF_NOTIFICATION, false);
-		final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, true);
+		final boolean notificationOnly = settings.getBoolean(PREF_NOTIFICATION, DEFAULT_NOTIFICATION);
+		final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, DEFAULT_KEEP_SMS);
+		final boolean autoCopy = settings.getBoolean(PREF_AUTO_COPY, DEFAULT_AUTO_COPY);
+
+		if ( autoCopy )
+		{
+			( (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE) ).setText(code);
+		}
 
 		if ( notificationOnly )
 		{

@@ -79,7 +79,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 		setContentView(R.layout.sod);
 
 		settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		final boolean unlockScreen = settings.getBoolean(PREF_UNLOCK_SCREEN, true);
+		final boolean unlockScreen = settings.getBoolean(PREF_UNLOCK_SCREEN, DEFAULT_UNLOCK_SCREEN);
 		if ( unlockScreen && Build.VERSION.SDK_INT >= 5 )
 		{
 			getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
@@ -125,7 +125,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 		}
 		isActive = true;
 
-		final boolean keepScreenOn = settings.getBoolean(PREF_KEEP_SCREEN_ON, false);
+		final boolean keepScreenOn = settings.getBoolean(PREF_KEEP_SCREEN_ON, DEFAULT_KEEP_SCREEN_ON);
 		findViewById(R.id.codeButton).setKeepScreenOn(keepScreenOn);
 	}
 
