@@ -27,6 +27,13 @@ public interface Codes
 	public static final String PREF_KEEP_SCREEN_ON = "bankdroid.soda.KeepScreenOn";
 	public static final String PREF_RESET_DB = "bankdroid.soda.ResetDb";
 	public static final String PREF_UNLOCK_SCREEN = "bankdroid.soda.UnlockScreen";
+	public static final String PREF_AUTO_COPY = "bankdroid.soda.AutoCopy";
+
+	public static final boolean DEFAULT_NOTIFICATION = false;
+	public static final boolean DEFAULT_KEEP_SMS = false;
+	public static final boolean DEFAULT_KEEP_SCREEN_ON = true;
+	public static final boolean DEFAULT_UNLOCK_SCREEN = true;
+	public static final boolean DEFAULT_AUTO_COPY = true;
 
 	public static final String TAG = "SODA";
 

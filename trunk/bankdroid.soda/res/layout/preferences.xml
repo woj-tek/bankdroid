@@ -12,13 +12,13 @@
 		
 		<CheckBoxPreference 
 			android:title="@string/keepSMS" 
-			android:defaultValue="true" 
+			android:defaultValue="false" 
 			android:summary="@string/keepSMSSummary"
 			android:key="bankdroid.soda.KeepSMS" />
 		
 		<CheckBoxPreference 
 			android:title="@string/keepScreenOn" 
-			android:defaultValue="false" 
+			android:defaultValue="true" 
 			android:summary="@string/keepScreenOnSummary"
 			android:key="bankdroid.soda.KeepScreenOn" />
 		
@@ -27,8 +27,15 @@
 			android:defaultValue="true" 
 			android:summary="@string/unlockScreenSummary"
 			android:key="bankdroid.soda.UnlockScreen" />
+		
+		<CheckBoxPreference 
+			android:title="@string/autoCopy" 
+			android:defaultValue="true" 
+			android:summary="@string/autoCopySummary"
+			android:key="bankdroid.soda.AutoCopy" />
 	
 	</PreferenceCategory>
+
 
 	<PreferenceCategory
 		android:title="@string/developerPrefs">
