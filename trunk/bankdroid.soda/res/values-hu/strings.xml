@@ -36,6 +36,7 @@
 	<string name="countdown.prefix">Hátralévő idő: </string>
 	<string name="nocode">-- nincs jelszó --</string>
 	<string name="securityWarning">Ellenőrizd a tranzakció részleteit, mielőtt felhasználod a kódot.</string>
+	<string name="visitBlog">Látogasd meg az SMS Key blogot!</string>
 	
 	<!-- SMS pick activity -->
 	<string name="smsListTitle">Kérlek válassz egy SMS mintát:</string>

@@ -37,6 +37,7 @@
 	<string name="countdown.prefix">Remaining time: </string>
 	<string name="nocode">-- no code --</string>
 	<string name="securityWarning">Verify transaction details in the message before signing the transaction.</string>
+	<string name="visitBlog">Visit the SMS Key blog!</string>
 	
 	<!-- SMS pick activity -->
 	<string name="smsListTitle">Please select an SMS containing one-time password that is already used or expired:</string>

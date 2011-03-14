@@ -220,8 +220,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 		( (TextView) findViewById(R.id.codeButton) ).setText(code == null ? getResources().getText(R.string.nocode)
 				: code);
 		( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
-				.toString()
-				+ " " + timestampText);
+				.toString() + " " + timestampText);
 		( (TextView) findViewById(R.id.messageBody) ).setText(smsMessage);
 
 		final TextView countDownView = (TextView) findViewById(R.id.countDown);

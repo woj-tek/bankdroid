@@ -36,6 +36,7 @@
 	<string name="countdown.prefix">Übriger zeit: </string>
 	<string name="nocode">-- kein Kode --</string>
 	<string name="securityWarning">Bitte prüfen Sie die Transactionsdaten vor der Transactionunterschreiben.</string>
+	<string name="visitBlog">Besuchen Sie die SMS Key Blog!</string>
 	
 	<!-- SMS pick activity -->
 	<string name="smsListTitle">Bitte wählen Sie ein SMS muster aus:</string>

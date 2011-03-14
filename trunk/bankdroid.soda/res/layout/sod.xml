@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView 
+<RelativeLayout 
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" 
+	android:background="@drawable/background3" 
+	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:background="@drawable/background3">
+	>
+<ScrollView 
+	android:layout_width="match_parent" 
+	android:layout_height="match_parent"
+	>
 	
 	<RelativeLayout 
 		android:layout_width="fill_parent"
@@ -121,7 +126,32 @@
 			android:layout_height="wrap_content"
 			android:layout_below="@id/receivedAt"
 			/>
+			
+		<View
+			android:layout_height="30sp"
+			android:layout_width="fill_parent"
+			android:layout_below="@id/countDown"
+			/>
 	
 	</RelativeLayout>
 
 </ScrollView>
+
+	
+		<TextView 
+			android:id="@+id/visitBlog" 
+
+			android:text="@string/visitBlog" 
+			android:textColor="@color/sodaBlue"
+			android:textStyle="italic"
+			android:onClick="onProductInfo"
+			android:clickable="true"
+
+			android:gravity="center"
+			android:layout_width="fill_parent" 
+			android:layout_height="30sp"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentLeft="true"
+			/>
+
+</RelativeLayout>
