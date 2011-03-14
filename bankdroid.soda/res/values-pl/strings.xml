@@ -37,6 +37,7 @@
 	<string name="countdown.prefix">Pozostały czas: </string>
 	<string name="nocode">-- brak kodu --</string>
 	<string name="securityWarning">Sprawdź szczegóły transakcji w wiadomości zanim ją potwierdzisz.</string>
+	<string name="visitBlog">Odwiedź blog SMS Key!</string>
 	
 	<!-- SMS pick activity -->
 	<string name="smsListTitle">Zaznacz SMS z kodem, który jest zużyty albo wygasł:</string>

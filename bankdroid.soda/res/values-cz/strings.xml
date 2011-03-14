@@ -36,6 +36,7 @@
 	<string name="countdown.prefix">Zbývající čas: </string>
 	<string name="nocode">- Bez kódu -</string>
 	<string name="securityWarning">Před podepsáním ověřte detaily transakce.</string>
+	<string name="visitBlog">Navštivte SMS Key blog!</string>
 	
 	<!-- SMS pick activity -->
 	<string name="smsListTitle">Prosím, vyberte vzorek SMS:</string>
