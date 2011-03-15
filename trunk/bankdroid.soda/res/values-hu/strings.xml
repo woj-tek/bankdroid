@@ -91,7 +91,6 @@
 	<string name="aboutDesc">Az SMS Key a BankDroid nyíltforráskódú project terméke, önkéntes programozók munkája.</string>
 	<string name="aboutDesc2">Amennyiben hibát észlelsz, vagy új ötleted van az alkalmazással kapcsolatban, örömmel vesszük a visszajelzéseket.</string>
 	<string name="aboutUrl2">www.bankdroid.info</string>
-	<string name="submitSampleURL">http://www.bankdroid.info/soda/user-reference#TOC-Submit-SMS-Sample</string>
 	<string name="donateURL">http://bit.ly/8ECNpl</string>
 	<string name="donateButton">Támogatás</string>
 	<string name="donateButtonDesc">Segítsd pénzzel az alkalmazás fentartását</string>
