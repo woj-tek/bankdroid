@@ -92,7 +92,6 @@
 	<string name="aboutDesc">SMS Key jest projektem open source stworzonym przez BankDroid. Jest tworzony przez programistów wolontariuszy.</string>
 	<string name="aboutDesc2">Jeśli masz problem z aplikacją, albo chciałbyś w nim zobaczyć jakąś nową funkcję, skontaktuj się z nami.</string>
 	<string name="aboutUrl2">www.bankdroid.info</string>
-	<string name="submitSampleURL">http://www.bankdroid.info/soda/user-reference#TOC-Submit-SMS-Sample</string>
 	<string name="donateURL">http://bit.ly/8LrNB9</string>
 	<string name="donateButton">Donate</string>
 	<string name="donateButtonDesc">Wspomóż nas poprzez PayPal</string>
