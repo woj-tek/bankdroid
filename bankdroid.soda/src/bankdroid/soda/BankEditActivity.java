@@ -13,8 +13,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.Toast;
 import bankdroid.soda.bank.Bank;
 import bankdroid.soda.bank.Expression;
 
@@ -105,7 +105,7 @@ public class BankEditActivity extends MenuActivity implements OnClickListener, C
 
 	private void saveFields( final int[][] fields, final String[] store )
 	{
-		final int count = store.length;
+		final int count = Math.min(fields.length, store.length);
 		for ( int i = 0; i < count; i++ )
 		{
 			store[i] = ( (EditText) findViewById(fields[i][1]) ).getText().toString().trim();
@@ -114,7 +114,7 @@ public class BankEditActivity extends MenuActivity implements OnClickListener, C
 
 	private void saveExpressions( final int[][] fields, final Expression[] store )
 	{
-		final int count = store.length;
+		final int count = Math.min(fields.length, store.length);
 		for ( int i = 0; i < count; i++ )
 		{
 			store[i].setExpression(( (EditText) findViewById(fields[i][1]) ).getText().toString().trim());
@@ -123,7 +123,7 @@ public class BankEditActivity extends MenuActivity implements OnClickListener, C
 
 	private void showLines( final int topId, final int[][] fields, final Object[] values )
 	{
-		int row = values.length;
+		int row = Math.min(fields.length, values.length);
 		//set values
 		for ( int i = 0; i < row; i++ )
 		{
