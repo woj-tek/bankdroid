@@ -23,8 +23,16 @@ public class Main
 		{
 			if ( lang.equals(ProjectExplorer.DEFAULT_LANGUAGE) )
 				continue;
-			final Strings other = new Strings(pe.getFile(Strings.FILE_TYPE, lang));
-			other.writeToFile(defaultStrings);
+			try
+			{
+				final Strings other = new Strings(pe.getFile(Strings.FILE_TYPE, lang));
+				other.writeToFile(defaultStrings);
+			}
+			catch ( final Exception e )
+			{
+				System.out.println("Skipping language " + lang + " due critical error.");
+				e.printStackTrace();
+			}
 		}
 	}
 }

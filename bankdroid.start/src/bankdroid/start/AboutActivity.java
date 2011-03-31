@@ -24,7 +24,8 @@ import com.admob.android.ads.AdManager;
 /**
  * @author Gabe
  * 
- *  TODO BHA: details for term deposits are not correct.
+ *  FIXME login button on the logout page doesn't work properly
+ *  
  *  TODO OTP: localized error messages, customer profile
  *
  *  TODO PIN based security store

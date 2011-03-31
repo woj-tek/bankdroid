@@ -70,7 +70,7 @@ public class ProjectExplorer
 			throw new IllegalArgumentException("Invalid language: " + language);
 		final File result = new File(dir, type + ".xml");
 		if ( result == null || !result.exists() || !result.isFile() )
-			throw new IllegalArgumentException("Missing or invalid file type: " + type);
+			throw new IllegalArgumentException("Missing or invalid file type: " + type + " language: " + language);
 
 		return result;
 	}
