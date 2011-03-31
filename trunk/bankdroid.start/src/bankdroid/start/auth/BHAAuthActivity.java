@@ -151,7 +151,7 @@ public class BHAAuthActivity extends ServiceActivity implements OnClickListener,
 		if ( authType == BHALoginService.AUTH_TYPE_TOKEN )
 		{
 			passwordField.setFilters(new InputFilter[] { new InputFilter.LengthFilter(BHALoginService.TOKEN_LENGTH) });
-			passwordField.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+			passwordField.setInputType(InputType.TYPE_CLASS_PHONE | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 			rememberPassword.setChecked(false);
 			rememberPassword.setEnabled(false);
 		}
