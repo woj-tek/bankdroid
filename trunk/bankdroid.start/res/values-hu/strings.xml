@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
+<?xml version="1.0" encoding="utf-8" standalone="no"?><resources>
     <string name="app_name">BankDroid START</string>
 	<string name="copyright">START, BankDroid, 2010 (c)</string>
 
     <string name="progressText">Kérjem várjon, amíg a kiszolgáló válaszol...</string>
-    <string name="errNoConnector">Nincs banki kiegészítő telepítve (és a Minta bank is ki van kapcsolva).</string>
     <string name="errSystemError">Rendszer hiba.</string>
+    <string name="errNoConnector">Nincs banki kiegészítő telepítve (és a Minta bank is ki van kapcsolva).</string>
     <string name="warnActiveSession">Egy banki kapcsolatod aktív.</string>
     <string name="warnSessionTimeouted">A banki kapcsolatod automatikusan megszakadt.</string>
     <string name="warnSessionTimeout">A banki kapcsolatod {0} másodperc múlva megszakad.</string>
@@ -19,12 +18,24 @@
     <string name="loginButton">Belépés</string>
     <string name="msgUseMenu">További opciókért nyomd meg a menü gombot.</string>
 
+	<!--FIXME  AuthPages -->
+    <string name="newUser">Új felhasználó...</string>
+    <string name="bankSelected">Bank:</string>
+    <string name="rememberUser">Felhasználó tárolása</string>
+    <string name="rememberPassword">Jelszó tárolása</string>
+    <string name="deleteUser">Felhasználó törlése</string>
+
 	<!-- MainActivity -->
     <string name="accountButton">Számlák</string>
     <string name="quickHistoryButton">Gyors történet</string>
     <string name="profileButton">Adataim</string>
+    <string name="customerProfileButton">Felhasználói adatok</string>
     <string name="logoutButton">Kilépés</string>
     <string name="searchTransactionButton">Tranzakciók</string>
+
+	<!-- Logout -->
+    <string name="thankYou">Köszönöm, hogy használtad BankDroid START-ot!</string>
+    <string name="closeButton">Bezár</string>
 
 	<!-- main menu -->
     <string name="menuPref">Beállítások</string>
@@ -36,8 +47,6 @@
     <string name="loginPrefs">Belépéssel kapcsolatos beállítások</string>
     <string name="saveLastLogin">Azonosító megjegyzése</string>
     <string name="saveLastLoginSummary">Utoljára használt felhasználó azonosító megjegyzése.</string>
-    <string name="savePassword">Jelszó megjegyzése</string>
-    <string name="savePasswordSummary">Jelszó megjegyzése. Biztonsági kockázatot jelenthet.</string>
     <string name="sessionTimeout">Kapcsolat lejárat</string>
     <string name="sessionTimeoutSummary">Automatikus kapcsolat lejárat inaktivitás esetén</string>
 
@@ -49,28 +58,40 @@
     <string name="accountListTitle">Számlalista</string>
     <string name="msgUseContextMenu">További opciókért hosszan nyomd a számlaelemet.</string>
     <string name="quickHistory">Gyors történet</string>
+    <string name="shareDetails">Részletek megosztása</string>
+    <string name="viewDetails">Részletek megtekintése</string>
     <string name="availableBalance">Szabad egyenleg:</string>
     <string name="bookedBalance">Könyvelt egyenleg:</string>
     <string name="accountName">Számlanév:</string>
     <string name="accountNumber">Számlaszám:</string>
     <string name="accountType">Számla típus:</string>
     <string name="accountIBAN">IBAN:</string>
+    <string name="shareChooseApplication">Válassz alkalmazást:</string>
+    <string name="shareAccountSubject">Megosztott számla - {0}</string>
+    <string name="shareAccountBodyTop"><![CDATA[Számla részletei:]]></string>
+    <string name="shareAccountBodyBottom"><![CDATA[-- adatok megosztva BankDroid START-tal (http://start.bankdroid.info)]]></string>
 
 	<!-- Property Details -->
     <string name="tranDetailTitle">Tranzakció részletek</string>
     <string name="accountDetailTitle">Számlarészletek</string>
+    <string name="customerDetailTitle">Felhasználói részletek</string>
+    <string name="customerId">Felhasználó azonosító:</string>
+    <string name="customerName">Felhasználó név:</string>
 
 	<!-- TransactionList -->
     <string name="tranListTitle">Tranzakciók listája</string>
     <string name="tranListSummary">A {0} számlához tartozó tranzakciók a {1}-tól {2}-ig tartó időszakból.</string>
     <string name="all">bármelyik</string>
     <string name="variousCurrencies">[ különböző pénznemek ]</string>
-    <string name="totals"><![CDATA[<b>Összesen:</b> <font color="{3}">{0}</font> - <font color="{4}">{1}</font> = <font color="{5}">{2}</font>]]></string>
+    <string name="totals">&lt;b&gt;Összesen:&lt;/b&gt; &lt;font color="{3}"&gt;{0}&lt;/font&gt; - &lt;font color="{4}"&gt;{1}&lt;/font&gt; = &lt;font color="{5}"&gt;{2}&lt;/font&gt;</string>
     <string name="warnNoTransaction">Nincs tranzakció.</string>
     <string name="transactionDate">Értéknap:</string>
     <string name="transactionDescription">Megjegyzés:</string>
     <string name="transactionAmount">Összeg:</string>
     <string name="transactionBalance">Egyenleg:</string>
+    <string name="shareTransactionSubject">Megosztott tranzakció</string>
+    <string name="shareTransactionBodyTop"><![CDATA[Tranzakció részletek:]]></string>
+    <string name="shareTransactionBodyBottom"><![CDATA[-- megosztva BankDroid START-tal (http://start.bankdroid.info)]]></string>
 
 	<!-- SearchTransaction -->
     <string name="searchTranTitle">Tranzakciók keresése</string>
