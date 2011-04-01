@@ -13,8 +13,8 @@ import android.text.method.MovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import bankdroid.util.TrackedActivity;
@@ -69,7 +69,7 @@ public class AboutActivity extends TrackedActivity implements OnClickListener, C
 			final PackageManager manager = getPackageManager();
 			final PackageInfo info = manager.getPackageInfo(getPackageName(), 0);
 			final String versionName = info.versionName;
-			( (TextView) findViewById(R.id.version) ).setText(versionName);
+			( (TextView) findViewById(R.id.versionId) ).setText(versionName);
 		}
 		catch ( final NameNotFoundException e )
 		{

@@ -19,7 +19,7 @@
     <string name="loginButton">Login</string>
     <string name="msgUseMenu">See menu for more options.</string>
 
-	<!--FIXME  AuthPages -->
+	<!-- AuthPages -->
     <string name="newUser">New user...</string>
     <string name="bankSelected">Bank:</string>
     <string name="rememberUser">Remember users</string>
@@ -27,6 +27,8 @@
     <string name="deleteUser">Delete User</string>
 
 	<!-- MainActivity -->
+    <string name="msgWelcome">Welcome %s!</string>
+    <string name="msgWelcomeDesc">You have logged in to %s! Choose one of the following options:</string>
     <string name="accountButton">Accounts</string>
     <string name="quickHistoryButton">Quick History</string>
     <string name="profileButton">Profile</string>
@@ -40,7 +42,7 @@
 
 	<!-- main menu -->
     <string name="menuPref">Settings</string>
-    <string name="menuAbout">Contact</string>
+    <string name="menuAbout">About</string>
     <string name="menuHome">Home</string>
     <string name="menuLogout">Logout</string>
 
@@ -107,7 +109,7 @@
 	<string name="aboutDesc2">If you experience any problem with the application, or you would like to see some new features, feel free to contact us.</string>
 	<string name="aboutUrl2">http://start.bankdroid.info</string>
 	<string name="donateURL">http://bit.ly/8LrNB9</string>
-	<string name="btnInfoSite">Info Site</string>
+	<string name="btnInfoSite">Blog</string>
 	<string name="donateButton"> Donate</string>
 	
 	<!-- EULA -->

@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="bankdroid.start"
-	android:versionCode="15" android:versionName="2.0a3">
+	android:versionCode="15" android:versionName="2.0a3" android:installLocation="preferExternal">
 	<application android:icon="@drawable/bankdroid_icon" android:label="@string/app_name">
-		<activity android:name=".MainActivity" android:label="@string/app_name" android:launchMode="singleTask">
+		<activity android:name=".MainActivity" android:label="@string/app_name" android:launchMode="singleTask" android:theme="@android:style/Theme.NoTitleBar">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 <!--		<activity android:name=".StartActivity"/>-->
-		<activity android:name=".auth.AuthStartActivity"/>
-		<activity android:name=".auth.AuthBankSelectActivity"/>
-		<activity android:name=".auth.BHAAuthActivity"/>
-		<activity android:name=".auth.OTPAuthActivity"/>
-		<activity android:name=".auth.DummyAuthActivity"/>
+		<activity android:name=".auth.AuthStartActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+		<activity android:name=".auth.AuthBankSelectActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+		<activity android:name=".auth.BHAAuthActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+		<activity android:name=".auth.OTPAuthActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+		<activity android:name=".auth.DummyAuthActivity" android:theme="@android:style/Theme.NoTitleBar"/>
 		
-		<activity android:name=".AccountListActivity" />
-		<activity android:name=".TransactionListActivity" />
-		<activity android:name=".PropertyViewActivity" />
-		<activity android:name=".SearchTransactionActivity" />
+		<activity android:name=".AccountListActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+		<activity android:name=".TransactionListActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+		<activity android:name=".PropertyViewActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+		<activity android:name=".SearchTransactionActivity" android:theme="@android:style/Theme.NoTitleBar"/>
 
 		<activity android:name=".Preferences" />
-		<activity android:name=".AboutActivity" />
-		<activity android:name=".LogoutActivity" />
+		<activity android:name=".AboutActivity" android:theme="@android:style/Theme.NoTitleBar"/>
+		<activity android:name=".LogoutActivity" android:theme="@android:style/Theme.NoTitleBar"/>
 		
 		<!-- The application's publisher ID assigned by AdMob -->
 		<meta-data android:value="a14c76c40678806" android:name="ADMOB_PUBLISHER_ID" />

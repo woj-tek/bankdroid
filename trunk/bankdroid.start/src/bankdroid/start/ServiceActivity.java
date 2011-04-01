@@ -3,6 +3,7 @@ package bankdroid.start;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -149,7 +150,7 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 	{
 		if ( item.getItemId() == R.id.menuPreferences )
 		{
-			startActivity(new Intent(getBaseContext(), Preferences.class));
+			onPreferences(null);
 		}
 		else if ( item.getItemId() == R.id.menuHome )
 		{
@@ -161,7 +162,7 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 		}
 		else if ( item.getItemId() == R.id.menuAbout )
 		{
-			startActivity(new Intent(getBaseContext(), AboutActivity.class));
+			onAbout(null);
 		}
 		return true;
 	}
@@ -189,4 +190,28 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 			finish();
 		}
 	}
+
+	public void onOnlineHelp( final View v )
+	{
+		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(BLOG_HOME));
+		startActivity(viewIntent);
+	}
+
+	public void onPreferences( final View v )
+	{
+		final Intent settingsActivity = new Intent(getBaseContext(), Preferences.class);
+		startActivity(settingsActivity);
+	}
+
+	public void onAbout( final View v )
+	{
+		final Intent aboutIntent = new Intent(getBaseContext(), AboutActivity.class);
+		startActivity(aboutIntent);
+	}
+
+	public void onMenu( final View v )
+	{
+		openOptionsMenu();
+	}
+
 }
