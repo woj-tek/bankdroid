@@ -8,6 +8,7 @@ public interface Codes
 	public static final String GMAIL_URL = "mailto:info@bankdroid.info";
 	public static final String FACEBOOK_URL = "http://www.facebook.com/pages/BankDroid/124814474207047?ref=ts";
 	public static final String URL_PROJECT_HOME = "http://bit.ly/4Ys9pQ";
+	public static final String BLOG_HOME = "http://bit.ly/gvZ9dM";
 
 	final static int SERVICE_PROCESS = 1;
 	final static int SERVICE_FAILED = 2;

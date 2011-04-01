@@ -100,8 +100,8 @@ public class SessionManager implements ServiceListener, Codes
 			final PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
 					PendingIntent.FLAG_UPDATE_CURRENT);
 
-			notification.setLatestEventInfo(context, context.getString(R.string.app_name), context
-					.getString(R.string.warnActiveSession), contentIntent);
+			notification.setLatestEventInfo(context, context.getString(R.string.app_name),
+					context.getString(R.string.warnActiveSession), contentIntent);
 			notification.flags |= Notification.FLAG_ONGOING_EVENT;
 
 			//display notification
@@ -240,8 +240,8 @@ public class SessionManager implements ServiceListener, Codes
 		final PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 
-		notification.setLatestEventInfo(context, context.getString(R.string.app_name), context
-				.getString(R.string.warnSessionTimeouted), contentIntent);
+		notification.setLatestEventInfo(context, context.getString(R.string.app_name),
+				context.getString(R.string.warnSessionTimeouted), contentIntent);
 		notification.flags |= Notification.FLAG_AUTO_CANCEL;
 
 		nm.notify(NOTIFICATION_SESSION_TIMEOUT_EXPIRED, notification);
@@ -252,6 +252,15 @@ public class SessionManager implements ServiceListener, Codes
 		try
 		{
 			final Session session = getSession();
+
+			if ( session == null )
+			{
+				if ( caller != null )
+				{
+					caller.onServiceFinished(null);
+					return;
+				}
+			}
 
 			final LogoutService logout = BankServiceFactory.getBankService(session.getBank(), LogoutService.class);
 

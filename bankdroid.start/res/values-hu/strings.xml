@@ -18,7 +18,7 @@
     <string name="loginButton">Belépés</string>
     <string name="msgUseMenu">További opciókért nyomd meg a menü gombot.</string>
 
-	<!--FIXME  AuthPages -->
+	<!-- AuthPages -->
     <string name="newUser">Új felhasználó...</string>
     <string name="bankSelected">Bank:</string>
     <string name="rememberUser">Felhasználó tárolása</string>
@@ -26,6 +26,8 @@
     <string name="deleteUser">Felhasználó törlése</string>
 
 	<!-- MainActivity -->
+    <string name="msgWelcome">Hello %s!</string>
+    <string name="msgWelcomeDesc">A(z) %s-ba léptél be! A következő lehetőségek közül választhatsz:</string>
     <string name="accountButton">Számlák</string>
     <string name="quickHistoryButton">Gyors történet</string>
     <string name="profileButton">Adataim</string>
@@ -39,7 +41,7 @@
 
 	<!-- main menu -->
     <string name="menuPref">Beállítások</string>
-    <string name="menuAbout">Kapcsolat</string>
+    <string name="menuAbout">Névjegy</string>
     <string name="menuHome">Nyitóképernyő</string>
     <string name="menuLogout">Kilépés</string>
 
@@ -106,7 +108,7 @@
 	<string name="aboutDesc2">Ha bármilyen problémát tapasztalsz, vagy csak valami új funkciót szeretnél látni az alkalmazásban, nyugodtan írj a fejlesztőknek a fenti csatornákon.</string>
 	<string name="aboutUrl2">http://start.bankdroid.info</string>
 	<string name="donateURL">http://bit.ly/7rWCGK</string>
-	<string name="btnInfoSite">Weboldal</string>
+	<string name="btnInfoSite">Blog</string>
 	<string name="donateButton"> Támogass!</string>
 	
 	<!-- EULA -->

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView  
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res/bankdroid.start"
+
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	style="@style/background"
@@ -13,26 +16,80 @@
     style="@style/background"
     >
 
-    <TextView
-    	android:id="@+id/customerName"
-    	android:text="John Local"
-    	
-    	style="@style/pageTitle"
-    	/>
-    
-    <ImageView
-    	android:id="@+id/bankLogo"
-    	android:src="@drawable/icon"
-    	android:padding="1sp"
-    	android:scaleType="centerInside"
-    	
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	
-    	android:layout_alignParentLeft="true"
-    	android:layout_alignParentTop="true"
-    	android:layout_alignBottom="@id/customerName"
-    	/>
+
+	<include
+		android:id="@+id/titleView"
+		layout="@layout/titlebar"
+		/>
+
+	<RelativeLayout
+		android:id="@+id/pageHeader"
+		
+		android:background="#FFF"
+		
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/titleView"
+		>
+	
+	    <ImageView
+	    	android:id="@+id/bankLogo"
+	    	
+	    	android:src="@drawable/icon"
+	    	android:scaleType="centerInside"
+	    	
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	
+	    	android:layout_alignParentLeft="true"
+	    	android:layout_alignParentTop="true"
+	    	android:layout_marginTop="15sp"
+	    	android:layout_marginLeft="5sp"
+	    	android:layout_marginRight="5sp"
+	    	/>
+	    	
+<!-- FIXME I18N, use style -->
+		<TextView 
+			android:id="@+id/welcome" 
+
+			android:text="@string/msgWelcome" 
+			android:textSize="16sp"
+			android:textColor="#000000" 
+			android:paddingTop="15sp"
+			android:paddingBottom="5sp"
+			android:paddingRight="5sp"
+			android:paddingLeft="5sp"
+			
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:layout_alignParentTop="true"
+			android:layout_toRightOf="@id/bankLogo"
+			/>
+			
+		<TextView 
+			android:id="@+id/description"
+			 
+			android:text="@string/msgWelcomeDesc" 
+			android:textSize="12sp"
+			android:textColor="@color/textDark" 
+			android:padding="5sp"
+			
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@id/bankLogo"
+			android:layout_below="@id/welcome"
+			/>
+				
+	</RelativeLayout>
+ 	
+ 	<View
+		android:id="@+id/headerBottom"
+		android:background="@drawable/page_header"
+		
+		android:layout_below="@id/pageHeader"
+		android:layout_width="fill_parent"
+		android:layout_height="8sp"
+		/>
     
 	<Button
 		android:id="@+id/accountButton"
@@ -43,7 +100,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		
-		android:layout_below="@id/customerName"
+		android:layout_below="@id/headerBottom"
 		/>
     
 	<Button
@@ -94,6 +151,20 @@
 		android:layout_below="@id/customerProfileButton"
 		/>
 	    
+
+	<com.admob.android.ads.AdView  
+		android:id="@+id/ad"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/logoutButton"
+		android:layout_marginTop="20sp"
+		
+		app:backgroundColor="@color/secondaryLight"
+		app:primaryTextColor="@color/textDark"
+		app:secondaryTextColor="@color/text"
+		
+		app:keywords="bank cib otp számla pénz account money bank game play játék"
+		/>
 	    
 </RelativeLayout>
 </ScrollView>
