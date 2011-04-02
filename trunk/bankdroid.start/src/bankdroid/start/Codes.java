@@ -33,8 +33,10 @@ public interface Codes
 	final static String DEFAULT_SESSION_TIMEOUT = "3";
 
 	//OTHERS
-	final static int LOGIN = 0xbaba;
-	final static int LOGOUT = 0xcaba;
+	final static int REQUEST_LOGIN = 0xbaba;
+	final static int REQUEST_OTHER = 0xbab;
+	final static int RESULT_KILL = 0xbebe;
+
 	final static String DUMMY_BANK_ID = "DUMMY";
 	final static int NOTIFICATION_ACTIVE_SESSION = 122112;
 	final static int NOTIFICATION_SESSION_TIMEOUT = 122113;

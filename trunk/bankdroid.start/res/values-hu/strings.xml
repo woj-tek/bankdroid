@@ -35,10 +35,6 @@
     <string name="logoutButton">Kilépés</string>
     <string name="searchTransactionButton">Tranzakciók</string>
 
-	<!-- Logout -->
-    <string name="thankYou">Köszönöm, hogy használtad BankDroid START-ot!</string>
-    <string name="closeButton">Bezár</string>
-
 	<!-- main menu -->
     <string name="menuPref">Beállítások</string>
     <string name="menuAbout">Névjegy</string>
