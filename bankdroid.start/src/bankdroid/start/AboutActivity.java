@@ -22,8 +22,6 @@ import bankdroid.util.TrackedActivity;
 /**
  * @author Gabe
  * 
- *  FIXME login button on the logout page doesn't work properly
- *  
  *  TODO OTP: localized error messages, customer profile
  *
  *  TODO PIN based security store
@@ -31,8 +29,6 @@ import bankdroid.util.TrackedActivity;
  *
  *  TODO toolbars instead of / besides menu
  *  TODO use CSABA icons - get legal icons.
- *  TODO backgroud for bank icons
- *  TODO apply professional color scheme
  *
  *	XXX set language option in preferences
  *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
