@@ -2,7 +2,6 @@
 
 <ScrollView  
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res/bankdroid.start"
 
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
@@ -149,21 +148,6 @@
 		android:layout_height="wrap_content"
 		
 		android:layout_below="@id/customerProfileButton"
-		/>
-	    
-
-	<com.admob.android.ads.AdView  
-		android:id="@+id/ad"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:layout_below="@id/logoutButton"
-		android:layout_marginTop="20sp"
-		
-		app:backgroundColor="@color/secondaryLight"
-		app:primaryTextColor="@color/textDark"
-		app:secondaryTextColor="@color/text"
-		
-		app:keywords="bank cib otp számla pénz account money bank game play játék"
 		/>
 	    
 </RelativeLayout>

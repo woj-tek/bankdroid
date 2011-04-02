@@ -19,8 +19,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import bankdroid.util.TrackedActivity;
 
-import com.admob.android.ads.AdManager;
-
 /**
  * @author Gabe
  * 
@@ -75,10 +73,6 @@ public class AboutActivity extends TrackedActivity implements OnClickListener, C
 		{
 			Log.e(TAG, "Error getting package name.", e);
 		}
-
-		AdManager.setTestDevices(//
-				new String[] { AdManager.TEST_EMULATOR, // Android emulator
-				});
 	}
 
 	protected void initEventHandlers()

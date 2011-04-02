@@ -6,20 +6,17 @@
   	style="@style/background"
   	>
 
- 	<TextView
-		android:id="@+id/title"
-		android:text="@string/tranDetailTitle"
-		
-		style="@style/pageTitle"
+	<include
+		android:id="@+id/titleView"
+		layout="@layout/titlebar"
 		/>
-  	
  	 	
 	<ListView
 		android:id="@+id/propertyList"
 
 		style="@style/listBox"
 			  	
-	  	android:layout_below="@id/title"
+	  	android:layout_below="@id/titleView"
 	  	/>
 
 

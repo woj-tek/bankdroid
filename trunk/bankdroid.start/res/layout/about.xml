@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+	
 <ScrollView 
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res/bankdroid.start"
 	android:layout_width="fill_parent" 
 	android:layout_height="fill_parent"
 	style="@style/background"
@@ -197,15 +197,8 @@
 			
 		</LinearLayout>
 	
-		<com.admob.android.ads.AdView  
-			android:id="@+id/ad"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			app:backgroundColor="@color/secondaryDark"
-			app:primaryTextColor="@color/textLight"
-			app:secondaryTextColor="@color/text"
-			app:keywords="bank cib otp számla pénz account money"
-			/>
 	</LinearLayout>
 
 </ScrollView>
+
+

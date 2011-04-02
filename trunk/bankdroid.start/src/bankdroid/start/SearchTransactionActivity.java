@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -36,9 +35,8 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 	{
 		super.onCreate(savedInstanceState);
 
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		setContentView(R.layout.searchtransaction);
+		GUIUtil.setTitle(this, R.string.searchTranTitle);
 
 		//add click listeners
 		findViewById(R.id.accountSelect).setOnClickListener(this);
@@ -82,8 +80,8 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 
 			final DatePickerDialog datePicker = (DatePickerDialog) dialog;
 
-			datePicker.updateDate(dateValue.get(Calendar.YEAR), dateValue.get(Calendar.MONTH), dateValue
-					.get(Calendar.DAY_OF_MONTH));
+			datePicker.updateDate(dateValue.get(Calendar.YEAR), dateValue.get(Calendar.MONTH),
+					dateValue.get(Calendar.DAY_OF_MONTH));
 		}
 
 		super.onPrepareDialog(id, dialog);
@@ -105,6 +103,7 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 			builder.setTitle(getString(R.string.datePicker));
 			builder.setItems(accountNames, new DialogInterface.OnClickListener()
 			{
+				@Override
 				public void onClick( final DialogInterface dialog, final int item )
 				{
 					filter.setAccount(item == 0 ? null : accounts[item - 1]);

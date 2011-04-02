@@ -1,7 +1,9 @@
 package bankdroid.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 import bankdroid.start.Codes;
 import bankdroid.start.R;
@@ -17,6 +19,18 @@ public class GUIUtil implements Codes
 	public final static String HTML_NEGATIVE_COLOR = "#FF0000";
 	public final static String HTML_POSITIVE_COLOR = "#00FF00";
 	public final static String HTML_ZERO_COLOR = "#000000";
+
+	public static void setTitle( final Activity activity, final int titleId )
+	{
+		final TextView view = (TextView) activity.findViewById(R.id.titleView);
+		view.setText(titleId);
+	}
+
+	public static void setTitle( final Activity activity, final String title )
+	{
+		final TextView view = (TextView) activity.findViewById(R.id.titleView);
+		view.setText(title);
+	}
 
 	public static int getColor( final Context context, final double value )
 	{
@@ -60,4 +74,5 @@ public class GUIUtil implements Codes
 		Log.e(TAG, "Fatal error occured.", e);
 
 	}
+
 }

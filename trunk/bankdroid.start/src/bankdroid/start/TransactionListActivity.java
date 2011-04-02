@@ -10,16 +10,15 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.TextView;
 import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
@@ -48,9 +47,8 @@ public class TransactionListActivity extends ServiceActivity implements OnItemCl
 	{
 		super.onCreate(savedInstanceState);
 
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		setContentView(R.layout.tranlist);
+		GUIUtil.setTitle(this, R.string.tranListTitle);
 
 		adapter = new TransactionAdapter();
 		final ListView list = (ListView) findViewById(R.id.transactionList);
@@ -154,8 +152,8 @@ public class TransactionListActivity extends ServiceActivity implements OnItemCl
 					final String debitString = format.format(Math.abs(debit.getAmount()));
 
 					final String totalText = MessageFormat.format(getString(R.string.totals), creditString,
-							debitString, total, GUIUtil.getHtmlColor(credit.getAmount()), GUIUtil.getHtmlColor(debit
-									.getAmount()), GUIUtil.getHtmlColor(total.getAmount()));
+							debitString, total, GUIUtil.getHtmlColor(credit.getAmount()),
+							GUIUtil.getHtmlColor(debit.getAmount()), GUIUtil.getHtmlColor(total.getAmount()));
 
 					( (TextView) findViewById(R.id.totals) ).setText(Html.fromHtml(totalText));
 				}

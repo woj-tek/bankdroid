@@ -14,12 +14,11 @@
 	style="@style/background"
 	>
 	
- 	<TextView
-		android:id="@+id/title"
-		android:text="@string/accountListTitle"
-
-		style="@style/pageTitle"
+	<include
+		android:id="@+id/titleView"
+		layout="@layout/titlebar"
 		/>
+
 		
 	<RelativeLayout
 		android:id="@+id/formBlock"
@@ -29,7 +28,7 @@
 		android:padding="10sp"
 		android:layout_margin="5sp"
 		
-		android:layout_below="@id/title"
+		android:layout_below="@id/titleView"
 		>
 
 	 	<TextView  

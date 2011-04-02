@@ -6,15 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
@@ -29,9 +28,8 @@ public class AccountListActivity extends ServiceActivity implements OnItemClickL
 	{
 		super.onCreate(savedInstanceState);
 
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		setContentView(R.layout.accountlist);
+		GUIUtil.setTitle(this, R.string.accountListTitle);
 
 		final ListView list = (ListView) findViewById(R.id.accountList);
 		registerForContextMenu(list);
@@ -120,8 +118,8 @@ public class AccountListActivity extends ServiceActivity implements OnItemClickL
 		trackClickEvent(ACTION_SEND, "shareAccountDetails");
 
 		final Intent send = new Intent(Intent.ACTION_SEND);
-		send.putExtra(Intent.EXTRA_SUBJECT, MessageFormat.format(getString(R.string.shareAccountSubject), GUIUtil
-				.getAccountName(account)));
+		send.putExtra(Intent.EXTRA_SUBJECT,
+				MessageFormat.format(getString(R.string.shareAccountSubject), GUIUtil.getAccountName(account)));
 
 		final Property[] properties = PropertyHelper.getProperties(this, account);
 		final StringBuilder body = new StringBuilder(getString(R.string.shareAccountBodyTop));
