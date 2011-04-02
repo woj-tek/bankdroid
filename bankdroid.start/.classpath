@@ -9,7 +9,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/com.csaba.util"/>
 	<classpathentry kind="lib" path="/com.csaba.connector.bha/lib/external.jar"/>
 	<classpathentry kind="lib" path="libs/libGoogleAnalytics.jar"/>
-	<classpathentry kind="lib" path="libs/admob-sdk-android.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.csaba.connector.dummy"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.csaba.connector.otp"/>
 	<classpathentry kind="lib" path="/com.csaba.connector.web.util/lib/apache-mime4j-0.6.jar"/>

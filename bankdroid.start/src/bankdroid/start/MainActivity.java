@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import bankdroid.start.plugin.PluginManager;
 
-import com.admob.android.ads.AdManager;
 import com.csaba.connector.model.Session;
 
 /**
@@ -35,10 +34,6 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 		( (Button) findViewById(R.id.quickHistoryButton) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.customerProfileButton) ).setOnClickListener(this);
 		( (Button) findViewById(R.id.searchTransactionButton) ).setOnClickListener(this);
-
-		AdManager.setTestDevices(//
-				new String[] { AdManager.TEST_EMULATOR, // Android emulator
-				});
 
 	}
 

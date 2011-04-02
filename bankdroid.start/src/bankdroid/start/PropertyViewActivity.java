@@ -2,9 +2,8 @@ package bankdroid.start;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
 import android.widget.ListView;
-import android.widget.TextView;
+import bankdroid.util.GUIUtil;
 
 public class PropertyViewActivity extends ServiceActivity
 {
@@ -13,8 +12,6 @@ public class PropertyViewActivity extends ServiceActivity
 	protected void onCreate( final Bundle savedInstanceState )
 	{
 		super.onCreate(savedInstanceState);
-
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		setContentView(R.layout.propertyview);
 	}
@@ -31,7 +28,7 @@ public class PropertyViewActivity extends ServiceActivity
 		if ( intent != null )
 		{
 			final String title = intent.getStringExtra(EXTRA_ACTIVITY_TITLE);
-			( (TextView) findViewById(R.id.title) ).setText(title);
+			GUIUtil.setTitle(this, title);
 
 			final Property[] properties = PropertyHelper.convertArray((Object[]) intent
 					.getSerializableExtra(EXTRA_PROPERTIES));
