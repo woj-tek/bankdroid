@@ -12,7 +12,7 @@ public class Main
 	public static void main( final String[] args ) throws Exception
 	{
 		//FIXME read parameters from args
-		final String projectLocation = "../bankdroid.soda";
+		final String projectLocation = "../bankdroid.start";
 
 		final ProjectExplorer pe = new ProjectExplorer(projectLocation);
 
