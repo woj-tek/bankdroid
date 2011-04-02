@@ -46,17 +46,17 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 		}
 		else if ( v.getId() == R.id.accountButton )
 		{
-			startActivity(new Intent(getApplicationContext(), AccountListActivity.class));
+			startActivityForResult(new Intent(getApplicationContext(), AccountListActivity.class), REQUEST_OTHER);
 		}
 		else if ( v.getId() == R.id.searchTransactionButton )
 		{
-			startActivity(new Intent(getApplicationContext(), SearchTransactionActivity.class));
+			startActivityForResult(new Intent(getApplicationContext(), SearchTransactionActivity.class), REQUEST_OTHER);
 		}
 		else if ( v.getId() == R.id.quickHistoryButton )
 		{
 			final Intent tranList = new Intent(getApplicationContext(), TransactionListActivity.class);
 			tranList.putExtra(EXTRA_TRANSACTION_FILTER, TransactionFilter.getDefaultFilter());
-			startActivity(tranList);
+			startActivityForResult(tranList, REQUEST_OTHER);
 		}
 		else if ( v.getId() == R.id.customerProfileButton )
 		{
@@ -66,7 +66,7 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 			intent.putExtra(EXTRA_PROPERTIES,
 					PropertyHelper.getProperties(this, SessionManager.getInstance().getSession().getCustomer()));
 			intent.putExtra(EXTRA_ACTIVITY_TITLE, getString(R.string.customerDetailTitle));
-			startActivity(intent);
+			startActivityForResult(intent, REQUEST_OTHER);
 		}
 	}
 

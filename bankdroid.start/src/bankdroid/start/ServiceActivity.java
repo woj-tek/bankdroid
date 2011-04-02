@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -81,7 +82,8 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 	{
 		if ( service instanceof LogoutService )
 		{
-			startActivityForResult(new Intent(this, LogoutActivity.class), LOGOUT);
+			setResult(RESULT_KILL);
+			finish();
 		}
 	}
 
@@ -110,7 +112,8 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 
 		if ( sessionOriented && !SessionManager.getInstance().isLoggedIn() )
 		{
-			startActivityForResult(new Intent(getBaseContext(), AuthStartActivity.class), LOGIN);
+			Log.d(TAG, "Starting login service.");
+			startActivityForResult(new Intent(getBaseContext(), AuthStartActivity.class), REQUEST_LOGIN);
 		}
 	}
 
@@ -181,12 +184,13 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 	protected void onActivityResult( final int requestCode, final int resultCode, final Intent data )
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-		if ( requestCode == LOGIN && resultCode == RESULT_CANCELED )
+		if ( requestCode == REQUEST_LOGIN && resultCode == RESULT_CANCELED )
 		{
 			finish();
 		}
-		else if ( requestCode == LOGOUT )
+		else if ( resultCode == RESULT_KILL )
 		{
+			setResult(RESULT_KILL);
 			finish();
 		}
 	}

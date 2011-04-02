@@ -248,6 +248,6 @@ public class TransactionListActivity extends ServiceActivity implements OnItemCl
 
 		intent.putExtra(EXTRA_PROPERTIES, PropertyHelper.getProperties(this, item));
 		intent.putExtra(EXTRA_ACTIVITY_TITLE, getString(R.string.tranDetailTitle));
-		startActivity(intent);
+		startActivityForResult(intent, REQUEST_OTHER);
 	}
 }

@@ -213,10 +213,12 @@ public class SessionManager implements ServiceListener, Codes
 		{
 			//dispatch analytics stats here
 			final Session session = getSession();
-
-			final LogoutService logout = BankServiceFactory.getBankService(session.getBank(), LogoutService.class);
-			logout.execute(session);
-			Log.d(TAG, "Silent logout was succsfull: " + logout.getClass().getName());
+			if ( session != null )
+			{
+				final LogoutService logout = BankServiceFactory.getBankService(session.getBank(), LogoutService.class);
+				logout.execute(session);
+				Log.d(TAG, "Silent logout was succsfull: " + logout.getClass().getName());
+			}
 		}
 		catch ( final Exception e )
 		{

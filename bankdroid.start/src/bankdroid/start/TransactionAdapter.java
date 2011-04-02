@@ -81,8 +81,8 @@ public class TransactionAdapter extends BaseAdapter
 		amount.setText(item.getAmount().toString());
 		amount.setTextColor(GUIUtil.getColor(context, item.getAmount().getAmount()));
 
-		( (TextView) contentView.findViewById(R.id.date) ).setText(Formatters.getShortDateFormat().format(
-				item.getDate()));
+		( (TextView) contentView.findViewById(R.id.date) )
+				.setText(Formatters.getWeekDayFormat().format(item.getDate()));
 		( (TextView) contentView.findViewById(R.id.description) ).setText(item.getDescription());
 
 		return contentView;

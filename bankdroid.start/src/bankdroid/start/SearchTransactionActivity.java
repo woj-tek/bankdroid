@@ -180,7 +180,7 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 		{
 			final Intent tranList = new Intent(getApplicationContext(), TransactionListActivity.class);
 			tranList.putExtra(EXTRA_TRANSACTION_FILTER, filter);
-			startActivity(tranList);
+			startActivityForResult(tranList, REQUEST_OTHER);
 		}
 	}
 

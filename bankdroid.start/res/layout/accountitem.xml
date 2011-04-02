@@ -51,7 +51,7 @@
   		android:textColor="#000000"
     	android:gravity="left" 	
   		
-  		android:layout_below="@id/availableBalanceLabel"
+  		android:layout_below="@id/availableBalance"
   		android:layout_alignParentLeft="true"
   		/>
   		

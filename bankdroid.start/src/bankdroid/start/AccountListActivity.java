@@ -142,7 +142,7 @@ public class AccountListActivity extends ServiceActivity implements OnItemClickL
 		final TransactionFilter filter = TransactionFilter.getDefaultFilter();
 		filter.setAccount(account);
 		tranList.putExtra(EXTRA_TRANSACTION_FILTER, filter);
-		startActivity(tranList);
+		startActivityForResult(tranList, REQUEST_OTHER);
 	}
 
 	private void viewDetails( final Account account )
@@ -153,6 +153,6 @@ public class AccountListActivity extends ServiceActivity implements OnItemClickL
 		intent.putExtra(EXTRA_PROPERTIES, PropertyHelper.getProperties(this, account));
 		intent.putExtra(EXTRA_ACTIVITY_TITLE, getString(R.string.accountDetailTitle));
 
-		startActivity(intent);
+		startActivityForResult(intent, REQUEST_OTHER);
 	}
 }
