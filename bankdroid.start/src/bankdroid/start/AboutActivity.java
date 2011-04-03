@@ -22,7 +22,11 @@ import bankdroid.util.TrackedActivity;
 /**
  * @author Gabe
  * 
- *  TODO OTP: localized error messages, customer profile
+ *  FIXME date templates in transaction history
+ * 
+ *  FIXME OTP: localized error messages, customer profile
+ *  FIXME OTP: no customer details in some cases
+ *  FIXME CIB: customer profile to be cleared and localized
  *
  *  TODO PIN based security store
  *  TODO PIN based panic functionality

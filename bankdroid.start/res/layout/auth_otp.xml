@@ -10,50 +10,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/rootView"
-    android:padding="5sp"
     style="@style/background"
     >
 
-    <ImageView
-    	android:id="@+id/logo"
-    	android:src="@drawable/bankdroid_logo"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:layout_alignParentTop="true"
-    	android:layout_alignParentLeft="true"
-    	android:padding="10sp"
-    	/>
-    	
-    <TextView
-    	android:id="@+id/title"
-    	android:text="@string/title"
-    	style="@style/title"
-    	
-    	android:paddingLeft="5sp"
-    	android:paddingTop="10sp"
-    	
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	
-    	android:layout_alignParentTop="true"
-    	android:layout_toRightOf="@id/logo"
-    	android:layout_alignParentRight="true"
-    	/>
-    
-    <TextView
-    	android:id="@+id/subtitle"
-    	android:text="@string/subtitle"
-    	style="@style/subtitle"
-    	
-    	android:paddingLeft="5sp"
-    	
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	
-    	android:layout_below="@id/title"
-    	android:layout_toRightOf="@id/logo"
-    	android:layout_alignParentRight="true"
-    	/>
+	<include
+		android:id="@+id/header"
+		layout="@layout/auth_header"
+		/>
     
     <!-- CONTENT -->
     <TableLayout
@@ -61,7 +24,10 @@
     	
     	style="@style/formLayout"
 
-	    android:layout_below="@id/logo"
+	    android:layout_marginLeft="5sp"
+	    android:layout_marginRight="5sp"
+
+	    android:layout_below="@id/header"
     	>
     	
     	<TableRow>
@@ -217,6 +183,8 @@
 		
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
+	    android:layout_marginLeft="5sp"
+	    android:layout_marginRight="5sp"
 	    
 	    android:layout_below="@id/formLayout"
 		/>
@@ -229,6 +197,8 @@
 
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+	    android:layout_marginLeft="5sp"
+	    android:layout_marginRight="5sp"
 		
 		android:layout_below="@id/rememberPassword"
 		/>
