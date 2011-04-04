@@ -22,7 +22,6 @@ import bankdroid.util.TrackedActivity;
 /**
  * @author Gabe
  * 
- *  FIXME date templates in transaction history
  * 
  *  FIXME OTP: localized error messages, customer profile
  *  FIXME OTP: no customer details in some cases

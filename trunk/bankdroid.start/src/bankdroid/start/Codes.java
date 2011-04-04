@@ -47,4 +47,7 @@ public interface Codes
 	final static String EXTRA_PROPERTIES = "com.bankdroid.Properties";
 	final static String EXTRA_ACTIVITY_TITLE = "com.bankdroid.ActivityTitle";
 	final static String EXTRA_CUSTOMER = "com.bankdroid.Customer";
+	final static String EXTRA_ANALYTICS_ACTION = "com.bankdroid.AnalyticsAction";
+	final static String EXTRA_SHARE_SUBJECT = "com.bankdroid.ShareSubject";
+	final static String EXTRA_SHARE_BODY_TOP = "com.bankdroid.ShareBodyTop";
 }

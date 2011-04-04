@@ -66,6 +66,9 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 			intent.putExtra(EXTRA_PROPERTIES,
 					PropertyHelper.getProperties(this, SessionManager.getInstance().getSession().getCustomer()));
 			intent.putExtra(EXTRA_ACTIVITY_TITLE, getString(R.string.customerDetailTitle));
+			intent.putExtra(EXTRA_ANALYTICS_ACTION, "shareCustomerDetails");
+			intent.putExtra(EXTRA_SHARE_SUBJECT, getString(R.string.shareCustomerSubject));
+			intent.putExtra(EXTRA_SHARE_BODY_TOP, getString(R.string.shareCustomerBodyTop));
 			startActivityForResult(intent, REQUEST_OTHER);
 		}
 	}

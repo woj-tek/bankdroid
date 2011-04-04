@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,10 +21,14 @@ import com.csaba.connector.model.Account;
 import com.csaba.connector.service.AccountService;
 import com.csaba.util.Formatters;
 
+/**
+ * @author Gabe
+ */
 public class SearchTransactionActivity extends ServiceActivity implements OnClickListener
 {
 	private static int DIALOG_ACCOUNT_SELECT = 91345;
 	private static int DIALOG_DATE_PICKER = 91346;
+	private static int DIALOG_PERIOD_PICKER = 91347;
 
 	private Account[] accounts;
 	private TransactionFilter filter;
@@ -40,18 +45,10 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 
 		//add click listeners
 		findViewById(R.id.accountSelect).setOnClickListener(this);
+		findViewById(R.id.periodTemplate).setOnClickListener(this);
 		findViewById(R.id.dateFrom).setOnClickListener(this);
 		findViewById(R.id.dateTo).setOnClickListener(this);
 		findViewById(R.id.search).setOnClickListener(this);
-	}
-
-	@Override
-	protected void onResume()
-	{
-		super.onResume();
-
-		if ( !SessionManager.getInstance().isLoggedIn() )
-			return;
 
 		filter = TransactionFilter.getDefaultFilter();
 		updateAccountSelect();
@@ -100,7 +97,7 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 			}
 
 			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setTitle(getString(R.string.datePicker));
+			builder.setTitle(getString(R.string.accountPicker));
 			builder.setItems(accountNames, new DialogInterface.OnClickListener()
 			{
 				@Override
@@ -108,6 +105,23 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 				{
 					filter.setAccount(item == 0 ? null : accounts[item - 1]);
 					updateAccountSelect();
+				}
+
+			});
+			return builder.create();
+		}
+		else if ( id == DIALOG_PERIOD_PICKER )
+		{
+			final String[] periods = getResources().getStringArray(R.array.periodTemplates);
+
+			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(getString(R.string.periodPicker));
+			builder.setItems(periods, new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick( final DialogInterface dialog, final int item )
+				{
+					updateDatePeriod(item);
 				}
 
 			});
@@ -144,6 +158,49 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 		return super.onCreateDialog(id);
 	}
 
+	private void updateDatePeriod( final int periodIndex )
+	{
+		final Calendar cal = Calendar.getInstance();
+		final Date to = cal.getTime();
+		switch ( periodIndex )
+		{
+		case 0: //LAST WEEK
+			cal.add(Calendar.DATE, -7);
+			break;
+
+		case 1: //LAST 30 DAYS
+			cal.add(Calendar.DATE, -30);
+			break;
+
+		case 2: //FIRST OF THE MONTH
+			cal.set(Calendar.DAY_OF_MONTH, 1);
+			break;
+
+		case 3: //LAST DATE OF LAST MONTH
+			cal.set(Calendar.DAY_OF_MONTH, 1);
+			cal.add(Calendar.DATE, -1);
+			break;
+
+		case 4: //FIRST DAY OF LAST MONTH
+			cal.add(Calendar.MONTH, -1);
+			cal.set(Calendar.DAY_OF_MONTH, 1);
+			break;
+
+		default:
+			Log.e(TAG, "Unknown period index selected: " + periodIndex);
+			break;
+		}
+		final Date from = cal.getTime();
+
+		updateDate(R.id.dateFrom, from);
+		updateDate(R.id.dateTo, to);
+		filter.setFrom(from);
+		filter.setTo(to);
+
+		( (Button) findViewById(R.id.periodTemplate) )
+				.setText(getResources().getStringArray(R.array.periodTemplates)[periodIndex]);
+	}
+
 	private void updateDate( final int viewId, final Date value )
 	{
 		final Button button = ( (Button) findViewById(viewId) );
@@ -163,6 +220,10 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 		if ( v.getId() == R.id.accountSelect )
 		{
 			showDialog(DIALOG_ACCOUNT_SELECT);
+		}
+		else if ( v.getId() == R.id.periodTemplate )
+		{
+			showDialog(DIALOG_PERIOD_PICKER);
 		}
 		else if ( v.getId() == R.id.dateFrom )
 		{

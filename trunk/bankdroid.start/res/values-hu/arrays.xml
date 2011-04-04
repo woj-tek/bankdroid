@@ -22,4 +22,11 @@
 		<item>Deviza számlás</item>
 		<item>Hibás</item>
 	</string-array>
+	<string-array name="periodTemplates">
+		<item>Elmúlt hét</item>
+		<item>Elmúlt 30 nap</item>
+		<item>A hónap első napjától</item>
+		<item>Előző hó utolsó napjától</item>
+		<item>Előző hó első napjától</item>
+	</string-array>
 </resources>

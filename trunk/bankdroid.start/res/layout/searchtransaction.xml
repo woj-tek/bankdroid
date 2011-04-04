@@ -55,6 +55,28 @@
 			/>
 	
 		<TextView  
+		    android:id="@+id/periodTemplateLabel"
+		    android:text="@string/periodTemplateLabel"
+		    style="@style/labelText"
+	
+		    android:layout_width="fill_parent" 
+		    android:layout_height="wrap_content" 
+		    
+		    android:layout_below="@id/accountSelect"
+		    android:layout_alignParentLeft="true"
+		    />
+		    
+		<Button
+			android:id="@+id/periodTemplate"
+			android:text="@string/pleaseSelect"
+			style="@style/fieldButton"
+			
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_below="@id/periodTemplateLabel"
+			/>
+	
+		<TextView  
 		    android:id="@+id/dateRangeLabel"
 		    android:text="@string/dateRangeLabel"
 		    style="@style/labelText"
@@ -62,7 +84,7 @@
 		    android:layout_width="fill_parent" 
 		    android:layout_height="wrap_content" 
 		    
-		    android:layout_below="@id/accountSelect"
+		    android:layout_below="@id/periodTemplate"
 		    android:layout_alignParentLeft="true"
 		    />
 		    

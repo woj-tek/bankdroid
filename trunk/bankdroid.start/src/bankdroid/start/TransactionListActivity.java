@@ -222,22 +222,10 @@ public class TransactionListActivity extends ServiceActivity implements OnItemCl
 
 	private void shareDetails( final HistoryItem item )
 	{
-		trackClickEvent(ACTION_SEND, "shareTransactionDetails");
-
-		final Intent send = new Intent(Intent.ACTION_SEND);
-		send.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.shareTransactionSubject));
-
-		final Property[] properties = PropertyHelper.getProperties(this, item);
-		final StringBuilder body = new StringBuilder(getString(R.string.shareTransactionBodyTop));
-		for ( final Property property : properties )
-		{
-			body.append("\n").append(property.getName()).append(" ").append(property.getValueString());
-		}
-		body.append("\n\n").append(getString(R.string.shareTransactionBodyBottom));
-		send.putExtra(Intent.EXTRA_TEXT, body.toString());
-
-		send.setType("text/plain");
-		startActivity(Intent.createChooser(send, getString(R.string.shareChooseApplication)));
+		PropertyViewActivity.shareDetails(this, "shareTransactionDetails",//
+				getString(R.string.shareTransactionSubject), //
+				getString(R.string.shareTransactionBodyTop), //
+				PropertyHelper.getProperties(this, item));
 	}
 
 	private void viewDetails( final HistoryItem item )
@@ -248,6 +236,10 @@ public class TransactionListActivity extends ServiceActivity implements OnItemCl
 
 		intent.putExtra(EXTRA_PROPERTIES, PropertyHelper.getProperties(this, item));
 		intent.putExtra(EXTRA_ACTIVITY_TITLE, getString(R.string.tranDetailTitle));
+		intent.putExtra(EXTRA_ANALYTICS_ACTION, "shareTransactionDetails");
+		intent.putExtra(EXTRA_SHARE_SUBJECT, getString(R.string.shareTransactionSubject));
+		intent.putExtra(EXTRA_SHARE_BODY_TOP, getString(R.string.shareTransactionBodyTop));
+
 		startActivityForResult(intent, REQUEST_OTHER);
 	}
 }
