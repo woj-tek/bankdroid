@@ -115,23 +115,10 @@ public class AccountListActivity extends ServiceActivity implements OnItemClickL
 
 	private void shareDetails( final Account account )
 	{
-		trackClickEvent(ACTION_SEND, "shareAccountDetails");
-
-		final Intent send = new Intent(Intent.ACTION_SEND);
-		send.putExtra(Intent.EXTRA_SUBJECT,
-				MessageFormat.format(getString(R.string.shareAccountSubject), GUIUtil.getAccountName(account)));
-
-		final Property[] properties = PropertyHelper.getProperties(this, account);
-		final StringBuilder body = new StringBuilder(getString(R.string.shareAccountBodyTop));
-		for ( final Property property : properties )
-		{
-			body.append("\n").append(property.getName()).append(" ").append(property.getValueString());
-		}
-		body.append("\n\n").append(getString(R.string.shareAccountBodyBottom));
-		send.putExtra(Intent.EXTRA_TEXT, body.toString());
-
-		send.setType("text/plain");
-		startActivity(Intent.createChooser(send, getString(R.string.shareChooseApplication)));
+		PropertyViewActivity.shareDetails(this, "shareAccountDetails", //
+				MessageFormat.format(getString(R.string.shareAccountSubject), GUIUtil.getAccountName(account)), //
+				getString(R.string.shareAccountBodyTop),//
+				PropertyHelper.getProperties(this, account));
 	}
 
 	private void quickHistory( final Account account )
@@ -152,6 +139,10 @@ public class AccountListActivity extends ServiceActivity implements OnItemClickL
 		final Intent intent = new Intent(getBaseContext(), PropertyViewActivity.class);
 		intent.putExtra(EXTRA_PROPERTIES, PropertyHelper.getProperties(this, account));
 		intent.putExtra(EXTRA_ACTIVITY_TITLE, getString(R.string.accountDetailTitle));
+		intent.putExtra(EXTRA_ANALYTICS_ACTION, "shareAccountDetails");
+		intent.putExtra(EXTRA_SHARE_SUBJECT,
+				MessageFormat.format(getString(R.string.shareAccountSubject), GUIUtil.getAccountName(account)));
+		intent.putExtra(EXTRA_SHARE_BODY_TOP, getString(R.string.shareAccountBodyTop));
 
 		startActivityForResult(intent, REQUEST_OTHER);
 	}

@@ -68,7 +68,6 @@
     <string name="shareChooseApplication">Choose application:</string>
     <string name="shareAccountSubject">Shared Account - {0}</string>
     <string name="shareAccountBodyTop"><![CDATA[Details of account:]]></string>
-    <string name="shareAccountBodyBottom"><![CDATA[-- share from BankDroid START (http://start.bankdroid.info)]]></string>
 
 	<!-- Property Details -->
     <string name="tranDetailTitle">Transaction Details</string>
@@ -76,6 +75,8 @@
     <string name="customerDetailTitle">Customer Details</string>
     <string name="customerId">Customer ID:</string>
     <string name="customerName">Customer name:</string>
+    <string name="shareCustomerSubject">Shared Customer Details</string>
+    <string name="shareCustomerBodyTop"><![CDATA[Details of customer:]]></string>
 
 	<!-- TransactionList -->
     <string name="tranListTitle">Transaction List</string>
@@ -90,14 +91,17 @@
     <string name="transactionBalance">Balance:</string>
     <string name="shareTransactionSubject">Shared Transaction</string>
     <string name="shareTransactionBodyTop"><![CDATA[Details of transaction:]]></string>
-    <string name="shareTransactionBodyBottom"><![CDATA[-- share from BankDroid START (http://start.bankdroid.info)]]></string>
+    <string name="shareBodyBottom"><![CDATA[-- shared from BankDroid START (http://start.bankdroid.info)]]></string>
 
 	<!-- SearchTransaction -->
     <string name="searchTranTitle">Search Transactions</string>
     <string name="accountSelect">Please select an account:</string>
+    <string name="periodTemplateLabel">Period template:</string>
+    <string name="pleaseSelect">-- please select --</string>
     <string name="dateRangeLabel">Date from/to:</string>
     <string name="search">Search</string>
-    <string name="datePicker">Pick an account</string>
+    <string name="accountPicker">Pick an account</string>
+    <string name="periodPicker">Pick period template</string>
 
 	<!-- About -->
 	<string name="aboutId">BankDroid START</string>

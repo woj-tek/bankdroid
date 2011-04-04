@@ -36,12 +36,12 @@ public class TrackedActivity extends Activity
 		tracker.trackPageView("/" + pageId);
 	}
 
-	protected void trackPage( final String page )
+	public void trackPage( final String page )
 	{
 		tracker.trackPageView(page);
 	}
 
-	protected void trackClickEvent( final String action, final String data )
+	public void trackClickEvent( final String action, final String data )
 	{
 		tracker.trackEvent(pageId, action, data, 1);
 	}
