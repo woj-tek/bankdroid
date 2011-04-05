@@ -5,7 +5,7 @@
     <string name="addBank">Add Bank</string>
     <string name="editBank">Edit Bank</string>
     <string name="deleteBank">Delete Bank</string>
-    <string name="bankDeleted">The bank is successfully deleted.</string>
+    <string name="bankDeleted">The bank was successfully deleted.</string>
     <string name="showForeignBanks">Show foreign banks</string>
 	
 	<!-- Bank Edit Activity -->
@@ -14,10 +14,10 @@
 	<string name="expiry">Expiry in seconds:</string>
 	<string name="btnDone">Done</string>
 	<string name="btnCancel">Cancel</string>
-	<string name="tooMuchPhoneNumber">Maximum 3 phone numbers are allowed.</string>
-	<string name="minPhoneNumber">Minimum 1 phone number is required.</string>
-	<string name="tooMuchPattern">Maximum 3 patterns are allowed.</string>
-	<string name="minPattern">Minimum 1 pattern is required.</string>
+	<string name="tooMuchPhoneNumber">A Maximum of 3 phone numbers is allowed.</string>
+	<string name="minPhoneNumber">At least 1 phone number is required.</string>
+	<string name="tooMuchPattern">A Maximum of 3 patterns is allowed.</string>
+	<string name="minPattern">At least 1 pattern is required.</string>
 	<string name="specifyBankName">Please specify the bank name.</string>
 	<string name="noEmptyPhoneNumber">Empty phone numbers are not allowed.</string>
 	<string name="noEmptyExpression">Empty expressions are not allowed.</string>
@@ -36,16 +36,16 @@
 	<string name="received.prefix">Received at: </string>
 	<string name="countdown.prefix">Remaining time: </string>
 	<string name="nocode">-- no code --</string>
-	<string name="securityWarning">Verify transaction details in the message before signing the transaction.</string>
+	<string name="securityWarning">Verify transaction details in the message before signing the transaction!</string>
 	<string name="visitBlog">Visit the SMS Key blog!</string>
 	
 	<!-- SMS pick activity -->
-	<string name="smsListTitle">Please select an SMS containing one-time password that is already used or expired:</string>
+	<string name="smsListTitle">Please select an SMS containing a one-time password that is already used or expired:</string>
 	<string name="selectEmail">Please select an E-mail account:</string>
 	<string name="noSMSInInbox">There is no SMS in your inbox.</string>
 	<string name="btnHelp">Help</string>
 	<string name="emailSubject">SMS OTP Sample</string>
-	<string name="emailPrefix">Thank you for submitting sample codes! Please leave the bank phone number unchanged, and the code unchanged. You may replace personal data in the message.</string>
+	<string name="emailPrefix">Thank you for submitting sample codes! Please leave the bank phone number and the code unchanged. You may replace personal data in the message.</string>
 	<string name="emailOriginator">Bank phone number: </string>
 	<string name="emailSMSText">Message text: </string>
 	
@@ -64,15 +64,15 @@
 	<string name="resetDbSummary">Clean up DB content (custom banks will be deleted!)</string>
 	<string name="developerPrefs">Developer Preferences</string>
 	<string name="genericPrefs">Generic Preferences</string>
-	<string name="msgDbReset">The Bank DB was reset succesfully.</string>
+	<string name="msgDbReset">The Bank DB was reset successfully.</string>
 	<string name="msgAreYouSure">Are you sure?</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
 	
 	<!-- Notification -->
-	<string name="notificationTicker">Password received form {0}</string>
+	<string name="notificationTicker">Password received from {0}</string>
 	<string name="notificationTitle">SMS Key</string>
-	<string name="notificationText">Password received form {0}. Click here to view it.</string>
+	<string name="notificationText">Password received from {0}. Click here to view it.</string>
 	
 	<!-- Main -->
 	<string name="mainTitle">SMS Key</string>
@@ -82,15 +82,15 @@
 	<string name="btnInfoSite">Online Help</string>
 	<string name="descViewLast">Recall the last SMS code.</string>
 	<string name="descManageBanks">Maintain banks yourself...</string>
-	<string name="descSubmitSample">Your bank is not yet supported?</string>
-	<string name="descInfoSite">Don\'t understand what is this app?</string>
-	<string name="noMessageYet">You have not received SMS code yet. (Note: SMS Key processes only newly received messages. Existing messages are not handled.)</string>
+	<string name="descSubmitSample">Is your bank not supported yet?</string>
+	<string name="descInfoSite">Don\'t understand what this app does?</string>
+	<string name="noMessageYet">You have not received any SMS code yet. (Note: SMS Key processes only newly received messages. Existing messages are not handled.)</string>
 	<string name="ok">Ok</string>
 
 	<!-- About -->
 	<string name="aboutId">SMS Key</string>
-	<string name="aboutDesc">The SMS Key is product of the BankDroid open source project. Developed by voluntary programmers.</string>
-	<string name="aboutDesc2">If you experience any problem with the application, or you would like to see some new features, feel free to contact us.</string>
+	<string name="aboutDesc">The SMS Key is a product of the BankDroid open source project. Developed by voluntary programmers.</string>
+	<string name="aboutDesc2">If you experience any problem with this application or if you would like to see some new features, feel free to contact us.</string>
 	<string name="aboutUrl2">www.bankdroid.info</string>
 	<string name="donateURL">http://bit.ly/8LrNB9</string>
 	<string name="donateButton">Donate</string>
