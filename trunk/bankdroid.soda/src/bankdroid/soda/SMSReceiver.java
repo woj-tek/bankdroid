@@ -10,6 +10,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
@@ -77,6 +78,10 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 		final boolean notificationOnly = settings.getBoolean(PREF_NOTIFICATION, DEFAULT_NOTIFICATION);
 		final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, DEFAULT_KEEP_SMS);
 		final boolean autoCopy = settings.getBoolean(PREF_AUTO_COPY, DEFAULT_AUTO_COPY);
+		final int codeCount = settings.getInt(PREF_CODE_COUNT, 0) + 1;
+		final Editor edit = settings.edit();
+		edit.putInt(PREF_CODE_COUNT, codeCount);
+		edit.commit();
 
 		if ( autoCopy )
 		{

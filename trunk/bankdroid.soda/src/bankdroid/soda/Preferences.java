@@ -11,9 +11,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.widget.Toast;
 
 /**
@@ -32,18 +32,20 @@ public class Preferences extends PreferenceActivity implements Codes, OnPreferen
 		final Preference resetDb = findPreference(PREF_RESET_DB);
 		resetDb.setOnPreferenceChangeListener(this);
 
+		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		if ( Build.VERSION.SDK_INT < 5 )
 		{
 			final Preference unlockScreen = findPreference(PREF_UNLOCK_SCREEN);
 			unlockScreen.setEnabled(false);
 			unlockScreen.setSelectable(false);
 			unlockScreen.setDefaultValue(Boolean.FALSE);
-			final SharedPreferences preferences = PreferenceManager
-					.getDefaultSharedPreferences(getApplicationContext());
 			final Editor editor = preferences.edit();
 			editor.putBoolean(PREF_UNLOCK_SCREEN, false);
 			editor.commit();
 		}
+		final int count = preferences.getInt(PREF_CODE_COUNT, 0);
+		final Preference codeCount = findPreference(PREF_CODE_COUNT);
+		codeCount.setSummary(String.valueOf(count));
 	}
 
 	@Override
@@ -89,9 +91,10 @@ public class Preferences extends PreferenceActivity implements Codes, OnPreferen
 	protected Dialog onCreateDialog( final int id )
 	{
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(getString(R.string.msgAreYouSure)).setCancelable(false).setPositiveButton(
-				getString(R.string.yes), new DialogInterface.OnClickListener()
+		builder.setMessage(getString(R.string.msgAreYouSure)).setCancelable(false)
+				.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener()
 				{
+					@Override
 					public void onClick( final DialogInterface dialog, final int id )
 					{
 						final Preference pref = findPreference(PREF_RESET_DB);
@@ -99,14 +102,15 @@ public class Preferences extends PreferenceActivity implements Codes, OnPreferen
 						dialog.dismiss();
 					}
 				}).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener()
-		{
-			public void onClick( final DialogInterface dialog, final int id )
-			{
-				final CheckBoxPreference pref = (CheckBoxPreference) findPreference(PREF_RESET_DB);
-				pref.setChecked(false);
-				dialog.cancel();
-			}
-		});
+				{
+					@Override
+					public void onClick( final DialogInterface dialog, final int id )
+					{
+						final CheckBoxPreference pref = (CheckBoxPreference) findPreference(PREF_RESET_DB);
+						pref.setChecked(false);
+						dialog.cancel();
+					}
+				});
 		final AlertDialog alert = builder.create();
 		return alert;
 	}

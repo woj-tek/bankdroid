@@ -50,6 +50,7 @@
 	<string name="emailSMSText">Message text: </string>
 	
 	<!-- Preferences -->
+	<string name="codeCount">Code Count</string>
 	<string name="unlockScreen">Unlock Screen</string>
 	<string name="unlockScreenSummary">Wake up and unlock screen when code arrives. (only for Android 2.0+)</string>
 	<string name="keepScreenOn">Keep Screen On</string>
