@@ -28,6 +28,7 @@ public interface Codes
 	public static final String PREF_RESET_DB = "bankdroid.soda.ResetDb";
 	public static final String PREF_UNLOCK_SCREEN = "bankdroid.soda.UnlockScreen";
 	public static final String PREF_AUTO_COPY = "bankdroid.soda.AutoCopy";
+	public static final String PREF_CODE_COUNT = "bankdroid.soda.CodeCount";
 
 	public static final boolean DEFAULT_NOTIFICATION = false;
 	public static final boolean DEFAULT_KEEP_SMS = false;

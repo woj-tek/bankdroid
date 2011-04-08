@@ -5,7 +5,7 @@
     <string name="editBank">Bank editieren</string>
     <string name="deleteBank">Bank löschen</string>
     <string name="bankDeleted">Die Bank wurde erfolgreich gelöscht.</string>
-    <string name="showForeignBanks">Anzeigen ausländischer Banken</string>
+    <string name="showForeignBanks">Ausländische Banken anzeigen</string>
 	
 	<!-- Bank Edit Activity -->
 	<string name="phoneNumber">Telefonnummer:</string>
@@ -28,7 +28,7 @@
 	<string name="clickToClose">Tippen oder Schütteln zum Kopieren und Schließen</string>
 	<string name="menuClear">Löschen</string>
 	<string name="menuBanks">Banken</string>
-	<string name="menuPref">Präferenzen</string>
+	<string name="menuPref">Einstellungen</string>
 	<string name="menuUserGuide">Online-Hilfe</string>
 	<string name="menuAbout">Über diese Anwendung</string>
 	<string name="app_name">SMS Key</string>
@@ -39,12 +39,12 @@
 	<string name="visitBlog">Besuche den SMS Key Blog!</string>
 	
 	<!-- SMS pick activity -->
-	<string name="smsListTitle">Bitte ein SMS muster auswählen:</string>
+	<string name="smsListTitle">Bitte ein SMS Muster auswählen:</string>
 	<string name="selectEmail">Bitte eine E-mail Adresse auswählen:</string>
-	<string name="noSMSInInbox">Es gibt keine SMS im Posteingang.</string>
+	<string name="noSMSInInbox">Im Posteingang befinden sich keine Kurznachrichten.</string>
 	<string name="btnHelp">Hilfe</string>
 	<string name="emailSubject">SMS OTP Muster</string>
-	<string name="emailPrefix">Vielen Dank für das Einreichen der Muster! Lass die Telefonnummer der Bank und das Muster bitte unverändert. Du kannst die personenbezogenen Daten in der Nachricht ersetzen.</string>
+	<string name="emailPrefix">Vielen Dank für das Einreichen der Mustercodes! Lass die Telefonnummer der Bank und das Muster bitte unverändert. Du kannst die personenbezogenen Daten in der Nachricht ersetzen.</string>
 	<string name="emailOriginator">Bank Telefonnummer: </string>
 	<string name="emailSMSText">Nachrichtentext: </string>
 	
@@ -54,9 +54,9 @@
 	<string name="keepScreenOn">Display aktiv lassen</string>
 	<string name="keepScreenOnSummary">Display aktiv lassen, während Code angezeigt wird.</string>
 	<string name="keepSMS">SMS behalten</string>
-	<string name="keepSMSSummary">Wenn ausgewählt, wird die original SMS aufbewahrt.</string>
+	<string name="keepSMSSummary">Wenn ausgewählt, wird die Original SMS aufbewahrt.</string>
 	<string name="notification">Nur Benachrichtigung</string>
-	<string name="notificationSummary">Wenn ausgewählt, wird der Code nicht erscheinen.</string>
+	<string name="notificationSummary">Wenn ausgewählt, wird der Code nicht angezeigt.</string>
 	<string name="autoCopy">Code automatisch kopieren</string>
 	<string name="autoCopySummary">Den Code automatisch in die Zwischenablage kopieren.</string>
 	<string name="resetDb">Bank DB Reset</string>
@@ -75,25 +75,25 @@
 	
 	<!-- Main -->
 	<string name="mainTitle">SMS Key</string>
-	<string name="btnViewLast">Letztes Muster anzeigen</string>
+	<string name="btnViewLast">Letzten Code anzeigen</string>
 	<string name="btnManageBanks">Banken verwalten</string>
 	<string name="btnSubmitSample">Muster einreichen</string>
 	<string name="btnInfoSite">Online Hilfe</string>
 	<string name="descViewLast">Zeige den letzten SMS-Code</string>
 	<string name="descManageBanks">Banken selbst verwalten...</string>
-	<string name="descSubmitSample">Deine Bank wird noch nicht unterstützt?</string>
+	<string name="descSubmitSample">Wird deine Bank noch nicht unterstützt?</string>
 	<string name="descInfoSite">Du verstehst noch nicht, was diese Anwendung macht?</string>
 	<string name="noMessageYet">Du hast noch kein SMS bekommen. (Hinweis: SMS Key analysiert nur neu eingetroffene Nachrichten. Vorhandene Nachrichten werden nicht verarbeitet.)</string>
 	<string name="ok">Ok</string>
 
 	<!-- About -->
 	<string name="aboutId">SMS Key</string>
-	<string name="aboutDesc">Die SMS Key ist ein Produkt des BankDroid open source Projekts. Entwickelt von freiwilligen Entwicklern.</string>
+	<string name="aboutDesc">Die SMS Key ist ein Produkt des BankDroid Open Source Projekts. Entwickelt von freiwilligen Entwicklern.</string>
 	<string name="aboutDesc2">Wenn du mit der Anwendung Probleme hast oder gern zusätzliche Features hättest, wende dich gerne an uns.</string>
 	<string name="aboutUrl2">www.bankdroid.info</string>
 	<string name="donateURL">http://bit.ly/8LrNB9</string>
 	<string name="donateButton">Spenden</string>
-	<string name="donateButtonDesc">Unterstütze unsere Arbeit mittels PayPal</string>
+	<string name="donateButtonDesc">Unterstütze unsere Arbeit mittels PayPal!</string>
 	
 	<!-- EULA -->
 	<string name="eula_title">Lizenz</string>
