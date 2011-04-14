@@ -1,5 +1,6 @@
 package bankdroid.soda;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import android.content.Intent;
@@ -271,7 +272,12 @@ public class BankEditActivity extends MenuActivity implements OnClickListener, C
 			//check expression
 			try
 			{
-				Pattern.compile(expression.getExpression());
+				final Pattern pattern = Pattern.compile(expression.getExpression());
+				final Matcher matcher = pattern.matcher("test");
+				if ( matcher.groupCount() != 1 )
+				{
+					throw new IllegalArgumentException("Invalid number of groups in pattern.");
+				}
 			}
 			catch ( final Exception e )
 			{
