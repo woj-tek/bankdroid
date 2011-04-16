@@ -3,23 +3,24 @@ package bankdroid.start.auth;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 import bankdroid.start.Eula;
+import bankdroid.start.Eula.OnEulaAgreedTo;
 import bankdroid.start.R;
 import bankdroid.start.ServiceActivity;
-import bankdroid.start.Eula.OnEulaAgreedTo;
 import bankdroid.start.plugin.PluginManager;
 import bankdroid.util.GUIUtil;
 
@@ -185,6 +186,28 @@ public class AuthStartActivity extends ServiceActivity implements OnClickListene
 			{
 				GUIUtil.fatalError(this, e);
 			}
+		}
+		else if ( item.getItemId() == R.id.toBrowser )
+		{
+			final long id = ( (AdapterContextMenuInfo) item.getMenuInfo() ).id;
+			final CustomerAdapter adapter = (CustomerAdapter) ( (ListView) findViewById(R.id.userList) ).getAdapter();
+
+			final Customer customer = adapter.getCustomer((int) id);
+
+			final Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(customer.getBank().getMobileBankURL()));
+			startActivity(intent);
+		}
+		else if ( item.getItemId() == R.id.callBank )
+		{
+			final long id = ( (AdapterContextMenuInfo) item.getMenuInfo() ).id;
+			final CustomerAdapter adapter = (CustomerAdapter) ( (ListView) findViewById(R.id.userList) ).getAdapter();
+
+			final Customer customer = adapter.getCustomer((int) id);
+
+			final Intent intent = new Intent(Intent.ACTION_DIAL);
+			intent.setData(Uri.parse("tel:" + customer.getBank().getCallCenterURL()));
+			startActivity(intent);
 		}
 		return super.onContextItemSelected(item);
 	}

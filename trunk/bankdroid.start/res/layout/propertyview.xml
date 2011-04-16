@@ -14,9 +14,11 @@
 	 <Button
 	 	android:id="@+id/shareButton"
 		android:text="@string/shareDetails"
+		android:drawableLeft="@android:drawable/ic_menu_share"
 		android:onClick="onShareDetails"
 
 		style="@style/actionButton"
+		android:padding="0sp"
 		
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"

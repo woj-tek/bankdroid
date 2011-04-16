@@ -22,9 +22,7 @@ import bankdroid.util.TrackedActivity;
 /**
  * @author Gabe
  * 
- * 
- *  FIXME OTP: localized error messages, customer profile
- *  FIXME OTP: no customer details in some cases
+ *  FIXME lock screen turn if communication in progress
  *  FIXME CIB: customer profile to be cleared and localized
  *
  *  TODO PIN based security store

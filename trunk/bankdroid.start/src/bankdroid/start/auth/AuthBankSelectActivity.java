@@ -3,16 +3,22 @@ package bankdroid.start.auth;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 import bankdroid.start.R;
 import bankdroid.start.ServiceActivity;
 import bankdroid.start.plugin.PluginManager;
@@ -59,6 +65,7 @@ public class AuthBankSelectActivity extends ServiceActivity implements OnItemCli
 
 		bankList.setAdapter(new BankAdapter(banks));
 		bankList.setOnItemClickListener(this);
+		registerForContextMenu(bankList);
 
 		findViewById(R.id.rememberUser).setOnClickListener(this);
 	}
@@ -129,4 +136,43 @@ public class AuthBankSelectActivity extends ServiceActivity implements OnItemCli
 		}
 
 	}
+
+	@Override
+	public void onCreateContextMenu( final ContextMenu menu, final View v, final ContextMenuInfo menuInfo )
+	{
+		if ( v.getId() == R.id.bankList )
+		{
+			final MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.banklistcontextmenu, menu);
+		}
+		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
+	@Override
+	public boolean onContextItemSelected( final MenuItem item )
+	{
+		if ( item.getItemId() == R.id.toBrowser )
+		{
+			final long id = ( (AdapterContextMenuInfo) item.getMenuInfo() ).id;
+
+			final BankAdapter adapter = (BankAdapter) ( (ListView) findViewById(R.id.bankList) ).getAdapter();
+			final Bank bank = adapter.getBank((int) id);
+
+			final Intent intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse(bank.getMobileBankURL()));
+			startActivity(intent);
+		}
+		else if ( item.getItemId() == R.id.callBank )
+		{
+			final long id = ( (AdapterContextMenuInfo) item.getMenuInfo() ).id;
+			final BankAdapter adapter = (BankAdapter) ( (ListView) findViewById(R.id.bankList) ).getAdapter();
+			final Bank bank = adapter.getBank((int) id);
+
+			final Intent intent = new Intent(Intent.ACTION_DIAL);
+			intent.setData(Uri.parse("tel:" + bank.getCallCenterURL()));
+			startActivity(intent);
+		}
+		return super.onContextItemSelected(item);
+	}
+
 }

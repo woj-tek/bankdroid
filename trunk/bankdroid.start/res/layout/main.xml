@@ -24,7 +24,7 @@
 	<RelativeLayout
 		android:id="@+id/pageHeader"
 		
-		android:background="#FFF"
+		style="@style/headerBackground"
 		
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
@@ -46,8 +46,22 @@
 	    	android:layout_marginLeft="5sp"
 	    	android:layout_marginRight="5sp"
 	    	/>
+
+
+		<Button
+			android:id="@+id/logoutButton"
+			android:drawableLeft="@android:drawable/ic_menu_directions"
+	
+			style="@style/actionButton"
+			android:padding="2sp"
+			
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			
+			android:layout_alignParentTop="true"
+			android:layout_alignParentRight="true"
+			/>
 	    	
-<!-- FIXME I18N, use style -->
 		<TextView 
 			android:id="@+id/welcome" 
 
@@ -63,6 +77,7 @@
 			android:layout_height="wrap_content"
 			android:layout_alignParentTop="true"
 			android:layout_toRightOf="@id/bankLogo"
+			android:layout_toLeftOf="@id/logoutButton"
 			/>
 			
 		<TextView 
@@ -77,6 +92,7 @@
 			android:layout_height="wrap_content"
 			android:layout_toRightOf="@id/bankLogo"
 			android:layout_below="@id/welcome"
+			android:layout_toLeftOf="@id/logoutButton"
 			/>
 				
 	</RelativeLayout>
@@ -87,7 +103,7 @@
 		
 		android:layout_below="@id/pageHeader"
 		android:layout_width="fill_parent"
-		android:layout_height="8sp"
+		android:layout_height="1sp"
 		/>
     
 	<Button
@@ -139,15 +155,33 @@
 		/>
     
 	<Button
-		android:id="@+id/logoutButton"
-		android:text="@string/logoutButton"
+		android:id="@+id/toBrowserButton"
+		android:text="@string/toBrowserButton"
+		android:drawableLeft="@android:drawable/ic_menu_revert"
+		android:onClick="onToBrowser"
 
 		style="@style/actionButton"
+		android:padding="0sp"
 		
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		
 		android:layout_below="@id/customerProfileButton"
+		/>
+    
+	<Button
+		android:id="@+id/callCenterButton"
+		android:text="@string/callCenterButton"
+		android:drawableLeft="@android:drawable/ic_menu_call"
+		android:onClick="onCallBank"
+
+		style="@style/actionButton"
+		android:padding="0sp"
+		
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		
+		android:layout_below="@id/toBrowserButton"
 		/>
 	    
 </RelativeLayout>

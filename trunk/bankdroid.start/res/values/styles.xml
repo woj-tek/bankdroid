@@ -99,7 +99,11 @@
 	</style>
 	
 	<style name="background">
-		<item name="android:background">@color/secondaryLight</item>
+		<item name="android:background">@color/formBackground</item>
+	</style>
+	
+	<style name="headerBackground">
+		<item name="android:background">@color/headerBackground</item>
 	</style>
 
 	<style name="listBox">

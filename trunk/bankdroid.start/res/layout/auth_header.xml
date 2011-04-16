@@ -2,12 +2,12 @@
 <merge
   	xmlns:android="http://schemas.android.com/apk/res/android"
    	>
-   	 
+   	
 	<RelativeLayout
 		android:id="@+id/header"
 		
-		android:background="#FFF"
-		
+		style="@style/headerBackground"
+				
 		android:layout_height="wrap_content"
 		android:layout_width="fill_parent"
 		android:layout_alignParentTop="true"
@@ -42,6 +42,7 @@
 	    <TextView
 	    	android:id="@+id/subtitle"
 	    	android:text="@string/subtitle"
+	    	
 	    	style="@style/subtitle"
 	    	
 	    	android:paddingLeft="5sp"
@@ -54,16 +55,18 @@
 	    	android:layout_alignParentRight="true"
 	    	/>
 
+
+	</RelativeLayout>
+
 	 	<View
 			android:id="@+id/headerBottom"
 			
 			android:background="@drawable/page_header"
 			
-			android:layout_below="@id/logo"
+			android:layout_below="@id/header"
 			android:layout_width="fill_parent"
-			android:layout_height="8sp"
+			android:layout_height="1sp"
+			layout_marginBottom="5sp"
 			/>
-
-	</RelativeLayout>
 
 </merge>
