@@ -33,6 +33,8 @@
     <string name="profileButton">Adataim</string>
     <string name="customerProfileButton">Felhasználói adatok</string>
     <string name="logoutButton">Kilépés</string>
+    <string name="toBrowserButton">Átlépés a böngészőbe</string>
+    <string name="callCenterButton">Hívd a bankot!</string>
     <string name="searchTransactionButton">Tranzakciók</string>
 
 	<!-- main menu -->

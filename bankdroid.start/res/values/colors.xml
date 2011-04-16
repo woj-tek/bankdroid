@@ -19,7 +19,8 @@
 <color name="textLight">#FFFFFF</color>
 <color name="textDark">#000000</color>
 
-
+<color name="formBackground">#EFDEA9</color>
+<color name="headerBackground">#FFF</color>
 
 <color name="negativeAmount">#BB0000</color>
 <color name="positiveAmount">#00BB00</color>

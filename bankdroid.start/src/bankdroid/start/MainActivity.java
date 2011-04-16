@@ -1,6 +1,7 @@
 package bankdroid.start;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,7 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import bankdroid.start.plugin.PluginManager;
 
+import com.csaba.connector.BankService;
 import com.csaba.connector.model.Session;
+import com.csaba.connector.service.LogoutService;
 
 /**
  * @author Gabe
@@ -18,6 +21,8 @@ import com.csaba.connector.model.Session;
  */
 public class MainActivity extends ServiceActivity implements OnClickListener
 {
+	private boolean openBrowserAfterLogout = false;
+	private String bankUrl = null;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -71,6 +76,37 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 			intent.putExtra(EXTRA_SHARE_BODY_TOP, getString(R.string.shareCustomerBodyTop));
 			startActivityForResult(intent, REQUEST_OTHER);
 		}
+	}
+
+	public void onToBrowser( final View v )
+	{
+		bankUrl = SessionManager.getInstance().getSession().getBank().getMobileBankURL();
+		openBrowserAfterLogout = true;
+
+		SessionManager.getInstance().logout(this);
+	}
+
+	@Override
+	public void onServiceFinished( final BankService service )
+	{
+		if ( service instanceof LogoutService )
+		{
+			if ( openBrowserAfterLogout )
+			{
+				openBrowserAfterLogout = false;
+				final Intent intent = new Intent(Intent.ACTION_VIEW);
+				intent.setData(Uri.parse(bankUrl));
+				startActivity(intent);
+			}
+		}
+		super.onServiceFinished(service);
+	}
+
+	public void onCallBank( final View v )
+	{
+		final Intent intent = new Intent(Intent.ACTION_DIAL);
+		intent.setData(Uri.parse("tel:" + SessionManager.getInstance().getSession().getBank().getCallCenterURL()));
+		startActivity(intent);
 	}
 
 	@Override

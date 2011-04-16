@@ -48,6 +48,11 @@ public class BankAdapter extends BaseAdapter
 		return banks.get(position);
 	}
 
+	public Bank getBank( final int position )
+	{
+		return banks.get(position);
+	}
+
 	@Override
 	public long getItemId( final int arg0 )
 	{
@@ -64,8 +69,8 @@ public class BankAdapter extends BaseAdapter
 		}
 
 		final TextView textView = (TextView) view;
-		textView.setCompoundDrawablesWithIntrinsicBounds(PluginManager.getIconDrawable(banks.get(position)
-				.getLargeIcon()), null, null, null);
+		textView.setCompoundDrawablesWithIntrinsicBounds(
+				PluginManager.getIconDrawable(banks.get(position).getLargeIcon()), null, null, null);
 		textView.setText(banks.get(position).getName());
 		return view;
 	}

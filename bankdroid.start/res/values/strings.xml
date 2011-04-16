@@ -34,6 +34,8 @@
     <string name="profileButton">Profile</string>
     <string name="customerProfileButton">Customer Profile</string>
     <string name="logoutButton">Logout</string>
+    <string name="toBrowserButton">Relogin through Browser</string>
+    <string name="callCenterButton">Call the Bank</string>
     <string name="searchTransactionButton">Transactions</string>
 
 	<!-- main menu -->
