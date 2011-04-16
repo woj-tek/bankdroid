@@ -23,7 +23,6 @@ import bankdroid.util.TrackedActivity;
  * @author Gabe
  * 
  *  FIXME lock screen turn if communication in progress
- *  FIXME CIB: customer profile to be cleared and localized
  *
  *  TODO PIN based security store
  *  TODO PIN based panic functionality
