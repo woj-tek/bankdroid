@@ -104,6 +104,7 @@
 		android:layout_below="@id/pageHeader"
 		android:layout_width="fill_parent"
 		android:layout_height="1sp"
+		android:layout_marginBottom="5sp"
 		/>
     
 	<Button
@@ -153,6 +154,18 @@
 		
 		android:layout_below="@id/searchTransactionButton"
 		/>
+	
+	<View
+		android:id="@+id/separator"
+		android:background="#000"
+		
+		android:layout_margin="5sp"
+		
+		android:layout_width="fill_parent"
+		android:layout_height="1sp"
+		
+		android:layout_below="@id/customerProfileButton"
+		/>
     
 	<Button
 		android:id="@+id/toBrowserButton"
@@ -166,7 +179,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		
-		android:layout_below="@id/customerProfileButton"
+		android:layout_below="@id/separator"
 		/>
     
 	<Button

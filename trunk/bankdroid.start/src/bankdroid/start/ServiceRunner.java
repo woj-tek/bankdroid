@@ -1,7 +1,10 @@
 package bankdroid.start;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -50,6 +53,8 @@ public class ServiceRunner implements Runnable, Codes
 			return;
 		}
 
+		lockScreenRotation();
+
 		handler = new Handler()
 		{
 			@Override
@@ -59,6 +64,7 @@ public class ServiceRunner implements Runnable, Codes
 
 				if ( msg.what == SERVICE_FAILED || msg.what == SERVICE_PROCESS )
 				{
+
 					if ( !( context instanceof ServiceActivity ) || !( (ServiceActivity) context ).stopProgress() )
 					{
 						if ( dialog != null )
@@ -75,7 +81,7 @@ public class ServiceRunner implements Runnable, Codes
 					{
 						listener.onServiceFailed(service, (Throwable) msg.getData().getSerializable(SERVICE_EXCEPTION));
 					}
-
+					unlockScreenRotation();
 				}
 			}
 		};
@@ -85,6 +91,31 @@ public class ServiceRunner implements Runnable, Codes
 		if ( !( context instanceof ServiceActivity ) || !( (ServiceActivity) context ).startProgress() )
 		{
 			dialog = ProgressDialog.show(context, "Progress", context.getText(R.string.progressText), true);
+		}
+	}
+
+	private void lockScreenRotation()
+	{
+		if ( context instanceof Activity )
+		{
+			// Stop the screen orientation changing during an event
+			switch ( context.getResources().getConfiguration().orientation )
+			{
+			case Configuration.ORIENTATION_PORTRAIT:
+				( (Activity) context ).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+				break;
+			case Configuration.ORIENTATION_LANDSCAPE:
+				( (Activity) context ).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+				break;
+			}
+		}
+	}
+
+	private void unlockScreenRotation()
+	{
+		if ( context instanceof Activity )
+		{
+			( (Activity) context ).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 		}
 	}
 
