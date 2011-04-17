@@ -22,10 +22,9 @@ import bankdroid.util.TrackedActivity;
 /**
  * @author Gabe
  * 
- *  FIXME lock screen turn if communication in progress
- *
  *  TODO PIN based security store
  *  TODO PIN based panic functionality
+ *  TODO the details of AbstractRemoteObject should contain properties in sequence of adding of property
  *
  *  TODO toolbars instead of / besides menu
  *  TODO use CSABA icons - get legal icons.
