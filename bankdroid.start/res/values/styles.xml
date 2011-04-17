@@ -80,10 +80,14 @@
 	<style name="button" parent="labelText">
 		<item name="android:gravity">center</item>
 		<item name="android:padding">8sp</item>
-		<item name="android:layout_margin">3sp</item>
+		<item name="android:layout_marginTop">3sp</item>
+		<item name="android:layout_marginBottom">3sp</item>
+		<item name="android:layout_marginLeft">6sp</item>
+		<item name="android:layout_marginRight">6sp</item>
 	</style>
 	
 	<style name="actionButton" parent="button">
+		<item name="android:padding">12sp</item>
 		<item name="android:background">@drawable/action_button</item>
 	</style>
 	
