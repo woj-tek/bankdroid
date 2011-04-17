@@ -69,10 +69,11 @@ class AccountAdapter extends BaseAdapter
 		{
 			availableBalance.setText(availableBalanceValue.toString());
 			availableBalance.setTextColor(GUIUtil.getColor(context, availableBalanceValue.getAmount()));
+			availableBalance.setVisibility(View.VISIBLE);
 		}
 		else
 		{
-			availableBalance.setText("");
+			availableBalance.setVisibility(View.GONE);
 		}
 
 		final TextView bookedBalance = (TextView) contentView.findViewById(R.id.bookedBalance);
@@ -81,10 +82,11 @@ class AccountAdapter extends BaseAdapter
 		{
 			bookedBalance.setText(bookedBalanceValue.toString());
 			bookedBalance.setTextColor(GUIUtil.getColor(context, bookedBalanceValue.getAmount()));
+			bookedBalance.setVisibility(View.VISIBLE);
 		}
 		else
 		{
-			bookedBalance.setText("");
+			bookedBalance.setVisibility(View.GONE);
 		}
 
 		return contentView;
