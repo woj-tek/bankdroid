@@ -53,7 +53,7 @@ public class ServiceRunner implements Runnable, Codes
 			return;
 		}
 
-		lockScreenRotation();
+		//lockScreenRotation();
 
 		handler = new Handler()
 		{
@@ -81,7 +81,7 @@ public class ServiceRunner implements Runnable, Codes
 					{
 						listener.onServiceFailed(service, (Throwable) msg.getData().getSerializable(SERVICE_EXCEPTION));
 					}
-					unlockScreenRotation();
+					//unlockScreenRotation();
 				}
 			}
 		};
