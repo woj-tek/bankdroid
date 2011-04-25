@@ -2,21 +2,14 @@ package sample.twitter;
 
 import java.util.Date;
 
+import android.graphics.drawable.Drawable;
+
 public class TwitterItem
 {
 	private String id;
-	private String imageUrl;
+	private Drawable avatar;
 	private String text;
 	private Date createdAt;
-
-	public TwitterItem(final String id, final String imageUrl, final String text, final Date createdAt)
-	{
-		super();
-		this.id = id;
-		this.imageUrl = imageUrl;
-		this.text = text;
-		this.createdAt = createdAt;
-	}
 
 	public TwitterItem()
 	{
@@ -30,16 +23,6 @@ public class TwitterItem
 	public void setId(final String id)
 	{
 		this.id = id;
-	}
-
-	public String getImageUrl()
-	{
-		return imageUrl;
-	}
-
-	public void setImageUrl(final String imageUrl)
-	{
-		this.imageUrl = imageUrl;
 	}
 
 	public String getText()
@@ -60,5 +43,15 @@ public class TwitterItem
 	public void setCreatedAt(final Date createdAt)
 	{
 		this.createdAt = createdAt;
+	}
+
+	public void setAvatar(final Drawable avatar)
+	{
+		this.avatar = avatar;
+	}
+
+	public Drawable getAvatar()
+	{
+		return avatar;
 	}
 }

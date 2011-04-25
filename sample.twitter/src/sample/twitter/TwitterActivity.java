@@ -1,16 +1,11 @@
 package sample.twitter;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
-import android.graphics.drawable.Drawable;
+import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -22,6 +17,9 @@ import android.widget.Toast;
 
 public class TwitterActivity extends Activity
 {
+
+	private ProgressDialog dialog;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
@@ -32,13 +30,13 @@ public class TwitterActivity extends Activity
 
 	public void onLoadFailed(final Exception e)
 	{
-		Log.e("TF", "Load failed. ", e);
+		dialog.dismiss();
 		Toast.makeText(this, "Download failed: " + e, Toast.LENGTH_LONG).show();
 	}
 
 	public void onLoadSuccesful(final List<TwitterItem> items)
 	{
-		Log.d("TF", "Download was succesful.");
+		dialog.dismiss();
 		if (items == null || items.size() < 1)
 		{
 			Toast.makeText(this, "Empty user feed.", Toast.LENGTH_SHORT);
@@ -59,8 +57,7 @@ public class TwitterActivity extends Activity
 					final TwitterItem item = getItem(position);
 					((TextView) convertView.findViewById(R.id.text)).setText(item.getText());
 					((TextView) convertView.findViewById(R.id.createdAt)).setText(sdf.format(item.getCreatedAt()));
-					((ImageView) convertView.findViewById(R.id.feedIcon))
-							.setImageDrawable(loadImage(item.getImageUrl()));
+					((ImageView) convertView.findViewById(R.id.feedIcon)).setImageDrawable(item.getAvatar());
 					return convertView;
 				}
 			};
@@ -69,37 +66,13 @@ public class TwitterActivity extends Activity
 		}
 	}
 
-	private final Map<String, Drawable> icons = new HashMap<String, Drawable>();
-
-	private Drawable loadImage(final String url)
-	{
-		if (icons.containsKey(url))
-		{
-			return icons.get(url);
-		}
-		else
-		{
-			try
-			{
-				final URL urlUrl = new URL(url);
-				final InputStream content = (InputStream) urlUrl.getContent();
-				final Drawable d = Drawable.createFromStream(content, "src");
-				icons.put(url, d);
-				return d;
-			}
-			catch (final Exception e)
-			{
-				Log.e("TW", "Failed to download image: " + url, e);
-				Toast.makeText(this, "A kép letöltése sikertelen volt: " + e, Toast.LENGTH_LONG).show();
-				return null;
-			}
-		}
-	}
-
 	public void onLoadFeed(final View v)
 	{
 		final String userName = ((EditText) findViewById(R.id.userName)).getText().toString();
 		final FeedDownloader downloader = new FeedDownloader(this);
 		downloader.execute(userName);
+
+		dialog = ProgressDialog.show(this, "", "Loading. Please wait...", true);
+		dialog.show();
 	}
 }
