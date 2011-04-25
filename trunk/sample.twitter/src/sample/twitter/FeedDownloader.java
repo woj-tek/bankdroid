@@ -6,16 +6,22 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.util.Log;
+import android.widget.Toast;
 
 public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>>
 {
-	public final static String TWITTER_API_URL = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=";
+	public final static String TWITTER_PUBLIC_TIMELINE_URL = "http://api.twitter.com/1/statuses/public_timeline.json";
+	public final static String TWITTER_USER_TIMELINE_URL = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=";
 
 	public final static String JSON_ID = "id_str";
 	public final static String JSON_TEXT = "text";
@@ -25,6 +31,7 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 
 	private Exception e;
 	private final TwitterActivity hostActivity;
+	private final Map<String, Drawable> icons = new HashMap<String, Drawable>();
 
 	public FeedDownloader(final TwitterActivity hostActivity)
 	{
@@ -33,13 +40,40 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 		this.hostActivity = hostActivity;
 	}
 
+	private Drawable loadImage(final String url)
+	{
+		if (icons.containsKey(url))
+		{
+			return icons.get(url);
+		}
+		else
+		{
+			try
+			{
+				final URL urlUrl = new URL(url);
+				final InputStream content = (InputStream) urlUrl.getContent();
+				final Drawable d = Drawable.createFromStream(content, "src");
+				icons.put(url, d);
+				return d;
+			}
+			catch (final Exception e)
+			{
+				Log.e("TW", "Failed to download image: " + url, e);
+				Toast.makeText(hostActivity, "Image download failed: " + e, Toast.LENGTH_LONG).show();
+				return null;
+			}
+		}
+	}
+
 	@Override
 	protected List<TwitterItem> doInBackground(final String... params)
 	{
 		List<TwitterItem> items = null;
 		try
 		{
-			final URL url = new URL(TWITTER_API_URL + params[0]);
+			final URL url = new URL(
+					params.length > 0 && params[0] != null && params[0].length() > 0 ? TWITTER_USER_TIMELINE_URL
+							+ params[0] : TWITTER_PUBLIC_TIMELINE_URL);
 			final InputStream in = (InputStream) url.getContent();
 			final BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			final StringBuffer buffer = new StringBuffer();
@@ -63,7 +97,7 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 				final TwitterItem item = new TwitterItem();
 				item.setId(jsonItem.getString(JSON_ID));
 				item.setText(jsonItem.getString(JSON_TEXT));
-				item.setImageUrl(jsonItem.getJSONObject(JSON_USER).getString(JSON_PROFILE_IMAGE_URL));
+				item.setAvatar(loadImage(jsonItem.getJSONObject(JSON_USER).getString(JSON_PROFILE_IMAGE_URL)));
 				item.setCreatedAt(sdf.parse(jsonItem.getString(JSON_CREATED_AT)));
 
 				items.add(item);
@@ -88,4 +122,5 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 			hostActivity.onLoadSuccesful(result);
 		}
 	}
+
 }
