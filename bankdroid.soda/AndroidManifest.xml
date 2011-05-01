@@ -14,7 +14,7 @@
 			</intent-filter>
 		</activity>
 
-
+ 
 		<activity android:name="SMSOTPDisplay" android:label="@string/app_name" android:launchMode="singleTask"/>
 		<receiver android:name="SMSReceiver">
 			<intent-filter android:priority="100">
