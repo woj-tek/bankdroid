@@ -6,6 +6,15 @@ import android.graphics.drawable.Drawable;
 
 public class TwitterItem
 {
+	public final static String TWITTER_USER_TIMELINE_URL = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=";
+	public final static String TWITTER_PUBLIC_TIMELINE_URL = "http://api.twitter.com/1/statuses/public_timeline.json";
+
+	public final static String JSON_PROFILE_IMAGE_URL = "profile_image_url";
+	public final static String JSON_USER = "user";
+	public final static String JSON_CREATED_AT = "created_at";
+	public final static String JSON_TEXT = "text";
+	public final static String JSON_ID = "id_str";
+
 	private String id;
 	private Drawable avatar;
 	private String text;
