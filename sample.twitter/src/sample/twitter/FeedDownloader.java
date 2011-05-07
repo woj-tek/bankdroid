@@ -20,15 +20,6 @@ import android.widget.Toast;
 
 public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>>
 {
-	public final static String TWITTER_PUBLIC_TIMELINE_URL = "http://api.twitter.com/1/statuses/public_timeline.json";
-	public final static String TWITTER_USER_TIMELINE_URL = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=";
-
-	public final static String JSON_ID = "id_str";
-	public final static String JSON_TEXT = "text";
-	public final static String JSON_CREATED_AT = "created_at";
-	public final static String JSON_USER = "user";
-	public final static String JSON_PROFILE_IMAGE_URL = "profile_image_url";
-
 	private Exception e;
 	private final TwitterActivity hostActivity;
 	private final Map<String, Drawable> icons = new HashMap<String, Drawable>();
@@ -72,8 +63,9 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 		try
 		{
 			final URL url = new URL(
-					params.length > 0 && params[0] != null && params[0].length() > 0 ? TWITTER_USER_TIMELINE_URL
-							+ params[0] : TWITTER_PUBLIC_TIMELINE_URL);
+					params.length > 0 && params[0] != null && params[0].length() > 0 ? TwitterItem.TWITTER_USER_TIMELINE_URL
+							+ params[0]
+							: TwitterItem.TWITTER_PUBLIC_TIMELINE_URL);
 			final InputStream in = (InputStream) url.getContent();
 			final BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			final StringBuffer buffer = new StringBuffer();
@@ -95,10 +87,11 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 				final JSONObject jsonItem = jsonItems.getJSONObject(i);
 
 				final TwitterItem item = new TwitterItem();
-				item.setId(jsonItem.getString(JSON_ID));
-				item.setText(jsonItem.getString(JSON_TEXT));
-				item.setAvatar(loadImage(jsonItem.getJSONObject(JSON_USER).getString(JSON_PROFILE_IMAGE_URL)));
-				item.setCreatedAt(sdf.parse(jsonItem.getString(JSON_CREATED_AT)));
+				item.setId(jsonItem.getString(TwitterItem.JSON_ID));
+				item.setText(jsonItem.getString(TwitterItem.JSON_TEXT));
+				item.setAvatar(loadImage(jsonItem.getJSONObject(TwitterItem.JSON_USER).getString(
+						TwitterItem.JSON_PROFILE_IMAGE_URL)));
+				item.setCreatedAt(sdf.parse(jsonItem.getString(TwitterItem.JSON_CREATED_AT)));
 
 				items.add(item);
 			}
