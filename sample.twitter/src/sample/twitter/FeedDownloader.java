@@ -33,16 +33,16 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 	private final TwitterActivity hostActivity;
 	private final Map<String, Drawable> icons = new HashMap<String, Drawable>();
 
-	public FeedDownloader(final TwitterActivity hostActivity)
+	public FeedDownloader( final TwitterActivity hostActivity )
 	{
 		super();
 
 		this.hostActivity = hostActivity;
 	}
 
-	private Drawable loadImage(final String url)
+	private Drawable loadImage( final String url )
 	{
-		if (icons.containsKey(url))
+		if ( icons.containsKey(url) )
 		{
 			return icons.get(url);
 		}
@@ -56,7 +56,7 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 				icons.put(url, d);
 				return d;
 			}
-			catch (final Exception e)
+			catch ( final Exception e )
 			{
 				Log.e("TW", "Failed to download image: " + url, e);
 				Toast.makeText(hostActivity, "Image download failed: " + e, Toast.LENGTH_LONG).show();
@@ -66,7 +66,7 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 	}
 
 	@Override
-	protected List<TwitterItem> doInBackground(final String... params)
+	protected List<TwitterItem> doInBackground( final String... params )
 	{
 		List<TwitterItem> items = null;
 		try
@@ -78,7 +78,7 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 			final BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			final StringBuffer buffer = new StringBuffer();
 			String line = null;
-			while ((line = reader.readLine()) != null)
+			while ( ( line = reader.readLine() ) != null )
 			{
 				buffer.append(line);
 			}
@@ -90,7 +90,7 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 			items = new ArrayList<TwitterItem>();
 
 			final JSONArray jsonItems = new JSONArray(buffer.toString());
-			for (int i = 0; i < jsonItems.length(); i++)
+			for ( int i = 0; i < jsonItems.length(); i++ )
 			{
 				final JSONObject jsonItem = jsonItems.getJSONObject(i);
 
@@ -103,7 +103,7 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 				items.add(item);
 			}
 		}
-		catch (final Exception e)
+		catch ( final Exception e )
 		{
 			this.e = e;
 		}
@@ -111,9 +111,9 @@ public class FeedDownloader extends AsyncTask<String, Integer, List<TwitterItem>
 	}
 
 	@Override
-	protected void onPostExecute(final List<TwitterItem> result)
+	protected void onPostExecute( final List<TwitterItem> result )
 	{
-		if (e != null)
+		if ( e != null )
 		{
 			hostActivity.onLoadFailed(e);
 		}
