@@ -22,53 +22,57 @@ public class TwitterActivity extends Activity
 
 	/** Called when the activity is first created. */
 	@Override
-	public void onCreate(final Bundle savedInstanceState)
+	public void onCreate( final Bundle savedInstanceState )
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 	}
 
-	public void onLoadFailed(final Exception e)
+	public void onLoadFailed( final Exception e )
 	{
 		dialog.dismiss();
 		Toast.makeText(this, "Download failed: " + e, Toast.LENGTH_LONG).show();
 	}
 
-	public void onLoadSuccesful(final List<TwitterItem> items)
+	public void onLoadSuccesful( final List<TwitterItem> items )
 	{
 		dialog.dismiss();
-		if (items == null || items.size() < 1)
+		if ( items == null || items.size() < 1 )
 		{
 			Toast.makeText(this, "Empty user feed.", Toast.LENGTH_SHORT);
 		}
 		else
 		{
-			final ArrayAdapter<TwitterItem> adapter = new ArrayAdapter<TwitterItem>(this, R.layout.feeditem, items) {
+			final ArrayAdapter<TwitterItem> adapter = new ArrayAdapter<TwitterItem>(this, R.layout.feeditem, items)
+			{
 				@Override
-				public View getView(final int position, View convertView, final ViewGroup parent)
+				public View getView( final int position, View convertView, final ViewGroup parent )
 				{
 					final SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 
-					if (convertView == null)
+					if ( convertView == null )
 					{
 						convertView = View.inflate(TwitterActivity.this, R.layout.feeditem, null);
 					}
 
 					final TwitterItem item = getItem(position);
-					((TextView) convertView.findViewById(R.id.text)).setText(item.getText());
-					((TextView) convertView.findViewById(R.id.createdAt)).setText(sdf.format(item.getCreatedAt()));
-					((ImageView) convertView.findViewById(R.id.feedIcon)).setImageDrawable(item.getAvatar());
+					( (TextView) convertView.findViewById(R.id.text) ).setText(item.getText());
+					( (TextView) convertView.findViewById(R.id.createdAt) ).setText(sdf.format(item.getCreatedAt()));
+					( (ImageView) convertView.findViewById(R.id.feedIcon) ).setImageDrawable(item.getAvatar());
 					return convertView;
 				}
 			};
 
-			((ListView) findViewById(R.id.feedList)).setAdapter(adapter);
+			( (ListView) findViewById(R.id.feedList) ).setAdapter(adapter);
 		}
 	}
 
-	public void onLoadFeed(final View v)
+	public void onLoadFeed( final View v )
 	{
-		final String userName = ((EditText) findViewById(R.id.userName)).getText().toString();
+
+		( (ListView) findViewById(R.id.feedList) ).setAdapter(null);
+
+		final String userName = ( (EditText) findViewById(R.id.userName) ).getText().toString();
 		final FeedDownloader downloader = new FeedDownloader(this);
 		downloader.execute(userName);
 

@@ -20,7 +20,7 @@ public class TwitterItem
 		return id;
 	}
 
-	public void setId(final String id)
+	public void setId( final String id )
 	{
 		this.id = id;
 	}
@@ -30,7 +30,7 @@ public class TwitterItem
 		return text;
 	}
 
-	public void setText(final String text)
+	public void setText( final String text )
 	{
 		this.text = text;
 	}
@@ -40,12 +40,12 @@ public class TwitterItem
 		return createdAt;
 	}
 
-	public void setCreatedAt(final Date createdAt)
+	public void setCreatedAt( final Date createdAt )
 	{
 		this.createdAt = createdAt;
 	}
 
-	public void setAvatar(final Drawable avatar)
+	public void setAvatar( final Drawable avatar )
 	{
 		this.avatar = avatar;
 	}
