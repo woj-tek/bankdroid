@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -8,6 +9,8 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import android.graphics.drawable.Drawable;
 
 import sample.twitter.TwitterItem;
 
@@ -73,30 +76,21 @@ return items;
 		
 		
 ------------------- Downloader 2
-	private Drawable loadImage( final String url )
+private Drawable loadImage( final String url ) throws IOException
+{
+	if ( icons.containsKey(url) )
 	{
-		if ( icons.containsKey(url) )
-		{
-			return icons.get(url);
-		}
-		else
-		{
-			try
-			{
-				final URL urlUrl = new URL(url);
-				final InputStream content = (InputStream) urlUrl.getContent();
-				final Drawable d = Drawable.createFromStream(content, "src");
-				icons.put(url, d);
-				return d;
-			}
-			catch ( final Exception e )
-			{
-				Log.e("TW", "Failed to download image: " + url, e);
-				Toast.makeText(hostActivity, "Image download failed: " + e, Toast.LENGTH_LONG).show();
-				return null;
-			}
-		}
+		return icons.get(url);
 	}
+	else
+	{
+		final URL urlUrl = new URL(url);
+		final InputStream content = (InputStream) urlUrl.getContent();
+		final Drawable d = Drawable.createFromStream(content, "src");
+		icons.put(url, d);
+		return d;
+	}
+}
 
 
 -- Adapter.getView()
