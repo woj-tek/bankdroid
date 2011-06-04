@@ -19,6 +19,7 @@ import bankdroid.util.AndroidHandler;
 import com.csaba.connector.BankServiceFactory;
 import com.csaba.connector.ClassEnumerationProvider;
 import com.csaba.connector.ServicePluginConfiguration;
+import com.csaba.connector.axa.AXAPluginConfiguration;
 import com.csaba.connector.bha.BHAPluginConfiguration;
 import com.csaba.connector.dummy.DummyPluginConfiguration;
 import com.csaba.connector.model.Bank;
@@ -33,6 +34,7 @@ public class PluginManager implements Codes
 		plugins.add(new DummyPluginConfiguration());
 		plugins.add(new BHAPluginConfiguration());
 		plugins.add(new OTPPluginConfiguration());
+		plugins.add(new AXAPluginConfiguration());
 
 		BankServiceFactory.setProvider(new ClassEnumerationProvider(plugins));
 	}
