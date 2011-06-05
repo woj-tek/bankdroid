@@ -6,13 +6,17 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import bankdroid.start.R;
 import bankdroid.start.ServiceActivity;
+import bankdroid.start.ServiceRunner;
 import bankdroid.start.SessionManager;
 import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
+import com.csaba.connector.BankServiceFactory;
+import com.csaba.connector.ServiceException;
 import com.csaba.connector.axa.model.AXABank;
 import com.csaba.connector.model.Bank;
 import com.csaba.connector.model.Customer;
@@ -23,9 +27,7 @@ public class AXAAuthActivity extends ServiceActivity
 {
 	private final Bank bankSelected = AXABank.getInstance();
 
-	private int registryId;
-	private String loginId;
-	private String password;
+	private Customer customer;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -48,54 +50,50 @@ public class AXAAuthActivity extends ServiceActivity
 		setResult(RESULT_CANCELED);
 
 		//load login ID from preferences
-
-		loginId = "";
-		password = "";
-		registryId = -1;
+		customer = null;
 
 		//load login ID from preferences
 		final Intent intent = getIntent();
 		if ( intent != null )
 		{
-			final Customer customer = (Customer) intent.getSerializableExtra(EXTRA_CUSTOMER);
-			if ( customer != null )
+			customer = (Customer) intent.getSerializableExtra(EXTRA_CUSTOMER);
+		}
+
+		if ( customer != null )
+		{
+			final String loginId = customer.getLoginId();
+			final String password = customer.getPassword();
+
+			( (TextView) findViewById(R.id.loginId) ).setText(customer.getLoginId());
+			( (TextView) findViewById(R.id.password) ).setText(customer.getPassword());
+
+			//focus password, if login ID is saved, etc...
+			if ( loginId == null || loginId.length() < 1 )
 			{
-				registryId = (Integer) customer.getRemoteProperty(RP_REGISTRY_ID);
-				//recover user IDs from encrypted stores
-				loginId = customer.getLoginId();
-				password = customer.getPassword();
+				findViewById(R.id.loginId).requestFocus();
+			}
+			else if ( password == null || password.length() < 1 )
+			{
+				findViewById(R.id.password).requestFocus();
+			}
+			else
+			{ //password was saved
+				( (CheckBox) findViewById(R.id.rememberPassword) ).setChecked(true);
+				findViewById(R.id.loginButton).requestFocus();
 			}
 		}
-
-		( (TextView) findViewById(R.id.loginId) ).setText(loginId);
-		( (TextView) findViewById(R.id.password) ).setText(password);
-
-		//focus password, if login ID is saved, etc...
-		if ( loginId == null || loginId.length() < 1 )
+		else
 		{
 			findViewById(R.id.loginId).requestFocus();
-		}
-		else if ( password == null || password.length() < 1 )
-		{
-			findViewById(R.id.password).requestFocus();
-		}
-		else
-		{ //password was saved
-			( (CheckBox) findViewById(R.id.rememberPassword) ).setChecked(true);
-			findViewById(R.id.loginButton).requestFocus();
 		}
 	}
 
 	public void onLogin( final View v )
 	{
-		startActivity(new Intent(this, AXASMSOTPActivity.class));
-		/*
 		try
 		{
-			loginId = ( (EditText) findViewById(R.id.loginId) ).getText().toString();
-			password = ( (EditText) findViewById(R.id.password) ).getText().toString();
-
-			//XXX verify field length here
+			final String loginId = ( (EditText) findViewById(R.id.loginId) ).getText().toString();
+			final String password = ( (EditText) findViewById(R.id.password) ).getText().toString();
 
 			final Customer customer = new Customer();
 			customer.setLoginId(loginId);
@@ -105,14 +103,11 @@ public class AXAAuthActivity extends ServiceActivity
 			login.setCustomer(customer);
 
 			( new ServiceRunner(this, this, login, null) ).start();
-
-			Log.d(TAG, "Progress dialog is over.");
-
 		}
 		catch ( final ServiceException e )
 		{
 			GUIUtil.fatalError(this, e);
-		}*/
+		}
 	}
 
 	@Override
@@ -121,7 +116,7 @@ public class AXAAuthActivity extends ServiceActivity
 		super.onServiceFinished(service);
 
 		if ( service instanceof LoginService )
-		{//FIXME display account list 
+		{
 			final Session session = ( (LoginService) service ).getSession();
 			SessionManager.getInstance().setSession(this, session);
 
@@ -134,8 +129,17 @@ public class AXAAuthActivity extends ServiceActivity
 				{
 					final SecureRegistry registry = SecureRegistry.getInstance(this);
 
-					AuthUtil.storeCustomer(registry, registryId, session.getCustomer(), null,
-							( (CheckBox) findViewById(R.id.rememberPassword) ).isChecked());
+					final Customer customer = session.getCustomer();
+					int registryId = -1;
+					if ( this.customer != null )
+					{
+						customer.copyRemoteProperty(this.customer);
+						if ( customer.isRemotePropertySet(RP_REGISTRY_ID) )
+							registryId = (Integer) customer.getRemoteProperty(RP_REGISTRY_ID);
+
+					}
+					AuthUtil.storeCustomer(registry, registryId, customer, new String[] { RP_ACCOUNT_PIN,
+							RP_SELECTED_ACCOUNT }, ( (CheckBox) findViewById(R.id.rememberPassword) ).isChecked());
 
 					registry.commit(this);
 				}
@@ -145,6 +149,15 @@ public class AXAAuthActivity extends ServiceActivity
 				}
 			}
 
+			startActivityForResult(new Intent(this, AXASMSOTPActivity.class), REQUEST_LOGIN);
+		}
+	}
+
+	@Override
+	protected void onActivityResult( final int requestCode, final int resultCode, final Intent data )
+	{
+		if ( resultCode == RESULT_OK )
+		{
 			setResult(RESULT_OK);
 			finish();
 		}

@@ -16,6 +16,7 @@ import com.csaba.connector.BankService;
 import com.csaba.connector.model.Account;
 import com.csaba.connector.service.LoginService;
 
+//FIXME display warning on logout
 public class AXAAccountActivity extends ServiceActivity implements OnItemClickListener
 {
 	@Override
@@ -38,32 +39,35 @@ public class AXAAccountActivity extends ServiceActivity implements OnItemClickLi
 
 		setResult(RESULT_CANCELED);
 
-		//FIXME remove dummy code
-		final Account[] accounts = new Account[] { new Account(), new Account() };
-		accounts[0].setName("Kovács Gizella");
-		accounts[0].setNumber("17000019-12345678");
-		accounts[1].setName("Kovácsné Szűcs Eufruzsina");
-		accounts[1].setNumber("17000019-12345678");
-
-		final ArrayAdapter<Account> adapter = new ArrayAdapter<Account>(this, 0, accounts)
+		final Intent intent = getIntent();
+		if ( intent != null )
 		{
-			@Override
-			public View getView( final int position, View convertView, final ViewGroup parent )
+			final Object[] objects = (Object[]) intent.getSerializableExtra(EXTRA_ACCOUNT_LIST);
+			final Account[] accounts = new Account[objects.length];
+			for ( int i = 0; i < accounts.length; i++ )
 			{
-				if ( convertView == null )
-				{
-					convertView = View.inflate(AXAAccountActivity.this, R.layout.auth_axa_accountitem, null);
-				}
-				final Account account = getItem(position);
-				( (TextView) convertView.findViewById(R.id.accountName) ).setText(account.getName());
-				( (TextView) convertView.findViewById(R.id.accountNumber) ).setText(account.getNumber());
-
-				return convertView;
+				accounts[i] = (Account) objects[i];
 			}
-		};
 
-		( (ListView) findViewById(R.id.accountList) ).setAdapter(adapter);
+			final ArrayAdapter<Account> adapter = new ArrayAdapter<Account>(this, 0, accounts)
+			{
+				@Override
+				public View getView( final int position, View convertView, final ViewGroup parent )
+				{
+					if ( convertView == null )
+					{
+						convertView = View.inflate(AXAAccountActivity.this, R.layout.auth_axa_accountitem, null);
+					}
+					final Account account = getItem(position);
+					( (TextView) convertView.findViewById(R.id.accountName) ).setText(account.getName());
+					( (TextView) convertView.findViewById(R.id.accountNumber) ).setText(account.getNumber());
 
+					return convertView;
+				}
+			};
+
+			( (ListView) findViewById(R.id.accountList) ).setAdapter(adapter);
+		}
 	}
 
 	@Override
@@ -74,6 +78,7 @@ public class AXAAccountActivity extends ServiceActivity implements OnItemClickLi
 		if ( service instanceof LoginService )
 		{
 			//FIXME implement account select here
+			//FIXME set RP_SELECTED_ACCOUNT and update the registry if necessary.
 		}
 	}
 

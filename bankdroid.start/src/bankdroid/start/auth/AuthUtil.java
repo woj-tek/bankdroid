@@ -62,8 +62,11 @@ public class AuthUtil implements Codes
 		{
 			for ( final String property : propertyList )
 			{
-				registry.putValue(keyPrefix + REGKEY_REMOTE_PREFIX + property, (String) customer
-						.getRemoteProperty(property));
+				if ( customer.isRemotePropertySet(property) )
+				{
+					registry.putValue(keyPrefix + REGKEY_REMOTE_PREFIX + property,
+							(String) customer.getRemoteProperty(property));
+				}
 			}
 		}
 

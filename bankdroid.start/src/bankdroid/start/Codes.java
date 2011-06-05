@@ -28,6 +28,8 @@ public interface Codes
 
 	//REMOTE PROPERTIES FOR REMOTE OBJECTS
 	final static String RP_REGISTRY_ID = "bankdroid.start.registryId";
+	final static String RP_ACCOUNT_PIN = "bankdroid.start.accountPin";
+	final static String RP_SELECTED_ACCOUNT = "bankdroid.start.selectedAccount";
 
 	//DEFAULTS
 	final static String DEFAULT_SESSION_TIMEOUT = "3";
@@ -50,4 +52,5 @@ public interface Codes
 	final static String EXTRA_ANALYTICS_ACTION = "com.bankdroid.AnalyticsAction";
 	final static String EXTRA_SHARE_SUBJECT = "com.bankdroid.ShareSubject";
 	final static String EXTRA_SHARE_BODY_TOP = "com.bankdroid.ShareBodyTop";
+	final static String EXTRA_ACCOUNT_LIST = "com.bankdroid.AccountList";
 }
