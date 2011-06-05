@@ -9,16 +9,16 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import bankdroid.start.R;
 import bankdroid.start.ServiceActivity;
+import bankdroid.start.ServiceRunner;
+import bankdroid.start.SessionManager;
 
 import com.csaba.connector.BankService;
+import com.csaba.connector.axa.AXASMSOTPValidationService;
 import com.csaba.connector.axa.model.AXABank;
-import com.csaba.connector.model.Bank;
-import com.csaba.connector.service.LoginService;
+import com.csaba.connector.model.Account;
 
 public class AXASMSOTPActivity extends ServiceActivity
 {
-	private final Bank bankSelected = AXABank.getInstance();
-
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
 	{
@@ -29,7 +29,7 @@ public class AXASMSOTPActivity extends ServiceActivity
 
 		setContentView(R.layout.auth_axa_smsotp);
 
-		AuthUtil.setSelectedBank(this, bankSelected);
+		AuthUtil.setSelectedBank(this, AXABank.getInstance());
 
 	}
 
@@ -61,17 +61,13 @@ public class AXASMSOTPActivity extends ServiceActivity
 
 	public void onLogin( final View v )
 	{
-		startActivityForResult(new Intent(this, AXAAccountActivity.class), REQUEST_LOGIN);
+		final String smsotp = ( (EditText) findViewById(R.id.smsotp) ).getText().toString();
 
-		/*
-		try
-		{
-			//FIXME implement SMSOTP validation
-		}
-		catch ( final ServiceException e )
-		{
-			GUIUtil.fatalError(this, e);
-		}*/
+		final AXASMSOTPValidationService service = new AXASMSOTPValidationService();
+
+		service.setSmsotp(smsotp);
+
+		( new ServiceRunner(this, this, service, SessionManager.getInstance().getSession()) ).start();
 	}
 
 	@Override
@@ -79,9 +75,24 @@ public class AXASMSOTPActivity extends ServiceActivity
 	{
 		super.onServiceFinished(service);
 
-		if ( service instanceof LoginService )
+		if ( service instanceof AXASMSOTPValidationService )
 		{
-			//FIXME implement succesful SMS OTP validation
+
+			final Account[] accounts = ( (AXASMSOTPValidationService) service ).getAccounts();
+
+			final Intent intent = new Intent(this, AXAAccountActivity.class);
+			intent.putExtra(EXTRA_ACCOUNT_LIST, accounts);
+			startActivityForResult(intent, REQUEST_LOGIN);
+		}
+	}
+
+	@Override
+	protected void onActivityResult( final int requestCode, final int resultCode, final Intent data )
+	{
+		if ( resultCode == RESULT_OK )
+		{
+			setResult(RESULT_OK);
+			finish();
 		}
 	}
 
