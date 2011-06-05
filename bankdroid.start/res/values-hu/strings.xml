@@ -14,6 +14,7 @@
     <string name="subtitle">START</string>
     <string name="bankSelect">Válassz bankot:</string>
     <string name="loginId">Azonosító:</string>
+    <string name="smsOtp">SMS jelszó:</string>
     <string name="password">Jelszó:</string>
     <string name="loginButton">Belépés</string>
     <string name="msgUseMenu">További opciókért nyomd meg a menü gombot.</string>
@@ -23,7 +24,9 @@
     <string name="bankSelected">Bank:</string>
     <string name="rememberUser">Felhasználó tárolása</string>
     <string name="rememberPassword">Jelszó tárolása</string>
+    <string name="rememberPIN">PIN megjegyzése</string>
     <string name="deleteUser">Felhasználó törlése</string>
+    <string name="axaAccountSelect">Válassz egy számlát:</string>
 
 	<!-- MainActivity -->
     <string name="msgWelcome">Hello %s!</string>
