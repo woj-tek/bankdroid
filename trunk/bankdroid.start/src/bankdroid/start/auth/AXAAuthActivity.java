@@ -4,35 +4,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.text.InputFilter;
-import android.text.InputType;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 import bankdroid.start.R;
 import bankdroid.start.ServiceActivity;
-import bankdroid.start.ServiceRunner;
 import bankdroid.start.SessionManager;
 import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
-import com.csaba.connector.BankServiceFactory;
-import com.csaba.connector.ServiceException;
-import com.csaba.connector.bha.BHALoginService;
-import com.csaba.connector.bha.model.BHABank;
+import com.csaba.connector.axa.model.AXABank;
 import com.csaba.connector.model.Bank;
 import com.csaba.connector.model.Customer;
 import com.csaba.connector.model.Session;
 import com.csaba.connector.service.LoginService;
 
-public class AXAAuthActivity extends ServiceActivity implements OnClickListener, OnFocusChangeListener
+public class AXAAuthActivity extends ServiceActivity
 {
-	private final Bank bankSelected = BHABank.getInstance();
+	private final Bank bankSelected = AXABank.getInstance();
 
 	private int registryId;
 	private String loginId;
@@ -46,15 +35,9 @@ public class AXAAuthActivity extends ServiceActivity implements OnClickListener,
 		setSessionOriented(false);
 		setShowHomeMenu(false);
 
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-		setContentView(R.layout.auth_bha);
+		setContentView(R.layout.auth_axa_password);
 
 		AuthUtil.setSelectedBank(this, bankSelected);
-
-		findViewById(R.id.loginButton).setOnClickListener(this);
-
-		findViewById(R.id.password).setOnFocusChangeListener(this);
 	}
 
 	@Override
@@ -103,65 +86,33 @@ public class AXAAuthActivity extends ServiceActivity implements OnClickListener,
 		}
 	}
 
-	@Override
-	public void onClick( final View v )
+	public void onLogin( final View v )
 	{
-		if ( v.getId() == R.id.loginButton )
+		startActivity(new Intent(this, AXASMSOTPActivity.class));
+		/*
+		try
 		{
-			try
-			{
-				loginId = ( (EditText) findViewById(R.id.loginId) ).getText().toString();
-				password = ( (EditText) findViewById(R.id.password) ).getText().toString();
+			loginId = ( (EditText) findViewById(R.id.loginId) ).getText().toString();
+			password = ( (EditText) findViewById(R.id.password) ).getText().toString();
 
-				//XXX verify field length here
+			//XXX verify field length here
 
-				final Customer customer = new Customer();
-				customer.setLoginId(loginId);
-				customer.setPassword(password);
+			final Customer customer = new Customer();
+			customer.setLoginId(loginId);
+			customer.setPassword(password);
 
-				final LoginService login = BankServiceFactory.getBankService(bankSelected, LoginService.class);
-				login.setCustomer(customer);
+			final LoginService login = BankServiceFactory.getBankService(bankSelected, LoginService.class);
+			login.setCustomer(customer);
 
-				( new ServiceRunner(this, this, login, null) ).start();
+			( new ServiceRunner(this, this, login, null) ).start();
 
-				Log.d(TAG, "Progress dialog is over.");
+			Log.d(TAG, "Progress dialog is over.");
 
-			}
-			catch ( final ServiceException e )
-			{
-				GUIUtil.fatalError(this, e);
-			}
 		}
-	}
-
-	@Override
-	public void onFocusChange( final View v, final boolean hasFocus )
-	{
-		if ( hasFocus )
+		catch ( final ServiceException e )
 		{
-			final String loginId = ( (EditText) findViewById(R.id.loginId) ).getText().toString();
-			setAuthType(BHALoginService.detectAuthType(loginId));
-		}
-	}
-
-	private void setAuthType( final int authType )
-	{
-		final EditText passwordField = (EditText) findViewById(R.id.password);
-		final CheckBox rememberPassword = (CheckBox) findViewById(R.id.rememberPassword);
-		if ( authType == BHALoginService.AUTH_TYPE_TOKEN )
-		{
-			passwordField.setFilters(new InputFilter[] { new InputFilter.LengthFilter(BHALoginService.TOKEN_LENGTH) });
-			passwordField.setInputType(InputType.TYPE_CLASS_PHONE | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-			rememberPassword.setChecked(false);
-			rememberPassword.setEnabled(false);
-		}
-		else
-		{
-			passwordField.setFilters(new InputFilter[] { new InputFilter.LengthFilter(
-					BHALoginService.PASSWORD_MAX_LENGTH) });
-			passwordField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-			rememberPassword.setEnabled(true);
-		}
+			GUIUtil.fatalError(this, e);
+		}*/
 	}
 
 	@Override
@@ -170,11 +121,11 @@ public class AXAAuthActivity extends ServiceActivity implements OnClickListener,
 		super.onServiceFinished(service);
 
 		if ( service instanceof LoginService )
-		{
+		{//FIXME display account list 
 			final Session session = ( (LoginService) service ).getSession();
 			SessionManager.getInstance().setSession(this, session);
 
-			//save last succesful login details into preferences
+			//save last successful login details into preferences
 			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
 			if ( preferences.getBoolean(PREF_SAVE_LAST_LOGIN, true) )
