@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	style="@style/background"
-	>
-
 
 <RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/rootView"
@@ -28,54 +23,6 @@
 	    android:layout_marginRight="5sp"
 	    android:layout_below="@id/header"
     	>
-    	
-    	<TableRow>
-			<TextView  
-			    android:id="@+id/bankSelectedLabel"
-			    android:text="@string/bankSelected"
-			    android:gravity="right"
-			    android:paddingRight="10sp"
-		
-			    style="@style/labelText"
-		
-			    android:layout_width="wrap_content" 
-			    android:layout_height="wrap_content"
-			    />
-			    
-			<TextView
-				android:id="@+id/bankSelected"
-				android:text="AXA Bank"
-				android:drawableLeft="@drawable/icon"
-				android:drawablePadding="10sp"
-		
-				style="@style/valueText"
-		
-			    android:layout_width="fill_parent" 
-				android:layout_height="wrap_content"
-				/>
-		</TableRow>
-    	<TableRow>
-			<TextView  
-			    android:text="@string/customerName"
-			    android:gravity="right"
-			    android:paddingRight="10sp"
-		
-			    style="@style/labelText"
-		
-			    android:layout_width="wrap_content" 
-			    android:layout_height="wrap_content"
-			    />
-			    
-			<TextView  
-			    android:id="@+id/customerName"
-			    android:text="Kovács Gizella"
-		
-			    style="@style/valueText"
-		
-			    android:layout_width="wrap_content" 
-			    android:layout_height="wrap_content"
-			    />
-		</TableRow>
 		<TableRow>
 			<TextView  
 			    android:text="@string/accountNumber"
@@ -88,7 +35,7 @@
 			    android:layout_height="wrap_content" 
 			    />
 			    
-			<EditText
+			<TextView
 				android:id="@+id/accountNumbe"
 			    android:text="17000019-12345678"
 				
@@ -102,7 +49,7 @@
 		
 	<CheckBox
 		android:id="@+id/rememberPassword"
-		android:text="@string/rememberPassword"
+		android:text="@string/rememberPIN"
 		
 		style="@style/labelText"
 		
@@ -127,102 +74,163 @@
 		android:layout_below="@id/rememberPassword"
 		>
 		
-		<EditText
+		<TextView
 			android:id="@+id/digit1"
-			android:maxLines="1"
-			android:lines="1"
-			android:singleLine="true"
-			android:maxLength="1"
-			android:inputType="phone"
-			android:imeActionId="1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
+			style="@style/pinDigit"
+			android:text="*"
 			/>
 			
-		<EditText
+		<TextView
 			android:id="@+id/digit2"
-			android:maxLines="1"
-			android:lines="1"
-			android:singleLine="true"
-			android:maxLength="1"
-			android:inputType="phone"
-			android:imeActionId="2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
+			style="@style/pinDigit"
+			android:background="@drawable/pin_disabled"
+			android:text=" "
 			/>
 			
-		<EditText
+		<TextView
 			android:id="@+id/digit3"
-			android:maxLines="1"
-			android:lines="1"
-			android:singleLine="true"
-			android:maxLength="1"
-			android:inputType="phone"
-			android:imeActionId="3"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
+			style="@style/pinDigit"
+			android:background="@drawable/pin_disabled"
+			android:text=" "
 			/>
 			
-		<EditText
+		<TextView
 			android:id="@+id/digit4"
-			android:maxLines="1"
-			android:lines="1"
-			android:singleLine="true"
-			android:maxLength="1"
-			android:inputType="phone"
-			android:imeActionId="4"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
+			style="@style/pinDigit"
+			android:background="@drawable/pin_active"
+			android:text="_"
 			/>
 			
-		<EditText
+		<TextView
 			android:id="@+id/digit5"
-			android:maxLines="1"
-			android:lines="1"
-			android:singleLine="true"
-			android:maxLength="1"
-			android:inputType="phone"
-			android:imeActionId="5"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
+			style="@style/pinDigit"
+			android:background="@drawable/pin_disabled"
+			android:text=" "
 			/>
 			
-		<EditText
+		<TextView
 			android:id="@+id/digit6"
-			android:maxLines="1"
-			android:lines="1"
-			android:singleLine="true"
-			android:maxLength="1"
-			android:inputType="phone"
-			android:imeActionId="6"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
+			style="@style/pinDigit"
+			android:text="_"
 			/>
-			
-
 	</LinearLayout>
 
-	<Button
-		android:id="@+id/loginButton"
-		android:text="@string/loginButton"
-		android:onClick="onLogin"
-
-		style="@style/actionButton"
-
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-	    android:layout_marginLeft="5sp"
-	    android:layout_marginRight="5sp"
+	<TableLayout
+		android:stretchColumns="*" 
+		android:paddingTop="10sp"
+		android:paddingBottom="10sp"
+		android:paddingLeft="5sp"
+		android:paddingRight="5sp"
 		
-	    android:layout_below="@id/pinDigitList"
-		/>
+		android:layout_below="@id/pinDigitList"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		>
+		<TableRow>
+			<Button
+				android:text="7"
+				android:tag="7"
+				android:onClick="onNumberPressed"
+				
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				/>
+			<Button
+				android:text="8"
+				android:tag="8"
+				android:onClick="onNumberPressed"
+				
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				/>
+			<Button
+				android:text="9"
+				android:tag="9"
+				android:onClick="onNumberPressed"
+				
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				/>
+		</TableRow>
+		<TableRow>
+			<Button
+				android:text="4"
+				android:tag="4"
+				android:onClick="onNumberPressed"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+			<Button
+				android:text="5"
+				android:tag="5"
+				android:onClick="onNumberPressed"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+			<Button
+				android:text="6"
+				android:tag="6"
+				android:onClick="onNumberPressed"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+		</TableRow>
+		<TableRow>
+			<Button
+				android:text="1"
+				android:tag="1"
+				android:onClick="onNumberPressed"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+			<Button
+				android:text="2"
+				android:tag="2"
+				android:onClick="onNumberPressed"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+			<Button
+				android:text="3"
+				android:tag="3"
+				android:onClick="onNumberPressed"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+		</TableRow>
+		<TableRow>
+			<ImageButton
+				android:src="@drawable/del"
+				android:onClick="onDelete"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+			<Button
+				android:text="0"
+				android:tag="0"
+				android:onClick="onNumberPressed"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+			<Button
+				android:text="Ok"
+				android:onClick="onOk"
+				
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				/>
+		</TableRow>
+	
+	</TableLayout>
+
+
 
 </RelativeLayout>
-
-</ScrollView>

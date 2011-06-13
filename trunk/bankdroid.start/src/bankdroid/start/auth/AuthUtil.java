@@ -48,6 +48,9 @@ public class AuthUtil implements Codes
 			removeCustomer(registry, index);
 		}
 
+		//save store password property to make it easy to inquire it later
+		customer.setRemoteProperty(RP_STORE_PASSWORD, storePassword);
+
 		//store basic data of customer
 
 		final String keyPrefix = REG_CUSTOMER_PREFIX + String.valueOf(idSeq) + "/";
