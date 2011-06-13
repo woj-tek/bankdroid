@@ -17,6 +17,7 @@ import com.csaba.connector.axa.AXASMSOTPValidationService;
 import com.csaba.connector.axa.model.AXABank;
 import com.csaba.connector.model.Account;
 
+//FIXME save customer name on succesful result
 public class AXASMSOTPActivity extends ServiceActivity
 {
 	@Override
@@ -94,6 +95,8 @@ public class AXASMSOTPActivity extends ServiceActivity
 			setResult(RESULT_OK);
 			finish();
 		}
+		else
+			super.onActivityResult(requestCode, resultCode, data);
 	}
 
 }

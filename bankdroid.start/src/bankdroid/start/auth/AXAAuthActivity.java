@@ -29,6 +29,9 @@ public class AXAAuthActivity extends ServiceActivity
 
 	private Customer customer;
 
+	private boolean saveCustomer = false;
+	private SharedPreferences preferences;
+
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
 	{
@@ -40,6 +43,17 @@ public class AXAAuthActivity extends ServiceActivity
 		setContentView(R.layout.auth_axa_password);
 
 		AuthUtil.setSelectedBank(this, bankSelected);
+
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+		if ( preferences.getBoolean(PREF_SAVE_LAST_LOGIN, true) )
+		{
+			saveCustomer = true;
+		}
+		else
+		{
+			findViewById(R.id.rememberPassword).setEnabled(false);
+		}
 	}
 
 	@Override
@@ -120,10 +134,7 @@ public class AXAAuthActivity extends ServiceActivity
 			final Session session = ( (LoginService) service ).getSession();
 			SessionManager.getInstance().setSession(this, session);
 
-			//save last successful login details into preferences
-			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-			if ( preferences.getBoolean(PREF_SAVE_LAST_LOGIN, true) )
+			if ( saveCustomer )
 			{
 				try
 				{
@@ -138,8 +149,8 @@ public class AXAAuthActivity extends ServiceActivity
 							registryId = (Integer) customer.getRemoteProperty(RP_REGISTRY_ID);
 
 					}
-					AuthUtil.storeCustomer(registry, registryId, customer, new String[] { RP_ACCOUNT_PIN,
-							RP_SELECTED_ACCOUNT }, ( (CheckBox) findViewById(R.id.rememberPassword) ).isChecked());
+					AuthUtil.storeCustomer(registry, registryId, customer, new String[] { RP_ACCOUNT_PIN },
+							( (CheckBox) findViewById(R.id.rememberPassword) ).isChecked());
 
 					registry.commit(this);
 				}
@@ -161,6 +172,8 @@ public class AXAAuthActivity extends ServiceActivity
 			setResult(RESULT_OK);
 			finish();
 		}
+		else
+			super.onActivityResult(requestCode, resultCode, data);
 	}
 
 }

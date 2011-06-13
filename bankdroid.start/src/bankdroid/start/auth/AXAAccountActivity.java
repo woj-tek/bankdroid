@@ -11,10 +11,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import bankdroid.start.R;
 import bankdroid.start.ServiceActivity;
+import bankdroid.start.ServiceRunner;
+import bankdroid.start.SessionManager;
 
 import com.csaba.connector.BankService;
+import com.csaba.connector.axa.AXASelectAccountService;
 import com.csaba.connector.model.Account;
-import com.csaba.connector.service.LoginService;
 
 //FIXME display warning on logout
 public class AXAAccountActivity extends ServiceActivity implements OnItemClickListener
@@ -38,6 +40,8 @@ public class AXAAccountActivity extends ServiceActivity implements OnItemClickLi
 		super.onResume();
 
 		setResult(RESULT_CANCELED);
+
+		//FIXME select account automatically if only one account is available
 
 		final Intent intent = getIntent();
 		if ( intent != null )
@@ -67,6 +71,7 @@ public class AXAAccountActivity extends ServiceActivity implements OnItemClickLi
 			};
 
 			( (ListView) findViewById(R.id.accountList) ).setAdapter(adapter);
+
 		}
 	}
 
@@ -75,19 +80,42 @@ public class AXAAccountActivity extends ServiceActivity implements OnItemClickLi
 	{
 		super.onServiceFinished(service);
 
-		if ( service instanceof LoginService )
+		if ( service instanceof AXASelectAccountService )
 		{
-			//FIXME implement account select here
-			//FIXME set RP_SELECTED_ACCOUNT and update the registry if necessary.
+			final int[] pinMask = ( (AXASelectAccountService) service ).getPinMask();
+			final Intent intent = new Intent(this, AXAAccountPINActivity.class);
+			intent.putExtra(EXTRA_PINMASK, pinMask);
+			startActivityForResult(intent, REQUEST_LOGIN);
 		}
 	}
 
 	@Override
 	public void onItemClick( final AdapterView<?> view, final View itemView, final int position, final long id )
 	{
-		// FIXME start account select service here
-		startActivityForResult(new Intent(this, AXAAccountPINActivity.class), REQUEST_LOGIN);
+		@SuppressWarnings( "unchecked" )
+		final ArrayAdapter<Account> adapter = (ArrayAdapter<Account>) view.getAdapter();
 
+		final Account account = adapter.getItem(position);
+		final AXASelectAccountService sas = new AXASelectAccountService();
+		sas.setAccount(account);
+		( new ServiceRunner(this, this, sas, SessionManager.getInstance().getSession()) ).start();
+	}
+
+	@Override
+	protected void onActivityResult( final int requestCode, final int resultCode, final Intent data )
+	{
+		if ( requestCode == REQUEST_LOGIN && resultCode == RESULT_OK )
+		{
+			setResult(RESULT_OK);
+			finish();
+		}
+		else if ( requestCode == REQUEST_LOGIN && resultCode == RESULT_CANCELED )
+		{//do nothing, back button was pressed. another account can be selected
+		}
+		else
+		{
+			super.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 
 }

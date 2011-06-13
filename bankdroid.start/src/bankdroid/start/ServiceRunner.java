@@ -1,10 +1,7 @@
 package bankdroid.start;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -94,7 +91,7 @@ public class ServiceRunner implements Runnable, Codes
 		}
 	}
 
-	private void lockScreenRotation()
+	/*private void lockScreenRotation()
 	{
 		if ( context instanceof Activity )
 		{
@@ -117,7 +114,7 @@ public class ServiceRunner implements Runnable, Codes
 		{
 			( (Activity) context ).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
 		}
-	}
+	}*/
 
 	@Override
 	public void run()
