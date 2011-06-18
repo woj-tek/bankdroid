@@ -28,6 +28,9 @@
     <string name="rememberPIN">Remember PIN</string>
     <string name="deleteUser">Delete User</string>
     <string name="axaAccountSelect">Select an account:</string>
+    <string name="axaInvalidOTP">Invalid one time password: %s.</string>
+    <string name="msgUseSMSKey">The easiest way to use SMS password is SMS Key. Use it to copy and paste password quickly into the password field. For more information visit SMS Key Blog.</string>
+    <string name="msgSMSKeyURL">http://www.bankdroid.info</string>
 
 	<!-- MainActivity -->
     <string name="msgWelcome">Welcome %s!</string>
