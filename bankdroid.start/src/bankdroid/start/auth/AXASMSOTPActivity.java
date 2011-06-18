@@ -2,22 +2,26 @@ package bankdroid.start.auth;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.ClipboardManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
 import bankdroid.start.R;
 import bankdroid.start.ServiceActivity;
 import bankdroid.start.ServiceRunner;
 import bankdroid.start.SessionManager;
+import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.axa.AXASMSOTPValidationService;
 import com.csaba.connector.axa.model.AXABank;
 import com.csaba.connector.model.Account;
+import com.csaba.connector.model.Customer;
+import com.csaba.connector.model.Session;
 
-//FIXME save customer name on succesful result
 public class AXASMSOTPActivity extends ServiceActivity
 {
 	@Override
@@ -47,6 +51,14 @@ public class AXASMSOTPActivity extends ServiceActivity
 		{
 			imm.showSoftInput(findViewById(R.id.smsotp), 0);
 		}
+
+		//check for clipboard content
+		onPaste(null);
+	}
+
+	public void onSMSKey( final View v )
+	{
+		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(SMSKEY_BLOG_HOME)));
 	}
 
 	public void onPaste( final View v )
@@ -55,7 +67,14 @@ public class AXASMSOTPActivity extends ServiceActivity
 		if ( clipboard.hasText() )
 		{
 			final String content = clipboard.getText().toString();
-			( (EditText) findViewById(R.id.smsotp) ).setText(content);
+			if ( content.length() != 6 )
+				Toast.makeText(this, R.string.axaInvalidOTP, Toast.LENGTH_SHORT).show();
+			else
+			{
+				( (EditText) findViewById(R.id.smsotp) ).setText(content);
+				clipboard.setText(null);
+			}
+
 		}
 
 	}
@@ -78,7 +97,31 @@ public class AXASMSOTPActivity extends ServiceActivity
 
 		if ( service instanceof AXASMSOTPValidationService )
 		{
+			//update name of customer
+			final Session session = SessionManager.getInstance().getSession();
+			if ( session != null )
+			{
+				try
+				{
+					final Customer customer = session.getCustomer();
+					//get registry key
+					int registryId = -1;
+					if ( customer.isRemotePropertySet(RP_REGISTRY_ID) )
+						registryId = (Integer) customer.getRemoteProperty(RP_REGISTRY_ID);
 
+					//store to registry
+					final SecureRegistry registry = SecureRegistry.getInstance(this);
+					AuthUtil.storeCustomer(registry, registryId, customer, new String[] { RP_ACCOUNT_PIN },
+							(Boolean) customer.getRemoteProperty(RP_STORE_PASSWORD));
+					registry.commit(this);
+				}
+				catch ( final Exception e )
+				{
+					GUIUtil.fatalError(this, e);
+				}
+			}
+
+			//start account select activity
 			final Account[] accounts = ( (AXASMSOTPValidationService) service ).getAccounts();
 
 			final Intent intent = new Intent(this, AXAAccountActivity.class);

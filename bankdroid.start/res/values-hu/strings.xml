@@ -27,6 +27,9 @@
     <string name="rememberPIN">PIN megjegyzése</string>
     <string name="deleteUser">Felhasználó törlése</string>
     <string name="axaAccountSelect">Válassz egy számlát:</string>
+    <string name="axaInvalidOTP">SMS jelszó nem megfelelő formátumú: %s.</string>
+    <string name="msgUseSMSKey">Az SMS jelszavak legegyszerűbben az SMS Key alkalmazással kezelhetőek. További információk az alkalmazás blogján.</string>
+    <string name="msgSMSKeyURL">http://www.bankdroid.info</string>
 
 	<!-- MainActivity -->
     <string name="msgWelcome">Hello %s!</string>

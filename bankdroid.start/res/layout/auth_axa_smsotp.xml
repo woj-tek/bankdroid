@@ -108,7 +108,37 @@
 		android:layout_below="@id/formLayout"
 		/>
 	
-<!-- FIXME put SMS Key ad here -->		
+	<TextView
+		android:id="@+id/msgUseSMSKey"
+		android:text="@string/msgUseSMSKey"
+		
+		style="@style/commentText"
+		
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+	    android:layout_marginTop="5sp"
+	    android:layout_marginLeft="5sp"
+	    android:layout_marginRight="5sp"
+		
+		android:layout_below="@id/loginButton"
+		/>	
+	
+	<TextView
+		android:id="@+id/linkSMSKey"
+		android:text="@string/msgSMSKeyURL"
+		android:clickable="true"
+		android:onClick="onSMSKey"
+		
+		android:gravity="center"
+		
+		android:textColor="#00B"
+		android:padding="8dp"
+		
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		
+		android:layout_below="@id/msgUseSMSKey"
+		/>	
 
 </RelativeLayout>
 
