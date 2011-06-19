@@ -261,7 +261,7 @@ public class AXAAccountPINActivity extends ServiceActivity implements OnCheckedC
 		}
 		if ( !ready )
 		{
-			Toast.makeText(this, "PIN must be fully specified first.", Toast.LENGTH_SHORT); //FIXME i18n
+			Toast.makeText(this, R.string.msgSpecifyPIN, Toast.LENGTH_SHORT);
 		}
 
 		final char[] localPin = new char[pin.length];
@@ -287,7 +287,6 @@ public class AXAAccountPINActivity extends ServiceActivity implements OnCheckedC
 				}
 			}
 		}
-		Log.d(TAG, "PIN: " + new String(localPin)); //FIXME remove
 
 		//start account login
 		final AXAAccountLoginService accountLogin = new AXAAccountLoginService();

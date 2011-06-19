@@ -17,6 +17,7 @@ import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
 import com.csaba.connector.axa.AXASMSOTPValidationService;
+import com.csaba.connector.axa.AXASelectAccountService;
 import com.csaba.connector.axa.model.AXABank;
 import com.csaba.connector.model.Account;
 import com.csaba.connector.model.Customer;
@@ -124,8 +125,27 @@ public class AXASMSOTPActivity extends ServiceActivity
 			//start account select activity
 			final Account[] accounts = ( (AXASMSOTPValidationService) service ).getAccounts();
 
-			final Intent intent = new Intent(this, AXAAccountActivity.class);
-			intent.putExtra(EXTRA_ACCOUNT_LIST, accounts);
+			if ( accounts.length == 1 )
+			{
+				// auto select
+				final Account account = accounts[0];
+				final AXASelectAccountService sas = new AXASelectAccountService();
+				sas.setAccount(account);
+				( new ServiceRunner(this, this, sas, SessionManager.getInstance().getSession()) ).start();
+			}
+			else
+			{
+				//manual select
+				final Intent intent = new Intent(this, AXAAccountActivity.class);
+				intent.putExtra(EXTRA_ACCOUNT_LIST, accounts);
+				startActivityForResult(intent, REQUEST_LOGIN);
+			}
+		}
+		else if ( service instanceof AXASelectAccountService )
+		{
+			final int[] pinMask = ( (AXASelectAccountService) service ).getPinMask();
+			final Intent intent = new Intent(this, AXAAccountPINActivity.class);
+			intent.putExtra(EXTRA_PINMASK, pinMask);
 			startActivityForResult(intent, REQUEST_LOGIN);
 		}
 	}

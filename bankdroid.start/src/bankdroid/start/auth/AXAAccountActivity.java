@@ -18,7 +18,7 @@ import com.csaba.connector.BankService;
 import com.csaba.connector.axa.AXASelectAccountService;
 import com.csaba.connector.model.Account;
 
-//FIXME display warning on logout
+//FIXME display warning on logout, handle back / home button properly
 public class AXAAccountActivity extends ServiceActivity implements OnItemClickListener
 {
 	@Override
@@ -40,8 +40,6 @@ public class AXAAccountActivity extends ServiceActivity implements OnItemClickLi
 		super.onResume();
 
 		setResult(RESULT_CANCELED);
-
-		//FIXME select account automatically if only one account is available
 
 		final Intent intent = getIntent();
 		if ( intent != null )
@@ -70,8 +68,8 @@ public class AXAAccountActivity extends ServiceActivity implements OnItemClickLi
 				}
 			};
 
-			( (ListView) findViewById(R.id.accountList) ).setAdapter(adapter);
-
+			final ListView list = (ListView) findViewById(R.id.accountList);
+			list.setAdapter(adapter);
 		}
 	}
 
