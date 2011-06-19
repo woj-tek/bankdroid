@@ -11,7 +11,7 @@ import com.csaba.connector.model.Account;
 import com.csaba.connector.model.Customer;
 import com.csaba.connector.model.HistoryItem;
 
-public class PropertyHelper
+public class PropertyHelper implements Codes
 {
 
 	private PropertyHelper()
@@ -30,7 +30,7 @@ public class PropertyHelper
 		result.add(new Property(context.getString(R.string.accountType), account.getType()));
 		result.add(new Property(context.getString(R.string.accountIBAN), account.getIBAN()));
 
-		finalizeResult(account, result);
+		finalizeResult(account, result, new String[0]);
 		return result.toArray(new Property[result.size()]);
 	}
 
@@ -44,7 +44,7 @@ public class PropertyHelper
 		result.add(new Property(context.getString(R.string.transactionDescription), item.getDescription()));
 		result.add(new Property(context.getString(R.string.transactionBalance), item.getBalance()));
 
-		finalizeResult(item, result);
+		finalizeResult(item, result, new String[0]);
 		return result.toArray(new Property[result.size()]);
 	}
 
@@ -56,18 +56,28 @@ public class PropertyHelper
 		result.add(new Property(context.getString(R.string.loginId), customer.getLoginId()));
 		result.add(new Property(context.getString(R.string.customerName), customer.getName()));
 
-		finalizeResult(customer, result);
+		finalizeResult(customer, result, new String[] { RP_REGISTRY_ID, RP_STORE_PASSWORD });
 		return result.toArray(new Property[result.size()]);
 	}
 
-	private static void finalizeResult( final AbstractRemoteObject object, final List<Property> result )
+	private static void finalizeResult( final AbstractRemoteObject object, final List<Property> result,
+			final String[] exceptions )
 	{
 		final String[] names = object.getRemotePropertyNames();
 		for ( final String name : names )
 		{
-			final String label = object.getLocalizedName(name) + ":";
-			final Object value = object.getRemoteProperty(name);
-			result.add(new Property(label, value));
+			boolean exc = false;
+			for ( final String exception : exceptions )
+			{
+				if ( exception.equals(name) )
+					exc = true;
+			}
+			if ( !exc )
+			{
+				final String label = object.getLocalizedName(name) + ":";
+				final Object value = object.getRemoteProperty(name);
+				result.add(new Property(label, value));
+			}
 		}
 
 		for ( final Iterator<Property> it = result.iterator(); it.hasNext(); )

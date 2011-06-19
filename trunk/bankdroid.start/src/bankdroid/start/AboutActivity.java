@@ -26,15 +26,11 @@ import bankdroid.util.TrackedActivity;
  *  TODO PIN based panic functionality
  *  TODO the details of AbstractRemoteObject should contain properties in sequence of adding of property
  *
- *  TODO toolbars instead of / besides menu
- *  TODO use CSABA icons - get legal icons.
- *
  *	XXX set language option in preferences
  *  XXX shortcut widget for the various services - direct access to the service. These widgets should go through the mainactivity.
  *
  *  XXX add Citibank plugin
  *  XXX add K&H plugin
- *  XXX add AxaBank plugin
  */
 
 public class AboutActivity extends TrackedActivity implements OnClickListener, Codes
