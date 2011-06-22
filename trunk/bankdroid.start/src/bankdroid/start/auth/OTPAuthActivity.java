@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -188,8 +188,29 @@ public class OTPAuthActivity extends ServiceActivity implements OnClickListener
 				}
 			}
 
+			if ( ( (OTPLoginService) service ).isSmsAuthentication() )
+			{
+				startActivityForResult(new Intent(this, OTPSMSOTPActivity.class), REQUEST_LOGIN);
+			}
+			else
+			{
+				setResult(RESULT_OK);
+				finish();
+			}
+		}
+	}
+
+	@Override
+	protected void onActivityResult( final int requestCode, final int resultCode, final Intent data )
+	{
+		if ( resultCode == RESULT_OK )
+		{
 			setResult(RESULT_OK);
 			finish();
+		}
+		else
+		{
+			super.onActivityResult(requestCode, resultCode, data);
 		}
 	}
 }
