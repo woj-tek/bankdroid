@@ -13,6 +13,7 @@
 		<activity android:name=".auth.AuthBankSelectActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
 		<activity android:name=".auth.BHAAuthActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
 		<activity android:name=".auth.OTPAuthActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
+		<activity android:name=".auth.OTPSMSOTPActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
 		<activity android:name=".auth.DummyAuthActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
 		<activity android:name=".auth.AXAAccountActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
 		<activity android:name=".auth.AXAAccountPINActivity" android:theme="@android:style/Theme.NoTitleBar" android:screenOrientation="portrait"/>
