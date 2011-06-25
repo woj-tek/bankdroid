@@ -50,6 +50,7 @@ public class AuthUtil implements Codes
 
 		//save store password property to make it easy to inquire it later
 		customer.setRemoteProperty(RP_STORE_PASSWORD, storePassword);
+		customer.setRemoteProperty(RP_REGISTRY_ID, idSeq);
 
 		//store basic data of customer
 
