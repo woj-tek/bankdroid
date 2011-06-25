@@ -22,7 +22,6 @@ import com.csaba.connector.otp.model.OTPBank;
 
 /**
  * @author Gabe
- *FIXME customer name is not correctly set
  *FIXME customer is not updated but set as a new customer in the registry
  */
 public class OTPSMSOTPActivity extends ServiceActivity
