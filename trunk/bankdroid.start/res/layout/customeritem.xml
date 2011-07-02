@@ -11,6 +11,7 @@
   		
   		android:src="@drawable/icon"
   		android:padding="7sp"
+  		android:visibility="gone"
   		
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"
@@ -26,6 +27,7 @@
   		style="@style/valueText"
   		
   		android:paddingTop="7sp"
+  		android:layout_marginLeft="7sp"
   		
   		android:layout_width="fill_parent"
   		android:layout_height="wrap_content"
@@ -41,6 +43,7 @@
   		style="@style/commentText"
  
    		android:paddingBottom="7sp"
+  		android:layout_marginLeft="7sp"
   		
   		android:layout_width="wrap_content"
   		android:layout_height="wrap_content"

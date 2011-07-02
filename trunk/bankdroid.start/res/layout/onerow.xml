@@ -2,6 +2,7 @@
 
 <!-- Use it for lists listing single line of text as parameter of ArrayAdapter -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:id="@+id/item"
 	android:text="Text" 
 	android:padding="10sp"
 	

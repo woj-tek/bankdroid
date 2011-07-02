@@ -67,7 +67,7 @@ public class CustomerAdapter extends BaseAdapter
 
 		final Customer customer = customers[position];
 		( (TextView) view.findViewById(R.id.customerName) ).setText(customer.getName());
-		( (TextView) view.findViewById(R.id.customerLoginId) ).setText(customer.getLoginId());
+		( (TextView) view.findViewById(R.id.customerLoginId) ).setText(customer.getBank().getName());
 		( (ImageView) view.findViewById(R.id.bankLogo) ).setImageDrawable(PluginManager.getIconDrawable(customer
 				.getBank().getLargeIcon()));
 

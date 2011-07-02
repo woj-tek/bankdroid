@@ -8,7 +8,6 @@ import android.util.Log;
 import android.widget.TextView;
 import bankdroid.start.Codes;
 import bankdroid.start.R;
-import bankdroid.start.plugin.PluginManager;
 
 import com.csaba.connector.BankServiceFactory;
 import com.csaba.connector.ServiceException;
@@ -29,7 +28,11 @@ public class AuthUtil implements Codes
 
 		final TextView bank = (TextView) act.findViewById(R.id.bankSelected);
 		bank.setText(selected.getName());
-		bank.setCompoundDrawables(PluginManager.getIconDrawable(selected.getLargeIcon()), null, null, null);
+		//bank.setCompoundDrawables(PluginManager.getIconDrawable(selected.getLargeIcon()), null, null, null);
+
+		//remove icon
+		bank.setCompoundDrawables(null, null, null, null);
+		bank.setCompoundDrawablePadding(0);
 	}
 
 	static void storeCustomer( final SecureRegistry registry, final int index, final Customer customer,
