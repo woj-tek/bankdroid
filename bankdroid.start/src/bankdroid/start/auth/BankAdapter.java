@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import bankdroid.start.R;
-import bankdroid.start.plugin.PluginManager;
 
 import com.csaba.connector.model.Bank;
 
@@ -65,12 +64,12 @@ public class BankAdapter extends BaseAdapter
 		View view = contentView;
 		if ( view == null )
 		{
-			view = View.inflate(parent.getContext(), R.layout.onerow_icon, null);
+			view = View.inflate(parent.getContext(), R.layout.onerow, null);
 		}
 
 		final TextView textView = (TextView) view;
-		textView.setCompoundDrawablesWithIntrinsicBounds(
-				PluginManager.getIconDrawable(banks.get(position).getLargeIcon()), null, null, null);
+		//		textView.setCompoundDrawablesWithIntrinsicBounds(
+		//				PluginManager.getIconDrawable(banks.get(position).getLargeIcon()), null, null, null);
 		textView.setText(banks.get(position).getName());
 		return view;
 	}
