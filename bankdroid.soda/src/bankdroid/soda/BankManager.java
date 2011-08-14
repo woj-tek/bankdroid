@@ -175,8 +175,8 @@ public final class BankManager implements Codes
 
 	public static Bank[] findByPhoneNumber( final Context context, final String phoneNumber )
 	{
-		Bank[] banks = findBank(context, CONTENT_URI,
-				Bank.F_PHONENUMBERS + " like " + DatabaseUtils.sqlEscapeString("%" + phoneNumber + "%"), null);
+		Bank[] banks = findBank(context, CONTENT_URI, Bank.F_PHONENUMBERS + " like "
+				+ DatabaseUtils.sqlEscapeString("%" + phoneNumber + "%"), null);
 
 		//match phone number manually: drop out items that has no matching phone number.
 		int count = 0;
@@ -455,5 +455,46 @@ public final class BankManager implements Codes
 
 		Log.d(TAG, "Icon loaded from file: " + name);
 		return image;
+	}
+
+	public static Code getCode( final Context context, final String originatingAddress, final String message,
+			final boolean debug )
+	{
+		Code result = null;
+		final String address = originatingAddress.trim();
+		final Bank[] source = BankManager.findByPhoneNumber(context, address);
+
+		if ( source != null && source.length > 0 )
+		{
+			String preprocessedMessage = message;
+			preprocessedMessage = preprocessedMessage.replace('\n', ' ');
+			preprocessedMessage = preprocessedMessage.replace('\r', ' ');
+
+			for ( final Bank bank : source )
+			{
+				final String code = bank.extractCode(preprocessedMessage);
+
+				if ( code != null )
+				{
+					result = new Code();
+					result.setOriginatingAddress(originatingAddress);
+					result.setMessage(message);
+					result.setBank(bank);
+					result.setCode(code);
+
+					break;
+				}
+				if ( code == null && debug )
+				{
+					Log.d(TAG, "Not an OTP message: '" + preprocessedMessage + "'");
+				}
+			}
+		}
+		else if ( debug )
+		{
+			Log.d(TAG, "Unrecognized phone number: '" + originatingAddress + "'");
+		}
+		return result;
+
 	}
 }
