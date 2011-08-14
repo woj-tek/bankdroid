@@ -48,6 +48,7 @@
 	<string name="emailPrefix">Thank you for submitting sample codes! Please leave the bank phone number and the code unchanged. You may replace personal data in the message.</string>
 	<string name="emailOriginator">Bank phone number: </string>
 	<string name="emailSMSText">Message text: </string>
+	<string name="msgKnownSMS">This SMS is already registered. If you receive similar message next time, the application should be activated automatically.</string>
 	
 	<!-- Preferences -->
 	<string name="codeCount">Code Count</string>

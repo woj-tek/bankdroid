@@ -35,37 +35,14 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 
 				final SmsMessage sms = SmsMessage.createFromPdu((byte[]) pdus[0]);
 
-				final Bank[] source = BankManager.findByPhoneNumber(context, sms.getOriginatingAddress().trim());
+				final String originatingAddress = sms.getOriginatingAddress();
+				final String message = sms.getMessageBody();
 
-				if ( source != null && source.length > 0 )
+				final Code code = BankManager.getCode(context, originatingAddress, message, true);
+
+				if ( code != null )
 				{
-					//XXX known bug: this method does not return the full SMS if it is longer than 156 character.
-					String message = sms.getMessageBody();
-					message = message.replace('\n', ' ');
-					message = message.replace('\r', ' ');
-
-					boolean found = false;
-					for ( final Bank bank : source )
-					{
-						final String code = bank.extractCode(message);
-
-						if ( code != null )
-						{
-							found = true;
-							processCode(context, bank, message, code);
-
-							break;
-						}
-					}
-
-					if ( !found )
-					{
-						Log.d(TAG, "Not an OTP message: '" + message + "'");
-					}
-				}
-				else
-				{
-					Log.d(TAG, "Unrecognized phone number: " + sms.getOriginatingAddress());
+					processCode(context, code.getBank(), code.getMessage(), code.getCode());
 				}
 			}
 		}

@@ -1,5 +1,8 @@
 package bankdroid.soda;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -7,18 +10,18 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * @author gyenes
- * FIXME do not allow sending SMS that is already supported
  */
 public class SMSListActivity extends MenuActivity implements OnItemClickListener
 {
 	private static final String SUBMISSION_ADDRESS = "sample@bankdroid.info";
+	private final static int DIALOG_KNOWN_SMS = 678;
 
 	private SimpleCursorAdapter adapter;
 
@@ -89,19 +92,6 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 	}
 
 	@Override
-	protected void onActivityResult( final int requestCode, final int resultCode, final Intent data )
-	{
-		super.onActivityResult(requestCode, resultCode, data);
-
-		if ( requestCode == REQUEST_EMAIL_SEND )
-		{
-			//XXX find out whether the e-mail is sent or not.
-			//setResult(RESULT_OK);
-			//finish();
-		}
-	}
-
-	@Override
 	public void onItemClick( final AdapterView<?> adapter, final View view, final int position, final long id )
 	{
 		final String address = addresses[position];
@@ -109,7 +99,16 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 
 		Log.d(TAG, "SMS was selected: " + address + " :: " + body);
 
-		//XXX forward action to bank name selection
+		//verify whether the SMS is already known or not
+		final Code code = BankManager.getCode(this, address, body, false);
+		if ( code != null )
+		{
+			Log.w(TAG, "User selected known SMS as sample. Identified bank: " + code.getBank().getName());
+			showDialog(DIALOG_KNOWN_SMS);
+			return;
+		}
+
+		//XXX do some heuristic checks whether the message can be a password message or not. 
 
 		//construct e-mail body
 		final StringBuilder builder = new StringBuilder();
@@ -123,15 +122,6 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 
 	private void sendEmail( final String[] address, final String subject, final String msg )
 	{
-		/*final Intent send = new Intent(Intent.ACTION_SEND);
-		send.putExtra(Intent.EXTRA_EMAIL, address);
-		send.putExtra(Intent.EXTRA_SUBJECT, subject);
-		send.putExtra(Intent.EXTRA_TEXT, msg);
-		//send.setType("message/rfc2822");
-		//send.setType("message/rfc822");
-		send.setType("text/plain");
-		startActivityForResult(Intent.createChooser(send, getString(R.string.selectEmail)), REQUEST_EMAIL_SEND);*/
-
 		final Intent view = new Intent(Intent.ACTION_VIEW);
 		final StringBuilder uri = new StringBuilder("mailto:");
 		uri.append(address[0]);
@@ -140,6 +130,31 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 		Log.d(TAG, "URI: " + uri);
 		view.setData(Uri.parse(uri.toString()));
 		startActivity(view);
+	}
+
+	@Override
+	protected Dialog onCreateDialog( final int id )
+	{
+		final Dialog dialog;
+		switch ( id )
+		{
+		case DIALOG_KNOWN_SMS:
+			// do the work to define the pause Dialog
+			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(R.string.msgKnownSMS).setCancelable(false).setNeutralButton(R.string.ok,
+					new DialogInterface.OnClickListener()
+					{
+						public void onClick( final DialogInterface dialog, final int id )
+						{
+							dialog.cancel();
+						}
+					});
+			dialog = builder.create();
+			break;
+		default:
+			dialog = null;
+		}
+		return dialog;
 	}
 
 }
