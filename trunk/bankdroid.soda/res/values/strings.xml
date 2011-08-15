@@ -48,7 +48,7 @@
 	<string name="emailPrefix">Thank you for submitting sample codes! Please leave the bank phone number and the code unchanged. You may replace personal data in the message.</string>
 	<string name="emailOriginator">Bank phone number: </string>
 	<string name="emailSMSText">Message text: </string>
-	<string name="msgKnownSMS">This SMS is already registered. If you receive similar message next time, the application should be activated automatically.</string>
+	<string name="msgKnownSMS">This SMS is already registered. If you receive similar message next time, the application should be activated automatically.</string><!-- I18N -->
 	
 	<!-- Preferences -->
 	<string name="codeCount">Code Count</string>
@@ -88,6 +88,8 @@
 	<string name="descInfoSite">Don\'t understand what this app does?</string>
 	<string name="noMessageYet">You have not received any SMS code yet. (Note: SMS Key processes only newly received messages. Existing messages are not handled.)</string>
 	<string name="ok">Ok</string>
+	<string name="loading">Loading...</string><!-- I18N -->
+	<string name="msgCheckForMessages">Please wait while analyzing your SMS inbox.</string><!-- I18N -->
 
 	<!-- About -->
 	<string name="aboutId">SMS Key</string>

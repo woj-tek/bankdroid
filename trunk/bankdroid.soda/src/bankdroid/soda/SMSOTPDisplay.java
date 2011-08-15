@@ -2,7 +2,6 @@ package bankdroid.soda;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import android.app.NotificationManager;
@@ -25,7 +24,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import bankdroid.soda.CountDown.CountDownListener;
-import bankdroid.soda.bank.Bank;
 
 /**
  * This view as able to display SMS one time passwords processed by {@link SMSReceiver}. Besides displayed the codes
@@ -54,10 +52,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 {
 	private static final int FORCE_THRESHOLD = 900;
 
-	private CharSequence displayedCode;
-	private Bank bank;
-	private Date receivedAt;
-	private String smsMessage;
+	private Message message;
 	private CountDown countDown;
 
 	boolean isActive = false;
@@ -112,15 +107,15 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 
 		if ( !processIntent() )
 		{
-			if ( displayedCode != null )
+			if ( message != null )
 			{
 				Log.d(TAG, "Restore old values");
-				setValues(bank, displayedCode.toString(), receivedAt, smsMessage);
+				setValues(message);
 			}
 			else
 			{
 				Log.d(TAG, "Clear fields as there is no intent and no previously set values.");
-				setValues(null, null, null, null);
+				setValues(null);
 			}
 		}
 		isActive = true;
@@ -134,24 +129,22 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 		//process intent
 		final Intent intent = getIntent();
 
-		Serializable timestampSource = null;
+		Serializable messageSource = null;
 		if ( intent != null )
 		{
-			timestampSource = intent.getSerializableExtra(BANKDROID_SODA_SMSTIMESTAMP);
+			messageSource = intent.getSerializableExtra(BANKDROID_SODA_MESSAGE);
 		}
 
 		//check timestamp availability to make sure, that intent is not null, and correct intent is received.
-		if ( timestampSource != null )
+		if ( messageSource != null && messageSource instanceof Message )
 		{
 			Log.d(TAG, "Set values based on new SMS intent.");
-			final String smsCode = intent.getStringExtra(BANKDROID_SODA_SMSCODE);
-			final String smsMessage = intent.getStringExtra(BANKDROID_SODA_SMSMESSAGE);
-			final Bank source = (Bank) intent.getSerializableExtra(BANKDROID_SODA_BANK);
+			final Message message = (Message) messageSource;
 
-			setValues(source, smsCode, (Date) timestampSource, smsMessage);
+			setValues(message);
 
 			if ( intent.getAction().equals(ACTION_DISPLAY) )
-				BankManager.updateLastMessage(getApplicationContext(), new Message(bank, smsMessage, receivedAt));
+				BankManager.updateLastMessage(getApplicationContext(), message);
 
 			return true;
 		}
@@ -177,13 +170,11 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 	{
 		super.onSaveInstanceState(outState);
 
-		if ( displayedCode != null )
+		if ( message != null )
 		{
-			Log.d(TAG, "Values going to be saved for code: " + displayedCode + "(" + bank.getName() + ")");
-			outState.putCharSequence(BANKDROID_SODA_SMSCODE, displayedCode);
-			outState.putSerializable(BANKDROID_SODA_SMSTIMESTAMP, receivedAt);
-			outState.putString(BANKDROID_SODA_SMSMESSAGE, smsMessage);
-			outState.putSerializable(BANKDROID_SODA_BANK, bank);
+			Log.d(TAG, "Values going to be saved for code: " + message.getCode() + "(" + message.getBank().getName()
+					+ ")");
+			outState.putSerializable(BANKDROID_SODA_MESSAGE, message);
 		}
 	}
 
@@ -192,64 +183,63 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 	{
 		super.onRestoreInstanceState(savedInstanceState);
 
-		if ( savedInstanceState.containsKey(BANKDROID_SODA_SMSCODE) )
+		if ( savedInstanceState.containsKey(BANKDROID_SODA_MESSAGE) )
 		{
-			bank = (Bank) savedInstanceState.getSerializable(BANKDROID_SODA_BANK);
-			receivedAt = (Date) savedInstanceState.getSerializable(BANKDROID_SODA_SMSTIMESTAMP);
-			smsMessage = savedInstanceState.getString(BANKDROID_SODA_SMSMESSAGE);
-			displayedCode = savedInstanceState.getCharSequence(BANKDROID_SODA_SMSCODE);
-			Log.d(TAG, "Values restored for code: " + displayedCode + "(" + bank.getName() + ")");
+			message = (Message) savedInstanceState.getSerializable(BANKDROID_SODA_MESSAGE);
+			Log.d(TAG, "Values restored for code: " + message.getCode() + "(" + message.getBank().getName() + ")");
 		}
 	}
 
-	private void setValues( final Bank source, final String code, final Date receivedAt, final String smsMessage )
+	private void setValues( final Message message )
 	{
-		displayedCode = code;
-		bank = source;
-		this.receivedAt = receivedAt;
-		this.smsMessage = smsMessage;
+		this.message = message;
 
-		CharSequence timestampText = "";
-		if ( source != null )
+		if ( message != null )
 		{
-			Log.i(TAG, "One time password to display from Bank = " + source.getName());
-			timestampText = Formatters.getTimstampFormat().format(receivedAt);
-		}
+			Log.i(TAG, "One time password to display from Bank = " + message.getBank().getName());
+			final CharSequence timestampText = Formatters.getTimstampFormat().format(message.getTimestamp());
+			( (ImageView) findViewById(R.id.bankLogo) ).setImageDrawable(BankManager.getBankIcon(message.getBank(),
+					getResources()));
+			( (TextView) findViewById(R.id.codeButton) ).setText(message.getCode());
+			( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
+					.toString()
+					+ " " + timestampText);
+			( (TextView) findViewById(R.id.messageBody) ).setText(message.getMessage());
 
-		( (ImageView) findViewById(R.id.bankLogo) ).setImageDrawable(BankManager.getBankIcon(bank, getResources()));
-		( (TextView) findViewById(R.id.codeButton) ).setText(code == null ? getResources().getText(R.string.nocode)
-				: code);
-		( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
-				.toString() + " " + timestampText);
-		( (TextView) findViewById(R.id.messageBody) ).setText(smsMessage);
+			final TextView countDownView = (TextView) findViewById(R.id.countDown);
 
-		final TextView countDownView = (TextView) findViewById(R.id.countDown);
-
-		if ( source != null && smsMessage != null )
-		{
 			findViewById(R.id.securityWarning).setVisibility(
-					source.isTransactionSign(smsMessage) ? View.VISIBLE : View.GONE);
-		}
+					message.getBank().isTransactionSign(message.getMessage()) ? View.VISIBLE : View.GONE);
 
-		if ( source != null && source.getExpiry() > 0 )
-		{
-			countDownView.setVisibility(View.VISIBLE);
-
-			//calculate correct validity period from receivedAt and expiry
-			final long ellapsedTime = ( Calendar.getInstance().getTimeInMillis() - receivedAt.getTime() ) / 1000; //convert to seconds
-			final int remainingTime = (int) Math.max(0, source.getExpiry() - ellapsedTime);
-			countDownView.setText(getResources().getText(R.string.countdown_prefix).toString() + " "
-					+ convertTime(remainingTime));
-
-			if ( remainingTime > 0 )
+			if ( message.getBank().getExpiry() > 0 )
 			{
-				countDown = new CountDown(this, remainingTime);
-				countDown.start();
+				countDownView.setVisibility(View.VISIBLE);
+
+				//calculate correct validity period from receivedAt and expiry
+				final long ellapsedTime = ( Calendar.getInstance().getTimeInMillis() - message.getTimestamp().getTime() ) / 1000; //convert to seconds
+				final int remainingTime = (int) Math.max(0, message.getBank().getExpiry() - ellapsedTime);
+				countDownView.setText(getResources().getText(R.string.countdown_prefix).toString() + " "
+						+ convertTime(remainingTime));
+
+				if ( remainingTime > 0 )
+				{
+					countDown = new CountDown(this, remainingTime);
+					countDown.start();
+				}
+			}
+			else
+			{
+				countDownView.setVisibility(View.GONE);
 			}
 		}
 		else
-		{
-			countDownView.setVisibility(View.GONE);
+		{ //set empty message
+			( (ImageView) findViewById(R.id.bankLogo) ).setImageResource(R.drawable.bankdroid_logo);
+			( (TextView) findViewById(R.id.codeButton) ).setText(getResources().getText(R.string.nocode));
+			( (TextView) findViewById(R.id.messageBody) ).setText("");
+			findViewById(R.id.receivedAt).setVisibility(View.GONE);
+			findViewById(R.id.countDown).setVisibility(View.GONE);
+			findViewById(R.id.securityWarning).setVisibility(View.GONE);
 		}
 	}
 
@@ -283,23 +273,15 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 	{
 		super.onNewIntent(intent);
 		setIntent(intent);
-
-		Serializable timestampSource = null;
-		if ( intent != null )
-		{
-			timestampSource = intent.getSerializableExtra(BANKDROID_SODA_SMSTIMESTAMP);
-		}
-		Log.d(TAG, "Intent timestamp: " + timestampSource);
-
 		if ( isActive )
 			processIntent();
 	}
 
 	public void onCopyAndClose( final View v )
 	{
-		if ( displayedCode != null )
+		if ( message != null )
 		{
-			( (ClipboardManager) getSystemService(CLIPBOARD_SERVICE) ).setText(displayedCode);
+			( (ClipboardManager) getSystemService(CLIPBOARD_SERVICE) ).setText(message.getCode());
 		}
 
 		finish();
@@ -324,7 +306,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 		if ( item.getItemId() == R.id.menuClear )
 		{
 			Log.d(TAG, "Clear menu selected.");
-			setValues(null, null, null, null);
+			setValues(null);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
