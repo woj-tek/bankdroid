@@ -358,18 +358,18 @@ public final class BankManager implements Codes
 
 	public static void updateLastMessage( final Context context, final Message msg )
 	{
-		if ( msg.bank.getId() == Bank.UNASSIGNED_ID )
-			throw new IllegalArgumentException("The bank is not stored in the database yet: " + msg.bank);
+		if ( msg.getBank().getId() == Bank.UNASSIGNED_ID )
+			throw new IllegalArgumentException("The bank is not stored in the database yet: " + msg.getBank());
 
 		final ContentValues values = new ContentValues();
 
-		values.put(Bank.F_LASTMESSAGE, msg.message);
-		values.put(Bank.F_TIMESTAMP, Formatters.getTimstampFormat().format(msg.timestamp));
+		values.put(Bank.F_LASTMESSAGE, msg.getMessage());
+		values.put(Bank.F_TIMESTAMP, Formatters.getTimstampFormat().format(msg.getTimestamp()));
 
 		//update the bank
-		final Uri thisUri = CONTENT_URI.buildUpon().appendEncodedPath(String.valueOf(msg.bank.getId())).build();
+		final Uri thisUri = CONTENT_URI.buildUpon().appendEncodedPath(String.valueOf(msg.getBank().getId())).build();
 		context.getContentResolver().update(thisUri, values, null, null);
-		Log.d(TAG, "Bank " + msg.bank.getName() + " is updated with last message.");
+		Log.d(TAG, "Bank " + msg.getBank().getName() + " is updated with last message.");
 	}
 
 	/**
@@ -401,8 +401,10 @@ public final class BankManager implements Codes
 					throw new IllegalStateException("Database contains invalid value for timestamp: "
 							+ cursor.getString(2), e);
 				}
-				result = new Message(findByUri(context, Uri.withAppendedPath(CONTENT_URI, String.valueOf(id))),
-						message, timestamp);
+				final Bank bank = findByUri(context, Uri.withAppendedPath(CONTENT_URI, String.valueOf(id)));
+				final String address = bank.getPhoneNumbers()[0];
+				//TODO ugly solution, however the real originating address is not stored now.
+				result = new Message(bank, message, timestamp, address, bank.extractCode(message));
 			}
 
 			return result;
@@ -413,7 +415,6 @@ public final class BankManager implements Codes
 				cursor.close();
 		}
 	}
-
 	private final static Map<String, Drawable> images = new HashMap<String, Drawable>();
 
 	public static Drawable getBankIcon( final Bank bank, final Resources res )
@@ -457,10 +458,10 @@ public final class BankManager implements Codes
 		return image;
 	}
 
-	public static Code getCode( final Context context, final String originatingAddress, final String message,
-			final boolean debug )
+	public static Message getCode( final Context context, final String originatingAddress, final String message,
+			final Date timestamp, final boolean debug )
 	{
-		Code result = null;
+		Message result = null;
 		final String address = originatingAddress.trim();
 		final Bank[] source = BankManager.findByPhoneNumber(context, address);
 
@@ -476,11 +477,12 @@ public final class BankManager implements Codes
 
 				if ( code != null )
 				{
-					result = new Code();
+					result = new Message();
 					result.setOriginatingAddress(originatingAddress);
 					result.setMessage(message);
 					result.setBank(bank);
 					result.setCode(code);
+					result.setTimestamp(timestamp);
 
 					break;
 				}

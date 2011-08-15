@@ -1,5 +1,7 @@
 package bankdroid.soda;
 
+import java.util.Date;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -27,9 +29,11 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 
 	private String[] addresses;
 	private String[] bodies;
+	private long[] timestamps;
 
 	private int addressIndex;
 	private int bodyIndex;
+	private int timestampIndex;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -39,10 +43,11 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 		setContentView(R.layout.smslist);
 
 		final Cursor cursor = getContentResolver().query(Uri.parse("content://sms/inbox"),
-				new String[] { "_id", "address", "person", "body" }, null, null, "date DESC");
+				new String[] { "_id", "address", "person", "body", "date" }, null, null, "date DESC");
 
 		addressIndex = cursor.getColumnIndexOrThrow("address");
 		bodyIndex = cursor.getColumnIndexOrThrow("body");
+		timestampIndex = cursor.getColumnIndexOrThrow("date");
 
 		startManagingCursor(cursor); //display person if known
 
@@ -79,10 +84,12 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 		{
 			addresses = new String[count];
 			bodies = new String[count];
+			timestamps = new long[count];
 			for ( int i = 0; i < count; i++ )
 			{
 				addresses[i] = cursor.getString(addressIndex);
 				bodies[i] = cursor.getString(bodyIndex);
+				timestamps[i] = cursor.getLong(timestampIndex);
 
 				cursor.moveToNext();
 			}
@@ -96,11 +103,12 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 	{
 		final String address = addresses[position];
 		final String body = bodies[position];
+		final Date timestamp = new Date(timestamps[position]);
 
 		Log.d(TAG, "SMS was selected: " + address + " :: " + body);
 
 		//verify whether the SMS is already known or not
-		final Code code = BankManager.getCode(this, address, body, false);
+		final Message code = BankManager.getCode(this, address, body, timestamp, false);
 		if ( code != null )
 		{
 			Log.w(TAG, "User selected known SMS as sample. Identified bank: " + code.getBank().getName());

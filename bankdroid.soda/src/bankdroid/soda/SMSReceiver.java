@@ -16,7 +16,6 @@ import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
 import android.text.ClipboardManager;
 import android.util.Log;
-import bankdroid.soda.bank.Bank;
 
 public class SMSReceiver extends BroadcastReceiver implements Codes
 {
@@ -38,17 +37,18 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 				final String originatingAddress = sms.getOriginatingAddress();
 				final String message = sms.getMessageBody();
 
-				final Code code = BankManager.getCode(context, originatingAddress, message, true);
+				final Message code = BankManager.getCode(context, originatingAddress, message, Calendar.getInstance()
+						.getTime(), true);
 
 				if ( code != null )
 				{
-					processCode(context, code.getBank(), code.getMessage(), code.getCode());
+					processCode(context, code);
 				}
 			}
 		}
 	}
 
-	private void processCode( final Context context, final Bank source, final String message, final String code )
+	private void processCode( final Context context, final Message message )
 	{
 		// Restore preferences
 		final SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
@@ -62,7 +62,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 
 		if ( autoCopy )
 		{
-			( (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE) ).setText(code);
+			( (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE) ).setText(message.getCode());
 		}
 
 		if ( notificationOnly )
@@ -73,7 +73,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 			//create notification
 			final int icon = android.R.drawable.stat_sys_warning;
 			final CharSequence tickerText = MessageFormat.format(context.getText(R.string.notificationTicker)
-					.toString(), source.getName());
+					.toString(), message.getBank().getName());
 			final long when = System.currentTimeMillis();
 
 			final Notification notification = new Notification(icon, tickerText, when);
@@ -81,15 +81,12 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 			//set extended message
 			final CharSequence contentTitle = context.getText(R.string.notificationTitle);
 			final CharSequence contentText = MessageFormat.format(
-					context.getText(R.string.notificationText).toString(), source.getName());
+					context.getText(R.string.notificationText).toString(), message.getBank().getName());
 
 			final Intent notificationIntent = new Intent(context, bankdroid.soda.SMSOTPDisplay.class);
 			notificationIntent.setAction(ACTION_DISPLAY);
 			notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-			notificationIntent.putExtra(BANKDROID_SODA_SMSMESSAGE, message);
-			notificationIntent.putExtra(BANKDROID_SODA_BANK, source);
-			notificationIntent.putExtra(BANKDROID_SODA_SMSCODE, code);
-			notificationIntent.putExtra(BANKDROID_SODA_SMSTIMESTAMP, Calendar.getInstance().getTime());
+			notificationIntent.putExtra(BANKDROID_SODA_MESSAGE, message);
 
 			final PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent,
 					PendingIntent.FLAG_UPDATE_CURRENT);
@@ -106,10 +103,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 			myIntent.setAction(ACTION_DISPLAY);
 			myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			myIntent.setClassName("bankdroid.soda", "bankdroid.soda.SMSOTPDisplay");
-			myIntent.putExtra(BANKDROID_SODA_SMSMESSAGE, message);
-			myIntent.putExtra(BANKDROID_SODA_BANK, source);
-			myIntent.putExtra(BANKDROID_SODA_SMSCODE, code);
-			myIntent.putExtra(BANKDROID_SODA_SMSTIMESTAMP, Calendar.getInstance().getTime());
+			myIntent.putExtra(BANKDROID_SODA_MESSAGE, message);
 			context.startActivity(myIntent);
 		}
 
@@ -119,5 +113,4 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 			abortBroadcast();
 		}
 	}
-
 }
