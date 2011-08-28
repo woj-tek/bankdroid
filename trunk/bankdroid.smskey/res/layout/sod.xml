@@ -56,7 +56,7 @@
 				android:id="@+id/originatingAddress" 
 
 				android:text="+443334343" 
-				android:textSize="14sp"
+				android:textSize="18sp"
 				android:textColor="@color/darkBrown" 
 				android:textStyle="bold"
 
