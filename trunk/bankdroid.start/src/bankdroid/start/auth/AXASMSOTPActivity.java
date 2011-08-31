@@ -69,7 +69,7 @@ public class AXASMSOTPActivity extends ServiceActivity
 		{
 			final String content = clipboard.getText().toString();
 			if ( content.length() != 6 )
-				Toast.makeText(this, R.string.axaInvalidOTP, Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, getString(R.string.axaInvalidOTP, content), Toast.LENGTH_SHORT).show();
 			else
 			{
 				( (EditText) findViewById(R.id.smsotp) ).setText(content);

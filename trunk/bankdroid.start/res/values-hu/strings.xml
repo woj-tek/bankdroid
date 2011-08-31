@@ -2,6 +2,8 @@
     <string name="app_name">BankDroid START</string>
 	<string name="copyright">START, BankDroid, 2010 (c)</string>
 
+    <string name="errorTitle">Hiba</string>
+    <string name="close">Bezár</string>
     <string name="progressText">Kérjem várjon, amíg a kiszolgáló válaszol...</string>
     <string name="errSystemError">Rendszer hiba.</string>
     <string name="errNoConnector">Nincs banki kiegészítő telepítve (és a Minta bank is ki van kapcsolva).</string>
@@ -110,6 +112,7 @@
     <string name="search">Keresés</string>
     <string name="accountPicker">Válassz egy számlát</string>
     <string name="periodPicker">Válassz idősablont</string>
+    <string name="msgAccountError">A számlákat nem sikerült betölteni. Elképzlehető, hogy csak kilépés és újra belépéssel lehet folytatni a használatot.</string>
 
 	<!-- About -->
 	<string name="aboutId">BankDroid START</string>
