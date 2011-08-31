@@ -19,6 +19,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import bankdroid.util.GUIUtil;
 
 import com.csaba.connector.BankService;
@@ -176,7 +177,14 @@ public class TransactionListActivity extends ServiceActivity implements OnItemCl
 			//account list received, get history of each account.
 			accounts = ( (AccountService) service ).getAccounts();
 			lastItem = 0;
-			callHistoryService(accounts[lastItem], filter.getFrom(), filter.getTo());
+			if ( accounts == null || accounts.length < 1 )
+			{
+				Toast.makeText(this, R.string.msgAccountError, Toast.LENGTH_LONG).show();
+			}
+			else
+			{
+				callHistoryService(accounts[lastItem], filter.getFrom(), filter.getTo());
+			}
 		}
 	}
 

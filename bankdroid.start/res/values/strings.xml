@@ -3,6 +3,8 @@
     <string name="app_name">BankDroid START</string>
 	<string name="copyright">START, BankDroid, 2010 (c)</string>
 
+    <string name="errorTitle">Error</string>
+    <string name="close">Close</string>
     <string name="progressText">Please wait while communicating with server...</string>
     <string name="errSystemError">System error.</string>
     <string name="errNoConnector">There is no bank connector available (or dummy is switched off).</string>
@@ -111,6 +113,7 @@
     <string name="search">Search</string>
     <string name="accountPicker">Pick an account</string>
     <string name="periodPicker">Pick period template</string>
+    <string name="msgAccountError">Failed to load account list. You may have to logout and login again to resolve the problem.</string>
 
 	<!-- About -->
 	<string name="aboutId">BankDroid START</string>

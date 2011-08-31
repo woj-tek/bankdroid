@@ -29,6 +29,7 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 	private static int DIALOG_ACCOUNT_SELECT = 91345;
 	private static int DIALOG_DATE_PICKER = 91346;
 	private static int DIALOG_PERIOD_PICKER = 91347;
+	private static int DIALOG_ACCOUNT_ERROR = 91348;
 
 	private Account[] accounts;
 	private TransactionFilter filter;
@@ -127,6 +128,23 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 			});
 			return builder.create();
 		}
+		else if ( id == DIALOG_ACCOUNT_ERROR )
+		{
+
+			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle(getString(R.string.errorTitle));
+			builder.setMessage(R.string.msgAccountError);
+			builder.setNeutralButton(R.string.close, new DialogInterface.OnClickListener()
+			{
+
+				@Override
+				public void onClick( final DialogInterface dialog, final int which )
+				{
+					dialog.dismiss();
+				}
+			});
+			return builder.create();
+		}
 		else if ( id == DIALOG_DATE_PICKER )
 		{
 			final DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener()
@@ -219,7 +237,14 @@ public class SearchTransactionActivity extends ServiceActivity implements OnClic
 	{
 		if ( v.getId() == R.id.accountSelect )
 		{
-			showDialog(DIALOG_ACCOUNT_SELECT);
+			if ( accounts == null )
+			{
+				showDialog(DIALOG_ACCOUNT_ERROR);
+			}
+			else
+			{
+				showDialog(DIALOG_ACCOUNT_SELECT);
+			}
 		}
 		else if ( v.getId() == R.id.periodTemplate )
 		{

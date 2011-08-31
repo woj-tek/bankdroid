@@ -148,8 +148,9 @@ public class SessionManager implements ServiceListener, Codes
 							timeoutHandler.sendMessageDelayed(timeoutHandler.obtainMessage(HANDLER_TIMEOUT),
 									WARNING_TICKS);
 						}
-						else
+						else if ( timeoutHandler != null )
 						{
+
 							//continue waiting
 							timeoutHandler.sendMessageDelayed(timeoutHandler.obtainMessage(HANDLER_TIMEOUT), diff
 									- ( sessionTimeout - WARNING_PERIOD ));
