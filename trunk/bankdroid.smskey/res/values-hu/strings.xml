@@ -64,6 +64,8 @@
 	<string name="autoCopySummary">A kód automatikus másolása a vágólapra</string>
 	<string name="shakeToCopy">Ráz és zár</string>
 	<string name="shakeToCopySummary">Ha megrázod a készüléket, az alkalmazás bezáródik és a kód vágólapra kerül.</string>
+	<string name="playSound">Értesítési hang</string>
+	<string name="playSoundSummary">Értesítési hang lejátszása, ha kód érkezik.</string>
 	<string name="resetDb">Bank DB visszaállítás</string>
 	<string name="resetDbSummary">Visszaállításra kerülnek az alap banki paraméterek</string>
 	<string name="developerPrefs">Fejlesztő beállítások</string>

@@ -65,6 +65,8 @@
 	<string name="autoCopySummary">Automatically the code is copied to the clipboard</string>
 	<string name="shakeToCopy">Shake to copy</string><!-- I18N -->
 	<string name="shakeToCopySummary">Copy code and close SMS Key on shaking the phone</string><!-- I18N -->
+	<string name="playSound">Play sound</string><!-- I18N -->
+	<string name="playSoundSummary">Play sound when SMS is received</string><!-- I18N -->
 	<string name="resetDb">Reset bank-db</string>
 	<string name="resetDbSummary">Clean up DB content (custom banks will be deleted!)</string>
 	<string name="developerPrefs">Developer Preferences</string>

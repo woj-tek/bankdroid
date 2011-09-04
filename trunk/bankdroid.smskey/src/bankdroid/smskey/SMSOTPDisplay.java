@@ -5,12 +5,17 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 import bankdroid.smskey.CountDown.CountDownListener;
 
 /**
@@ -61,6 +67,8 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 	private long lastUpdate = -1;
 	private float lastX, lastY, lastZ;
 	private SharedPreferences settings;
+
+	private MediaPlayer mediaPlayer;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -127,6 +135,39 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 		findViewById(R.id.codeButton).setKeepScreenOn(keepScreenOn);
 	}
 
+	private void playSound()
+	{
+		final Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+		if ( alert == null )
+		{
+			Log.e(TAG, "Notification sound URI is not available.");
+			return;
+		}
+
+		try
+		{
+			final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+			if ( audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != 0 )
+			{
+				if ( mediaPlayer == null )
+				{
+					mediaPlayer = new MediaPlayer();
+					mediaPlayer.setDataSource(this, alert);
+					mediaPlayer.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
+					mediaPlayer.setLooping(false);
+					mediaPlayer.prepare();
+				}
+
+				mediaPlayer.start();
+			}
+		}
+		catch ( final Exception e )
+		{
+			Log.e(TAG, "Failed to play notification sound.", e);
+			Toast.makeText(this, "Failed to play notification sound.", Toast.LENGTH_SHORT);
+		}
+	}
+
 	private boolean processIntent()
 	{
 		//process intent
@@ -148,6 +189,12 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 
 			if ( intent.getAction().equals(ACTION_DISPLAY) )
 				BankManager.updateLastMessage(getApplicationContext(), message);
+
+			if ( settings.getBoolean(PREF_PLAY_SOUND, DEFAULT_PLAY_SOUND)
+					&& intent.getBooleanExtra(BANKDROID_SMSKEY_PLAYSOUND, false) )
+			{
+				playSound();
+			}
 
 			return true;
 		}
@@ -208,8 +255,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			final CharSequence timestampText = Formatters.getTimstampFormat().format(message.getTimestamp());
 			( (TextView) findViewById(R.id.codeButton) ).setText(message.getCode());
 			( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
-					.toString()
-					+ " " + timestampText);
+					.toString() + " " + timestampText);
 			( (TextView) findViewById(R.id.messageBody) ).setText(message.getMessage());
 
 			//TODO try to read bank name from contact list

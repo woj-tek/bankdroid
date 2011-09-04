@@ -40,6 +40,12 @@
 			android:summary="@string/shakeToCopySummary"
 			android:key="bankdroid.smskey.ShakeToCopy" />
 	
+		<CheckBoxPreference 
+			android:title="@string/playSound" 
+			android:defaultValue="true" 
+			android:summary="@string/playSoundSummary"
+			android:key="bankdroid.smskey.PlaySound" />
+	
 	</PreferenceCategory>
 
 
