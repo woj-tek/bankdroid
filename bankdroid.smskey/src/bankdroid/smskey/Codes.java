@@ -16,6 +16,7 @@ public interface Codes
 	public static final String URL_HOME_PAGE = "http://goo.gl/gIVFJ";
 	public static final String URL_BANK_LIST = "http://goo.gl/ukYYk";
 
+	public static final String BANKDROID_SMSKEY_PLAYSOUND = "bankdroid.smskey.PlaySound";
 	public static final String BANKDROID_SMSKEY_MESSAGE = "bankdroid.smskey.SMSMessage";
 	public static final String BANKDROID_SMSKEY_BANK = "bankdroid.smskey.Bank";
 
@@ -28,12 +29,14 @@ public interface Codes
 	public static final String PREF_AUTO_COPY = "bankdroid.smskey.AutoCopy";
 	public static final String PREF_SHAKE_TO_COPY = "bankdroid.smskey.ShakeToCopy";
 	public static final String PREF_CODE_COUNT = "bankdroid.smskey.CodeCount";
+	public static final String PREF_PLAY_SOUND = "bankdroid.smskey.PlaySound";
 
 	public static final boolean DEFAULT_NOTIFICATION = false;
 	public static final boolean DEFAULT_KEEP_SMS = false;
 	public static final boolean DEFAULT_KEEP_SCREEN_ON = true;
 	public static final boolean DEFAULT_UNLOCK_SCREEN = true;
 	public static final boolean DEFAULT_AUTO_COPY = true;
+	public static final boolean DEFAULT_PLAY_SOUND = true;
 
 	public static final String TAG = "SKNG";
 

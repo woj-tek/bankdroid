@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.SmsMessage;
@@ -55,6 +56,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 		final boolean notificationOnly = settings.getBoolean(PREF_NOTIFICATION, DEFAULT_NOTIFICATION);
 		final boolean keepSMS = settings.getBoolean(PREF_KEEP_SMS, DEFAULT_KEEP_SMS);
 		final boolean autoCopy = settings.getBoolean(PREF_AUTO_COPY, DEFAULT_AUTO_COPY);
+		final boolean playSound = settings.getBoolean(PREF_PLAY_SOUND, DEFAULT_PLAY_SOUND);
 		final int codeCount = settings.getInt(PREF_CODE_COUNT, 0) + 1;
 		final Editor edit = settings.edit();
 		edit.putInt(PREF_CODE_COUNT, codeCount);
@@ -93,6 +95,12 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 
 			notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
 
+			if ( playSound )
+			{
+				notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
+				notification.defaults = Notification.DEFAULT_SOUND;
+			}
+
 			//display notification
 			nm.notify(NOTIFICATION_ID, notification);
 		}
@@ -104,6 +112,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 			myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 			myIntent.setClass(context, SMSOTPDisplay.class);
 			myIntent.putExtra(BANKDROID_SMSKEY_MESSAGE, message);
+			myIntent.putExtra(BANKDROID_SMSKEY_PLAYSOUND, playSound);
 			context.startActivity(myIntent);
 		}
 
