@@ -110,5 +110,8 @@
 	<string name="eula_title">License</string>
 	<string name="eula_accept">Accept</string>
 	<string name="eula_refuse">Refuse</string>
+	
+	<!-- Campaign -->
+	<string name="campaignRate">Rate SMS Key TM on Market and tell which bank you use!</string><!-- I18N -->
 
 </resources>
