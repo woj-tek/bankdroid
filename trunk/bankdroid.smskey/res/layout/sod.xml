@@ -152,21 +152,28 @@
 
 </ScrollView>
 
+			<include
+				layout="@layout/campaign_rateapp" 
+				android:layout_alignParentBottom="true"
+				android:layout_alignParentLeft="true"
+				android:layout_width="fill_parent"
+				android:layout_height="50sp"
+				/>
 	
-		<TextView 
-			android:id="@+id/visitBlog" 
-
-			android:text="@string/visitBlog" 
-			android:textColor="@color/sodaBlue"
-			android:textStyle="italic"
-			android:onClick="onProductInfo"
-			android:clickable="true"
-
-			android:gravity="center"
-			android:layout_width="fill_parent" 
-			android:layout_height="30sp"
-			android:layout_alignParentBottom="true"
-			android:layout_alignParentLeft="true"
-			/>
+<!--		<TextView -->
+<!--			android:id="@+id/visitBlog" -->
+<!---->
+<!--			android:text="@string/visitBlog" -->
+<!--			android:textColor="@color/sodaBlue"-->
+<!--			android:textStyle="italic"-->
+<!--			android:onClick="onProductInfo"-->
+<!--			android:clickable="true"-->
+<!---->
+<!--			android:gravity="center"-->
+<!--			android:layout_width="fill_parent" -->
+<!--			android:layout_height="30sp"-->
+<!--			android:layout_alignParentBottom="true"-->
+<!--			android:layout_alignParentLeft="true"-->
+<!--			/>-->
 
 </RelativeLayout>
