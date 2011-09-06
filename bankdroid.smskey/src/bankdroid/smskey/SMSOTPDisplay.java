@@ -26,8 +26,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import bankdroid.campaign.CampaignManager;
 import bankdroid.smskey.CountDown.CountDownListener;
 
 /**
@@ -70,6 +72,8 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 
 	private MediaPlayer mediaPlayer;
 
+	private CampaignManager campaignManager;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate( final Bundle savedInstanceState )
@@ -98,7 +102,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 				sensor = sensors.get(0);
 			}
 		}
-
+		campaignManager = new CampaignManager(this);
 	}
 
 	@Override
@@ -133,6 +137,8 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 
 		final boolean keepScreenOn = settings.getBoolean(PREF_KEEP_SCREEN_ON, DEFAULT_KEEP_SCREEN_ON);
 		findViewById(R.id.codeButton).setKeepScreenOn(keepScreenOn);
+
+		campaignManager.show((RelativeLayout) findViewById(R.id.mainPanel));
 	}
 
 	private void playSound()
@@ -255,7 +261,8 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			final CharSequence timestampText = Formatters.getTimstampFormat().format(message.getTimestamp());
 			( (TextView) findViewById(R.id.codeButton) ).setText(message.getCode());
 			( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
-					.toString() + " " + timestampText);
+					.toString()
+					+ " " + timestampText);
 			( (TextView) findViewById(R.id.messageBody) ).setText(message.getMessage());
 
 			//TODO try to read bank name from contact list
