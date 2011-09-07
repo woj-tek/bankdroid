@@ -7,15 +7,21 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import bankdroid.smskey.Codes;
+import bankdroid.smskey.R;
 
 public class CampaignManager
 {
+	private final static long ANIMATION_DELAY = 500;
 	public final static List<Campaign> campaigns = new ArrayList<Campaign>();
 	static
 	{
@@ -35,22 +41,39 @@ public class CampaignManager
 	public void show( final RelativeLayout parent )
 	{
 		final Campaign campaign = getActiveCampaign();
+		if ( campaign == null )
+		{
+			return;
+		}
 
 		final View view = campaign.getView(context);
 
-		//calculate 50dp instead of 50px
-		final DisplayMetrics dm = context.getResources().getDisplayMetrics();
-		final int pixelSize = (int) ( 50f * dm.density );
+		final Handler handler = new Handler()
+		{
+			@Override
+			public void handleMessage( final Message msg )
+			{
+				super.handleMessage(msg);
 
-		final LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, pixelSize);
-		params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-		params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+				if ( msg.what == 1 )
+				{
+					//calculate 50dp instead of 50px
+					final DisplayMetrics dm = context.getResources().getDisplayMetrics();
+					final int pixelSize = (int) ( 50f * dm.density );
 
-		parent.addView(view, params);
+					final LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, pixelSize);
+					params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+					params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 
-		//FIXME add animation and delay
+					final Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_bottom);
+					parent.addView(view, params);
+					view.startAnimation(animation);
+				}
+			}
+		};
+		handler.sendEmptyMessageDelayed(1, ANIMATION_DELAY);
 	}
 
 	private Campaign getActiveCampaign()

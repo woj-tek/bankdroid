@@ -15,11 +15,10 @@ public class MarketRateCampaign implements Campaign
 		return View.inflate(context, R.layout.campaign_rateapp, null);
 	}
 
+	//FIXME implement hit detection
 	@Override
 	public boolean isActive( final Date lastShown, final int numberOfAppearance, final int hitCount, final int codeCount )
 	{
-		// FIXME filtering logic
-		return true;
+		return hitCount == 0 && ( codeCount >= 10 && ( codeCount % 10 == 0 || codeCount % 10 == 1 ) );
 	}
-
 }
