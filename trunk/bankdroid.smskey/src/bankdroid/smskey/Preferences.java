@@ -15,6 +15,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.widget.Toast;
+import bankdroid.campaign.CampaignManager;
 
 /**
  * @author Gabe
@@ -22,6 +23,8 @@ import android.widget.Toast;
 public class Preferences extends PreferenceActivity implements Codes, OnPreferenceChangeListener
 {
 	private final static int DISPLAY_TOAST = 354;
+	private final static int DIALOG_RESETDB = 355;
+	private final static int DIALOG_RESETCAMPAIGN = 356;
 
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
@@ -29,8 +32,8 @@ public class Preferences extends PreferenceActivity implements Codes, OnPreferen
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.layout.preferences);
 
-		final Preference resetDb = findPreference(PREF_RESET_DB);
-		resetDb.setOnPreferenceChangeListener(this);
+		findPreference(PREF_RESET_DB).setOnPreferenceChangeListener(this);
+		findPreference(PREF_RESET_CAMPAIGN).setOnPreferenceChangeListener(this);
 
 		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		if ( Build.VERSION.SDK_INT < 5 )
@@ -53,7 +56,11 @@ public class Preferences extends PreferenceActivity implements Codes, OnPreferen
 	{
 		if ( pref.getKey().equals(PREF_RESET_DB) && ( (Boolean) newValue ) )
 		{
-			showDialog(0);
+			showDialog(DIALOG_RESETDB);
+		}
+		else if ( pref.getKey().equals(PREF_RESET_CAMPAIGN) && ( (Boolean) newValue ) )
+		{
+			showDialog(DIALOG_RESETCAMPAIGN);
 		}
 		return true;
 	}
@@ -87,30 +94,64 @@ public class Preferences extends PreferenceActivity implements Codes, OnPreferen
 		}) ).start();
 	}
 
+	private void resetCampaign( final Preference pref )
+	{
+		CampaignManager.resetCampaign(this);
+
+		Toast.makeText(this, R.string.msgCampaignReset, Toast.LENGTH_SHORT).show();
+		( (CheckBoxPreference) pref ).setChecked(false);
+	}
+
 	@Override
 	protected Dialog onCreateDialog( final int id )
 	{
 		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(getString(R.string.msgAreYouSure)).setCancelable(false)
-				.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener()
-				{
-					@Override
-					public void onClick( final DialogInterface dialog, final int id )
+		if ( id == DIALOG_RESETDB )
+		{
+			builder.setMessage(getString(R.string.msgAreYouSure)).setCancelable(false).setPositiveButton(
+					getString(R.string.yes), new DialogInterface.OnClickListener()
 					{
-						final Preference pref = findPreference(PREF_RESET_DB);
-						resetDb(pref);
-						dialog.dismiss();
-					}
-				}).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener()
+						@Override
+						public void onClick( final DialogInterface dialog, final int id )
+						{
+							final Preference pref = findPreference(PREF_RESET_DB);
+							resetDb(pref);
+							dialog.dismiss();
+						}
+					}).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick( final DialogInterface dialog, final int id )
 				{
-					@Override
-					public void onClick( final DialogInterface dialog, final int id )
+					final CheckBoxPreference pref = (CheckBoxPreference) findPreference(PREF_RESET_DB);
+					pref.setChecked(false);
+					dialog.cancel();
+				}
+			});
+		}
+		if ( id == DIALOG_RESETCAMPAIGN )
+		{
+			builder.setMessage(getString(R.string.msgAreYouSure)).setCancelable(false).setPositiveButton(
+					getString(R.string.yes), new DialogInterface.OnClickListener()
 					{
-						final CheckBoxPreference pref = (CheckBoxPreference) findPreference(PREF_RESET_DB);
-						pref.setChecked(false);
-						dialog.cancel();
-					}
-				});
+						@Override
+						public void onClick( final DialogInterface dialog, final int id )
+						{
+							final Preference pref = findPreference(PREF_RESET_CAMPAIGN);
+							resetCampaign(pref);
+							dialog.dismiss();
+						}
+					}).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener()
+			{
+				@Override
+				public void onClick( final DialogInterface dialog, final int id )
+				{
+					final CheckBoxPreference pref = (CheckBoxPreference) findPreference(PREF_RESET_CAMPAIGN);
+					pref.setChecked(false);
+					dialog.cancel();
+				}
+			});
+		}
 		final AlertDialog alert = builder.create();
 		return alert;
 	}
