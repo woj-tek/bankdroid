@@ -26,6 +26,7 @@ public interface Codes
 	public static final String PREF_KEEP_SMS = "bankdroid.smskey.KeepSMS";
 	public static final String PREF_KEEP_SCREEN_ON = "bankdroid.smskey.KeepScreenOn";
 	public static final String PREF_RESET_DB = "bankdroid.smskey.ResetDb";
+	public static final String PREF_RESET_CAMPAIGN = "bankdroid.smskey.ResetCampaign";
 	public static final String PREF_UNLOCK_SCREEN = "bankdroid.smskey.UnlockScreen";
 	public static final String PREF_AUTO_COPY = "bankdroid.smskey.AutoCopy";
 	public static final String PREF_SHAKE_TO_COPY = "bankdroid.smskey.ShakeToCopy";

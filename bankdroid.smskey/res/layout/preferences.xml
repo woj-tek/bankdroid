@@ -51,21 +51,31 @@
 
 	<PreferenceCategory
 		android:title="@string/developerPrefs">
+		
+		<PreferenceScreen 
+			android:title="@string/developerPrefs"
+			>
+		
+			<CheckBoxPreference 
+				android:title="@string/resetDb" 
+				android:defaultValue="false"
+				android:summary="@string/resetDbSummary" 
+				android:key="bankdroid.smskey.ResetDb" />
 			
-		<CheckBoxPreference 
-			android:title="@string/resetDb" 
-			android:defaultValue="false"
-			android:summary="@string/resetDbSummary" 
-			android:key="bankdroid.smskey.ResetDb" />
+			<CheckBoxPreference 
+				android:title="@string/resetCampaign" 
+				android:defaultValue="false"
+				android:summary="@string/resetCampaignSummary" 
+				android:key="bankdroid.smskey.ResetCampaign" />
+			
+			<Preference 
+				android:title="@string/codeCount" 
+				android:enabled="false"
+				android:defaultValue="0"
+				android:key="bankdroid.smskey.CodeCount" 
+				android:summary="123"/>
 		
-		<Preference 
-			android:title="@string/codeCount" 
-			android:enabled="false"
-			android:defaultValue="0"
-			android:key="bankdroid.smskey.CodeCount" 
-			android:summary="123"/>
-		
-		
+		</PreferenceScreen>		
 	</PreferenceCategory>
 
 

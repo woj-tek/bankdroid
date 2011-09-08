@@ -43,6 +43,11 @@ public class CampaignManager implements OnClickListener
 
 	public void show( final RelativeLayout parent )
 	{
+		if ( campaign != null )
+		{ // some campaign is already displayed
+			return;
+		}
+
 		campaign = getActiveCampaign();
 		if ( campaign == null )
 		{
@@ -141,5 +146,22 @@ public class CampaignManager implements OnClickListener
 		saveCampaignStatus(campaign, status);
 
 		campaign.hit(context);
+	}
+
+	public static void resetCampaign( final Context context )
+	{
+		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+		final Editor edit = preferences.edit();
+
+		for ( final Campaign campaign : campaigns )
+		{
+			final String key = campaign.getClass().getName();
+			if ( preferences.contains(key) )
+			{
+				edit.remove(key);
+			}
+		}
+
+		edit.commit();
 	}
 }
