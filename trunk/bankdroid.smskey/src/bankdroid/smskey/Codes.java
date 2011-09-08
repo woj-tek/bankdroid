@@ -15,6 +15,7 @@ public interface Codes
 	public static final String URL_HELP = "http://goo.gl/Kpxbk";
 	public static final String URL_HOME_PAGE = "http://goo.gl/gIVFJ";
 	public static final String URL_BANK_LIST = "http://goo.gl/ukYYk";
+	public static final String URL_MARKET_DETAILS = "http://goo.gl/3skg0";
 
 	public static final String BANKDROID_SMSKEY_PLAYSOUND = "bankdroid.smskey.PlaySound";
 	public static final String BANKDROID_SMSKEY_MESSAGE = "bankdroid.smskey.SMSMessage";

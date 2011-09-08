@@ -11,7 +11,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -33,6 +32,7 @@ public class CampaignManager implements OnClickListener
 
 	private final Context context;
 	private final SharedPreferences preferences;
+	private Campaign campaign;
 
 	public CampaignManager( final Context context )
 	{
@@ -43,7 +43,7 @@ public class CampaignManager implements OnClickListener
 
 	public void show( final RelativeLayout parent )
 	{
-		final Campaign campaign = getActiveCampaign();
+		campaign = getActiveCampaign();
 		if ( campaign == null )
 		{
 			return;
@@ -136,7 +136,10 @@ public class CampaignManager implements OnClickListener
 	@Override
 	public void onClick( final View v )
 	{
-		// TODO Auto-generated method stub
-		Log.d(Codes.TAG, "clicked...");
+		final CampaignStatus status = loadCampaignStatus(campaign);
+		status.setHitCount(status.getHitCount() + 1);
+		saveCampaignStatus(campaign, status);
+
+		campaign.hit(context);
 	}
 }
