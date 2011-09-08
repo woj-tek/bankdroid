@@ -11,7 +11,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
@@ -19,13 +21,14 @@ import android.widget.RelativeLayout.LayoutParams;
 import bankdroid.smskey.Codes;
 import bankdroid.smskey.R;
 
-public class CampaignManager
+public class CampaignManager implements OnClickListener
 {
 	private final static long ANIMATION_DELAY = 500;
 	public final static List<Campaign> campaigns = new ArrayList<Campaign>();
 	static
 	{
 		campaigns.add(new MarketRateCampaign());
+		campaigns.add(new VisitBlogCampaign());
 	}
 
 	private final Context context;
@@ -70,6 +73,9 @@ public class CampaignManager
 					final Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_bottom);
 					parent.addView(view, params);
 					view.startAnimation(animation);
+
+					//set up onclicklisteners
+					view.setOnClickListener(CampaignManager.this);
 				}
 			}
 		};
@@ -125,5 +131,12 @@ public class CampaignManager
 		}
 
 		return status;
+	}
+
+	@Override
+	public void onClick( final View v )
+	{
+		// TODO Auto-generated method stub
+		Log.d(Codes.TAG, "clicked...");
 	}
 }
