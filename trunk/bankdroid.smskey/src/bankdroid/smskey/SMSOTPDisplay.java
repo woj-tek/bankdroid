@@ -62,8 +62,6 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 	private Message message;
 	private CountDown countDown;
 
-	boolean isActive = false;
-
 	private SensorManager sensorManager;
 	private Sensor sensor;
 	private long lastUpdate = -1;
@@ -133,7 +131,6 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 				setValues(null);
 			}
 		}
-		isActive = true;
 
 		final boolean keepScreenOn = settings.getBoolean(PREF_KEEP_SCREEN_ON, DEFAULT_KEEP_SCREEN_ON);
 		findViewById(R.id.codeButton).setKeepScreenOn(keepScreenOn);
@@ -191,12 +188,14 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			Log.d(TAG, "Set values based on new SMS intent.");
 			final Message message = (Message) messageSource;
 
+			//to avoid duplicate noise
+			final boolean newMessage = this.message.equals(message);
 			setValues(message);
 
 			if ( intent.getAction().equals(ACTION_DISPLAY) )
 				BankManager.updateLastMessage(getApplicationContext(), message);
 
-			if ( settings.getBoolean(PREF_PLAY_SOUND, DEFAULT_PLAY_SOUND)
+			if ( newMessage && settings.getBoolean(PREF_PLAY_SOUND, DEFAULT_PLAY_SOUND)
 					&& intent.getBooleanExtra(BANKDROID_SMSKEY_PLAYSOUND, false) )
 			{
 				playSound();
@@ -223,7 +222,6 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			countDown.forceStop();
 			countDown = null;
 		}
-		isActive = false;
 	}
 
 	@Override
@@ -261,8 +259,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			final CharSequence timestampText = Formatters.getTimstampFormat().format(message.getTimestamp());
 			( (TextView) findViewById(R.id.codeButton) ).setText(message.getCode());
 			( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
-					.toString()
-					+ " " + timestampText);
+					.toString() + " " + timestampText);
 			( (TextView) findViewById(R.id.messageBody) ).setText(message.getMessage());
 
 			//TODO try to read bank name from contact list
@@ -335,8 +332,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 	{
 		super.onNewIntent(intent);
 		setIntent(intent);
-		if ( isActive )
-			processIntent();
+		processIntent();
 	}
 
 	public void onCopyAndClose( final View v )
