@@ -31,6 +31,19 @@ public class Message implements Serializable
 		this.code = code;
 	}
 
+	@Override
+	public boolean equals( final Object o )
+	{
+		if ( o instanceof Message )
+		{
+			final Message other = (Message) o;
+
+			return other.originatingAddress.equals(originatingAddress) && message.equals(other.message)
+					&& timestamp.equals(other.timestamp);
+		}
+		return false;
+	}
+
 	public Bank getBank()
 	{
 		return bank;
