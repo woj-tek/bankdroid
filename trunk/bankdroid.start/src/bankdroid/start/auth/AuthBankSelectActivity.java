@@ -31,7 +31,6 @@ public class AuthBankSelectActivity extends ServiceActivity implements OnItemCli
 {
 	private static final int REQUEST_NEXT = 101;
 
-	private Bank[] banks;
 	private boolean showDummyBank;
 
 	@Override
@@ -41,19 +40,6 @@ public class AuthBankSelectActivity extends ServiceActivity implements OnItemCli
 
 		setResult(RESULT_CANCELED);
 
-		try
-		{
-			banks = BankServiceFactory.getAvailableBanks();
-			for ( final Bank bank : banks )
-			{
-				Log.d(TAG, "Bank found: " + bank.getId());
-			}
-		}
-		catch ( final Exception e )
-		{
-			Log.e(TAG, "Failed to initialize bank list.", e);
-		}
-
 		setSessionOriented(false);
 		setShowHomeMenu(false);
 
@@ -62,8 +48,19 @@ public class AuthBankSelectActivity extends ServiceActivity implements OnItemCli
 		setContentView(R.layout.authbankselect);
 
 		final ListView bankList = (ListView) findViewById(R.id.bankList);
-
-		bankList.setAdapter(new BankAdapter(banks));
+		try
+		{
+			final Bank[] banks = BankServiceFactory.getAvailableBanks();
+			for ( final Bank bank : banks )
+			{
+				Log.d(TAG, "Bank found: " + bank.getId());
+			}
+			bankList.setAdapter(new BankAdapter(banks));
+		}
+		catch ( final Exception e )
+		{
+			Log.e(TAG, "Failed to initialize bank list.", e);
+		}
 		bankList.setOnItemClickListener(this);
 		registerForContextMenu(bankList);
 
