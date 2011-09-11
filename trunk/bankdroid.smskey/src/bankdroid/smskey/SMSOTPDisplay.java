@@ -189,7 +189,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			final Message message = (Message) messageSource;
 
 			//to avoid duplicate noise
-			final boolean newMessage = this.message.equals(message);
+			final boolean newMessage = this.message == null || !this.message.equals(message);
 			setValues(message);
 
 			if ( intent.getAction().equals(ACTION_DISPLAY) )
@@ -259,7 +259,8 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			final CharSequence timestampText = Formatters.getTimstampFormat().format(message.getTimestamp());
 			( (TextView) findViewById(R.id.codeButton) ).setText(message.getCode());
 			( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
-					.toString() + " " + timestampText);
+					.toString()
+					+ " " + timestampText);
 			( (TextView) findViewById(R.id.messageBody) ).setText(message.getMessage());
 
 			//TODO try to read bank name from contact list

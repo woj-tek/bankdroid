@@ -26,6 +26,7 @@ public class CampaignManager implements OnClickListener
 	public final static List<Campaign> campaigns = new ArrayList<Campaign>();
 	static
 	{
+		campaigns.add(new FacebookCampaign());
 		campaigns.add(new MarketRateCampaign());
 		campaigns.add(new VisitBlogCampaign());
 	}
@@ -76,8 +77,9 @@ public class CampaignManager implements OnClickListener
 					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 
 					final Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_bottom);
-					parent.addView(view, params);
 					view.startAnimation(animation);
+
+					parent.addView(view, params);
 
 					//set up onclicklisteners
 					view.setOnClickListener(CampaignManager.this);

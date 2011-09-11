@@ -73,8 +73,8 @@
 	<string name="resetDbSummary">Clean up DB content (custom banks will be deleted!)</string>
 	<string name="developerPrefs">Developer Preferences</string>
 	<string name="genericPrefs">Generic Preferences</string>
-	<string name="msgCampaignReset">The Bank DB was reset successfully.</string><!-- I18N -->
-	<string name="msgDbReset">The hidden campaigns were reset successfully.</string>
+	<string name="msgDbReset">The Bank DB was reset successfully.</string><!-- I18N -->
+	<string name="msgCampaignReset">The hidden campaigns were reset successfully.</string>
 	<string name="msgAreYouSure">Are you sure?</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
@@ -116,5 +116,6 @@
 	
 	<!-- Campaign -->
 	<string name="campaignRate">Rate SMS Key TM on Market and tell which bank you use!</string><!-- I18N -->
+	<string name="campaignFacebook">Do you like the app? Show it to others on facebook...</string><!-- I18N -->
 
 </resources>
