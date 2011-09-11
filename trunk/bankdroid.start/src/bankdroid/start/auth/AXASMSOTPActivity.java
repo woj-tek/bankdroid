@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.ClipboardManager;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
 import bankdroid.start.R;
 import bankdroid.start.ServiceActivity;
 import bankdroid.start.ServiceRunner;
@@ -25,6 +25,8 @@ import com.csaba.connector.model.Session;
 
 public class AXASMSOTPActivity extends ServiceActivity
 {
+	private boolean showCode = false;
+
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
 	{
@@ -54,12 +56,20 @@ public class AXASMSOTPActivity extends ServiceActivity
 		}
 
 		//check for clipboard content
-		onPaste(null);
+		if ( showCode )
+		{
+			onPaste(null);
+		}
+		else
+		{
+			showCode = true;
+			//code is only shown when user comes to screen 2nd time.
+		}
 	}
 
 	public void onSMSKey( final View v )
 	{
-		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(SMSKEY_BLOG_HOME)));
+		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(SMSKEY_MARKET)));
 	}
 
 	public void onPaste( final View v )
@@ -69,7 +79,7 @@ public class AXASMSOTPActivity extends ServiceActivity
 		{
 			final String content = clipboard.getText().toString();
 			if ( content.length() != 6 )
-				Toast.makeText(this, getString(R.string.axaInvalidOTP, content), Toast.LENGTH_SHORT).show();
+				Log.w(TAG, getString(R.string.axaInvalidOTP, content));
 			else
 			{
 				( (EditText) findViewById(R.id.smsotp) ).setText(content);
@@ -109,12 +119,18 @@ public class AXASMSOTPActivity extends ServiceActivity
 					int registryId = -1;
 					if ( customer.isRemotePropertySet(RP_REGISTRY_ID) )
 						registryId = (Integer) customer.getRemoteProperty(RP_REGISTRY_ID);
-
-					//store to registry
 					final SecureRegistry registry = SecureRegistry.getInstance(this);
-					AuthUtil.storeCustomer(registry, registryId, customer, new String[] { RP_ACCOUNT_PIN },
-							(Boolean) customer.getRemoteProperty(RP_STORE_PASSWORD));
-					registry.commit(this);
+					if ( AuthUtil.isCustomerSaved(registry, registryId) )
+					{
+						boolean storePassword = false;
+						if ( customer.isRemotePropertySet(RP_STORE_PASSWORD) )
+							storePassword = (Boolean) customer.getRemoteProperty(RP_STORE_PASSWORD);
+
+						//store to registry
+						AuthUtil.storeCustomer(registry, registryId, customer, new String[] { RP_ACCOUNT_PIN },
+								storePassword);
+						registry.commit(this);
+					}
 				}
 				catch ( final Exception e )
 				{

@@ -30,8 +30,8 @@
     <string name="deleteUser">Felhasználó törlése</string>
     <string name="axaAccountSelect">Válassz egy számlát:</string>
     <string name="axaInvalidOTP">SMS jelszó nem megfelelő formátumú: %s.</string>
-    <string name="msgUseSMSKey">Az SMS jelszavak legegyszerűbben az SMS Key alkalmazással kezelhetőek. További információk az alkalmazás blogján.</string>
-    <string name="msgSMSKeyURL">http://www.bankdroid.info</string>
+    <string name="msgUseSMSKey">Az SMS jelszavak legegyszerűbben az SMS Key TM alkalmazással kezelhetőek. További információk a Marketen.</string>
+    <string name="msgSMSKeyURL">Letöltés az Android Marketről...</string>
     <string name="msgSpecifyPIN">Kérlek, előbb adj meg egy érvényes PIN-t.</string>
 
 	<!-- MainActivity -->

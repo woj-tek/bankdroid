@@ -310,30 +310,33 @@ public class AXAAccountPINActivity extends ServiceActivity implements OnCheckedC
 
 					final Customer customer = session.getCustomer();
 
-					// get previous pin array
-					JSONObject json = null;
-					if ( customer.isRemotePropertySet(RP_ACCOUNT_PIN) )
-						json = new JSONObject((String) customer.getRemoteProperty(RP_ACCOUNT_PIN));
-					else
-						json = new JSONObject();
-
-					//add new pin
-					final Account selectedAccount = (Account) session
-							.getRemoteProperty(com.csaba.connector.axa.Codes.RP_SELECTED_ACCOUNT);
-					json.put(selectedAccount.getNumber(), new String(pin));
-
-					customer.setRemoteProperty(RP_ACCOUNT_PIN, json.toString());
-
 					//get registry key
 					int registryId = -1;
 					if ( customer.isRemotePropertySet(RP_REGISTRY_ID) )
 						registryId = (Integer) customer.getRemoteProperty(RP_REGISTRY_ID);
-
-					//store to registry
 					final SecureRegistry registry = SecureRegistry.getInstance(this);
-					AuthUtil.storeCustomer(registry, registryId, customer, new String[] { RP_ACCOUNT_PIN },
-							(Boolean) customer.getRemoteProperty(RP_STORE_PASSWORD));
-					registry.commit(this);
+					if ( AuthUtil.isCustomerSaved(registry, registryId) )
+					{
+
+						// get previous pin array
+						JSONObject json = null;
+						if ( customer.isRemotePropertySet(RP_ACCOUNT_PIN) )
+							json = new JSONObject((String) customer.getRemoteProperty(RP_ACCOUNT_PIN));
+						else
+							json = new JSONObject();
+
+						//add new pin
+						final Account selectedAccount = (Account) session
+								.getRemoteProperty(com.csaba.connector.axa.Codes.RP_SELECTED_ACCOUNT);
+						json.put(selectedAccount.getNumber(), new String(pin));
+
+						customer.setRemoteProperty(RP_ACCOUNT_PIN, json.toString());
+
+						//store to registry
+						AuthUtil.storeCustomer(registry, registryId, customer, new String[] { RP_ACCOUNT_PIN },
+								(Boolean) customer.getRemoteProperty(RP_STORE_PASSWORD));
+						registry.commit(this);
+					}
 				}
 				catch ( final Exception e )
 				{

@@ -73,6 +73,10 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 			if ( nativeMessage != null && nativeMessage.length() > 0 )
 				message = message + "\n" + nativeMessage;
 		}
+
+		if ( message == null || message.trim().length() == 0 )
+			message = getString(R.string.errSystemError);
+
 		setDialogMessage(message);
 		showDialog(MESSAGE_DIALOG);
 	}
