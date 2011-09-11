@@ -19,9 +19,7 @@ import android.widget.TextView;
  * -- code is not refreshed if the SOD activity is being displayed, when message arrives. (onNewIntent issue)
  * FIXME GO-SMS Pro warning
  *   
- * TODO facebook campaign
  * TODO new preference: use only local banks
- * TODO campaign management
  * TODO in-built bug reporting functionality
  * TODO bug report campaign
  * TODO video

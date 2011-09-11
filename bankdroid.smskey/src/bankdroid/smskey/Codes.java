@@ -6,7 +6,7 @@ public interface Codes
 {
 	public static final String DEFAULT_COUNTRY = "HU";
 
-	public static final String FACEBOOK_URL = "http://on.fb.me/bd_facse";
+	public static final String FACEBOOK_URL = "http://goo.gl/1TZ9x";
 	public static final String TWITTER_URL = "http://twitter.com/bankdroid";
 
 	public static final String GMAIL_URL = "mailto:info@bankdroid.info";

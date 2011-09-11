@@ -9,25 +9,25 @@ import android.view.View;
 import bankdroid.smskey.Codes;
 import bankdroid.smskey.R;
 
-public class MarketRateCampaign implements Campaign
+public class FacebookCampaign implements Campaign
 {
 
 	@Override
 	public View getView( final Context context )
 	{
-		return View.inflate(context, R.layout.campaign_rateapp, null);
+		return View.inflate(context, R.layout.campaign_facebook, null);
 	}
 
 	@Override
 	public boolean isActive( final Date lastShown, final int numberOfAppearance, final int hitCount, final int codeCount )
 	{
-		return hitCount == 0 && ( codeCount >= 10 && codeCount % 10 < 2 );
+		return hitCount == 0 && ( codeCount >= 55 && codeCount % 55 < 3 );
 	}
 
 	@Override
 	public void hit( final Context context )
 	{
-		context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Codes.URL_MARKET_DETAILS)));
+		context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Codes.FACEBOOK_URL)));
 
 	}
 }
