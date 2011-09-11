@@ -26,6 +26,8 @@ import com.csaba.connector.otp.model.OTPBank;
  */
 public class OTPSMSOTPActivity extends ServiceActivity
 {
+	private boolean showCode = false;
+
 	@Override
 	protected void onCreate( final Bundle savedInstanceState )
 	{
@@ -55,12 +57,20 @@ public class OTPSMSOTPActivity extends ServiceActivity
 		}
 
 		//check for clipboard content
-		onPaste(null);
+		if ( showCode )
+		{
+			onPaste(null);
+		}
+		else
+		{
+			showCode = true;
+			//code is only shown when user comes to screen 2nd time.
+		}
 	}
 
 	public void onSMSKey( final View v )
 	{
-		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(SMSKEY_BLOG_HOME)));
+		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(SMSKEY_MARKET)));
 	}
 
 	public void onPaste( final View v )
@@ -104,12 +114,15 @@ public class OTPSMSOTPActivity extends ServiceActivity
 					int registryId = -1;
 					if ( customer.isRemotePropertySet(RP_REGISTRY_ID) )
 						registryId = (Integer) customer.getRemoteProperty(RP_REGISTRY_ID);
-
-					//store to registry
 					final SecureRegistry registry = SecureRegistry.getInstance(this);
-					AuthUtil.storeCustomer(registry, registryId, customer, new String[] { RP_ACCOUNT_PIN },
-							(Boolean) customer.getRemoteProperty(RP_STORE_PASSWORD));
-					registry.commit(this);
+					if ( AuthUtil.isCustomerSaved(registry, registryId) )
+					{
+
+						//store to registry
+						AuthUtil.storeCustomer(registry, registryId, customer, new String[] { RP_ACCOUNT_PIN },
+								(Boolean) customer.getRemoteProperty(RP_STORE_PASSWORD));
+						registry.commit(this);
+					}
 				}
 				catch ( final Exception e )
 				{

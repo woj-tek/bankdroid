@@ -10,6 +10,7 @@ public interface Codes
 	public static final String URL_PROJECT_HOME = "http://goo.gl/9oiKb";
 	public static final String BLOG_HOME = "http://goo.gl/WBjeZ";
 	public static final String SMSKEY_BLOG_HOME = "http://goo.gl/QVbci";
+	public static final String SMSKEY_MARKET = "http://goo.gl/3skg0";
 
 	final static int SERVICE_PROCESS = 1;
 	final static int SERVICE_FAILED = 2;

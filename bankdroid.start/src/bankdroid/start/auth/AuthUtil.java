@@ -92,6 +92,13 @@ public class AuthUtil implements Codes
 		cache = null;
 	}
 
+	public static boolean isCustomerSaved( final SecureRegistry registry, final int index )
+	{
+		final String[] keys = registry.getKeysStartWith(REG_CUSTOMER_PREFIX + String.valueOf(index));
+
+		return keys != null && keys.length > 0;
+	}
+
 	private static Customer[] cache;
 
 	static Customer[] restoreCustomers( final SecureRegistry registry )
