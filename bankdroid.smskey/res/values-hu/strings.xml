@@ -66,11 +66,14 @@
 	<string name="shakeToCopySummary">Ha megrázod a készüléket, az alkalmazás bezáródik és a kód vágólapra kerül.</string>
 	<string name="playSound">Értesítési hang</string>
 	<string name="playSoundSummary">Értesítési hang lejátszása, ha kód érkezik.</string>
+	<string name="resetCampaign">Reset campaign</string><!-- I18N -->
+	<string name="resetCampaignSummary">Reset hidden campaigns</string><!-- I18N -->
 	<string name="resetDb">Bank DB visszaállítás</string>
 	<string name="resetDbSummary">Visszaállításra kerülnek az alap banki paraméterek</string>
 	<string name="developerPrefs">Fejlesztő beállítások</string>
 	<string name="genericPrefs">Általános beállítások</string>
 	<string name="msgDbReset">A bank adatbázis visszaállításra került.</string>
+	<string name="msgCampaignReset">The hidden campaigns were reset successfully.</string>
 	<string name="msgAreYouSure">Biztos benne?</string>
 	<string name="yes">Igen</string>
 	<string name="no">Nem</string>
@@ -109,5 +112,11 @@
 	<string name="eula_title">License</string>
 	<string name="eula_accept">Elfogad</string>
 	<string name="eula_refuse">Visszautasít</string>
+	
+	<!-- Campaign -->
+	<string name="campaignRate">Értekeld az appot a Market, és írd meg kinél bankolsz!</string><!-- I18N -->
+	<string name="campaignFacebook">Tetszik az alkalmazás? Mutasd meg a többieknek...</string><!-- I18N -->
+	<string name="campaignDonate1">Túl vagy 150. kódon!</string><!-- I18N -->
+	<string name="campaignDonate2">Támogass PayPalon...</string><!-- I18N -->
 
 </resources>
