@@ -26,6 +26,7 @@ public class CampaignManager implements OnClickListener
 	public final static List<Campaign> campaigns = new ArrayList<Campaign>();
 	static
 	{
+		campaigns.add(new DonateCampaign());
 		campaigns.add(new FacebookCampaign());
 		campaigns.add(new MarketRateCampaign());
 		campaigns.add(new VisitBlogCampaign());

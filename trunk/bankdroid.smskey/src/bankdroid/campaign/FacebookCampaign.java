@@ -21,7 +21,7 @@ public class FacebookCampaign implements Campaign
 	@Override
 	public boolean isActive( final Date lastShown, final int numberOfAppearance, final int hitCount, final int codeCount )
 	{
-		return hitCount == 0 && ( codeCount >= 55 && codeCount % 55 < 3 );
+		return hitCount == 0 && ( codeCount >= 50 && codeCount % 13 == 0 );
 	}
 
 	@Override
