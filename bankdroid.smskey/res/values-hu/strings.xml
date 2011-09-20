@@ -104,7 +104,6 @@
 	<string name="aboutDesc">Az SMS Key a BankDroid nyíltforráskódú project terméke, önkéntes programozók munkája.</string>
 	<string name="aboutDesc2">Amennyiben hibát észlelsz, vagy új ötleted van az alkalmazással kapcsolatban, örömmel vesszük a visszajelzéseket.</string>
 	<string name="aboutUrl2">www.bankdroid.info</string>
-	<string name="donateURL">http://bit.ly/8ECNpl</string>
 	<string name="donateButton">Támogatás</string>
 	<string name="donateButtonDesc">Segítsd pénzzel az alkalmazás fentartását</string>
 	
@@ -116,7 +115,7 @@
 	<!-- Campaign -->
 	<string name="campaignRate">Értekeld az appot a Market, és írd meg kinél bankolsz!</string><!-- I18N -->
 	<string name="campaignFacebook">Tetszik az alkalmazás? Mutasd meg a többieknek...</string><!-- I18N -->
-	<string name="campaignDonate1">Túl vagy 150. kódon!</string><!-- I18N -->
-	<string name="campaignDonate2">Támogass PayPalon...</string><!-- I18N -->
+	<string name="campaignDonate1">Túl vagy 150. kódon!</string>
+	<string name="campaignDonate2">PayPal adomány?</string>
 
 </resources>

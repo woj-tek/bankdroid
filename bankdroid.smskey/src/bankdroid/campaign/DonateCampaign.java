@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
+import bankdroid.smskey.Codes;
 import bankdroid.smskey.R;
 
 public class DonateCampaign implements Campaign
@@ -26,6 +27,6 @@ public class DonateCampaign implements Campaign
 	@Override
 	public void hit( final Context context )
 	{
-		context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(context.getString(R.string.donateURL))));
+		context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Codes.URL_PAYPAL)));
 	}
 }

@@ -92,7 +92,6 @@
 	<string name="aboutDesc">SMS Key je produktem open source projektu BankDroid. Vyvinuto programátory dobrovolníky.</string>
 	<string name="aboutDesc2">Pokud budete mít jakýkoliv problém s aplikací, nebo zájem o nové funkce, neváhejte nás kontaktovat.</string>
 	<string name="aboutUrl2">www.bankdroid.info</string>
-	<string name="donateURL">http://bit.ly/8LrNB9</string>
 	<string name="donateButton">Podpořit vývoj darem</string>
 	<string name="donateButtonDesc">Pomoz mi na přímé náklady přes PayPal</string>
 	
