@@ -77,7 +77,6 @@
   <string name="aboutDesc">SMS Key bir BankDroid açık kaynak projesi ürünüdür. Gönüllü programcılar tarafından geliştirilmiştir.</string>
   <string name="aboutDesc2">Bu uygulamada herhangi bir sorunla karşılaşırsanız veya bazı yeni özellikler hakkında bilgi sahibi olmak isterseniz, bizimle iletişime geçebilirsiniz.</string>
   <string name="aboutUrl2">www.bankdroid.info</string>
-  <string name="donateURL">http://bit.ly/8LrNB9</string>
   <string name="donateButton">Bağışta bulun</string>
   <string name="donateButtonDesc">PayPal yoluyla doğrudan yardımda bulunun</string>
   <string name="eula_title">Lisans</string>

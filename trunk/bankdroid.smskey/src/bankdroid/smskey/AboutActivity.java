@@ -102,7 +102,7 @@ public class AboutActivity extends MenuActivity
 
 	public void onDonate( final View v )
 	{
-		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.donateURL)));
+		final Intent viewIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Codes.URL_PAYPAL));
 		startActivity(viewIntent);
 	}
 

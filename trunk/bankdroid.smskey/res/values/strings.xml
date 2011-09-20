@@ -105,7 +105,6 @@
 	<string name="aboutDesc">The SMS Key is a product of the BankDroid open source project. Developed by voluntary programmers.</string>
 	<string name="aboutDesc2">If you experience any problem with this application or if you would like to see some new features, feel free to contact us.</string>
 	<string name="aboutUrl2">www.bankdroid.info</string>
-	<string name="donateURL">http://bit.ly/8LrNB9</string>
 	<string name="donateButton">Donate</string>
 	<string name="donateButtonDesc">Help me on direct cost via PayPal</string>
 	
