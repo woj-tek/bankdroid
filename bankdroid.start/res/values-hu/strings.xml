@@ -45,6 +45,7 @@
     <string name="toBrowserButton">Átlépés a böngészőbe</string>
     <string name="callCenterButton">Hívd a bankot!</string>
     <string name="searchTransactionButton">Tranzakciók</string>
+    <string name="msgNoDialer">Nem érhető el tárcsázó alkalmazás a bank tárcsázásához.</string>
 
 	<!-- main menu -->
     <string name="menuPref">Beállítások</string>
