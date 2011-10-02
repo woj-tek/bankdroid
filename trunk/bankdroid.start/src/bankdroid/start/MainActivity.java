@@ -3,12 +3,14 @@ package bankdroid.start;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import bankdroid.start.plugin.PluginManager;
 
 import com.csaba.connector.BankService;
@@ -104,9 +106,17 @@ public class MainActivity extends ServiceActivity implements OnClickListener
 
 	public void onCallBank( final View v )
 	{
-		final Intent intent = new Intent(Intent.ACTION_DIAL);
-		intent.setData(Uri.parse("tel:" + SessionManager.getInstance().getSession().getBank().getCallCenterURL()));
-		startActivity(intent);
+		try
+		{
+			final Intent intent = new Intent(Intent.ACTION_DIAL);
+			intent.setData(Uri.parse("tel:" + SessionManager.getInstance().getSession().getBank().getCallCenterURL()));
+			startActivity(intent);
+		}
+		catch ( final Exception e )
+		{
+			Log.e(TAG, "Failed to dial bank's phone number: " + e);
+			Toast.makeText(this, R.string.msgNoDialer, Toast.LENGTH_LONG).show();
+		}
 	}
 
 	@Override

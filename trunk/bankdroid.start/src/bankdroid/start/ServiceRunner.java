@@ -66,7 +66,14 @@ public class ServiceRunner implements Runnable, Codes
 					{
 						if ( dialog != null )
 						{
-							dialog.dismiss();
+							try
+							{
+								dialog.dismiss();
+							}
+							catch ( final Exception e )
+							{
+								Log.e(TAG, "Dialog is already dismissed, or not available.", e);
+							}
 							dialog = null;
 						}
 					}

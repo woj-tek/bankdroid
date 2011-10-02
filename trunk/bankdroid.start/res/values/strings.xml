@@ -46,6 +46,7 @@
     <string name="toBrowserButton">Relogin through Browser</string>
     <string name="callCenterButton">Call the Bank</string>
     <string name="searchTransactionButton">Transactions</string>
+    <string name="msgNoDialer">There is no dialer app available to dial bank\'s phone number.</string>
 
 	<!-- main menu -->
     <string name="menuPref">Settings</string>
