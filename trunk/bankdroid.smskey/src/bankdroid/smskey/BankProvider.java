@@ -36,7 +36,7 @@ public class BankProvider extends ContentProvider implements Codes
 	{
 
 		private static final String DATABASE_NAME = "bank.db";
-		private static final int DATABASE_VERSION = 4;//2011-10-15
+		private static final int DATABASE_VERSION = 5;//2011-10-15
 
 		DatabaseHelper( final Context context )
 		{
@@ -108,7 +108,9 @@ public class BankProvider extends ContentProvider implements Codes
 		@Override
 		public void onUpgrade( final SQLiteDatabase db, final int oldVersion, final int newVersion )
 		{
-			//do nothing yet
+			// if there is not other special reason it means that only the bank list is updated. 
+			db.delete(T_BANK, Bank.F_COUNTRY + "<>'" + Bank.CUSTOM_COUNTRY + "'", null);
+			insertDefaultBanks(db);
 		}
 	}
 
