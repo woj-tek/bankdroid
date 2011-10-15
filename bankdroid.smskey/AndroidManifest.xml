@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="bankdroid.smskey" android:installLocation="auto" android:versionName="3.1.1" android:versionCode="39"> 
+	package="bankdroid.smskey" android:installLocation="auto" android:versionCode="40" android:versionName="3.2"> 
 	<uses-permission android:name="android.permission.RECEIVE_SMS" />
 	<uses-permission android:name="android.permission.READ_SMS" />
 	<uses-permission android:name="android.permission.WRITE_SMS" />
