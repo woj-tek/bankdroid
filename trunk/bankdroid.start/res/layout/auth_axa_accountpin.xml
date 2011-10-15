@@ -14,38 +14,6 @@
 		/>
     
     <!-- CONTENT -->
-    <TableLayout
-    	android:id="@+id/formLayout"
-    	
-    	style="@style/formLayout"
-
-	    android:layout_marginLeft="5sp"
-	    android:layout_marginRight="5sp"
-	    android:layout_below="@id/header"
-    	>
-		<TableRow>
-			<TextView  
-			    android:text="@string/accountNumber"
-			    android:gravity="right"
-			    android:paddingRight="10sp"
-		
-			    style="@style/labelText"
-		
-			    android:layout_width="wrap_content" 
-			    android:layout_height="wrap_content" 
-			    />
-			    
-			<TextView
-				android:id="@+id/accountNumbe"
-			    android:text="17000019-12345678"
-				
-			    style="@style/valueText"
-		
-			    android:layout_width="fill_parent" 
-				android:layout_height="wrap_content"
-				/>
-		</TableRow>
-	</TableLayout>
 		
 	<CheckBox
 		android:id="@+id/rememberPassword"
@@ -55,10 +23,11 @@
 		
 	    android:layout_width="fill_parent" 
 	    android:layout_height="wrap_content" 
+	    android:layout_marginTop="15sp"
 	    android:layout_marginLeft="5sp"
 	    android:layout_marginRight="5sp"
 	    
-	    android:layout_below="@id/formLayout"
+	    android:layout_below="@id/header"
 		/>
 	
 	<LinearLayout

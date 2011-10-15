@@ -21,7 +21,7 @@ import bankdroid.util.TrackedActivity;
 
 /**
  * @author Gabe
- * 
+ *  
  *  TODO PIN based security store
  *  TODO PIN based panic functionality
  *  TODO the details of AbstractRemoteObject should contain properties in sequence of adding of property
