@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
+import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import bankdroid.start.Codes;
@@ -35,10 +36,14 @@ public class SecureRegistry implements Codes
 
 	private String getKey( final Context context )
 	{
-		final String imei = ( (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE) ).getDeviceId();
+		String imei = ( (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE) ).getDeviceId();
 		if ( TextUtils.isEmpty(imei) )
 		{
-			throw new IllegalStateException("Cannot get seed to open the encrypted store.");
+			imei = Secure.getString(context.getContentResolver(), Secure.ANDROID_ID);
+			if ( TextUtils.isEmpty(imei) )
+			{
+				throw new IllegalStateException("Cannot get seed to open the encrypted store.");
+			}
 		}
 		return imei;
 	}
