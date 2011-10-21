@@ -12,8 +12,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.telephony.SmsMessage;
 import android.text.ClipboardManager;
 import android.util.Log;
@@ -97,8 +99,14 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 
 			if ( playSound )
 			{
-				notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
-				notification.defaults = Notification.DEFAULT_SOUND;
+				final String ringtoneURI = settings.getString(PREF_NOTIFICATION_RINGTONE,
+						Settings.System.DEFAULT_NOTIFICATION_URI.toString());
+
+				if ( ringtoneURI != null && !ringtoneURI.equals("") )
+				{
+					notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
+					notification.sound = Uri.parse(ringtoneURI);
+				}
 			}
 
 			//display notification

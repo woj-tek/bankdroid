@@ -14,11 +14,11 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.Menu;
@@ -140,35 +140,39 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 
 	private void playSound()
 	{
-		final Uri alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-		if ( alert == null )
-		{
-			Log.e(TAG, "Notification sound URI is not available.");
-			return;
-		}
+		final String ringtoneURI = settings.getString(PREF_NOTIFICATION_RINGTONE,
+				Settings.System.DEFAULT_NOTIFICATION_URI.toString());
 
-		try
+		if ( ringtoneURI != null && !ringtoneURI.equals("") )
 		{
-			final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-			if ( audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != 0 )
+			try
 			{
-				if ( mediaPlayer == null )
+				final AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+				if ( audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) != 0 )
 				{
-					mediaPlayer = new MediaPlayer();
-					mediaPlayer.setDataSource(this, alert);
-					mediaPlayer.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
-					mediaPlayer.setLooping(false);
-					mediaPlayer.prepare();
-				}
+					if ( mediaPlayer == null )
+					{
+						mediaPlayer = new MediaPlayer();
+						mediaPlayer.setDataSource(this, Uri.parse(ringtoneURI));
+						mediaPlayer.setAudioStreamType(AudioManager.STREAM_NOTIFICATION);
+						mediaPlayer.setLooping(false);
+						mediaPlayer.prepare();
+					}
 
-				mediaPlayer.start();
+					mediaPlayer.start();
+				}
+			}
+			catch ( final Exception e )
+			{
+				Log.e(TAG, "Failed to play notification sound.", e);
+				Toast.makeText(this, "Failed to play notification sound.", Toast.LENGTH_SHORT);
 			}
 		}
-		catch ( final Exception e )
+		else
 		{
-			Log.e(TAG, "Failed to play notification sound.", e);
-			Toast.makeText(this, "Failed to play notification sound.", Toast.LENGTH_SHORT);
+			Log.e(TAG, "Notification sound URI is not available.");
 		}
+
 	}
 
 	private boolean processIntent()
@@ -259,8 +263,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			final CharSequence timestampText = Formatters.getTimstampFormat().format(message.getTimestamp());
 			( (TextView) findViewById(R.id.codeButton) ).setText(message.getCode());
 			( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
-					.toString()
-					+ " " + timestampText);
+					.toString() + " " + timestampText);
 			( (TextView) findViewById(R.id.messageBody) ).setText(message.getMessage());
 
 			//TODO try to read bank name from contact list

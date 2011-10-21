@@ -11,6 +11,19 @@
 			android:key="bankdroid.smskey.Notification" />
 		
 		<CheckBoxPreference 
+			android:title="@string/playSound" 
+			android:defaultValue="true" 
+			android:summary="@string/playSoundSummary"
+			android:key="bankdroid.smskey.PlaySound" />
+	
+		<RingtonePreference 
+			android:title="@string/notificationRingtone" 
+			android:defaultValue="true" 
+			android:ringtoneType="notification"
+			android:summary="@string/notificationRingtoneSummary"
+			android:key="bankdroid.smskey.NotificationRingtone" />
+	
+		<CheckBoxPreference 
 			android:title="@string/keepSMS" 
 			android:defaultValue="false" 
 			android:summary="@string/keepSMSSummary"
@@ -39,12 +52,6 @@
 			android:defaultValue="true" 
 			android:summary="@string/shakeToCopySummary"
 			android:key="bankdroid.smskey.ShakeToCopy" />
-	
-		<CheckBoxPreference 
-			android:title="@string/playSound" 
-			android:defaultValue="true" 
-			android:summary="@string/playSoundSummary"
-			android:key="bankdroid.smskey.PlaySound" />
 	
 	</PreferenceCategory>
 

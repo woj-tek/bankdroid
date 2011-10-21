@@ -16,14 +16,11 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * -- code is not refreshed if the SOD activity is being displayed, when message arrives. (onNewIntent issue)
- * FIXME GO-SMS Pro warning
- *   
  * TODO new preference: use only local banks
  * TODO in-built bug reporting functionality
  * TODO bug report campaign
  * TODO video
- * 
+ *  
  * XXX play voice when SMS is not stored but message is received
  * XXX forward password to e-mail server, when code received - security risk
  * 
