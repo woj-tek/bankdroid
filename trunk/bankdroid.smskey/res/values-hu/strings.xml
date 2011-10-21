@@ -66,8 +66,10 @@
 	<string name="shakeToCopySummary">Ha megrázod a készüléket, az alkalmazás bezáródik és a kód vágólapra kerül.</string>
 	<string name="playSound">Értesítési hang</string>
 	<string name="playSoundSummary">Értesítési hang lejátszása, ha kód érkezik.</string>
-	<string name="resetCampaign">Reset campaign</string><!-- I18N -->
-	<string name="resetCampaignSummary">Reset hidden campaigns</string><!-- I18N -->
+	<string name="resetCampaign">Kampány adat törlés</string>
+	<string name="resetCampaignSummary">Már elrejtett kampányok újra aktiválása</string>
+	<string name="notificationRingtone">Értesítési hang</string>
+	<string name="notificationRingtoneSummary">Hang lejátszása, ha új kód érkezik</string>
 	<string name="resetDb">Bank DB visszaállítás</string>
 	<string name="resetDbSummary">Visszaállításra kerülnek az alap banki paraméterek</string>
 	<string name="developerPrefs">Fejlesztő beállítások</string>
