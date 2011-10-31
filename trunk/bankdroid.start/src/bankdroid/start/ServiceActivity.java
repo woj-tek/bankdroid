@@ -78,7 +78,14 @@ public abstract class ServiceActivity extends TrackedActivity implements Codes, 
 			message = getString(R.string.errSystemError);
 
 		setDialogMessage(message);
-		showDialog(MESSAGE_DIALOG);
+		try
+		{
+			showDialog(MESSAGE_DIALOG);
+		}
+		catch ( final Exception e )
+		{
+			Log.e(TAG, "Failed to report ServiceException due to other excetion: " + e, tr);
+		}
 	}
 
 	@Override
