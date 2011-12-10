@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.Toast;
 import bankdroid.smskey.bank.Bank;
 import bankdroid.smskey.bank.Expression;
 
@@ -96,8 +96,15 @@ public class BankEditActivity extends MenuActivity implements OnClickListener, C
 	private void storeValues()
 	{
 		bank.setName(( (EditText) findViewById(R.id.bankName) ).getText().toString());
-		bank.setExpiry(Integer.parseInt(( (EditText) findViewById(R.id.expiry) ).getText().toString()));
 
+		try
+		{
+			bank.setExpiry(Integer.parseInt(( (EditText) findViewById(R.id.expiry) ).getText().toString()));
+		}
+		catch ( final NumberFormatException e )
+		{
+			bank.setExpiry(-1);
+		}
 		saveExpressions(PATTERN_FIELDS, bank.getExtractExpressions());
 		saveFields(PHONE_FIELDS, bank.getPhoneNumbers());
 	}
