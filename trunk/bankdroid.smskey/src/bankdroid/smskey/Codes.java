@@ -34,6 +34,7 @@ public interface Codes
 	public static final String PREF_CODE_COUNT = "bankdroid.smskey.CodeCount";
 	public static final String PREF_PLAY_SOUND = "bankdroid.smskey.PlaySound";
 	public static final String PREF_NOTIFICATION_RINGTONE = "bankdroid.smskey.NotificationRingtone";
+	public static final String PREF_INSTALL_LOG = "bankdroid.smskey.InstallLog";
 
 	public static final boolean DEFAULT_NOTIFICATION = false;
 	public static final boolean DEFAULT_KEEP_SMS = false;

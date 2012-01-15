@@ -1,11 +1,16 @@
 package bankdroid.smskey;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Date;
 import java.util.HashMap;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -13,6 +18,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import bankdroid.smskey.bank.Bank;
@@ -38,9 +44,12 @@ public class BankProvider extends ContentProvider implements Codes
 		private static final String DATABASE_NAME = "bank.db";
 		private static final int DATABASE_VERSION = 8;//2011-12-28
 
+		private final Context context;
+
 		DatabaseHelper( final Context context )
 		{
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
+			this.context = context;
 		}
 
 		@Override
@@ -90,6 +99,21 @@ public class BankProvider extends ContentProvider implements Codes
 			catch ( final Exception e )
 			{
 				Log.e(TAG, "Failed to load initial list of banks.", e);
+
+				final StringWriter err = new StringWriter();
+				final PrintWriter wr = new PrintWriter(err);
+				wr.println("Initialization problem occured!");
+				wr.println("Failed at: " + new Date());
+				wr.println("OS version: " + android.os.Build.VERSION.SDK_INT + " / " + android.os.Build.VERSION.RELEASE);
+				wr.println("Device: " + android.os.Build.MANUFACTURER + " / " + android.os.Build.MODEL);
+				wr.println();
+				e.printStackTrace(wr);
+				final String stackTrace = err.toString();
+
+				final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+				final Editor editor = preferences.edit();
+				editor.putString(Codes.PREF_INSTALL_LOG, stackTrace);
+				editor.commit();
 			}
 		}
 
