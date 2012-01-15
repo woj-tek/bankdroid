@@ -165,8 +165,8 @@ public final class BankManager implements Codes
 
 	public static Bank[] findByPhoneNumber( final Context context, final String phoneNumber )
 	{
-		Bank[] banks = findBank(context, CONTENT_URI, Bank.F_PHONENUMBERS + " like "
-				+ DatabaseUtils.sqlEscapeString("%" + phoneNumber + "%"), null);
+		Bank[] banks = findBank(context, CONTENT_URI,
+				Bank.F_PHONENUMBERS + " like " + DatabaseUtils.sqlEscapeString("%" + phoneNumber + "%"), null);
 
 		//match phone number manually: drop out items that has no matching phone number.
 		int count = 0;
@@ -279,7 +279,7 @@ public final class BankManager implements Codes
 				final int id = cursor.getInt(0);
 				final String name = cursor.getString(1);
 
-				Log.d(Codes.TAG, "Bank read: " + id + " - " + name);
+				//Log.d(Codes.TAG, "Bank read: " + id + " - " + name);
 				final int expiry = cursor.getInt(2);
 				final String country = cursor.getString(3);
 				final String phoneNumbers = cursor.getString(4);

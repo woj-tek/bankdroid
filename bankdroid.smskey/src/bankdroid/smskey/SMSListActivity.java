@@ -1,24 +1,28 @@
 package bankdroid.smskey;
 
 import java.util.Date;
+import java.util.HashSet;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+import bankdroid.smskey.bank.Bank;
 
 /**
  * @author gyenes
@@ -141,6 +145,23 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 			Log.e(TAG, "Error getting package name.", e);
 		}
 
+		//generate DB stats for debugging purposes
+		final Bank[] banks = BankManager.getAllBanks(this);
+		final HashSet<String> countries = new HashSet<String>();
+		for ( final Bank bank : banks )
+		{
+			countries.add(bank.getCountryCode());
+		}
+		final int countryCount = countries.size();
+		final int bankCount = banks.length;
+
+		builder.append("\n").append(bankCount).append(" banks in ").append(countryCount).append(" countries!");
+
+		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		final String installLog = preferences.getString(Codes.PREF_INSTALL_LOG, "");
+		if ( installLog.length() > 1 )
+			builder.append("\n").append(installLog);
+
 		sendEmail(new String[] { SUBMISSION_ADDRESS }, getString(R.string.emailSubject), builder.toString());//no I18N
 	}
 
@@ -165,9 +186,10 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 		case DIALOG_KNOWN_SMS:
 			// do the work to define the pause Dialog
 			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(R.string.msgKnownSMS).setCancelable(false).setNeutralButton(R.string.ok,
-					new DialogInterface.OnClickListener()
+			builder.setMessage(R.string.msgKnownSMS).setCancelable(false)
+					.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener()
 					{
+						@Override
 						public void onClick( final DialogInterface dialog, final int id )
 						{
 							dialog.cancel();
