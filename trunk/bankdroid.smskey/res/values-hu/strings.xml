@@ -48,7 +48,8 @@
 	<string name="emailPrefix">Köszönöm, hogy mintával segíti a fejlesztést! Kérlek a telefonszámot, és a jelszót hagyd érintetlenül. Személyes adatok módosíthatóak.</string>
 	<string name="emailOriginator">Bank telefonszáma: </string>
 	<string name="emailSMSText">Üzenet szövege: </string>
-	<string name="msgKnownSMS">Ezt az üzenet fajtát már kezeli az alkalmazás. Ha ilyen üzenet érkezik, az SMS Key automatikusan elindul.</string>
+	<string name="statText">%1$d bank %2$d országban!</string>
+		<string name="msgKnownSMS">Ezt az üzenet fajtát már kezeli az alkalmazás. Ha ilyen üzenet érkezik, az SMS Key automatikusan elindul.</string>
 	
 	<!-- Preferences -->
 	<string name="codeCount">Code count</string>

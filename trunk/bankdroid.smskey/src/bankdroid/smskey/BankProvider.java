@@ -42,7 +42,7 @@ public class BankProvider extends ContentProvider implements Codes
 	{
 
 		private static final String DATABASE_NAME = "bank.db";
-		private static final int DATABASE_VERSION = 8;//2011-12-28
+		private static final int DATABASE_VERSION = 9;//2012-01-15
 
 		private final Context context;
 
@@ -73,6 +73,7 @@ public class BankProvider extends ContentProvider implements Codes
 		private void insertDefaultBanks( final SQLiteDatabase db )
 		{
 			//load constants here
+			String stackTrace = "";
 			try
 			{
 				final Bank[] banks = BankDescriptor.getDefaultBanks();
@@ -102,19 +103,20 @@ public class BankProvider extends ContentProvider implements Codes
 
 				final StringWriter err = new StringWriter();
 				final PrintWriter wr = new PrintWriter(err);
-				wr.println("Initialization problem occured!");
+				wr.println("INITIALIZATION PROBLEM OCCURED!");
+				wr.println("Please keep the following lines to support bug fixing!");
+				wr.println();
 				wr.println("Failed at: " + new Date());
 				wr.println("OS version: " + android.os.Build.VERSION.SDK_INT + " / " + android.os.Build.VERSION.RELEASE);
 				wr.println("Device: " + android.os.Build.MANUFACTURER + " / " + android.os.Build.MODEL);
 				wr.println();
 				e.printStackTrace(wr);
-				final String stackTrace = err.toString();
-
-				final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-				final Editor editor = preferences.edit();
-				editor.putString(Codes.PREF_INSTALL_LOG, stackTrace);
-				editor.commit();
+				stackTrace = err.toString();
 			}
+			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+			final Editor editor = preferences.edit();
+			editor.putString(Codes.PREF_INSTALL_LOG, stackTrace);
+			editor.commit();
 		}
 
 		public void reset()

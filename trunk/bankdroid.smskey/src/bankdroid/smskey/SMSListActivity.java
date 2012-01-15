@@ -155,7 +155,7 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 		final int countryCount = countries.size();
 		final int bankCount = banks.length;
 
-		builder.append("\n").append(bankCount).append(" banks in ").append(countryCount).append(" countries!");
+		builder.append("\n").append(String.format(getString(R.string.statText), bankCount, countryCount));
 
 		final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 		final String installLog = preferences.getString(Codes.PREF_INSTALL_LOG, "");
