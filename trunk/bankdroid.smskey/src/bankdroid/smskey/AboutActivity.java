@@ -21,7 +21,6 @@ import android.widget.TextView;
  * TODO bug report campaign
  * TODO video
  *  
- * XXX play voice when SMS is not stored but message is received
  * XXX forward password to e-mail server, when code received - security risk
  * 
  * @author Gabe
