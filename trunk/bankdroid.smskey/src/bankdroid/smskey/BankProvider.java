@@ -1,16 +1,11 @@
 package bankdroid.smskey;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Date;
 import java.util.HashMap;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -18,12 +13,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import bankdroid.smskey.bank.Bank;
 import bankdroid.smskey.bank.BankDescriptor;
 import bankdroid.smskey.bank.Expression;
+import bankdroid.util.ErrorLogger;
 
 public class BankProvider extends ContentProvider implements Codes
 {
@@ -73,7 +68,6 @@ public class BankProvider extends ContentProvider implements Codes
 		private void insertDefaultBanks( final SQLiteDatabase db )
 		{
 			//load constants here
-			String stackTrace = "";
 			try
 			{
 				final Bank[] banks = BankDescriptor.getDefaultBanks();
@@ -99,24 +93,8 @@ public class BankProvider extends ContentProvider implements Codes
 			}
 			catch ( final Exception e )
 			{
-				Log.e(TAG, "Failed to load initial list of banks.", e);
-
-				final StringWriter err = new StringWriter();
-				final PrintWriter wr = new PrintWriter(err);
-				wr.println("INITIALIZATION PROBLEM OCCURED!");
-				wr.println("Please keep the following lines to support bug fixing!");
-				wr.println();
-				wr.println("Failed at: " + new Date());
-				wr.println("OS version: " + android.os.Build.VERSION.SDK_INT + " / " + android.os.Build.VERSION.RELEASE);
-				wr.println("Device: " + android.os.Build.MANUFACTURER + " / " + android.os.Build.MODEL);
-				wr.println();
-				e.printStackTrace(wr);
-				stackTrace = err.toString();
+				ErrorLogger.logError(context, e, "DBINIT");
 			}
-			final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-			final Editor editor = preferences.edit();
-			editor.putString(Codes.PREF_INSTALL_LOG, stackTrace);
-			editor.commit();
 		}
 
 		public void reset()

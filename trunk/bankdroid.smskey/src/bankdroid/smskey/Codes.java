@@ -10,6 +10,7 @@ public interface Codes
 	public static final String TWITTER_URL = "http://twitter.com/bankdroid";
 
 	public static final String GMAIL_URL = "mailto:info@bankdroid.info";
+	public static final String SUBMISSION_ADDRESS = "sample@bankdroid.info";
 
 	public static final String URL_PROJECT_HOME = "http://goo.gl/9oiKb";
 	public static final String URL_HELP = "http://goo.gl/Kpxbk";

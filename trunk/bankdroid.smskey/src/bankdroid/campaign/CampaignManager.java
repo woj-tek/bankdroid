@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import bankdroid.smskey.Codes;
 import bankdroid.smskey.R;
+import bankdroid.util.ErrorLogger;
 
 public class CampaignManager implements OnClickListener
 {
@@ -50,40 +51,56 @@ public class CampaignManager implements OnClickListener
 			return;
 		}
 
-		campaign = getActiveCampaign();
-		if ( campaign == null )
+		final View view;
+		try
 		{
+			campaign = getActiveCampaign();
+			if ( campaign == null )
+			{
+				return;
+			}
+
+			view = campaign.getView(context);
+		}
+		catch ( final Exception e )
+		{
+			ErrorLogger.logError(context, e, "PREPCAMPAIGN");
 			return;
 		}
-
-		final View view = campaign.getView(context);
 
 		final Handler handler = new Handler()
 		{
 			@Override
 			public void handleMessage( final Message msg )
 			{
-				super.handleMessage(msg);
-
-				if ( msg.what == 1 )
+				try
 				{
-					//calculate 50dp instead of 50px
-					final DisplayMetrics dm = context.getResources().getDisplayMetrics();
-					final int pixelSize = (int) ( 50f * dm.density );
+					super.handleMessage(msg);
 
-					final LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, pixelSize);
-					params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-					params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-					params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
-					params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+					if ( msg.what == 1 )
+					{
+						//calculate 50dp instead of 50px
+						final DisplayMetrics dm = context.getResources().getDisplayMetrics();
+						final int pixelSize = (int) ( 50f * dm.density );
 
-					final Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_bottom);
-					view.startAnimation(animation);
+						final LayoutParams params = new LayoutParams(LayoutParams.FILL_PARENT, pixelSize);
+						params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+						params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+						params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+						params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 
-					parent.addView(view, params);
+						final Animation animation = AnimationUtils.loadAnimation(context, R.anim.slide_in_bottom);
+						view.startAnimation(animation);
 
-					//set up onclicklisteners
-					view.setOnClickListener(CampaignManager.this);
+						parent.addView(view, params);
+
+						//set up onclicklisteners
+						view.setOnClickListener(CampaignManager.this);
+					}
+				}
+				catch ( final Exception e )
+				{
+					ErrorLogger.logError(context, e, "SHOWCAMPAIGN");
 				}
 			}
 		};

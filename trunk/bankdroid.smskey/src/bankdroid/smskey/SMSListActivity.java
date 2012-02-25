@@ -6,7 +6,6 @@ import java.util.HashSet;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -23,13 +22,13 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 import bankdroid.smskey.bank.Bank;
+import bankdroid.util.ErrorLogger;
 
 /**
  * @author gyenes
  */
 public class SMSListActivity extends MenuActivity implements OnItemClickListener
 {
-	private static final String SUBMISSION_ADDRESS = "sample@bankdroid.info";
 	private final static int DIALOG_KNOWN_SMS = 678;
 
 	private SimpleCursorAdapter adapter;
@@ -123,8 +122,6 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 			return;
 		}
 
-		//XXX do some heuristic checks whether the message can be a password message or not. 
-
 		//construct e-mail body
 		final StringBuilder builder = new StringBuilder();
 
@@ -162,19 +159,8 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 		if ( installLog.length() > 1 )
 			builder.append("\n").append(installLog);
 
-		sendEmail(new String[] { SUBMISSION_ADDRESS }, getString(R.string.emailSubject), builder.toString());//no I18N
-	}
-
-	private void sendEmail( final String[] address, final String subject, final String msg )
-	{
-		final Intent view = new Intent(Intent.ACTION_VIEW);
-		final StringBuilder uri = new StringBuilder("mailto:");
-		uri.append(address[0]);
-		uri.append("?subject=").append(Uri.encode(subject));
-		uri.append("&body=").append(Uri.encode(msg));
-		Log.d(TAG, "URI: " + uri);
-		view.setData(Uri.parse(uri.toString()));
-		startActivity(view);
+		ErrorLogger.sendEmail(this, new String[] { SUBMISSION_ADDRESS }, getString(R.string.emailSubject),
+				builder.toString());//no I18N
 	}
 
 	@Override
