@@ -17,8 +17,6 @@ import android.widget.TextView;
 
 /**
  * TODO new preference: use only local banks
- * TODO in-built bug reporting functionality
- * TODO bug report campaign
  * TODO video
  *  
  * XXX forward password to e-mail server, when code received - security risk
