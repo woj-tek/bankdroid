@@ -120,5 +120,6 @@
 	<string name="campaignFacebook">Tetszik az alkalmazás? Mutasd meg a többieknek...</string><!-- I18N -->
 	<string name="campaignDonate1">Túl vagy 150. kódon!</string>
 	<string name="campaignDonate2">PayPal adomány?</string>
-
+	<string name="errorLog">Hiba napló</string><!-- I18N -->
+	
 </resources>

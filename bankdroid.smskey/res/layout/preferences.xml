@@ -82,6 +82,13 @@
 				android:key="bankdroid.smskey.CodeCount" 
 				android:summary="123"/>
 		
+			<Preference 
+				android:title="@string/errorLog" 
+				android:enabled="false"
+				android:defaultValue=""
+				android:key="bankdroid.smskey.InstallLog" 
+				android:summary="-"/>
+		
 		</PreferenceScreen>		
 	</PreferenceCategory>
 
