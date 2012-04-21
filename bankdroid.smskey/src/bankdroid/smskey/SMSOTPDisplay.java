@@ -397,13 +397,19 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 	@Override
 	public void onSensorChanged( final SensorEvent event )
 	{
-
 		if ( event.sensor.getType() != Sensor.TYPE_ACCELEROMETER || event.values.length < 3 )
 			return;
 
 		final long currentTime = System.currentTimeMillis();
 
-		if ( ( currentTime - lastUpdate ) > 100 )
+		if ( lastUpdate < 0 )
+		{
+			lastUpdate = currentTime;
+			lastX = event.values[SensorManager.DATA_X];
+			lastY = event.values[SensorManager.DATA_Y];
+			lastY = event.values[SensorManager.DATA_Z];
+		}
+		else if ( ( currentTime - lastUpdate ) > 100 )
 		{
 			final long diffTime = ( currentTime - lastUpdate );
 			lastUpdate = currentTime;
