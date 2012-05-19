@@ -52,6 +52,9 @@
 		<string name="msgKnownSMS">Ezt az üzenet fajtát már kezeli az alkalmazás. Ha ilyen üzenet érkezik, az SMS Key automatikusan elindul.</string>
 	
 	<!-- Preferences -->
+	<string name="splitCode">Kód darabolás</string>
+	<string name="splitCodeSummary">Az olvashatóság érdekében bontsa a kódot darabokra</string>
+
 	<string name="codeCount">Code count</string>
 	<string name="unlockScreen">Képernyő feloldása</string>
 	<string name="unlockScreenSummary">Telefon felkeltése és feloldása, amikor kód érkezik (csak Android 2.0 vagy a fölött)</string>

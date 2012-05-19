@@ -4,6 +4,15 @@
 	<PreferenceCategory
 		android:title="@string/genericPrefs">
 			
+		<ListPreference 
+			android:title="@string/splitCode" 
+			android:defaultValue="0"
+			android:summary="@string/splitCodeSummary" 
+			android:key="bankdroid.smskey.SplitCode"
+			android:entries="@array/splitSizeName" 
+			android:entryValues="@array/splitSizeValue"
+			/>
+		
 		<CheckBoxPreference 
 			android:title="@string/notification" 
 			android:defaultValue="false"
