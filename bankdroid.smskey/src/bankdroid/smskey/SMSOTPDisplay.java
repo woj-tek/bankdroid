@@ -50,6 +50,7 @@ import bankdroid.smskey.CountDown.CountDownListener;
  * <li>displays a count-down to indicate when the OTP will expire</li>
  * <li>German translations</li>
  * <li>displays transaction signing security warning</li>
+ * <li>split code into group of numbers based on user preference</li>
  * </ul>
  * 
  * @author user
@@ -101,6 +102,7 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			}
 		}
 		campaignManager = new CampaignManager(this);
+
 	}
 
 	@Override
@@ -261,7 +263,13 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 		{
 			Log.i(TAG, "One time password to display from Bank = " + message.getBank().getName());
 			final CharSequence timestampText = Formatters.getTimstampFormat().format(message.getTimestamp());
-			( (TextView) findViewById(R.id.codeButton) ).setText(message.getCode());
+
+			//format code
+			String code = message.getCode();
+			final int splitSize = Integer.parseInt(settings.getString(PREF_SPLIT_CODE, DEFAULT_SPLIT_CODE));
+			code = splitCode(code, splitSize);
+
+			( (TextView) findViewById(R.id.codeButton) ).setText(code);
 			( (TextView) findViewById(R.id.receivedAt) ).setText(getResources().getText(R.string.received_prefix)
 					.toString() + " " + timestampText);
 			( (TextView) findViewById(R.id.messageBody) ).setText(message.getMessage());
@@ -304,6 +312,26 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			findViewById(R.id.countDown).setVisibility(View.GONE);
 			findViewById(R.id.securityWarning).setVisibility(View.GONE);
 		}
+	}
+
+	private static String splitCode( String code, final int splitSize )
+	{
+		if ( splitSize != 0 )
+		{
+			final StringBuilder sb = new StringBuilder(code);
+
+			int size = sb.length();
+			int i = 0;
+			while ( i + splitSize < size )
+			{
+				i += splitSize;
+				sb.insert(i, " ");
+				i++;
+				size++;
+			}
+			code = sb.toString();
+		}
+		return code;
 	}
 
 	private CharSequence convertTime( final int expiry )
@@ -431,5 +459,4 @@ public class SMSOTPDisplay extends MenuActivity implements Codes, CountDownListe
 			lastZ = z;
 		}
 	}
-
 }

@@ -53,6 +53,9 @@
 	<string name="msgKnownSMS">This SMS is already registered. If you receive similar message next time, the application should be activated automatically.</string><!-- I18N -->
 	
 	<!-- Preferences -->
+	<string name="splitCode">Split code</string><!-- I18N -->
+	<string name="splitCodeSummary">Split code into blocks for better readability</string><!-- I18N -->
+	
 	<string name="codeCount">Code count</string>
 	<string name="unlockScreen">Unlock screen</string>
 	<string name="unlockScreenSummary">Wake up and unlock screen when code arrives. (only for Android 2.0+)</string>
@@ -121,6 +124,7 @@
 	<string name="campaignFacebook">Do you like the app? Show it to others on facebook...</string><!-- I18N -->
 	<string name="campaignDonate1">More than 150 codes were displayed.</string><!-- I18N -->
 	<string name="campaignDonate2">PayPal donate...</string>
-	<string name="errorLog">Error log</string><!-- I18N -->
+	<string name="errorLog">Error log</string>
+
 
 </resources>

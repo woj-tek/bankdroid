@@ -113,9 +113,10 @@ public class Main extends MenuActivity implements Codes
 		case DIALOG_NOCODE:
 			// do the work to define the pause Dialog
 			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(R.string.noMessageYet).setCancelable(false).setNeutralButton(R.string.ok,
-					new DialogInterface.OnClickListener()
+			builder.setMessage(R.string.noMessageYet).setCancelable(false)
+					.setNeutralButton(R.string.ok, new DialogInterface.OnClickListener()
 					{
+						@Override
 						public void onClick( final DialogInterface dialog, final int id )
 						{
 							dialog.cancel();

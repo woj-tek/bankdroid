@@ -36,6 +36,7 @@ public interface Codes
 	public static final String PREF_PLAY_SOUND = "bankdroid.smskey.PlaySound";
 	public static final String PREF_NOTIFICATION_RINGTONE = "bankdroid.smskey.NotificationRingtone";
 	public static final String PREF_INSTALL_LOG = "bankdroid.smskey.InstallLog";
+	public static final String PREF_SPLIT_CODE = "bankdroid.smskey.SplitCode";
 
 	public static final boolean DEFAULT_NOTIFICATION = false;
 	public static final boolean DEFAULT_KEEP_SMS = false;
@@ -43,6 +44,7 @@ public interface Codes
 	public static final boolean DEFAULT_UNLOCK_SCREEN = true;
 	public static final boolean DEFAULT_AUTO_COPY = true;
 	public static final boolean DEFAULT_PLAY_SOUND = true;
+	public static final String DEFAULT_SPLIT_CODE = "0";
 
 	public static final String TAG = "SKNG";
 
