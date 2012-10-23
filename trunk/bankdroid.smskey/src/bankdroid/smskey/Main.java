@@ -71,7 +71,14 @@ public class Main extends MenuActivity implements Codes
 				@Override
 				public void onFinished( final Message last )
 				{
-					progressDialog.dismiss();
+					try
+					{
+						progressDialog.dismiss();
+					}
+					catch ( final Exception e )
+					{
+						Log.e(TAG, "Failed to close dialog.", e);
+					}
 					if ( last != null )
 					{
 						openSMSOTPDisplay(last);

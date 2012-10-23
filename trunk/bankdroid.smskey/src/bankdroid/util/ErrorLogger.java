@@ -11,6 +11,7 @@ import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 import bankdroid.smskey.Codes;
 
 public class ErrorLogger implements Codes
@@ -54,7 +55,15 @@ public class ErrorLogger implements Codes
 		uri.append("&body=").append(Uri.encode(msg));
 		Log.d(TAG, "URI: " + uri);
 		view.setData(Uri.parse(uri.toString()));
-		context.startActivity(view);
+		try
+		{
+			context.startActivity(view);
+		}
+		catch ( final Exception e )
+		{
+			Log.e(TAG, "Failed to send message as no e-mail client is available.", e);
+			Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+		}
 	}
 
 }
