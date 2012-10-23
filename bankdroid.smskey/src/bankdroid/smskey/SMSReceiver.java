@@ -64,7 +64,7 @@ public class SMSReceiver extends BroadcastReceiver implements Codes
 		edit.putInt(PREF_CODE_COUNT, codeCount);
 		edit.commit();
 
-		if ( autoCopy )
+		if ( autoCopy && message.getCode() != null )
 		{
 			( (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE) ).setText(message.getCode());
 		}
