@@ -169,7 +169,6 @@ public final class BankManager implements Codes
 				Bank.F_PHONENUMBERS + " like " + DatabaseUtils.sqlEscapeString("%" + phoneNumber + "%"), null);
 
 		//match phone number manually: drop out items that has no matching phone number.
-		int count = 0;
 		int length = banks.length;
 		for ( int i = 0; i < length; i++ )
 		{
@@ -183,11 +182,7 @@ public final class BankManager implements Codes
 					break;
 				}
 			}
-			if ( match )
-			{
-				count++;
-			}
-			else
+			if ( !match )
 			{
 				length--;
 				if ( i < length )

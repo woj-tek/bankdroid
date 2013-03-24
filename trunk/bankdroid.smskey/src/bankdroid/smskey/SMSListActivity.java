@@ -126,8 +126,8 @@ public class SMSListActivity extends MenuActivity implements OnItemClickListener
 		final StringBuilder builder = new StringBuilder();
 
 		builder.append(getString(R.string.emailPrefix)).append(" ");
-		builder.append(getString(R.string.emailOriginator)).append(" ").append(address).append(". ");
-		builder.append(getString(R.string.emailSMSText)).append(" ").append(body).append("\n\n");
+		builder.append(getString(R.string.emailOriginator)).append(" <<").append(address).append(">>. ");
+		builder.append(getString(R.string.emailSMSText)).append(" {{").append(body).append("}} \n\n");
 		builder.append(getString(R.string.app_name)).append(" ");
 		//set version number
 		try
