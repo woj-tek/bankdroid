@@ -54,6 +54,7 @@ public class RSSStream implements Codes
 	static
 	{
 		extractors.put(DEFAULT_EXTRACTOR, new EndIDExtractor());
+		extractors.put("Meditacio.blog.hu", new AtIDExtractor());
 	}
 
 	private static IDExtractor getIDExtractor( final String channelTag )
@@ -204,6 +205,7 @@ public class RSSStream implements Codes
 			}
 
 			//update the feed
+			//XXX hard coded index
 			final boolean isSet = preferences.getBoolean(PREF_FEED_PREFIX + i, false);
 			if ( isSet )
 			{
@@ -211,8 +213,7 @@ public class RSSStream implements Codes
 
 				//read database list to get the max ID
 				final Cursor maxIdCursor = context.getContentResolver()
-						.query(
-								RSSItem.CONTENT_URI,
+						.query(RSSItem.CONTENT_URI,
 								new String[] { RSSItem.F__ID },
 								"_id = (select max(_id) from " + RSSItemProvider.T_RSSITEM + " where "
 										+ RSSItem.F_CHANNELS + " like '%" + RSSItem.CHANNEL_SEPARATOR + tags[i]
@@ -306,8 +307,7 @@ public class RSSStream implements Codes
 	{
 		//read database list to get the max ID
 		final Cursor lastCursor = context.getContentResolver()
-				.query(
-						RSSItem.CONTENT_URI,
+				.query(RSSItem.CONTENT_URI,
 						new String[] { RSSItem.F__ID, RSSItem.F_AUTHOR, RSSItem.F_PUBDATE, RSSItem.F_SUMMARY,
 								RSSItem.F_TITLE },
 						RSSItem.F_PUBDATE + " = (select max(" + RSSItem.F_PUBDATE + ") from "

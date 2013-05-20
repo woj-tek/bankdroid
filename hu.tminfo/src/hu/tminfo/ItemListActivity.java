@@ -28,16 +28,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.SimpleCursorAdapter.ViewBinder;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.SimpleCursorAdapter.ViewBinder;
 import bankdroid.rss.Formatters;
 import bankdroid.rss.RSSItem;
 import bankdroid.rss.RSSObject;
@@ -103,8 +103,8 @@ public class ItemListActivity extends ToolbarActivity implements OnItemClickList
 			{
 				if ( columnIndex == authorIndex )
 				{
-					( (TextView) view ).setText(getAuthorText(cursor.getString(authorIndex), cursor
-							.getString(pubDateIndex)));
+					( (TextView) view ).setText(getAuthorText(cursor.getString(authorIndex),
+							cursor.getString(pubDateIndex)));
 					return true;
 				}
 				else if ( columnIndex == statusIndex )
@@ -262,8 +262,13 @@ public class ItemListActivity extends ToolbarActivity implements OnItemClickList
 
 				boolean isAnySet = false;
 				final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+				//v1.1 init - set default value for the new channel
+				//XXX hard coded index
+
 				for ( int i = 0; i < tags.length; i++ )
 				{
+					//XXX hard coded index
 					final boolean isSet = preferences.getBoolean(PREF_FEED_PREFIX + i, false);
 					if ( isSet )
 					{
@@ -275,7 +280,9 @@ public class ItemListActivity extends ToolbarActivity implements OnItemClickList
 				{
 					//set the first feed to 0
 					final Editor edit = preferences.edit();
+					//XXX hard coded index
 					edit.putBoolean(PREF_FEED_PREFIX + 0, true);
+					edit.putBoolean(PREF_FEED_PREFIX + 5, true);
 					edit.commit();
 
 					final Message msgShowInitMessage = handler.obtainMessage(HANDLER_SHOW_INIT_MESSAGE);
@@ -283,6 +290,13 @@ public class ItemListActivity extends ToolbarActivity implements OnItemClickList
 					data.putString(CHANNEL_TAG, tags[0]);
 					msgShowInitMessage.setData(data);
 					handler.sendMessage(msgShowInitMessage);
+				}
+				else if ( !preferences.contains(PREF_FEED_PREFIX + 5) )
+				{
+					final Editor edit = preferences.edit();
+					//XXX hard coded index
+					edit.putBoolean(PREF_FEED_PREFIX + 5, true);
+					edit.commit();
 				}
 
 				//schedule refresh if necessary
@@ -337,6 +351,7 @@ public class ItemListActivity extends ToolbarActivity implements OnItemClickList
 
 	private final ServiceConnection mConnection = new ServiceConnection()
 	{
+		@Override
 		public void onServiceConnected( final ComponentName className, final IBinder service )
 		{
 			Log.d(TAG, "ItemListActivity.onServiceConnected()");
@@ -352,6 +367,7 @@ public class ItemListActivity extends ToolbarActivity implements OnItemClickList
 			}
 		}
 
+		@Override
 		public void onServiceDisconnected( final ComponentName className )
 		{
 			Log.d(TAG, "ItemListActivity.onServiceDisconnected()");

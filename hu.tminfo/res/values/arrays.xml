@@ -28,19 +28,23 @@
 		<item>3 hónapig</item>
 		<item>Örökre</item>
 	</string-array>
+	
+	<!-- WARNING! Add values only to the end of the list, due to hardcoded indexes. Search for //XXX tags -->
 	<string-array name="feedValues">
 		<item>http://tminfo.hu/feed/</item>
 		<item>http://tminfo.hu/comments/feed/</item>
 		<item>http://www.tm.org/blog/feed/</item>
 		<item>http://www.t-m.org.uk/meditation-news/feed/</item>
 		<item>http://www.vastutv.com/feed/</item>
-	</string-array>
+		<item>http://meditacio.blog.hu/rss</item>
+			</string-array>
 	<string-array name="feedLabels">
 		<item>tminfo.hu</item>
 		<item>tminfo.hu hozzászólások</item>
 		<item>TM.org</item>
 		<item>T-M.org.uk</item>
 		<item>VastuTV</item>
+		<item>Meditacio.blog.hu</item>
 	</string-array>
 	<string-array name="feedTitles">
 		<item>Meditáció Portál</item>
@@ -48,6 +52,7 @@
 		<item>TM.org</item>
 		<item>T-M.org.uk</item>
 		<item>VastuTV</item>
+		<item>Meditacio.blog.hu</item>
 	</string-array>
 	<string-array name="feedSummary">
 		<item>A tminfo.hu oldal hírei</item>
@@ -55,5 +60,6 @@
 		<item>Hírek a tm.org-ról (angol)</item>
 		<item>A brit TM-központ hírei (angol)</item>
 		<item>A Maharishi Vastu TV cikkei (angol)</item>
+		<item>Meditacio.blog.hu legfrisebb bejegyzései</item>
 	</string-array>
 </resources>
