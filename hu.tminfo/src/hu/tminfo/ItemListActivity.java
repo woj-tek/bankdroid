@@ -173,8 +173,8 @@ public class ItemListActivity extends ToolbarActivity implements OnItemClickList
 				{
 					//change toolbar icon here
 					( (ImageButton) findViewById(R.id.toolbarRefresh) )
-							.setImageResource(isRefreshRunning ? android.R.drawable.ic_menu_close_clear_cancel
-									: android.R.drawable.ic_menu_rotate);
+							.setImageResource(isRefreshRunning ? R.drawable.ic_menu_close_clear_cancel
+									: R.drawable.ic_menu_rotate);
 				}
 			}
 
@@ -510,7 +510,7 @@ public class ItemListActivity extends ToolbarActivity implements OnItemClickList
 	public boolean onPrepareOptionsMenu( final Menu menu )
 	{
 		menu.findItem(R.id.menuRefresh).setIcon(
-				isRefreshRunning ? android.R.drawable.ic_menu_close_clear_cancel : android.R.drawable.ic_menu_rotate);
+				isRefreshRunning ? R.drawable.ic_menu_close_clear_cancel : R.drawable.ic_menu_rotate);
 
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -522,7 +522,7 @@ public class ItemListActivity extends ToolbarActivity implements OnItemClickList
 		inflater.inflate(R.menu.mainmenu, menu);
 
 		menu.findItem(R.id.menuRefresh).setIcon(
-				isRefreshRunning ? android.R.drawable.ic_menu_close_clear_cancel : android.R.drawable.ic_menu_rotate);
+				isRefreshRunning ? R.drawable.ic_menu_close_clear_cancel : R.drawable.ic_menu_rotate);
 
 		return true;
 	}
