@@ -91,7 +91,7 @@
 			android:padding="2sp"
 			android:background="@drawable/transp_button"
 			
-			android:src="@android:drawable/ic_menu_share"
+			android:src="@drawable/ic_menu_share"
 			/>  	
 
 		<ImageButton
@@ -102,7 +102,7 @@
 			android:padding="2sp"
 			android:background="@drawable/transp_button"
 			
-			android:src="@android:drawable/ic_menu_preferences"
+			android:src="@drawable/ic_menu_preferences"
 			/>
 		
 		<ImageButton
@@ -113,7 +113,7 @@
 			android:padding="2sp"
 			android:background="@drawable/transp_button"
 			
-			android:src="@android:drawable/ic_menu_info_details"
+			android:src="@drawable/ic_menu_info_details"
 			/>
 		
 	</LinearLayout>  	

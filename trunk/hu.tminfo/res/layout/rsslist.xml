@@ -118,7 +118,7 @@
 			android:padding="2dp"
 			android:background="@drawable/transp_button"
 			
-			android:src="@android:drawable/ic_menu_rotate"
+			android:src="@drawable/ic_menu_rotate"
 			/>  	
 
 		<ImageButton
@@ -129,7 +129,7 @@
 			android:padding="2dp"
 			android:background="@drawable/transp_button"
 			
-			android:src="@drawable/ic_menu_markallasread"
+			android:src="@drawable/ic_menu_agenda"
 			/>
 
 		<ImageButton
@@ -140,7 +140,7 @@
 			android:padding="2dp"
 			android:background="@drawable/transp_button"
 			
-			android:src="@android:drawable/ic_menu_preferences"
+			android:src="@drawable/ic_menu_preferences"
 			/>
 		
 		<ImageButton
@@ -151,7 +151,7 @@
 			android:padding="2dp"
 			android:background="@drawable/transp_button"
 			
-			android:src="@android:drawable/ic_menu_info_details"
+			android:src="@drawable/ic_menu_info_details"
 			/>
 		
 	</LinearLayout>  	
