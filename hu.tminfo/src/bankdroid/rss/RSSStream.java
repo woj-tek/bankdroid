@@ -8,6 +8,12 @@ import hu.tminfo.widget.Widget11Provider;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,7 +30,13 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -46,7 +58,7 @@ import android.util.Log;
  */
 public class RSSStream implements Codes
 {
-
+	private static final String TRUSTSTORE_PASSWORD = "mysecret";
 	private static final int HTTP_TIMEOUT = 20000;
 	private static final String DEFAULT_EXTRACTOR = "__DEFAULT__";
 	private static final Map<String, IDExtractor> extractors = new HashMap<String, IDExtractor>();
@@ -164,9 +176,15 @@ public class RSSStream implements Codes
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 * @throws IOException
+	 * @throws KeyStoreException 
+	 * @throws CertificateException 
+	 * @throws NoSuchAlgorithmException 
+	 * @throws UnrecoverableKeyException 
+	 * @throws KeyManagementException 
 	 */
 	public static boolean synchronize( final Context context, final int[] filter, final Object invoker )
-			throws ParserConfigurationException, SAXException, IOException
+			throws ParserConfigurationException, SAXException, IOException, KeyStoreException,
+			NoSuchAlgorithmException, CertificateException, KeyManagementException, UnrecoverableKeyException
 	{
 		boolean hasNew = false;
 
@@ -178,10 +196,22 @@ public class RSSStream implements Codes
 		limitCal.add(Calendar.DATE, -expiry);
 		final Date limit = limitCal.getTime();
 
+		//set up HTTPS with predefined root certs 
+		final KeyStore localTrustStore = KeyStore.getInstance("BKS");
+		final InputStream in = context.getResources().openRawResource(R.raw.mykeystore);
+		localTrustStore.load(in, TRUSTSTORE_PASSWORD.toCharArray());
+
+		final SchemeRegistry schemeRegistry = new SchemeRegistry();
+		schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+		final SSLSocketFactory sslSocketFactory = new SSLSocketFactory(localTrustStore);
+		sslSocketFactory.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+		schemeRegistry.register(new Scheme("https", sslSocketFactory, 443));
+
 		final HttpParams httpParams = new BasicHttpParams();
 		HttpConnectionParams.setConnectionTimeout(httpParams, HTTP_TIMEOUT);
 		HttpConnectionParams.setSoTimeout(httpParams, HTTP_TIMEOUT);
-		final HttpClient client = new DefaultHttpClient(httpParams);
+		final ClientConnectionManager cm = new ThreadSafeClientConnManager(httpParams, schemeRegistry);
+		final HttpClient client = new DefaultHttpClient(cm, httpParams);
 
 		//find out which channel to synch
 		final String[] tags = context.getResources().getStringArray(R.array.feedLabels);
