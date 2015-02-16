@@ -10,10 +10,9 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * TODO different unread indicator for different feed elements
@@ -42,7 +41,7 @@ public class AboutActivity extends TrackedActivity implements Codes, OnClickList
 
 		setContentView(R.layout.about);
 
-		findViewById(R.id.marketSearch).setOnClickListener(this);
+		//findViewById(R.id.marketSearch).setOnClickListener(this);
 		findViewById(R.id.url1).setOnClickListener(this);
 		findViewById(R.id.url2).setOnClickListener(this);
 
@@ -72,7 +71,7 @@ public class AboutActivity extends TrackedActivity implements Codes, OnClickList
 	@Override
 	public void onClick( final View src )
 	{
-		if ( src.getId() == R.id.marketSearch )
+		/*if ( src.getId() == R.id.marketSearch )
 		{
 			try
 			{
@@ -87,7 +86,7 @@ public class AboutActivity extends TrackedActivity implements Codes, OnClickList
 				toast.show();
 			}
 		}
-		else if ( src instanceof TextView )
+		else*/if ( src instanceof TextView )
 		{
 			final String url = ( (TextView) src ).getText().toString();
 			trackClickEvent(ACTION_BROWSE, url);
