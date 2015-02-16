@@ -145,14 +145,14 @@
 	</RelativeLayout>
 		
 	
-	<Button 
+	<!-- Button 
 		android:text="@string/moreBankdroid" 
 		android:id="@+id/marketSearch" 
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		
 		android:layout_gravity="center_horizontal"
-		/>
+		/-->
   	
 </LinearLayout>
 
